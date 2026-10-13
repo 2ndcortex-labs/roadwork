@@ -6,11 +6,13 @@ description: Makes, updates or receives a map — one maps/<map-slug>.md, a prim
 # roadwork-map — a map, made with the Operator
 
 Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the
-Maps bullet). A map is one file, `maps/<map-slug>.md`, in the register's
-`maps/`. It is a primitive of the
-way to a destination: what process, what tools, what judgements, what
-inputs — and, most helpfully, how it was done before agents were in the
-picture. A destination says what is wanted; a map says how it is reached.
+Maps bullet). A map is one file, `maps/<destination-slug>.md`, in the register's
+`maps/`. It is the way to one destination, one map per destination: what
+process, what assets and tools, what judgements, what inputs — and, most helpfully,
+how it was done before agents were in the picture. A destination says
+what is wanted; a map says how it is reached. A map draws on the
+register's guidebooks — standardized knowledge bases, `/roadwork-guidebook`'s —
+by copying their relevant parts in, never by pointing at them alone.
 `/roadwork-intentify` and `/roadwork-specplan` read the map an item names;
 no skill enforces one. A retired map moves to `maps/archive/` by hand;
 there is no archive skill.
@@ -20,9 +22,12 @@ there is no archive skill.
 A batch (`ref && ref`) is refused here: one map at a time.
 
 - **bare** (no argument): the list of §2. Writes nothing.
-- **`<new-slug> <initial description>`**: a kebab-case slug not yet in
-  `maps/` or `maps/archive/` of any home (a slug is never reused), followed
-  by the Operator's words — the interview of §3, the file of §4.
+- **`<new-slug> <initial description>`**: the destination's own slug — an
+  open `destinations/<destination-slug>.prd.md` — not yet in `maps/` or
+  `maps/archive/` of any home (a slug is never reused), followed by the
+  Operator's words — the interview of §3, the file of §4. A slug that is not an open destination's, or whose destination already has a map, is refused with the reason printed; `the-lifecycle` is the one map that keeps a name of its own, `dogfood-roadmap`'s. A destination
+  already has a map when `maps/<destination-slug>.md` exists or its
+  **Map:** line names one.
 - **`<existing-slug>`**: a slug already in `maps/` — the update of §4.
 - **`<new-slug>` with a document** — a pasted document in the message, or a
   path to one: the entrance of §5, then the interview shortened.
@@ -47,11 +52,14 @@ add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 numbered with your recommendation, the facts found by you, never asked;
 the decisions the Operator's. The root branches for a map:
 
-- **The destination it reaches** — which destination, or kind of
-  destination, this is the way to; in one paragraph.
+- **The destination it reaches** — which destination this is the way to; in one paragraph.
+- **Guidebooks** — which of the register's guidebooks apply, listed as the
+  bare `/roadwork-guidebook` prints them; "none" always an answer; for each
+  that applies, whether whole or in parts, and which parts serve which
+  section.
 - **Before agents** — how it was done by hand, by whom, with what record.
 - **Process** — the steps in order.
-- **Tools** — what the steps use and rely on.
+- **Assets and tools** — the assets the steps use, what the project holds by path, and the tools they call on from outside the tree.
 - **Judgements** — the calls a person makes along the way, and on what.
 - **Inputs** — what the way starts from and consumes.
 - **Crossings** — open items, destinations and other maps this one
@@ -71,6 +79,8 @@ _Map, made <date> by /roadwork-map; open until retired._
 
 <the destination it reaches: one paragraph>
 
+**Guidebooks:** `<slug>`, `<slug>` (whole)
+
 ## Before agents
 <how it was done by hand>
 
@@ -78,7 +88,7 @@ _Map, made <date> by /roadwork-map; open until retired._
 1. <step>
 2. …
 
-## Tools
+## Assets and tools
 <a paragraph or a list>
 
 ## Judgements
@@ -91,10 +101,18 @@ _Map, made <date> by /roadwork-map; open until retired._
 - <date>: made.
 ```
 
+The **Guidebooks:** line names every guidebook drawn on — "(whole)" after
+one included by reference, which is done only when the entire guidebook
+is relevant — and reads `none` when none. A part of a guidebook lands
+inline in the section it serves — Process, Assets and tools, Judgements or Inputs —
+opening with the marker line ``_From guidebook `<guidebook-slug>`, § <section>:_``.
+An excerpt is copied near-verbatim into the section it serves.
+
 **An update** (`<existing-slug>`): read the file back whole, ask what
 changes and interview only that, then rewrite the file whole on confirm
-and append one dated line under `## Changelog` saying what changed. The
-Process keeps its numbers; a dropped step is struck ("~~n.~~ dropped
+and append one dated line under `## Changelog` saying what changed; the
+Guidebooks line and the excerpts may be added or changed as any update.
+The Process keeps its numbers; a dropped step is struck ("~~n.~~ dropped
 <date>: <why>"), never renumbered, so that plans citing steps stay true.
 
 ## 5. A document arrives
@@ -104,7 +122,8 @@ elsewhere, a runbook, a page of notes on how it used to be done — save it
 first, verbatim, as `maps/<map-slug>.source.md` in the owning home (a
 header line above it: `_Source of <map-slug>, received <date>; verbatim._`).
 Then the interview of §3, shortened to what the source leaves open: read
-back your reading of the source into the six parts, ask the two
+back your reading of the source into the six parts and the guidebooks it
+draws on, ask the two
 questions, then only the rounds the gaps need. The map is written as §4;
 its first changelog line names the source. The source file stays beside
 it and moves with it to `archive/`.
@@ -127,9 +146,10 @@ them — up to five, most recent first, as offers only. Then the fact suffix, by
 
 ## Never
 
-Never enforce a map (no skill checks one); never file, interview or spec
-an item (those are the chain's); never write into an item, a destination
-or another map; never renumber a step; never write a map the Operator did
+Never enforce a map (no skill checks one); never a second map for a
+destination; never file, interview or spec an item (those are the
+chain's); never write into an item, a destination, a guidebook or another
+map; never renumber a step; never write a map the Operator did
 not confirm; never archive or move a map; never a frontmatter key on any
 item; never open a PR.
 
@@ -151,7 +171,8 @@ item; never open a PR.
 - **Lifecycle** — `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the only go; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers.
 - **PRD** — a product requirements document, `destinations/<destination-slug>.prd.md`, made by `/roadwork-destination` and the source of a group of items made by `/roadwork-nav-to-destination`; cited by path in every derived item.
 - **Destination** — one `destinations/<destination-slug>.prd.md`: what is wanted, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest; the destination, numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; archived to `destinations/archive/` by hand when built.
-- **Map** — one `maps/<map-slug>.md`: a primitive of the way to a destination — before agents, process, tools, judgements, inputs — in a fixed form, made by `/roadwork-map`; named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; a pattern to follow or improve, enforced by nothing; retired to `maps/archive/` by hand.
+- **Map** — one `maps/<destination-slug>.md`: the way to one destination, one map per destination — before agents, process, assets and tools, judgements, inputs — in a fixed form, made by `/roadwork-map`, drawing on guidebooks by copying their relevant parts in (a **Guidebooks:** line names them); named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; enforced by nothing; retired to `maps/archive/` by hand.
+- **Guidebook** — one `guidebooks/<guidebook-slug>.md`: a standardized knowledge base broad in application — standards, preferred tooling, vendors, judgements, sources — in a fixed form, made by `/roadwork-guidebook`; names no destination; a map copies its relevant parts in and cites the whole only when the whole applies; never done; retired to `guidebooks/archive/` by hand.
 - **Sanity todo** — the todo `/roadwork-nav-to-destination` creates last, `todo/<destination-slug>-sanity`: the group list and the requirement↔item mapping both ways; blocks every other item in the group until the Operator says the group is right.
 - **Check types** — the six sanity checks `/roadwork-navsanity` runs over a group: completeness, provenance, shape, dependencies, order, scope.
 - **Run** — one pass of `/roadwork-navsanity` over a group: six checks, ten questions, the changes made; recorded as a dated section in the group's sanity todo.
@@ -160,11 +181,12 @@ item; never open a PR.
 - **Cohortmeister (CM)** — `feature/cm-<group>-<cohort>`: the pseudo-feature that blocks a cohort's members, is onroaded in their place, and whose ledger is the results checker; archives them by cascade.
 - **Rubric** — the five pass/fail criteria a subgroup must meet to be a cohort: no dependency edge, disjoint ownership, accepted spec and plan with gates, no external and not in process, self-contained builds.
 - **Reconsideration** — `/roadwork-specplan`'s second mode: on an item whose accepted spec and plan already exist, re-read them against everything dated since; a dated `Reconsidered` changelog, proven gates carried, the previous go ended, the spec proposed again.
-- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: five predefined questions on the spec, four on the plan, one fresh reader each — run as one workflow where the harness runs workflows, on the top model of the tier one step below the session's (or the session's own where no lower tier exists) at an effort the dispatcher sets, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
+- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: five predefined questions on the spec, five on the plan, one fresh reader each — run as one workflow where the harness runs workflows, on the top model of the tier one step below the session's (or the session's own where no lower tier exists) at an effort the dispatcher sets, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
 - **Back offers** — the second offer line of the four interrupting skills: up to five open lifecycle steps in flight, most recent first, read from the road plans; offers, never invocations; each preceded by one sentence saying what typing it does.
 - **Item name** — the kebab-case folder name of an item, chosen at ingest in the Operator's words, and its reference (`todo/<item-name>`, `main/<kind>/<item-name>`); never reused; never a skill name. "Slug" is a generic word, not the register's term; the register names one, a destination's `<destination-slug>`.
 - **Batch invocation** — one skill, many references on one line, separated by ` && `; accepted by `/roadwork-verify-and-archive` and `/roadwork-make`, and by `/roadwork-ingest` for a spark batch only (sparks of one home, converting into one item — the bare `/roadwork-spark` lists them grouped), refused by the rest with a reason; offers are printed as invocations in code blocks, related ones combined.
-- **Bare call** — a lifecycle skill invoked with no argument lists instead of acting — `/roadwork-spark` the open sparks grouped for conversion, `/roadwork-destination` the destinations with their navigation state, `/roadwork-make` the make-eligible items with their goes and the ineligible with their reasons; a bare call writes nothing.
+- **Bare call** — a lifecycle skill invoked with no argument lists instead of acting — `/roadwork-spark` the open sparks grouped for conversion, `/roadwork-destination` the destinations with their navigation state, `/roadwork-make` the make-eligible items with their goes and the ineligible with their reasons, `/roadwork-inventory` everything open on one page in the ordering's order; a bare call writes nothing.
 - **Offer form** — every command or phrase a reply suggests the Operator type is printed in its own fenced code block (three backticks, no language tag), nothing else in the block, one per block, so it copies in one gesture; invocations that run as one line — a batch invocation with ` && ` — share one block; prose around the block says what it does; an offered invocation is preceded by one sentence saying what typing it does. The copy a skill carries for use outside a workspace; in a workspace the reply-form rule holds it. Where the harness has a question tool, the offers of a hand-back are one list of choices — each the invocation with its sentence — plus "none of these" and a free-text choice; a tick is the Operator's word, run in the same turn; blocks where there is no tool. Where an offer waits on the Operator's word, the block — or the choice's label — carries both, `<word> and <invocation>`; the word is recorded as the Operator's, dated, before the invocation runs.
-- **Fact suffix** — after the last offer of a lifecycle hand-back, when the machine's minute is a multiple of six: two blank lines, then the title line "A 2ndcortex/roadmap system detail you should know about:" plain, then one fact from `docs/facts.md`, picked by the seconds modulo the count of its numbered facts — never a heading, then "Typing this explains it:" and `/roadwork-help <term>` in its own code block; never after `/roadwork-help`; no state, no script.
+- **Gate id** — `G<n>`, a gate's name in its ledger. Printed anywhere but the ledger itself, or a line that opens with the gate's own title, the id carries right after it a few words in parentheses saying what the gate is, taken from the gate's title and never a sentence — `G6 (the Operator's review of the four pages)` — the words saying so where the gate is the Operator's to approve; a handoff's list of unmet ids, a status clause and an offer all carry them, in an offer in the sentence before the code block and never inside it (Operator, 2026-10-03).
+- **Fact suffix** — after the last offer of a lifecycle hand-back, when the machine's minute is a multiple of six: one blank line, a horizontal rule (a run of hyphens on its own line, rendered as a rule, never a literal line of characters), one blank line, then the title line "A 2ndcortex/roadmap system detail you should know about:" plain, then one fact from `docs/facts.md`, picked by the seconds modulo the count of its numbered facts — never a heading, then "Typing this explains it:" and `/roadwork-help <term>` in its own code block; never after `/roadwork-help`; no state, no script.
 - **Tasksplit** — `/roadwork-tasksplit <source>`: any document or list into a dated group of todos, one per unit the source delineates, the source's words verbatim and no reading added; no sanity todo, no cohort.
