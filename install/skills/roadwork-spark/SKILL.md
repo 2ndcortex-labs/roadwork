@@ -1,6 +1,6 @@
 ---
 name: roadwork-spark
-description: Files a spark — an idea memorialized for later, never worked — into the road plans' spark/ sub-register as a single idea.md (the Operator's notes verbatim, the filer's reading, a Related line), then asks at most one round of mini-intentify and stops; with no argument, lists the open sparks grouped for conversion. Use when the user says /roadwork-spark, "spark:", "idea:", "note this idea", "park this for later". No frontmatter, no place in ordering.md, nothing blocks on it; its one exit is conversion through /roadwork-ingest.
+description: Files a spark — an idea memorialized for later, never worked — into the road plans' spark/ sub-register as a single idea.md (the Operator's notes verbatim, the filer's reading, a Related line), then asks at most one round of mini-intentify and stops; with no argument, lists the open sparks grouped for conversion. Use when the user says /roadwork-spark, "spark:", "idea:", "note this idea", "park this for later", "assign <spark> to <destination>". No frontmatter, no place in ordering.md, nothing blocks on it; its one exit is conversion through /roadwork-ingest.
 ---
 
 # roadwork-spark — memorialize an idea
@@ -79,7 +79,11 @@ _Spark, filed <date>; open until converted._
 **The session agent's reading (the filer's):** …
 
 **Related:** <refs, or "none found">
+
+**Destination (<date>, the Operator: "<the invocation as typed>"):** <destination-slug> (`destinations/<destination-slug>.prd.md`) — the destination this spark is assigned to; the spark stays in `spark/` until converted.
 ```
+
+The Destination line is optional: absent until the spark is assigned (§4b).
 
 Commit `idea.md` — as filed, nothing else — in the register
 before the round of §4 is presented, always. The round's answer lands in a second commit.
@@ -105,6 +109,21 @@ and stop. An answer that arrives later, after other
 work, is folded in the same way, under `**Round (<date>):**` — the record
 is the Operator's, late or not. Until an answer comes the spark stands on
 the notes and the reading. No second round, ever.
+
+## 4b. Assign to a destination
+
+`/roadwork-spark spark/<item-name> to <destination-slug>` assigns an open
+spark to a destination. The argument is read as this word when it opens with `spark/`
+and carries ` to ` — notes that file a new spark never open with `spark/`. The
+word appends the Destination line of §3 to the spark's `idea.md` — the
+invocation verbatim and dated — in one register commit; a second
+assignment appends a new dated line and never rewrites the first, the
+inventory page reading the last. The word is refused with its reason when
+`spark/<item-name>/idea.md` does not exist among the open sparks (an archived
+spark sits under `spark/archive/`, not open) or
+`destinations/<destination-slug>.prd.md` does not exist (its `archive/`
+excluded); nothing else written — no frontmatter, no move, no `ordering.md`
+or `working.md` line. The reply says the line written and ends as §5 ends.
 
 ## 5. Hand back
 
