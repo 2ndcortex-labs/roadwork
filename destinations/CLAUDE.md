@@ -1,2 +1,2 @@
-Destinations — one `<destination-slug>.prd.md` per destination: what is wanted, in the fixed form `/roadwork-destination` writes; `/roadwork-nav-to-destination` turns one into a group of items. A built destination moves to `archive/` by hand.
+Destinations — one `<destination-slug>.prd.md` per destination: what is wanted, in the fixed form `/roadwork-destination` writes; `/roadwork-nav-to-destination` turns one into a group of items; its frontmatter names the atlas it serves by the key `atlas`, one or empty. A built destination moves to `archive/` by hand.
 A document received in chat or by path is saved beside its destination as `<destination-slug>.source.md`, verbatim, and moves with it. Road plans law: the register rule (the Destinations bullet).

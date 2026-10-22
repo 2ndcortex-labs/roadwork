@@ -1,6 +1,8 @@
 ---
 name: roadwork-specplan
-description: Under the Operator's spec-writing guidelines (the intent is authoritative; nothing added silently; verification fit to the work), from an accepted intent.md produce the road plans item's spec.md — or, when an accepted spec.md and plan.md already exist, run a reconsideration: re-read them against everything dated since, keep what holds, revise what does not, with a dated changelog and proven gates carried — that is, produce spec.md (requirements and design, constrained by the workspace's skills and law, areas of concern flagged) and plan.md (ordered, dependency-aware, with acceptance gates in the unlazy ledger form). Use when the user says /roadwork-specplan, roadwork-specplan, "spec this", "plan this from the intent", or when an item's intent.md is accepted and its spec.md or plan.md is still a stub.
+description: Writes the spec and plan with gates from an accepted intent, or reconsiders an accepted pair.
+when_to_use: Use when the user says /roadwork-specplan, roadwork-specplan, "spec this", "plan this from the intent", or when an item's intent.md is accepted and its spec.md or plan.md is still a stub.
+argument-hint: <ref>
 ---
 
 # roadwork-specplan — from an accepted intent to its spec and plan
@@ -106,11 +108,13 @@ writing a line of spec, assemble the constraints that will bind it:
   workspace skills). Each skill that governs an aspect of the work —
   security, compliance, UX, brand, voice, completion discipline — is
   a constraint on the spec and is named in it.
+- **The destination's intent**: when the item file carries a **Destination:** line, read `destinations/<destination-slug>.intent.md` in the register before a line of spec is written, and, where that intent's Atlas line names an atlas, `atlases/<atlas-slug>/intent.md` as well; the spec's header records each reading on its Destination intent line — the file, the date, what it bound — or `none` for an item under no destination. A destination without an intent file (made before the destination skill wrote one): the line reads `none — the destination has no intent file`, the reply says so in one line and offers `/roadwork-destination <destination-slug>` (its update interviews the intent first), and the run proceeds — the reading is enforced by nothing, as the map is.
+  Why the intent above: the destination is the level above the item, and its intent says what the destination is for, so the spec is written knowing it — a requirement that serves the item but not its destination is seen before it is built, not after. The destination's intent is read before anything is written; its reading is recorded so the spec says what bound it; one level up is the minimum, not a limitation — the atlas's intent above the destination is read too where the destination names one, and the spec may read further up.
 - **The map**: when the item file carries a **Map:** line, read
   `maps/<map-slug>.md` in the register; the plan's steps follow its Process — a
   step that serves a Process step keeps that step's order and names it, a
   step with no counterpart keeps its own place — and the plan names the
-  map's Assets and tools. When the item names no map, say so in one line.
+  map's Stack. When the item names no map, say so in one line.
 - **The standards**: when the settings file names `standards-folders` (`node <config skill>/scripts/config.mjs get standards-folders`, the config skill's read; empty where a project keeps none), read every file in every listed folder, subfolders included — coding standards, brand, styling and the like, in the project's own structure; a file that is not text (an image, a PDF) is named by path as present and not read; each file that bears on the work is a constraint on the spec, named under "Constraints applied" with the file's path and what it constrained; a listed folder that is empty or missing is said there in one line. The intent names the standards that bind; the spec inherits them and adds what the intent did not see.
 - **The codebase**: the files, configs, scripts and records the change
   touches; what other items in `roadwork/todo/` and `roadwork/feature/`
@@ -119,6 +123,7 @@ writing a line of spec, assemble the constraints that will bind it:
   the spec;
   or depend on. Use sub-agents for breadth; never ask the owner for a
   fact you can read.
+- **Outside dependencies**: for every step's landing, every tool invoked and every act by another party, what must be true first that this seat cannot make true and that will not come about in the due course — the rule's test (the Frontmatter bullet). A fact, gathered and stated in the spec's Dependencies section, the observed-by part a command where one can decide it, never printing a credential; never asked of the owner as a decision. One entry per out-of-band act — an account on Cloudways is one entry, a token scoped for that account's access another; never one per party or per service.
 
 Where two constraints contradict, or a constraint cannot be satisfied
 by this change, that is an **area of concern**: record it with the
@@ -143,6 +148,7 @@ Replace the stub whole. Form:
 # Spec: <title from intent.md>
 Status: proposed. From: intent.md accepted <date>. Author: the session agent for <owner>.
 Skills in force: <name@commit, …>. Law in force: <brief@commit, rules matched>.
+Destination intent: <destinations/<destination-slug>.intent.md read <date> — what it bound> | none. Atlas intent: <atlases/<atlas-slug>/intent.md read <date> — what it bound> | none.
 
 ## Problem restated
 <one paragraph, from the intent, in its terms>
@@ -158,7 +164,12 @@ ask for is marked "added — why".)
 shape of each change; interfaces touched; what is explicitly out>
 
 ## Constraints applied
-<each skill and law that shaped the design, and how — one line each>
+<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained>
+
+## Dependencies
+D1. <what must be true> — who acts: <the party or the item> — observed by: `<a command>` | <a named human observation> [supported: …]
+D2. …
+(Out-of-band dependencies only — the rule's test; a due-course pause stays in the plan's "lands as" clause. Stated flatly: no options, no owner slot. "None" only if true. An entry is never an area of concern unless its clearing is itself contested; then the concern names the entry. One entry per out-of-band act, never per party or per service — an entry that bundles two acts is two entries. Observed by: a command is the whole observed-by part in one backtick span, run as written in the item's folder, exit 0 as pass, bounded by a wait, tested at acceptance and before a make; anything else is prose, the Operator's word, never a failure, a span beside words prose too; an act that is itself the only test names the first real act; a command reads a credential only into its own process, from a file by path or from the environment, prints none, and carries no URL and no value inline — the skill writes no such line.)
 
 ## Areas of concern  ← the owner works these first
 C1. <concern> — policy: <which>; owner: <who resolves>; options: <a / b>
@@ -182,7 +193,7 @@ section>]`, `[proposed]` (your decision) or `[open]` (unresolved), and,
 where the intent distinguishes, `(mandatory | preference | possibility |
 exclusion)`. Nothing is added silently: no scope, constraint,
 implementation choice, date, budget, responsibility or success measure
-the intent did not give, unless marked `[proposed]`.
+the intent did not give, unless marked `[proposed]`. A Dependencies entry is tagged the same way.
 
 **The optional eighth heading**,
 "Execution sequence, review points, handoffs", is written when the work has an order, a review point, or a
@@ -211,24 +222,25 @@ gap, no round. "An unanswered question is not permission to assume."
 
 ## 2c. Spec verification round — fresh eyes, once
 
-After the draft (and the gap round if any), dispatch **five fresh
+After the draft (and the gap round if any), dispatch **six fresh
 sub-agents in parallel**, one question each, every one given only the
 paths of `intent.md` and `spec.md` and its question, with this brief:
 "You are a fresh reviewer with no other context. Read these two files:
 <paths>. Answer this one question: <question>. Give a numbered list of
 findings, each with the file and line it points at; say 'clean' if
-none. Do not rewrite anything. Do not read any other file." The five
+none. Do not rewrite anything. Do not read any other file." The six
 questions, verbatim:
 
-**Where the harness runs workflows**, the five run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — on the top model of the tier one step below the session's — or the session's own where no lower tier exists — at an effort the dispatching agent sets for the run. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the harness runs none, or the run is declined, the five run as sub-agents as the brief says, bounded the same way; no round is lost to it.
+**Where the harness runs workflows**, the six run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — on the top model of the tier one step below the session's — or the session's own where no lower tier exists — at an effort the dispatching agent sets for the run. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the harness runs none, or the run is declined, the six run as sub-agents as the brief says, bounded the same way; no round is lost to it.
 
 1. Traceability both ways — does every material commitment in the intent appear in the spec, and does every consequential requirement in the spec trace to the intent or to a line marked [proposed]? List every gap in each direction.
 2. Silent additions — does the spec add scope, constraints, implementation choices, dates, budgets, responsibilities, or success measures that the intent did not give, without marking them [proposed]? List each with its line and what in the intent it stretches.
 3. Verifiability — for each requirement, can it be verified as the acceptance criteria say (name the criterion, or "uncovered"), and is any threshold or number one the intent did not give? List the uncovered and the invented.
 4. Reopened decisions — does the spec reopen, weaken, or contradict a decision the intent states as settled, without naming a specific contradiction, omission, or feasibility concern? An "Areas of concern" entry offering options on a settled point counts unless it names such a concern. List each, quoting both lines.
 5. Executability — could someone carry out the work from the spec alone without inventing a consequential requirement? Name each thing they would have to invent or decide, with its section.
+6. Out-of-band dependencies — does the spec name, in its Dependencies section, every act by another party or outside event without which the work cannot complete and which will not happen in the due course of the project's own operation, with who acts and how its completion is observed; and is any due-course pause (a push, a merge, a fetch) wrongly listed as one; and is any entry one that bundles two acts, which is two entries; and is every observed-by command one span, printing no credential, carrying no URL or value inline? List each omission and each wrong entry.
 
-Wait for all five. Then work every finding: incorporate what holds,
+Wait for all six. Then work every finding: incorporate what holds,
 reject what does not with a one-line reason, and record the round at the
 end of `spec.md` as `## Verification round <date> (spec)` — the questions
 asked, `Findings: n. Incorporated: n. Rejected: n.`, and each finding's
@@ -242,7 +254,7 @@ shows the requirement wrong, and each such line is marked
 **requirement change** for the Operator's acceptance; design, concerns,
 open questions and acceptance criteria may change freely. The rest of
 the file is written whole in the form above; the previous text is not
-kept — the register's history holds it. Status: proposed.
+kept — the register's history holds it. The Dependencies section is re-stated from the evidence since; a cleared or newly set `external` is cited in the changelog. Status: proposed.
 
 ## 3. Write `plan.md`
 
@@ -263,7 +275,7 @@ Status: proposed. From: spec.md <date>. Runs under /unlazy.
    as: <local commit in the register | part of the project's batch>
 2. …
 
-## Assets and tools
+## Stack
 Reuses: <the assets relied on, by path — a checker by path and its modes; or "none">
 Creates: <the assets written and where they live; or "none">
 Invokes: <the tools called — an MCP server, a CLI, a harness tool, a vendor's service; or "none">
@@ -310,8 +322,8 @@ its question, with the same brief. The five questions, verbatim:
 1. Coverage both ways — does every acceptance criterion have at least one gate, and does every gate trace to a criterion? List the orphans in each direction.
 2. Honest oracles — can each CHECK actually fail? Name any oracle that cannot fail, any EXPECT that copies a supplied number, and any manual gate a command could decide.
 3. Order and landing — does each step need only earlier steps, and does every change land where the batching rule allows, nothing shipping alone? List the violations.
-4. Ownership and blockers — are the concerns that block the build named before step one, and does any step touch a path outside what the item owns? List each.
-5. Assets and tools — does the plan name every asset it reuses or creates and every tool it invokes, and is each one missing today a named dependency or item?
+4. Ownership and blockers — are the concerns that block the build named before step one, and does any step touch a path outside what the item owns, and is every Dependencies entry named before step one, as a dependency and not as an area of concern? List each.
+5. Stack — does the plan name every asset it reuses or creates and every tool it invokes, and is each one missing today a named dependency or item?
 
 Wait for all five; incorporate or reject each finding with a reason;
 record `## Verification round <date> (plan)` at the end of `plan.md` with
@@ -343,9 +355,7 @@ and every **requirement change** before the concerns. Ask the owner to review th
 it solve the stated problem, and are the intent's open questions
 answered or carried forward? **Do not build. Do not start `/unlazy` on
 the plan** until the owner accepts the spec — a human makes that call,
-consulting a technical lead for anything classed as higher risk. Record
-acceptance as a status line change in `spec.md` and `plan.md` — and
-stop there. Acceptance is not the go: the build starts only when the
+consulting a technical lead for anything classed as higher risk. Record acceptance as a status line change in `spec.md` and `plan.md`, and in the same act write the Dependencies entries' keys as the rule's Frontmatter bullet says (`blocked-by` on both sides for an entry another item satisfies; `external` and the item file's `**External set**` line for an entry another party satisfies), then the observed-by tests, `node <spec skill>/scripts/observed-by.mjs run --item-dir <item folder> --record acceptance` run, its lines said in the hand-back (acceptance stands whatever they say), then, for each Dependencies entry another party acts on, its notice (the rule's externality standard): its entry file written to a folder made by mkdtemp, never under the item — `what`, `who-acts` and `how-observed` from the entry's `D<n>. <what> — who acts: <party> — observed by: <check>` form split at the two ` — ` labels, its trailing tag left out; `atlas` from the `atlas` key of the item's destination's requirements file, `none` where none; `set-date` the clock as ISO 8601 UTC; `cleared-date` and `cleared-words` null — and `node <config skill>/scripts/externality.mjs notify --state open --entry <file> --item <ref>` run, its one result line said in the hand-back — and stop there. Acceptance is not the go: the build starts only when the
 Operator says build or runs `/roadwork-make` (ruling 2026-09-10, after the session agent
 built on "spec accepted" alone). End by offering the next step as one invocation in its own code block, preceded by its sentence (offer form)
 — `spec accepted and /roadwork-make <ref>`, the acceptance and the go on one line, or `/roadwork-make <ref>` alone once the spec is accepted — as an offer, never by
@@ -374,18 +384,21 @@ until it exists, run this skill by hand.
 - **Home** — the register an item lives in: the project's one register, at the path the project's law names; a clone of a remote, fetched and merged, never pushed.
 - **Reference (ref)** — `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`; from anywhere, `main/<kind>/<item-name>` — the project's law may alias the prefix.
 - **Frontmatter** — the YAML block opening an item file: `blocker`, `blocking`, `blocked-by`, `external`, `group`, `in-process`, `disposition`, `road-level` (the item's level within its destination — `main`, `secondary`, `side` — or empty), a feature's `onroad-cohort` before it.
+- **External** — the `external` key: an externality, a dependency that will not be met without something specific and out-of-band happening (Operator, 2026-10-11); an operational pause in the due course — a push, a merge, a fetch, a reboot — is never one. Stated by the spec skill as a fact in the spec's Dependencies section (what, who acts, how observed) — one entry per out-of-band act, never per party or per service — and written on spec acceptance: a `blocked-by` where another item acts, the key's text where another party does, with the item file's dated `**External set**` line; emptied only by the Operator, with the dated `**External cleared**` line; `/roadwork-make` refuses while it is set; its observed-by part run as a test at acceptance and before a make, a command deciding it where one is written, the Operator's word where not; notified where the workspace names an address.
 - **`ordering.md`** — the register's loose priority list; top is next. **`working.md`** — the register's dated list of items in process.
 - **Operator (user)** — the human owner; every decision is theirs.
 - **Session agent** — the agent running the session that invokes the skill.
 - **Project scope** — everything at and under the root the project's law names; the paths an item touches are its **Paths:** line.
 - **Batch** — the coherent bundle a project's changes ship in as one PR; the register's own commits are local and never a PR.
-- **Lifecycle** — `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the only go; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers.
+- **Lifecycle** — `/roadwork-atlas` (three documents into an atlas, above a destination) → `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the go — the skill or the Operator's word; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers and `/roadwork-intent-insights` learns from the day's interviews.
 - **Area of concern** — a contradiction between policies or an unsatisfiable constraint, recorded with its owner, never resolved silently. **Acceptance** — the Operator accepting the spec; **not a go**.
 - **Gate** — one observable outcome with a `CHECK:` command and a success-only `EXPECT:`; the **ledger** is `GATES.md`, run by the unlazy checker.
 - **PRD** — a product requirements document, `destinations/<destination-slug>.prd.md`, made by `/roadwork-destination` and the source of a group of items made by `/roadwork-nav-to-destination`; cited by path in every derived item.
-- **Destination** — one `destinations/<destination-slug>.prd.md`: what is wanted, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest; the destination, numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; archived to `destinations/archive/` by hand when built.
-- **Map** — one `maps/<destination-slug>.md`: the way to one destination, one map per destination — before agents, process, assets and tools, judgements, inputs — in a fixed form, made by `/roadwork-map`, drawing on guidebooks by copying their relevant parts in (a **Guidebooks:** line names them); named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; enforced by nothing; retired to `maps/archive/` by hand.
-- **Guidebook** — one `guidebooks/<guidebook-slug>.md`: a standardized knowledge base broad in application — standards, preferred tooling, vendors, judgements, sources — in a fixed form, made by `/roadwork-guidebook`; names no destination; a map copies its relevant parts in and cites the whole only when the whole applies; never done; retired to `guidebooks/archive/` by hand.
+- **Destination** — two files beside each other in `destinations/`: `<destination-slug>.intent.md`, what is wanted and why in the Operator's words, in the item intent's form, interviewed and written first; and `<destination-slug>.prd.md`, written from it, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section — the architecture read, the guidebooks drawn on, the changes to their stacks — numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; both files archived to `destinations/archive/` by hand when built.
+- **Map** — one `maps/<destination-slug>.md`: the way to one destination, one map per destination — before agents, process, stack, judgements, inputs — in a fixed form, made by `/roadwork-map`, drawing on guidebooks by copying their relevant parts in (a **Guidebooks:** line names them); named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; enforced by nothing; retired to `maps/archive/` by hand.
+- **Guidebook** — one `guidebooks/<guidebook-slug>.md`: a standardized knowledge base broad in application — standards, stack, vendors, judgements, sources, an Architectures line saying which architectures its stack fits, or none — in a fixed form, made by `/roadwork-guidebook`; names no destination; a map copies its relevant parts in and cites the whole only when the whole applies; never done; retired to `guidebooks/archive/` by hand.
+- **Stack** — what a destination is built on: environment, framework, tooling, assets and services; chosen per destination from the guidebooks, carried by the requirements file, the map, the spec and the plan.
+- **Atlas** — one `atlases/<atlas-slug>/`: the highest-order thing in the register, above the destination — the Operator's `vision.md`, `intent.md` and `architecture.md`, verbatim, and the skill's `atlas.md`; made by `/roadwork-atlas` from three documents, never interviewed, its destinations suggested in `atlas.md` by the skill and each offered as a destination interview; named by a destination's `atlas` key, one per destination; retired to `atlases/archive/` by hand.
 - **Sanity todo** — the todo `/roadwork-nav-to-destination` creates last, `todo/<destination-slug>-sanity`: the group list and the requirement↔item mapping both ways; blocks every other item in the group until the Operator says the group is right.
 - **Check types** — the six sanity checks `/roadwork-navsanity` runs over a group: completeness, provenance, shape, dependencies, order, scope.
 - **Run** — one pass of `/roadwork-navsanity` over a group: six checks, ten questions, the changes made; recorded as a dated section in the group's sanity todo.
@@ -394,12 +407,12 @@ until it exists, run this skill by hand.
 - **Cohortmeister (CM)** — `feature/cm-<group>-<cohort>`: the pseudo-feature that blocks a cohort's members, is onroaded in their place, and whose ledger is the results checker; archives them by cascade.
 - **Rubric** — the five pass/fail criteria a subgroup must meet to be a cohort: no dependency edge, disjoint ownership, accepted spec and plan with gates, no external and not in process, self-contained builds.
 - **Reconsideration** — `/roadwork-specplan`'s second mode: on an item whose accepted spec and plan already exist, re-read them against everything dated since; a dated `Reconsidered` changelog, proven gates carried, the previous go ended, the spec proposed again.
-- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: five predefined questions on the spec, five on the plan, one fresh reader each — run as one workflow where the harness runs workflows, on the top model of the tier one step below the session's (or the session's own where no lower tier exists) at an effort the dispatcher sets, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
-- **Back offers** — the second offer line of the four interrupting skills: up to five open lifecycle steps in flight, most recent first, read from the road plans; offers, never invocations; each preceded by one sentence saying what typing it does.
-- **Item name** — the kebab-case folder name of an item, chosen at ingest in the Operator's words, and its reference (`todo/<item-name>`, `main/<kind>/<item-name>`); never reused; never a skill name. "Slug" is a generic word, not the register's term; the register names one, a destination's `<destination-slug>`.
+- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: six predefined questions on the spec, five on the plan, one fresh reader each — run as one workflow where the harness runs workflows, on the top model of the tier one step below the session's (or the session's own where no lower tier exists) at an effort the dispatcher sets, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
+- **Back offers** — the second offer line of the four interrupting skills: up to five open lifecycle steps in flight, most recent first, read from the road plans; offers, never runs; each preceded by one sentence saying what typing it does.
+- **Item name** — the kebab-case folder name of an item, chosen at ingest in the Operator's words, the last part of its reference (`todo/<item-name>`, `main/<kind>/<item-name>`); never reused; never a skill name. "Slug" is a generic word, not the register's term; the register names its slugs by their bearer — `<destination-slug>`, `<map-slug>`, `<guidebook-slug>`, `<atlas-slug>`.
 - **Batch invocation** — one skill, many references on one line, separated by ` && `; accepted by `/roadwork-verify-and-archive` and `/roadwork-make`, and by `/roadwork-ingest` for a spark batch only (sparks of one home, converting into one item — the bare `/roadwork-spark` lists them grouped), refused by the rest with a reason; offers are printed as invocations in code blocks, related ones combined.
-- **Bare call** — a lifecycle skill invoked with no argument lists instead of acting — `/roadwork-spark` the open sparks grouped for conversion, `/roadwork-destination` the destinations with their navigation state, `/roadwork-make` the make-eligible items with their goes and the ineligible with their reasons, `/roadwork-inventory` everything open on one page in the ordering's order; a bare call writes nothing.
-- **Offer form** — every command or phrase a reply suggests the Operator type is printed in its own fenced code block (three backticks, no language tag), nothing else in the block, one per block, so it copies in one gesture; invocations that run as one line — a batch invocation with ` && ` — share one block; prose around the block says what it does; an offered invocation is preceded by one sentence saying what typing it does. The copy a skill carries for use outside a workspace; in a workspace the reply-form rule holds it. Where the harness has a question tool, the offers of a hand-back are one list of choices — each the invocation with its sentence — plus "none of these" and a free-text choice; a tick is the Operator's word, run in the same turn; blocks where there is no tool. Where an offer waits on the Operator's word, the block — or the choice's label — carries both, `<word> and <invocation>`; the word is recorded as the Operator's, dated, before the invocation runs. Before such an offer, each concern or gate its word answers is restated simply right above it — one bullet, the question in plain words, the options with the recommended one first and its reason, two sentences at most; a gate's bullet says what is approved and where it was shown (Operator, 2026-10-14). Every offer printed as a block carries an id, `O1`, `O2`, … in printing order, in bold at the start of its sentence; the id typed alone is the Operator's word for that offer, read as the whole block, recorded in full with the id after it; nothing changes where the offers go through the question tool (Operator, 2026-10-15). Where typing it makes or changes something, the sentence carries, in parentheses right after the thing acted on, what is to be accomplished — the change or the product itself, as what will exist or be said afterwards, a few words opening "to", specific to the item where the item is known, never a sentence, never the skill's definition, never the reason, the gate, the authority or the item — "runs the map skill on the-lifecycle (to rename its Tools section to Assets and tools)"; a directive phrase the same; a bare listing or a help call, which leaves nothing behind, carries none; the Gate id entry's parenthetical says what a thing is, this one what a run accomplishes (Operator, 2026-10-07).
+- **Bare call** — a skill invoked with no argument lists instead of acting — `/roadwork-spark` the open sparks grouped for conversion, `/roadwork-destination` the destinations with their navigation state, `/roadwork-make` the make-eligible items with their goes and the ineligible with their reasons, `/roadwork-inventory` everything open on one page in the ordering's order; a bare call writes nothing.
+- **Offer form** — every command or phrase a reply suggests the Operator type is printed in its own fenced code block (three backticks, no language tag), nothing else in the block, one per block, so it copies in one gesture; invocations that run as one line — a batch invocation with ` && ` — share one block; prose around the block says what it does; an offered invocation is preceded by one sentence saying what typing it does. The copy a skill carries for use outside a workspace; in a workspace the reply-form rule holds it. Where the harness has a question tool, the offers of a hand-back are one list of choices — each the invocation with its sentence — plus "none of these" and a free-text choice; a tick is the Operator's word, run in the same turn; blocks where there is no tool. Where an offer waits on the Operator's word, the block — or the choice's label — carries both, `<word> and <invocation>`; the word is recorded as the Operator's, dated, before the invocation runs. Before such an offer, each concern or gate its word answers is restated simply right above it — one bullet, the question in plain words, the options with the recommended one first and its reason, two sentences at most; a gate's bullet says what is approved and where it was shown (Operator, 2026-10-14). Every offer printed as a block carries an id, `O1`, `O2`, … in printing order, in bold at the start of its sentence; the id typed alone is the Operator's word for that offer, read as the whole block, recorded in full with the id after it; nothing changes where the offers go through the question tool (Operator, 2026-10-15). Where typing it makes or changes something, the sentence carries, in parentheses right after the thing acted on, what is to be accomplished — the change or the product itself, as what will exist or be said afterwards, a few words opening "to", specific to the item where the item is known, never a sentence, never the skill's definition, never the reason, the gate, the authority or the item — "runs the map skill on the-lifecycle (to rename its Assets and tools section to Stack)"; a directive phrase the same; a bare listing or a help call, which leaves nothing behind, carries none; the Gate id entry's parenthetical says what a thing is, this one what a run accomplishes (Operator, 2026-10-07).
 - **Gate id** — `G<n>`, a gate's name in its ledger. Printed anywhere but the ledger itself, or a line that opens with the gate's own title, the id carries right after it a few words in parentheses saying what the gate is, taken from the gate's title and never a sentence — `G6 (the Operator's review of the four pages)` — the words saying so where the gate is the Operator's to approve; a handoff's list of unmet ids, a status clause and an offer all carry them, in an offer in the sentence before the code block and never inside it (Operator, 2026-10-03); its parenthetical says what a thing is, where the offer form's says what a run accomplishes (2026-10-07).
-- **Fact suffix** — after the last offer of a lifecycle hand-back, when the machine's minute is a multiple of six: one blank line, a horizontal rule (a run of hyphens on its own line, rendered as a rule, never a literal line of characters), one blank line, then the title line "A 2ndcortex/roadmap system detail you should know about:" plain, then one fact from `docs/facts.md`, picked by the seconds modulo the count of its numbered facts — never a heading, then "Typing this explains it:" and `/roadwork-help <term>` in its own code block; never after `/roadwork-help`; no state, no script.
+- **Fact suffix** — after the last offer of a lifecycle hand-back, when the machine's minute is a multiple of six: one blank line, a horizontal rule (a run of hyphens on its own line, rendered as a rule, never a literal line of characters), one blank line, then the title line "A 2ndcortex/roadwork system detail you should know about:" plain, then one fact from `docs/facts.md`, picked by the seconds modulo the count of its numbered facts — never a heading, then "Typing this explains it:" and `/roadwork-help <term>` in its own code block; never after `/roadwork-help`; no state, no script.
 - **Tasksplit** — `/roadwork-tasksplit <source>`: any document or list into a dated group of todos, one per unit the source delineates, the source's words verbatim and no reading added; no sanity todo, no cohort.

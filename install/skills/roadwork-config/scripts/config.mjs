@@ -14,12 +14,12 @@ const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && v.length ==
 
 const SCHEMA = [
   ['org-slug', "the organisation's slug", 'kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$', false, (v) => KEBAB.test(v)],
-  ['externality-add-endpoint', "the externality service's add address", 'an https:// URL', false, isHttps],
-  ['externality-update-endpoint', "the externality service's update address", 'an https:// URL', false, isHttps],
-  ['externality-status-endpoint', "the externality service's status address", 'an https:// URL', false, isHttps],
-  ['externality-inventory-endpoint', "the externality service's inventory address", 'an https:// URL', false, isHttps],
-  ['externality-key', "the externality service's key, one static key per org; low security, set as any key", 'non-empty', false, nonEmpty],
 ].map(([key, meaning, shape, secret, valid]) => ({ key, meaning, shape, secret, valid }));
+// Two optional secret URL keys: the addresses Roadwork notifies and reads status from; a credential rides inside the URL, so the value is masked.
+SCHEMA.push({ key: 'notify-url', meaning: "the URL Roadwork posts an externality's record to when it is set and when it is cleared; optional — empty means no notice, never asked for by the empty-keys prompt; any credential the receiver wants rides in the URL itself, so the value is a secret: masked in every reply, set by a route of §2", shape: 'an https:// URL', secret: true, optional: true, valid: isHttps });
+SCHEMA.push({ key: 'status-url', meaning: "the URL Roadwork reads an item's externalities' state from, by the make skill at its start and by the inventory's bare call; optional — empty means the Operator is asked, never asked for by the empty-keys prompt; a secret as `notify-url` is", shape: 'an https:// URL', secret: true, optional: true, valid: isHttps });
+// Yes/no key: the project's changes land by pull request; unset reads as no. Not optional: the empty-keys prompt lists it until set.
+SCHEMA.push({ key: 'versioned', meaning: "the project's changes land by pull request — yes where branches are opened as pull requests, no where the register runs in an unversioned project; unset reads as no", shape: 'yes or no', secret: false, valid: (v) => v === 'yes' || v === 'no' });
 // A list key, optional: the project's standards folders, relative to the project's root, each an existing folder under it.
 SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folders, in the project's own structure — coding standards, brand, styling and the like; optional, empty where a project keeps none; a list, in the order given", shape: "a list of folder paths relative to the project's root, each an existing folder under it", secret: false, list: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
 // Instance keys: docs/local/config-keys.json beside the register's config.json (ignored by git, instance material):

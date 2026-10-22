@@ -3,7 +3,7 @@ sibling sub-registers: `todo/` (fixes, chores, decisions to take, findings to
 trace; item file `todo.md`), `feature/` (new capabilities; item file
 `feature.md`), `spark/` (ideas for later; `idea.md` only). Each holds one
 folder per item, kebab-case item name, never reused, and its own `archive/`.
-Beside them, `docs/`, `destinations/` and `maps/`, each with its archive.
+Beside them, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/`, each with its archive.
 `ordering.md` is the living, loose prioritization — one ordered list, top is
 next, maintained by agent judgment; the basis for "what should we do next?".
 `working.md` records the items in process (dated list, not a history). The

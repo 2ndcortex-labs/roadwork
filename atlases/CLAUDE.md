@@ -1,0 +1,2 @@
+Atlases — one `<atlas-slug>/` per atlas: the highest-order thing in the register, above the destination; the Operator's `vision.md`, `intent.md` and `architecture.md` verbatim and `atlas.md` in the fixed form `/roadwork-atlas` writes; a destination names its atlas by its `atlas` key.
+A document received by path, paste or URL is saved as given or as fetched; nothing is written on a refusal. Road plans law: the register rule (the Atlases bullet).
