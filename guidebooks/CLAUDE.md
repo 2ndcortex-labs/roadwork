@@ -1,0 +1,3 @@
+Guidebooks — one `<guidebook-slug>.md` per guidebook: a standardized knowledge base broad in application (standards, stack, vendors, judgements, sources), in the fixed form `/roadwork-guidebook` writes; names no destination; a map copies its relevant parts in. A retired guidebook moves to `archive/` by hand.
+A document received in chat or by path is saved beside its guidebook as `<guidebook-slug>.source.md`, verbatim. Road plans law: the register rule (the Guidebooks bullet).
+The form, eight lines in this order: `# Guidebook: <title in the Operator's words>`, `_Guidebook, made <date> by /roadwork-guidebook; open until retired._`, one paragraph of what it covers, then `## Standards`, `## Stack`, `## Vendors`, `## Judgements`, `## Sources`, `## Changelog`.
