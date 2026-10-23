@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""dispatch-plan.py — prints the five reader prompts for one document and one kind. Dispatches nothing: the session agent sends each prompt through the harness's Agent tool.
+"""dispatch-plan.py — prints the reader prompts, one per question of the kind (five; six for truth with `--referent`, the Omission question left out without it), for one document and one kind. Dispatches nothing: the session agent sends each prompt through the harness's Agent tool.
 
 Before the prompts (truth, continuity) it prints one VERSION line per source — `<path>@<commit>` — and, for a twinned path (a commons copy under nethub/reference/repos/<repo>/ beside a seated clone <root>/<repo>/, or the other way), compares the three copies: the commons' HEAD, the clone's local `main`, the clone's working tree. Equal and unmodified: one line, the commons copy read. Differing: a COPY QUESTION per repository and exit 2, nothing dispatched, until `--copy <repo>=<commons|main|working-tree>` names the copy. Writing prints no VERSION line. Reads git; fetches nothing; writes only the extracted `main` copy under <report-dir>/sources/ when that copy is chosen.
+
+With `--referent <folder>` (truth, continuity; spec R7 of documentary items checked against their referent) it runs list-referent.mjs, beside this script, writing the folder's listing to <report-dir>/sources/referent-<folder's last segment>.txt, prints `VERSION: referent <folder> listing sha256 <first twelve hex digits>` and gives the listing to every reader as a source, after the `--sources`.
 """
-import sys, os, argparse, re, subprocess
+import sys, os, argparse, re, subprocess, hashlib
 HERE=os.path.dirname(os.path.abspath(__file__)); SKILL=os.path.dirname(HERE)
 CONST='nethub/reference/repos/buzz-agentic-architecture/docs/constitution.md'
 COMMONS='nethub/reference/repos'
@@ -73,6 +75,7 @@ p.add_argument('--doc',required=True); p.add_argument('--kind',required=True,cho
 p.add_argument('--sources',nargs='*',default=[]); p.add_argument('--report-dir',default='audit')
 p.add_argument('--root',default=None,help='the workspace root, the folder holding nethub/ (default: found upward from the skill)')
 p.add_argument('--copy',action='append',default=[],metavar='REPO=COPY',help='the copy to read for a repository whose commons copy and seated clone differ: commons, main or working-tree')
+p.add_argument('--referent',default=None,metavar='FOLDER',help="the document's folder referent (truth, continuity): its listing, by list-referent.mjs, written to <report-dir>/sources/referent-<last segment>.txt and given to every reader as a source")
 a=p.parse_args()
 root=os.path.abspath(a.root) if a.root else find_root()
 if not root: print('DISPATCH FAIL: no workspace root found; pass --root'); sys.exit(1)
@@ -82,8 +85,10 @@ chosen={}
 for c in a.copy:
     if '=' not in c or c.split('=',1)[1] not in CHOICES: print(f'DISPATCH FAIL: --copy takes <repo>=<commons|main|working-tree>, got {c}'); sys.exit(1)
     k,v=c.split('=',1); chosen[k]=v
+if a.referent is not None and a.kind=='writing': print('DISPATCH FAIL: --referent takes a truth or continuity audit'); sys.exit(1)
 brief=open(os.path.join(SKILL,'texts','reader-brief.md'),encoding='utf-8').read().strip()
 qs=[l for l in open(os.path.join(SKILL,'texts',f'questions-{a.kind}.md'),encoding='utf-8').read().split('\n') if re.match(r'^\d\. ',l)]
+if a.referent is None: qs=[q for q in qs if not re.sub(r'^\d\. ','',q).startswith('Omission')]  # the Omission question reads the referent listing; none without --referent
 sources=list(a.sources)
 if a.kind=='truth' and CONST not in ' '.join(sources): sources.append(CONST)
 
@@ -110,6 +115,15 @@ if a.kind!='writing':
             with open(path,'w',encoding='utf-8') as f: f.write(content.stdout)
             path=os.path.abspath(path)
         versions.append(line); read_paths.append(path)
+    if a.referent is not None:
+        ref=os.path.abspath(a.referent if os.path.isabs(a.referent) or os.path.isdir(a.referent) else os.path.join(root,a.referent))
+        if not os.path.isdir(ref): print('DISPATCH FAIL: referent is not a folder: '+ref); sys.exit(1)
+        os.makedirs(os.path.join(a.report_dir,'sources'),exist_ok=True)
+        listing=os.path.abspath(os.path.join(a.report_dir,'sources',f'referent-{os.path.basename(ref)}.txt'))
+        r=subprocess.run(['node',os.path.join(HERE,'list-referent.mjs'),ref,'--out',listing],capture_output=True,text=True)
+        if r.returncode: print('DISPATCH FAIL: list-referent.mjs: '+(r.stderr.strip() or f'exit {r.returncode}')); sys.exit(1)
+        with open(listing,'rb') as f: digest=hashlib.sha256(f.read()).hexdigest()[:12]
+        versions.append(f'referent {relpath(ref,root)[0]} listing sha256 {digest}'); read_paths.append(listing)
     for v in versions: print('VERSION: '+v)
     if questions:
         for repo,cp in questions.items():

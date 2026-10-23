@@ -115,6 +115,7 @@ writing a line of spec, assemble the constraints that will bind it:
   step that serves a Process step keeps that step's order and names it, a
   step with no counterpart keeps its own place — and the plan names the
   map's Stack. When the item names no map, say so in one line.
+- **The referent**: when the item file carries a **Referent:** line, read it; a referent that resolves to a folder on disk from the project's root is a folder referent, named in the spec as a source by that path; any other is a named referent, and the spec names, per item, the listing the check reads for it (`--listing`); an item without the line has `Referent: none`.
 - **The standards**: when the settings file names `standards-folders` (`node <config skill>/scripts/config.mjs get standards-folders`, the config skill's read; empty where a project keeps none), read every file in every listed folder, subfolders included — coding standards, brand, styling and the like, in the project's own structure; a file that is not text (an image, a PDF) is named by path as present and not read; each file that bears on the work is a constraint on the spec, named under "Constraints applied" with the file's path and what it constrained; a listed folder that is empty or missing is said there in one line. The intent names the standards that bind; the spec inherits them and adds what the intent did not see.
 - **The codebase**: the files, configs, scripts and records the change
   touches; what other items in `roadwork/todo/` and `roadwork/feature/`
@@ -149,6 +150,7 @@ Replace the stub whole. Form:
 Status: proposed. From: intent.md accepted <date>. Author: the session agent for <owner>.
 Skills in force: <name@commit, …>. Law in force: <brief@commit, rules matched>.
 Destination intent: <destinations/<destination-slug>.intent.md read <date> — what it bound> | none. Atlas intent: <atlases/<atlas-slug>/intent.md read <date> — what it bound> | none.
+Referent: <path or name> — <what it bound> | none
 
 ## Problem restated
 <one paragraph, from the intent, in its terms>
@@ -158,6 +160,10 @@ R1. <observable requirement> — satisfies: <intent outcome or constraint>
 R2. …
 (Every requirement traces to the intent; anything the intent did not
 ask for is marked "added — why".)
+
+## Frozen parts
+R<n> freezes <part>; left unexamined. <the reason, in the sentence after it>
+(A requirement that fixes a part of the product byte-equal to a prior version is written `R<n> freezes <part>; left unexamined`, the reason in the sentence after it; every such requirement is listed here; `None` where none.)
 
 ## Design
 <what changes, where: files, folders, records, channels, configs; the
@@ -291,13 +297,20 @@ Invokes: <the tools called — an MCP server, a CLI, a harness tool, a vendor's 
   VERIFY: <the review criteria>
   APPROVER: <the approval authority, where established>
   EVIDENCE: pending
+- [ ] G<n>: the document agrees with its folder referent (the reality gate)
+  VERIFY: automated check
+  CHECK: node <audit skill>/scripts/check-referent.mjs --document <path> --referent <path> [--allow <path>]
+  EXPECT: OK referent
+  ALLOWED: <path> — <reason>
+  EVIDENCE: pending
 - [ ] G2: …
 (One gate per acceptance criterion at least; manual gates only where no
 command can decide. Every gate names its verification kind in `VERIFY:`
 — measurement, inspection, demonstration, review, reference example, or
 automated check — and a manual gate its `APPROVER:` where established.
 Never a numerical threshold the intent did not give. Lint the ledger:
-node <unlazy>/scripts/gate-lint.mjs — it accepts both keys.)
+node <unlazy>/scripts/gate-lint.mjs — it accepts both keys.
+The reality gate: the plan of an item with a folder referent carries it, written in the plan's Gates by `/roadwork-specplan` — the document the item's product, the referent the spec's folder; no per-item checker is needed for it; each `--allow` path and its reason on an `ALLOWED:` line under the gate, one per path.)
 
 ## Batching and governance
 <which PR carries what; the register's commits local;
@@ -344,7 +357,7 @@ verification round → incorporate → hand back the spec; draft `plan.md` →
 plan verification round → incorporate → hand back both. The hand-back
 reports each round's finding count and how many were incorporated, and
 names every **requirement change** and every **proposed change to the
-intent** before the concerns. Readiness: drafted is not approved;
+intent** before the concerns. It repeats the spec's `## Frozen parts` list and the reality gate's allowed paths, each with its reason, verbatim under the words "Left unexamined". Readiness: drafted is not approved;
 approved is not ready for execution; "Execution requires separate
 authorization."
 

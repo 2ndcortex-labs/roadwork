@@ -53,19 +53,25 @@ the filer's interpretation of them (Roadwork conventions). Before any design
 question, read both back to the user: the notes exactly as recorded, then
 the interpretation as it stands. If the item file has no interpretation,
 write one now from the notes and read that back, marked as yours. Then
-ask exactly two questions and wait:
+ask these questions and wait:
 
 ```
 ❓ **Q1** - **Anything to add to the notes?**
 
 ❓ **Q2** - **Any comments on the interpretation?**
+
+❓ **Q4** - **Consistent with what?**
 ```
 
-Close the pair with three blocks, one sentence each, always in this
+Q4 is asked of every item: what the item's product describes — a folder
+by path from the project's root or a system by name — or `none`, the
+session agent's recommendation given.
+
+Close the read-back with three blocks, one sentence each, always in this
 order: `no, no and go with recos` — nothing to add, the reading stands,
-the map's recommendation taken; `no, no and go with recos except:` — the
-same, the map answered after the colon; `no, no` — the pair alone, the
-map answered by hand. With the question tool, two questions with
+the map's and the referent's recommendations taken;
+`no, no and go with recos except:` — the same, the map and the referent answered after the colon;
+`no, no` — the notes and the interpretation alone, the map and the referent answered by hand. With the question tool, the questions with
 "nothing" first, or, where the tool cannot take one choice, the blocks
 above.
 
@@ -209,7 +215,7 @@ Revise the instant item's line in the register's
 `ordering.md` if the interview changed its weight or group. Set the item
 file's status line to "intent accepted <date>". Write the **Map:** `<map-slug>` line under the owner line (after
 the Destination line where both exist) when the Operator named a map; one
-map per item, no frontmatter key. Commit in the
+map per item, no frontmatter key. Write the `**Referent:**` line directly after the Map line (after the Owner line where there is no Map line) when the Operator named one; open the intent's Constraints with `Referent: <the same>`. Commit in the
 register (its commits local).
 
 After writing: `intent.md` printed whole and verbatim in the reply, before the offers (reply-form rule); no PR; the register's commits are local. If the interview surfaced facts that
@@ -247,11 +253,13 @@ five.
 - **Project scope** — everything at and under the root the project's law names; the paths an item touches are its **Paths:** line.
 - **Batch** — the coherent bundle a project's changes ship in as one PR; the register's own commits are local and never a PR.
 - **Lifecycle** — `/roadwork-atlas` (three documents into an atlas, above a destination) → `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the go — the skill or the Operator's word; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers and `/roadwork-intent-insights` learns from the day's interviews.
-- **Read-back** — the step before any question: notes and interpretation read back, two questions asked — a third, which map, where the item names none. **Round / frontier** — the frontier is every decision whose prerequisites are settled; a round asks the whole frontier at once; the interview proceeds in rounds until the frontier is empty.
+- **Read-back** — the step before any question: notes and interpretation read back, two questions asked — a third, which map, where the item names none — and a fourth, the referent, of every item: four questions in all, the notes, the interpretation, the map, the referent. **Round / frontier** — the frontier is every decision whose prerequisites are settled; a round asks the whole frontier at once; the interview proceeds in rounds until the frontier is empty.
 - **Crossing / cross-note** — another item this one overlaps, shares a group with, or depends on; recorded as a dated `Cross-items` section in that item's file, and in frontmatter when it is a dependency.
 - **PRD** — a product requirements document, `destinations/<destination-slug>.prd.md`, made by `/roadwork-destination` and the source of a group of items made by `/roadwork-nav-to-destination`; cited by path in every derived item.
 - **Destination** — two files beside each other in `destinations/`: `<destination-slug>.intent.md`, what is wanted and why in the Operator's words, in the item intent's form, interviewed and written first; and `<destination-slug>.prd.md`, written from it, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section — the architecture read, the guidebooks drawn on, the changes to their stacks — numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; both files archived to `destinations/archive/` by hand when built.
 - **Map** — one `maps/<destination-slug>.md`: the way to one destination, one map per destination — before agents, process, stack, judgements, inputs — in a fixed form, made by `/roadwork-map`, drawing on guidebooks by copying their relevant parts in (a **Guidebooks:** line names them); named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; enforced by nothing; retired to `maps/archive/` by hand.
+- **Referent** — the thing an item's product describes — a folder by path or a system by name — named on the item by its `**Referent:**` line, written by `/roadwork-intentify` from the read-back's fourth question; read by `/roadwork-specplan`, which binds a folder referent as a source and writes the plan's reality gate against it.
+- **Documentary item** — an item carrying a Referent line: its product describes something, and the chain checks the document against the referent — the plan's reality gate, the truth audit's listing, the make review gate's kept claims and proposed additions.
 - **Guidebook** — one `guidebooks/<guidebook-slug>.md`: a standardized knowledge base broad in application — standards, stack, vendors, judgements, sources, an Architectures line saying which architectures its stack fits, or none — in a fixed form, made by `/roadwork-guidebook`; names no destination; a map copies its relevant parts in and cites the whole only when the whole applies; never done; retired to `guidebooks/archive/` by hand.
 - **Stack** — what a destination is built on: environment, framework, tooling, assets and services; chosen per destination from the guidebooks, carried by the requirements file, the map, the spec and the plan.
 - **Atlas** — one `atlases/<atlas-slug>/`: the highest-order thing in the register, above the destination — the Operator's `vision.md`, `intent.md` and `architecture.md`, verbatim, and the skill's `atlas.md`; made by `/roadwork-atlas` from three documents, never interviewed, its destinations suggested in `atlas.md` by the skill and each offered as a destination interview; named by a destination's `atlas` key, one per destination; retired to `atlases/archive/` by hand.

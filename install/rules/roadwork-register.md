@@ -25,7 +25,7 @@ paths:
   - Kebab-case, in the Operator's words, chosen when filed, never changed.
   - Unique across the whole register, not per folder: the reference `todo/<item-name>` omits the destination's folder, so one name is one item wherever it sits. A name is never reused, archived or not.
   - Never a skill name; an item that builds or changes a skill is named for its outcome, not for the command.
-  - Three lines may follow the item file's owner line, in this order: `**Destination:**` (written by the navigation), `**Map:**` (written by the interview, one per item), `**Paths:**` (the paths the work touches, written when the source names them). None is a frontmatter key.
+  - Four lines may follow the item file's owner line, in this order: `**Destination:**` (written by the navigation), `**Map:**` (written by the interview, one per item), `**Referent:**` (written by the interview from the read-back's fourth question; what the product describes), `**Paths:**` (the paths the work touches, written when the source names them). None is a frontmatter key.
 - **The item folder.**
   - Four files of record: the item file, `intent.md`, `plan.md`, `spec.md`. `GATES.md`, the ledger, joins at the build.
   - `intent.md`: what is wanted and why, in the Operator's words; placeholder until `/roadwork-intentify` writes it.
@@ -185,7 +185,7 @@ paths:
   - `<destination-slug> <description>`: the interview; a slug that is not an open destination's, or whose destination already has a map, is refused.
   - `<existing-slug>`: an update with a dated changelog line.
   - A pasted document or path: saved verbatim as `maps/<destination-slug>.source.md`, then interviewed.
-  - An item names its map by one line, **Map:** `<map-slug>`, under its owner line: one map per item, no frontmatter key.
+  - An item names its map by one line, **Map:** `<map-slug>`, under its owner line: one map per item, no frontmatter key, the Referent line after it where one is named.
   - The line is written by `/roadwork-intentify` when the Operator names one, or by `/roadwork-nav-to-destination` when the destination names one (its optional Map line, inherited by the group).
   - `/roadwork-intentify` and `/roadwork-specplan` read the item's map.
   - No skill enforces one.
@@ -213,7 +213,7 @@ paths:
   - `/roadwork-destination` (a destination: its intent and its product requirements document).
   - `/roadwork-nav-to-destination <destination-slug>` (a destination into a group, a sanity todo last).
   - `/roadwork-ingest` (ingest: kind decided, duplicates refused by judgment across the register, item placed in `ordering.md`; never archives an item — a converted spark's move into `spark/archive/` is its one archiving).
-  - `/roadwork-intentify <ref>` (read-back first, then the prepared round, then the design tree).
+  - `/roadwork-intentify <ref>` (read-back first — its four questions: the notes, the interpretation, the map, the referent — then the prepared round, then the design tree).
   - `/roadwork-intentify` is roadwork-register-aware across the register and writes cross-notes and frontmatter into related items.
   - `/roadwork-specplan <ref>` (`spec.md` with concerns first, `plan.md` with gates).
   - On an existing accepted spec and plan, `/roadwork-specplan` runs a reconsideration: dated changelog, proven gates kept, the previous go ended, the spec proposed again.
