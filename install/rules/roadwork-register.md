@@ -41,10 +41,9 @@ paths:
   - `atlases/`: one `<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired.
 - **The register.**
   - One per project, a clone of a remote Roadwork repository.
-  - Fetched from and merged, never pushed to; its commits local.
+  - Never pushed to; its commits local.
   - The remote ships the skeleton with its anchors, the docs, the rule and the skills.
   - The remote never ships a map or an item: maps and items are the project's own.
-  - In a merge the docs are the remote's to win.
   - The project's law names the register's path and the alias, if any, of its reference prefix.
   - A spec archived shipped graduates to the register's `docs/context/` as a decision record.
 - **Frontmatter**
@@ -238,8 +237,6 @@ paths:
   - The back offers: up to five open lifecycle steps in flight, most recent first, read from the road plans at that moment, never from memory.
   - A spark's exit is conversion only, on the Operator's word.
 
-Proposed rewrite. Nothing written; this is text for your word, and it lands on GitHub first when it does. One thing it changes beyond wording: the current rule calls the two URLs secrets and the config skill treats them as secrets (set by file or environment, never typed in chat); your point 5 reverses that, so the config skill's two rows and its secret-route paragraph would change with it.
-
 - **Externalities and their notices**
   - An externality is a dependency of a work item that will not be met without something specific happening outside the project — e.g. an account opened, a key issued, a third party acting. A pause in the project's own course (a push, a merge, a fetch, a reboot) is never one.
   - The spec names each externality as a Dependencies entry: what must be true, who acts, how its completion is observed. On `/roadwork-specplan` spec acceptance the entry is written on the item: a `blocked-by` where another item acts, the `external` key where another party does. `/roadwork-make` refuses while the key is set; only the Operator clears it.
@@ -250,7 +247,6 @@ Proposed rewrite. Nothing written; this is text for your word, and it lands on G
   - The status read: one `GET` of `status-url` with `item=<ref>` appended as a query parameter. The answer is a JSON array of `{what, state}`, one per externality, matched to the item's Dependencies entries by `what`. The state is `unknown` on no answer, another form or a code outside 200–299, and `empty` on `[]`.
   - When each is made: the notice once per entry when `/roadwork-specplan` sets it on acceptance, and once per entry when `/roadwork-make` clears it; the status read by `/roadwork-make` at its start, by `/roadwork-inventory` on its bare call, and by `/roadwork-verify-and-archive` in its evaluation.
   - How the call is made is the agent's choice — curl, a script, anything that speaks the wire above. The config skill ships `scripts/externality.mjs` (`notify`, `status`) as one way; no skill or gate requires it. The two URLs are read from the settings file by whatever makes the call and are not printed in replies or records.
-```
 
 ## Glossary
 
