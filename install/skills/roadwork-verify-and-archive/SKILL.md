@@ -37,7 +37,7 @@ Read the item folder whole. Produce a numbered list of findings:
 - **Unlanded branch:** where the config key `versioned` is `yes`, for every tracked branch the item names, the line `node <inventory>/scripts/unlanded.mjs` `--repo <name> --branch <branch>` prints when it prints one that is not `pushed, not landed` — a branch with no upstream or ahead of it and not an ancestor of `origin/main`; the script reads local refs and fetches nothing, so this finding stands beside Landing, never in its place.
 - **Dependents:** every item in the register whose `blocked-by` names this
   one, and whether archiving would unblock it.
-- **Externalities:** for an item whose `external` is set, one finding per entry the key names with the status read's answer for it (`node <config skill>/scripts/externality.mjs status --item <ref>`: cleared, open, unmatched, unknown or no status URL); an entry cleared on the item gets none; a finding is put to the Operator as every finding is; this skill clears nothing and posts nothing.
+- **Externalities:** for an item whose `external` is set, one finding per entry the key names with the status read's answer for it (the rule's section "Externalities and their notices"): cleared, open, unmatched, unknown or no status URL; an entry cleared on the item gets none; a finding is put to the Operator as every finding is; this skill clears nothing and posts nothing.
 
 ## 2. Interview — the Operator makes the call
 
