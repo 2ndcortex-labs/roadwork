@@ -1,10 +1,9 @@
 ---
 paths:
-  - "**/roadwork-ingest/**"
+  - "**/roadwork-*/**"
 ---
-# Roadwork register conventions — roadwork/
-- **One register per project, `roadwork/`, at the path the project's own law names — no path under the project carries a register of its own —**
-- **One register per project, `roadwork/`, at the path the project's own law names — no path under the project carries a register of its own.**
+- **One register per project, `roadwork/`, typically and optimally at the Project Root (i.e.the folder where Claude was started) — no path under the project carries a register of its own.**
+
   - Its top level is nine folders and two files, and nothing else:
     - `todo/`, `feature/`, `spark/` — the three sub-registers, where the work is.
     - `docs/`, `destinations/`, `maps/`, `guidebooks/`, `atlases/` — what outlasts any one item.
@@ -239,26 +238,19 @@ paths:
   - The back offers: up to five open lifecycle steps in flight, most recent first, read from the road plans at that moment, never from memory.
   - A spark's exit is conversion only, on the Operator's word.
 
-- **The externality standard**
-  - Two optional settings keys, both secrets: `notify-url` and `status-url`.
-  - Any credential the receiver wants rides inside the URL.
-  - `notify-url`: the address a notice of an externality is posted to.
-  - `status-url`: the address an item's externalities' state is read from.
-  - The notice: one `POST` to `notify-url` of the externality's record as JSON.
-  - The record has nine fields: `what`, `who-acts`, `how-observed`, `state` (`open` | `cleared`), `item` (the item's reference), `set-date`, `cleared-date` (ISO 8601 UTC, null while open), `cleared-words` (the Operator's words, null while open), `atlas` (the item's destination's atlas slug, `none` where none).
-  - It is sent once per Dependencies entry another party acts on when `/roadwork-specplan` sets the key on spec acceptance.
-  - It is sent once per entry when `/roadwork-make` clears it on the Operator's handled word, in the same act as the record line.
-  - The response's status code is read, and nothing else.
-  - A code outside 200–299, or no answer within the bounded wait, is a failure said in one line, never blocking.
-  - An empty `notify-url` means no notice, said in one line.
-  - The status read: one `GET` of `status-url` with `item=<ref>` appended, after `?`, or after `&` where the URL already carries a query.
-  - The answer is a JSON array of `{what, state}`, one per externality, matched to the item's Dependencies entries by `what`.
-  - The state is `unknown` on no answer, another form or a code outside 200–299, and `empty` on `[]`.
-  - An empty `status-url` means the Operator is asked.
-  - The callers: `/roadwork-specplan` on set; `/roadwork-make` at its start and on clear; `/roadwork-inventory` on its bare call; `/roadwork-verify-and-archive` in its evaluation.
-  - One script makes every call, `roadwork-config/scripts/externality.mjs` (`notify`, `status`).
-  - It is the one place the two URLs are read, and it prints neither; no other call.
-  
+Proposed rewrite. Nothing written; this is text for your word, and it lands on GitHub first when it does. One thing it changes beyond wording: the current rule calls the two URLs secrets and the config skill treats them as secrets (set by file or environment, never typed in chat); your point 5 reverses that, so the config skill's two rows and its secret-route paragraph would change with it.
+
+- **Externalities and their notices**
+  - An externality is a dependency of a work item that will not be met without something specific happening outside the project — e.g. an account opened, a key issued, a third party acting. A pause in the project's own course (a push, a merge, a fetch, a reboot) is never one.
+  - The spec names each externality as a Dependencies entry: what must be true, who acts, how its completion is observed. On spec acceptance the entry is written on the item: a `blocked-by` where another item acts, the `external` key where another party does. `/roadwork-make` refuses while the key is set; only the Operator clears it.
+  - An externality may be reported to a notification service: any receiver that accepts a webhook — an HTTP endpoint that takes a `POST` of a JSON record. The service is optional and is not part of Roadwork; the project chooses one, or none.
+- Four settings keys in the register's `config.json` name the service, all optional: `notify-url`, the address a notice is posted to; `status-url`, the address an item's externalities' state is read from; `notify-token` and `status-token`, the credential each address wants, sent as the header `Authorization: Bearer <token>` when set and omitted when empty. The URLs are public addresses, set with `/roadwork-config <key> <value>`; the tokens are secrets, set by the config skill's file or environment route and never typed in chat, printed or committed.
+  - Nothing is sent or read while a key is empty. An empty `notify-url` means no notice, said in one line. An empty `status-url` means the state is asked of the Operator.
+  - The notice: one `POST` to `notify-url`, the record as JSON. The record's nine fields: `what`, `who-acts`, `how-observed`, `state` (`open` | `cleared`), `item` (the item's reference), `set-date`, `cleared-date` (ISO 8601 UTC, null while open), `cleared-words` (the words that cleared it, null while open), `atlas` (the item's destination's atlas slug, `none` where none). Only the response's status code is read; a code outside 200–299, or no answer within a bounded wait, is a failure said in one line and blocks nothing.
+  - The status read: one `GET` of `status-url` with `item=<ref>` appended as a query parameter. The answer is a JSON array of `{what, state}`, one per externality, matched to the item's Dependencies entries by `what`. The state is `unknown` on no answer, another form or a code outside 200–299, and `empty` on `[]`.
+  - When each is made: the notice once per entry when `/roadwork-specplan` sets it on acceptance, and once per entry when `/roadwork-make` clears it; the status read by `/roadwork-make` at its start, by `/roadwork-inventory` on its bare call, and by `/roadwork-verify-and-archive` in its evaluation.
+  - How the call is made is the agent's choice — curl, a script, anything that speaks the wire above. The config skill ships `scripts/externality.mjs` (`notify`, `status`) as one way; no skill or gate requires it. The two URLs are read from the settings file by whatever makes the call and are not printed in replies or records.
+```
 
 ## Glossary
 
