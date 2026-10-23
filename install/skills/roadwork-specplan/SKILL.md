@@ -376,6 +376,8 @@ invoking it (every skill in the chain ends this way: Roadwork conventions).
 Directly above that offer, every area of concern its word settles is restated simply (reply-form rule).
 End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
 
+**Files the make will touch.** After the two documents and before the restatement and the offers, under the heading "Files the make will touch", one list: every existing file the make will change and every file it will create, one line each — the path, then in parentheses at most eight words, verb first, what is done to that file, never why. Drawn from the spec's Design, the plan's "touches:" clauses, the Stack's "Creates:" line and the files the gates' commands name; a file no document names by path is listed by its function, one line per file where the plan knows them one by one, one line for a group otherwise ("Script(s) to sort and merge the data"). Before printing, compare the list to the plan's lines: every path a "touches:" clause, the "Creates:" line or a gate's command names is in it. The list binds nothing and is printed, never written to a file; the make's hand-back and the archive round do not reprint it.
+
 After writing: no PR; the register's commits are local.
 
 ## Provenance
