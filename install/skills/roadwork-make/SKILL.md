@@ -123,6 +123,7 @@ passes, `--reverify` returned work, record evidence; an impossible gate is
 `ABANDON`ed with a reason, never deleted. Every commit lands where the
 plan says (the register locally; the project's batch branch;
 never a PR of its own). Update `working.md`'s "at" as gates are met.
+The builder's line, for a documentary item, in every builder's brief: a thing the referent carries that the document lacks is listed under "Proposed additions", never dropped — "adding would add a rule" is never a reason to leave it out.
 
 ## 3b. A cohortmeister's run
 
@@ -181,7 +182,7 @@ set), the build is orchestrated, not solo:
   invoked.
   Where the config key `versioned` is `yes` and `node <inventory>/scripts/unlanded.mjs` `--repo <name> --branch <branch>` prints an unlanded line for the branch the commits sit on, the line says `unpushed on <repo> <branch>` and the pull-request offer — `open the pull request for <repo> <branch>`, in the offer form with its O-number, the Operator's word for one merge handshake on that branch — is printed after the verify-and-archive offer, last of the hand-back's offers (a git-related offer is always the last in the list: Operator, 2026-10-15); the script reads local refs and fetches nothing.
 - **Anything else** (unmet, abandoned, awaiting an owner decision): a
-  handoff — the unmet and abandoned ids, what each needs, and who decides. Where a review gate names a demo, the demo is printed whole and verbatim, before the offer (reply-form rule).
+  handoff — the unmet and abandoned ids, what each needs, and who decides. Where a review gate names a demo, the demo is printed whole and verbatim, before the offer (reply-form rule). For a documentary item whose product existed before the build (a rewrite), the review gate's hand-back prints the whole document first, the diff after, then "Claims kept unchanged" — the document's lines the diff did not touch, as a list — then "Proposed additions": where the builder found the referent carries something the document does not name, one line each, for the Operator's word, each taken or struck. Every review-gate hand-back repeats the spec's `## Frozen parts` list verbatim under the words "Left unexamined".
   Offer nothing else; the item stays in process. Where the only unmet gates are the Operator's review gates, the one offer is `G<n> accepted and /roadwork-verify-and-archive <ref>` — several gates as `G<n> and G<m> accepted` — the acceptance recorded in the ledger as the Operator's, dated, before the archive skill runs. Directly above that offer, each gate its word accepts is restated simply (reply-form rule).
 
 Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
