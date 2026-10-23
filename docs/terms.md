@@ -7,7 +7,7 @@ _One row per term in the skills' glossaries, then one per git word the skills' t
 | the work-plans system | Roadwork | The work-plans system by 2nd Cortex Labs: the plans and the skills that work them. |
 | work-plans folder | Road plans | Your project's `roadwork/` folder, the one place its work is recorded; todos, features and sparks each in their own sub-folder. |
 | a work item | Item | One folder holding a todo or feature file plus its intent, plan and spec; a spark holds one idea file only. |
-| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of a remote, updated from it and never updating it. |
+| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of a remote, never updating it. |
 | an item's name-with-path | Reference (ref) | How an item is pointed at: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`, or `main/<kind>/<item-name>` from anywhere. |
 | the item's header keys | Frontmatter | The block at the top of an item file: blocker, blocking, blocked-by, external, group, in-process, disposition, road-level; a feature's onroad-cohort before the last. |
 | something out-of-band we wait on | External | A dependency that will not be met without something specific and out-of-band happening; a wait in the due course, such as a merge, is not one. The spec names it, one entry per act outside the project, never one per party or per service; the key records it; only you clear it; its observed-by test runs at acceptance and before a make, a command where one is written, your word where not. |

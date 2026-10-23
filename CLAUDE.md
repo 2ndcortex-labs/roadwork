@@ -13,7 +13,7 @@ plan with gates → `/roadwork-make` is the Operator's go and builds under `/unl
 → `/roadwork-verify-and-archive` archives. An accepted spec is not a go. One
 register per project, at the path the project's law names; no path under the
 project carries one of its own. This folder is a clone of a remote Roadwork
-repository: fetched from and merged, never pushed to, its commits local; the
+repository: never pushed to, its commits local; the
 remote ships the skeleton with its anchors, the docs, the rule and the skills,
 never a map and never an item. Roadwork register law: the rule
 `.claude/rules/roadwork-register.md`, the remote's.
