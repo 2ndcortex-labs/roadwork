@@ -4,8 +4,11 @@ description: Interviews the Operator on one item until nothing is assumed and wr
 when_to_use: Use when an item in todo/ or roadwork/ has no intent.md, has a placeholder one, or the user says /roadwork-intentify, "write the intent", "what do we actually want here".
 argument-hint: <ref>
 ---
-
 # roadwork-intentify — from a road plans item to its intent
+
+## Prerequisites
+
+- You should have the contents of roadwork-constitution.md in you working context. This file should have loaded from some level of .claude/rules/roadwork-constitution.md. If this file did not load you must notify the operator that this vital information was not loaded and you should refuse to execute this skill. You may advise the operator how to ensure the roadwork-constitution.md file automatically loads in your context.
 
 ## Purpose and deliverable
 
@@ -14,11 +17,12 @@ argument-hint: <ref>
   - `intent.md`.
   - `plan.md`.
   - `spec.md`.
-- For Roadwork conventions, consult this skill’s glossary and, in a workspace, its rules file as well.
+- For Roadwork conventions, lifecycle and glossary consult roadwork-constitution.md glossary.
 - This skill produces **`intent.md`**: the originator’s proto-spec, expressed in the originator’s own terms:
   - What is wanted.
   - Why it is wanted.
   - Under which constraints.
+  - etc.
 - The intent belongs to the user; finding the facts is your responsibility.
 - The accepted intent consists of frontmatter, a brief description, and mandated sections containing discrete bulleted facts:
   - Each bullet states a desired or required fact about the fulfilled embodiment of the intent.
@@ -39,7 +43,7 @@ argument-hint: <ref>
 - If asked to handle several items, conduct their interviews sequentially, never in parallel: the Operator can hold one design tree in their head, not five.
 - Read sparks in `roadwork/spark/` for crossings, but never interview them here:
   - `/roadwork-spark` gives sparks their one round.
-- In all text for the Operator, use the plain words from the register’s `docs/terms.md`:
+- In all text for the Operator, use the plain words from the roadwork-constitution.md
   - Each row contains the plain word, the agent’s word, and the meaning.
   - The agent’s words stay in the skill.
 
@@ -57,20 +61,20 @@ argument-hint: <ref>
   - Ask which item to use.
 - Asking which item to use is the only question permitted before reading.
 
-### Read the whole item folder
+### Read the whole item folder and current hierarchical context
 
 - Read the item file in this order:
-  - Its frontmatter first, including `blocked-by`, `blocking`, `external`, and `group`.
+  - Its frontmatter first, including `blocked-by`, `blocking`, `external`, `group`.
   - Its notes.
   - The filer’s reading.
   - Its “not decided” list, which is the prepared first round.
+- Critical; Determine the current hierarchical context as per the process in roadwork-constitution.md
 - Read any existing `intent.md`:
   - A placeholder or thin intent is the normal case.
 - Read any `plan.md` and `spec.md`.
 - Read everything the item cites, including:
   - Files.
   - Commits.
-  - Channel IDs.
   - Other items.
 
 ### Read the register and identify crossings
@@ -565,7 +569,7 @@ map: "<map-slug, when applicable>"
 referent: "<project-root-relative folder path or system name, when applicable>"
 ---
 
-<Brief description of what is wanted and why, in the originator's terms.>
+<Brief description of what is wanted and why, based upon the originator's terms.>
 
 ## Purpose and intended outcome
 
@@ -709,11 +713,5 @@ intent accepted <date>
 - When the Operator explicitly included `/roadwork-specplan <ref>` in their confirmation:
   - Follow that authorization.
   - Run the spec skill in the same turn after writing and accepting the intent.
-- After the offer, append the fact suffix:
-  - Use the clock.
-  - Follow the glossary’s **Fact suffix** entry.
-- Follow the glossary’s **Offer form** entry:
-  - Use a checkbox list where the harness has a question tool.
-  - Use blocks otherwise.
 
-  ### Present the back offers, and other offers as per roadwork-constitution.md
+  ### Present the back offers, other offers and possibly fact-suffix per roadwork-constitution.md
