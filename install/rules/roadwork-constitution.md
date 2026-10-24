@@ -1,5 +1,4 @@
 ---
----
 paths:
   - "**/roadwork-*/**"
   - "**/roadwork/**"
