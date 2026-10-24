@@ -5,6 +5,10 @@ when_to_use: Use when the user says /roadwork-ingest, "file a todo", "file a fea
 argument-hint: <notes> | spark/<item-name> [&& spark/<item-name> …]
 ---
 
+## Prerequisites
+
+- You should have the contents of roadwork-constitution.md in you working context. This file should have loaded from some level of .claude/rules/roadwork-constitution.md. If this file did not load you must notify the operator that this vital information was not loaded and you should refuse to execute this skill. You may advise the operator how to ensure the roadwork-constitution.md file automatically loads in your context.
+
 # roadwork-ingest — ingest an item
 
 Road plans are `roadwork/` with `todo/`, `feature/`, `spark/` (Roadwork conventions: roadwork-constitution.md including its glossary; This skill files a **todo** or a
