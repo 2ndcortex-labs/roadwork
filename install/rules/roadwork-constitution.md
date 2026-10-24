@@ -8,7 +8,7 @@ paths:
     - `todo/`, `feature/`, `spark/` — the three sub-registers, where the work is.
     - `docs/`, `destinations/`, `maps/`, `guidebooks/`, `atlases/` — what outlasts any one item.
     - `install/` — the skills and the rule as the clone brought them from the Roadwork home; a copy, not the register's, never written, never a source.
-      - `install/rules/` holds the rule, `install/rules/roadwork-register.md`.
+      - `install/rules/` holds the rule, `install/rules/roadwork-constitution.md`.
       - `install/skills/` holds one folder per skill, each with its `SKILL.md`: the `roadwork-` skills named under Naming, `install/skills/roadwork-make/` among them, and `install/skills/unlazy/`, the unlazy skill copied whole from its own repository, whose files `install/skills/unlazy/<name>` and folders `install/skills/unlazy/<name>/` are its own.
     - `ordering.md` and `working.md` — the order and the in-process list (their own bullet below); beside them the register's own files: `CLAUDE.md`, its anchor; `README.md`; `LICENSE`; `.gitignore`; and `config.json`, the settings file, ignored by git and never committed.
   - Every folder named here, and every `archive/` under one, carries an anchor `CLAUDE.md` saying what it holds and which bullet of this rule governs it.
