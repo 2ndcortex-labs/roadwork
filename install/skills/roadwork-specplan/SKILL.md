@@ -113,8 +113,10 @@ writing a line of spec, assemble the constraints that will bind it:
 - **The map**: when the item file carries a **Map:** line, read
   `maps/<map-slug>.md` in the register; the plan's steps follow its Process — a
   step that serves a Process step keeps that step's order and names it, a
-  step with no counterpart keeps its own place — and the plan names the
-  map's Stack. When the item names no map, say so in one line.
+  step with no counterpart keeps its own place — and the spec's Stack
+  section names the map's Stack section as its reference, the plan's
+  Invokes marks read against it (§2, §3). When the item names no map,
+  say so in one line.
 - **The referent**: when the item file carries a **Referent:** line, read it; a referent that resolves to a folder on disk from the project's root is a folder referent, named in the spec as a source by that path; any other is a named referent, and the spec names, per item, the listing the check reads for it (`--listing`); an item without the line has `Referent: none`.
 - **The standards**: when the settings file names `standards-folders` (`node <config skill>/scripts/config.mjs get standards-folders`, the config skill's read; empty where a project keeps none), read every file in every listed folder, subfolders included — coding standards, brand, styling and the like, in the project's own structure; a file that is not text (an image, a PDF) is named by path as present and not read; each file that bears on the work is a constraint on the spec, named under "Constraints applied" with the file's path and what it constrained; a listed folder that is empty or missing is said there in one line. The intent names the standards that bind; the spec inherits them and adds what the intent did not see.
 - **The codebase**: the files, configs, scripts and records the change
@@ -169,6 +171,10 @@ R<n> freezes <part>; left unexamined. <the reason, in the sentence after it>
 <what changes, where: files, folders, records, channels, configs; the
 shape of each change; interfaces touched; what is explicitly out>
 
+## Stack
+Reference: the map <map-slug>'s Stack section | the requirements file's Stack section (no map) | none (no map, no requirements file section)
+Changes of this spec: <its extensions or modifications of the reference> | none
+
 ## Constraints applied
 <each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained>
 
@@ -200,6 +206,16 @@ where the intent distinguishes, `(mandatory | preference | possibility |
 exclusion)`. Nothing is added silently: no scope, constraint,
 implementation choice, date, budget, responsibility or success measure
 the intent did not give, unless marked `[proposed]`. A Dependencies entry is tagged the same way.
+
+**The Stack section.** The Reference line names what the plan's marks
+are read against: the map's Stack section where the item carries a Map
+line (`maps/<map-slug>.md`), the destination's requirements file's Stack
+section where it carries none and
+`destinations/<destination-slug>.prd.md` has one, `none` where neither;
+the reference is read before the plan is drafted.
+`Changes of this spec:` carries the spec's own extensions or
+modifications of the reference, or `none`; the guidebook the reference
+copies from is never changed by them.
 
 **The optional eighth heading**,
 "Execution sequence, review points, handoffs", is written when the work has an order, a review point, or a
@@ -260,7 +276,10 @@ shows the requirement wrong, and each such line is marked
 **requirement change** for the Operator's acceptance; design, concerns,
 open questions and acceptance criteria may change freely. The rest of
 the file is written whole in the form above; the previous text is not
-kept — the register's history holds it. The Dependencies section is re-stated from the evidence since; a cleared or newly set `external` is cited in the changelog. Status: proposed.
+kept — the register's history holds it. The Dependencies section is
+re-stated from the evidence since; the Stack section is rewritten whole,
+its Reference as it reads then; a cleared or newly set `external` is
+cited in the changelog. Status: proposed.
 
 ## 3. Write `plan.md`
 
@@ -269,8 +288,10 @@ rewrite it with the same dated `## Reconsidered <date>` changelog at the
 top and **proven work kept proven**: every gate the item's `GATES.md`
 shows met is carried with its `EVIDENCE:` line intact and stays checked;
 only unmet or abandoned gates are rewritten; new gates are added as
-needed; the status line reads "reconsidered <date>; proposed". The plan
-is the spec's order of work and its evidence. Form:
+needed; the Stack section rewritten whole, its marks re-made against the
+spec's Reference as it reads then; the status line reads "reconsidered
+<date>; proposed". The plan is the spec's order of work and its
+evidence. Form:
 
 ```
 # Plan: <title>
@@ -284,8 +305,9 @@ Status: proposed. From: spec.md <date>. Runs under /unlazy.
 ## Stack
 Reuses: <the assets relied on, by path — a checker by path and its modes; or "none">
 Creates: <the assets written and where they live; or "none">
-Invokes: <the tools called — an MCP server, a CLI, a harness tool, a vendor's service; or "none">
-(An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — committable is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which.)
+Invokes: <the tools called — an MCP server, a CLI, a harness tool, a vendor's service — each followed by its mark: (preferred — <guidebook-slug>) | (preferred — the map's own) | (departure: <reason>) | (departure: the intent's — <where>) | (no preference stated); or "none">
+Changes of this plan: <its extensions or modifications of the spec's Stack reference> | none
+(An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — committable is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which. The marks are read against the spec's Stack Reference, on the Invokes line only: preferred — the reference names this tool for this purpose, from a guidebook's copied Stack section or from the map's own words; departure — the reference names another tool for the purpose and the plan calls this one, the reason given, proposed in the hand-back and decided by the acceptance; the intent's departure — the reference names another tool for the purpose and the intent's Constraints name this one, the Operator having asked for it, where, named in the hand-back and not proposed; no preference stated — the reference names nothing for the purpose, the reference is none, or no guidebook with a stack has been written; nothing is a departure where there was nothing to depart from. The tools on the Invokes line are separated by semicolons, each tool's mark the last parenthesis of its entry, a reason holding no semicolon. The plan carries no Reference line: the reference is the spec's.)
 
 ## Gates
 - [ ] G1: <outcome of step 1, observable>
@@ -336,7 +358,7 @@ its question, with the same brief. The five questions, verbatim:
 2. Honest oracles — can each CHECK actually fail? Name any oracle that cannot fail, any EXPECT that copies a supplied number, and any manual gate a command could decide.
 3. Order and landing — does each step need only earlier steps, and does every change land where the batching rule allows, nothing shipping alone? List the violations.
 4. Ownership and blockers — are the concerns that block the build named before step one, and does any step touch a path outside what the item owns, and is every Dependencies entry named before step one, as a dependency and not as an area of concern? List each.
-5. Stack — does the plan name every asset it reuses or creates and every tool it invokes, and is each one missing today a named dependency or item?
+5. Stack — does the plan name every asset it reuses or creates and every tool it invokes, and is each one missing today a named dependency or item, and is every tool on the Invokes line marked against the spec's Stack reference, every departure reasoned?
 
 Wait for all five; incorporate or reject each finding with a reason;
 record `## Verification round <date> (plan)` at the end of `plan.md` with
@@ -356,8 +378,10 @@ Order of operations: draft `spec.md` → gap round if needed → spec
 verification round → incorporate → hand back the spec; draft `plan.md` →
 plan verification round → incorporate → hand back both. The hand-back
 reports each round's finding count and how many were incorporated, and
-names every **requirement change** and every **proposed change to the
-intent** before the concerns. It repeats the spec's `## Frozen parts` list and the reality gate's allowed paths, each with its reason, verbatim under the words "Left unexamined". Readiness: drafted is not approved;
+names every **requirement change**, every **proposed change to the
+intent** and every **departure** the plan's Invokes line marks — a
+proposed decision, decided by the acceptance; one marked the intent's
+named, not proposed — before the concerns. It repeats the spec's `## Frozen parts` list and the reality gate's allowed paths, each with its reason, verbatim under the words "Left unexamined". Readiness: drafted is not approved;
 approved is not ready for execution; "Execution requires separate
 authorization."
 
