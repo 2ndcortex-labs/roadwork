@@ -76,7 +76,7 @@ in the Operator's words — never a skill name (Roadwork conventions) — four f
   7. `**The session agent's reading of the notes (the filer's; pending the
      Operator's correction).**` — what you take the notes to mean, in
      bullets, each claim traceable to a phrase in the notes or to a fact
-     you looked up (cite it). Never pass a reading off as the notes.
+     you looked up (cite it) ; a claim of means — a technology, a structure, a format, a command — is written only where the notes name it. Never pass a reading off as the notes.
   8. `**Not decided by this filing:**` — a numbered list (`1.`, `2.`, …):
      the open questions the notes leave, one per number, each with your
      own reading of the likely answer on the same line. This list is
