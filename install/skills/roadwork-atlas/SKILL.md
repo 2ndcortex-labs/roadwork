@@ -10,7 +10,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-atlas — an atlas, ingested from the Operator's three documents
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the Atlases bullet). An atlas is one folder, `atlases/<atlas-slug>/`, in the register's `atlases/`: the highest-order thing in the register, above the destination — what several destinations serve. It holds the Operator's three documents — `vision.md`, `intent.md`, `architecture.md` — verbatim, and one file this skill writes, `atlas.md`. A destination names the atlas it serves by its frontmatter key `atlas`, one atlas per destination, asked by `/roadwork-destination`; this skill never writes a destination. Ingest only: no interview and no update — a changed document is replaced by hand; a retired atlas moves whole to `atlases/archive/` by hand; there is no archive skill. The pages do not yet group destinations by atlas; that is a later item's. It suggests the atlas's destinations in `atlas.md` (§3b, §4b) and offers each as a destination interview; it never makes one.
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the Atlases bullet). An atlas is one folder, `atlases/<atlas-slug>/`, in the register's `atlases/`: the highest-order thing in the register, above the destination — what several destinations serve. It holds the Operator's three documents — `vision.md`, `intent.md`, `architecture.md` — verbatim, and one file this skill writes, `atlas.md`. A destination names the atlas it serves by its frontmatter key `atlas`, one atlas per destination, asked by `/roadwork-destination`; this skill never writes a destination. Ingest only: no interview and no update — a changed document is replaced by hand; a retired atlas moves whole to `atlases/archive/` by hand; there is no archive skill. The pages do not yet group destinations by atlas; that is a later item's. It suggests the atlas's destinations in `atlas.md` (§3b, §4b) and offers each as a destination interview; it never makes one.
 
 ## 1. Resolve the invocation
 
@@ -91,7 +91,7 @@ Then the listing offer, **O<n+1>** — "Typing this lists the destinations; upda
 /roadwork-destination
 ```
 
-Then the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+Then the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

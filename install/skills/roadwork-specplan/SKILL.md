@@ -12,7 +12,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 # roadwork-specplan — from an accepted intent to its spec and plan
 
 A road plans item is a folder of four files: the item (`todo.md` or
-`feature.md`), `intent.md`, `plan.md`, `spec.md` (Roadwork conventions: this skill's glossary; in a workspace, its rules file as well). `/roadwork-intentify` produces the intent. This
+`feature.md`), `intent.md`, `plan.md`, `spec.md` (Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary). `/roadwork-intentify` produces the intent. This
 skill takes an **accepted** intent and produces the other two:
 
 - **`spec.md`** — requirements and design: what exactly changes and how
@@ -402,7 +402,7 @@ built on "spec accepted" alone). End by offering the next step as one invocation
 — `spec accepted and /roadwork-make <ref>`, the acceptance and the go on one line, or `/roadwork-make <ref>` alone once the spec is accepted — as an offer, never by
 invoking it (every skill in the chain ends this way: Roadwork conventions).
 Directly above that offer, every area of concern its word settles is restated simply (reply-form rule).
-End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 **Files the make will touch.** After the two documents and before the restatement and the offers, under the heading "Files the make will touch", one list: every existing file the make will change and every file it will create, one line each — the path, then in parentheses at most eight words, verb first, what is done to that file, never why. The list is of the project's files the build changes or creates; the chain's own bookkeeping is left out — the item's folder and everything the lifecycle writes there (the item file, the spec's and plan's status lines, the ledger, `base.json`, the checker and its records), the register's `ordering.md` and `working.md`, and any folder a check makes outside the project; a product the build writes elsewhere in the register (a guidebook, a graduated document) is a project file and is listed. Where nothing remains, the list is the one line "none: the build writes only the chain's own records". Drawn from the spec's Design, the plan's "touches:" clauses, the Stack's "Creates:" line and the files the gates' commands name; a file no document names by path is listed by its function, one line per file where the plan knows them one by one, one line for a group otherwise ("Script(s) to sort and merge the data"). Before printing, compare the list to the plan's lines: every path a "touches:" clause, the "Creates:" line or a gate's command names is in it, the excluded bookkeeping apart. The list binds nothing and is printed, never written to a file; the make's hand-back and the archive round do not reprint it.
 

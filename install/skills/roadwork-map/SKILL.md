@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-map — a map, made with the Operator
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the
 Maps bullet). A map is one file, `maps/<destination-slug>.md`, in the register's
 `maps/`. It is the way to one destination, one map per destination: what
 process, what stack, what judgements, what inputs — and, most helpfully,
@@ -157,7 +157,7 @@ opening paragraph names —
 ```
 
 — else no offer. Then the back offers as `/roadwork-ingest` §5b computes
-them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

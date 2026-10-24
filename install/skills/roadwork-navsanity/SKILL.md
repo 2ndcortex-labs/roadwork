@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-navsanity — the thorough check of a group
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the Destinations
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the Destinations
 bullet). Takes one group name. Runs on any group — born of a destination by
 `/roadwork-nav-to-destination` or hand-made. "Sanity skill should be Thorough" (Operator,
 2026-09-10): every file, never a sample; report what is clean as well as
@@ -138,7 +138,7 @@ Reply with: the source; the six results in one line each; the changes
 made; what remains open. End with the offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked:
 `group is right and /roadwork-verify-and-archive todo/<group>-sanity` — the word recorded in the run's section before the archive skill runs — or, once said, `/roadwork-verify-and-archive todo/<group>-sanity` alone;
 otherwise the change awaiting their word or the next run; plus the
-top-most unblocked item in `ordering.md` with its skill. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+top-most unblocked item in `ordering.md` with its skill. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

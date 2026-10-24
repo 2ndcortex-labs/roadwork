@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-tasksplit — any document or list becomes a group of todos, verbatim
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well. `/roadwork-nav-to-destination`
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. `/roadwork-nav-to-destination`
 takes a product requirements document and makes features and todos with a
 sanity todo; this skill takes the small case — "similar to roadmap-prd,
 takes a list of tasks and creates a group of todos" (Operator, 2026-09-11) —
@@ -88,7 +88,7 @@ Reply with the group's name, the source's path, and every todo filed with
 its reference; say that the Operator may run `/roadwork-navsanity <group>`
 by hand later. End by offering the next step for the group's first todo —
 `/roadwork-intentify <ref>` — as one invocation in its own code block, preceded by its sentence (offer form), never
-invoked, then the back offers as `/roadwork-ingest` §5b computes them. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+invoked, then the back offers as `/roadwork-ingest` §5b computes them. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

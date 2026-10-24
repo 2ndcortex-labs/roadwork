@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-nav-to-destination — a destination becomes a trustworthy group of items
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the Destinations
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the Destinations
 bullet). Input: only a destination slug — the destination is
 `destinations/<destination-slug>.prd.md` in the register's
 `destinations/`, made by
@@ -50,7 +50,7 @@ requirement is one thing the programme must deliver or must not do.
 ## 2. Decompose
 
 One item per coherent deliverable: a new capability is a **feature**; a
-fix, chore, decision to take, or finding to trace is a **todo** (the road plans test (the glossary's **Road plans** entry): done once, or reused when built). For each
+fix, chore, decision to take, or finding to trace is a **todo** (the road plans test (the terms table's **Road plans** row): done once, or reused when built). For each
 item: title in the PRD's words, kind, the paths it is relevant to ("ord seeds
 whatever it is relevant to" — its Paths line, where the PRD names them), the requirement numbers it
 covers, and its dependencies on other items where the PRD's own ordering
@@ -138,7 +138,7 @@ block's place in `ordering.md`; the sanity todo's reference. End with the
 offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked: `/roadwork-navsanity <group>` (until that
 skill exists: the Operator reads the sanity todo and archives it by
 `/roadwork-verify-and-archive`), and the top-most unblocked item in `ordering.md` with its
-skill as the next logical item now. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+skill as the next logical item now. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 The specs this skill writes follow `/roadwork-specplan` §0a — the
 Operator's spec-writing guidelines — and get its verification rounds.

@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-intent-insights — what the day's interviews taught
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well. This skill sits beside the chain: it reads the day's interviews and writes what they teach into `docs/intent-insights.md` in the register, for `/roadwork-intentify` to read before its next read-back. It changes no skill and no item.
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill sits beside the chain: it reads the day's interviews and writes what they teach into `docs/intent-insights.md` in the register, for `/roadwork-intentify` to read before its next read-back. It changes no skill and no item.
 
 ## 1. Resolve the invocation
 

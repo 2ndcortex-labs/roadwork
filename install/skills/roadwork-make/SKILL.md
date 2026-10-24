@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-make — put one item in process and build it
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well. An accepted spec is
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. An accepted spec is
 not a go; this skill is. The acceptance may arrive on the invocation's line — `spec accepted and /roadwork-make <ref>` — and is recorded in `spec.md` and `plan.md`, dated, as the Operator's, before §1, with the Dependencies entries' keys written as the rule's Frontmatter bullet says — so §0 then reads them. It takes **one** reference (`todo/<item-name>`,
 `feature/<item-name>`, `main/<kind>/<item-name>`) and
 acts in the register. Never a group ("not accept a
@@ -189,7 +189,7 @@ set), the build is orchestrated, not solo:
   handoff — the unmet and abandoned ids, what each needs, and who decides. Where a review gate names a demo, the demo is printed whole and verbatim, before the offer (reply-form rule). For a documentary item whose product existed before the build (a rewrite), the review gate's hand-back prints the whole document first, the diff after, then "Claims kept unchanged" — the document's lines the diff did not touch, as a list — then "Proposed additions": where the builder found the referent carries something the document does not name, one line each, for the Operator's word, each taken or struck. Every review-gate hand-back repeats the spec's `## Frozen parts` list verbatim under the words "Left unexamined".
   Offer nothing else; the item stays in process. Where the only unmet gates are the Operator's review gates, the one offer is `G<n> accepted and /roadwork-verify-and-archive <ref>` — several gates as `G<n> and G<m> accepted` — the acceptance recorded in the ledger as the Operator's, dated, before the archive skill runs. Directly above that offer, each gate its word accepts is restated simply (reply-form rule).
 
-Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 
