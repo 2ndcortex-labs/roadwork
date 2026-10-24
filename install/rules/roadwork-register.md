@@ -8,17 +8,20 @@ paths:
     - `todo/`, `feature/`, `spark/` — the three sub-registers, where the work is.
     - `docs/`, `destinations/`, `maps/`, `guidebooks/`, `atlases/` — what outlasts any one item.
     - `install/` — the skills and the rule as the clone brought them from the Roadwork home; a copy, not the register's, never written, never a source.
-    - `ordering.md` and `working.md` — the order and the in-process list (their own bullet below).
+      - `install/rules/` holds the rule, `install/rules/roadwork-register.md`.
+      - `install/skills/` holds one folder per skill, each with its `SKILL.md`: the `roadwork-` skills named under Naming, `install/skills/roadwork-make/` among them, and `install/skills/unlazy/`, the unlazy skill copied whole from its own repository, whose files `install/skills/unlazy/<name>` and folders `install/skills/unlazy/<name>/` are its own.
+    - `ordering.md` and `working.md` — the order and the in-process list (their own bullet below); beside them the register's own files: `CLAUDE.md`, its anchor; `README.md`; `LICENSE`; `.gitignore`; and `config.json`, the settings file, ignored by git and never committed.
   - Every folder named here, and every `archive/` under one, carries an anchor `CLAUDE.md` saying what it holds and which bullet of this rule governs it.
+  - The anchors below the top are `todo/CLAUDE.md`, `todo/unnavigated/CLAUDE.md`, `feature/CLAUDE.md`, `feature/unnavigated/CLAUDE.md`, `spark/CLAUDE.md`, `docs/CLAUDE.md`, `docs/context/CLAUDE.md`, `destinations/CLAUDE.md`, `destinations/archive/CLAUDE.md`, `maps/CLAUDE.md`, `maps/archive/CLAUDE.md`, `guidebooks/CLAUDE.md`, `guidebooks/archive/CLAUDE.md`, `atlases/CLAUDE.md` and `atlases/archive/CLAUDE.md`.
 - **The three sub-registers.**
-  - `todo/`: fixes, chores, decisions to take, findings to trace; item file `todo.md`.
-  - `feature/`: new capabilities; item file `feature.md`.
-  - `spark/`: ideas for later, never worked; one folder per spark holding `idea.md` alone, no frontmatter; `spark/archive/` for the converted. A spark's only exit is conversion into a todo or a feature through `/roadwork-ingest`, on the Operator's word.
+  - `todo/`: fixes, chores, decisions to take, findings to trace; item file `todo.md`; one folder per destination, `todo/<destination-slug>/`.
+  - `feature/`: new capabilities; item file `feature.md`; one folder per destination, `feature/<destination-slug>/`.
+  - `spark/`: ideas for later, never worked; one folder per spark, `spark/<item-name>/`, holding `idea.md` alone, no frontmatter; `spark/archive/` for the converted, `spark/archive/<item-name>/`. A spark's only exit is conversion into a todo or a feature through `/roadwork-ingest`, on the Operator's word.
   - The test that tells a todo from a feature: a todo is done once and is then over; a feature is built once and reused when built. The Operator may name the kind against the test.
 - **Where a work item sits.**
   - Under its destination's folder: `todo/<destination-slug>/<item-name>/`, `feature/<destination-slug>/<item-name>/`.
-  - Under `unnavigated/` until a navigation cites it: `todo/unnavigated/<item-name>/`.
-  - Each destination's folder, and `unnavigated/`, has its own `archive/`, a sibling of its items; a finished item moves there whole.
+  - Under `unnavigated/` until a navigation cites it: `todo/unnavigated/<item-name>/`, `feature/unnavigated/<item-name>/`.
+  - Each destination's folder, and `unnavigated/`, has its own `archive/`, a sibling of its items; a finished item moves there whole: `todo/<destination-slug>/archive/<item-name>/`, `feature/<destination-slug>/archive/<item-name>/`, and the same under `unnavigated/`.
   - A navigation is made when a destination is established, not later; items filed before it stay in `unnavigated/` unless the navigation cites them, and the cited ones move under the destination's folder in the navigation's own act.
 - **The item name.**
   - Kebab-case, in the Operator's words, chosen when filed, never changed.
@@ -33,12 +36,12 @@ paths:
   - What the build leaves beside them — a checker, its records, logs, review material — is the item's: it stays in the folder, moves with it to the archive, and is never mistaken for a fifth file of record. Nothing else is written into an item folder.
   - No `specs/` folder anywhere; a spec lives only in its item.
 - **The five folders beside the work.**
-  - `docs/`: documents that outlast any one item. Fixed members: `teachme.md`, `terms.md`, `facts.md`; `context/`, the graduated specs, one `<item-name>.md` per item archived shipped, written by `/roadwork-verify-and-archive` and by nothing else; `local/`, instance material (the audit's instance-strings list), ignored by git; `<name>.source.md`, a document a tasksplit was made from.
+  - `docs/`: documents that outlast any one item. Fixed members: `docs/teachme.md`, `docs/terms.md`, `docs/facts.md`; `docs/context/`, the graduated specs, one `docs/context/<item-name>.md` per item archived shipped, written by `/roadwork-verify-and-archive` and by nothing else; `local/`, instance material (the audit's instance-strings list), ignored by git; `docs/<name>.source.md`, a document a tasksplit was made from.
   - `docs/terms.md`: one row per term in the skills' glossaries and one per git word the skills put in front of a person — the plain word, the agent's word, the meaning. Every glossary term has a row; `/roadwork-audit` is the check.
-  - `destinations/`: per destination `<destination-slug>.intent.md`, written first, and `<destination-slug>.prd.md`, written from it; `<destination-slug>.source.md` where a document was given. A destination is built when every item of it is archived; then all its files move together to `destinations/archive/`. Destinations made before the intent step have no intent file; the destination skill's update writes one.
-  - `maps/`: one `<destination-slug>.md` per destination, `<map-slug>.source.md` where a document was given; `maps/archive/` for the retired.
-  - `guidebooks/`: one `<guidebook-slug>.md`, `<guidebook-slug>.source.md` where a document was given; `guidebooks/archive/` for the retired.
-  - `atlases/`: one `<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired.
+  - `destinations/`: per destination `destinations/<destination-slug>.intent.md`, written first, and `destinations/<destination-slug>.prd.md`, written from it; `destinations/<destination-slug>.source.md` where a document was given. A destination is built when every item of it is archived; then all its files move together to `destinations/archive/`, as `destinations/archive/<destination-slug>.intent.md`, `destinations/archive/<destination-slug>.prd.md` and `destinations/archive/<destination-slug>.source.md`. Destinations made before the intent step have no intent file; the destination skill's update writes one.
+  - `maps/`: one `maps/<destination-slug>.md` per destination, `maps/<map-slug>.source.md` where a document was given; `maps/archive/` for the retired, as `maps/archive/<destination-slug>.md` and `maps/archive/<map-slug>.source.md`.
+  - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given; `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
+  - `atlases/`: one `atlases/<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired, as `atlases/archive/<atlas-slug>/`.
 - **The register.**
   - One per project, a clone of a remote Roadwork repository.
   - Never pushed to; its commits local.
@@ -128,13 +131,13 @@ paths:
     - `/roadwork-verify-and-archive` receives the Operator's word and writes the `disposition` key and the status line; a shipped spec it copies into `docs/context/<item-name>.md`.
     - `/roadwork-spark` receives an idea and writes `spark/<item-name>/idea.md` with its one round.
     - `/roadwork-tasksplit` receives a document and writes `docs/<name>.source.md` and one todo per unit.
-    - `/roadwork-destination` receives a description or a document and writes `destinations/<destination-slug>.intent.md` first, then `<destination-slug>.prd.md`; a document given is saved as `<destination-slug>.source.md`.
+    - `/roadwork-destination` receives a description or a document and writes `destinations/<destination-slug>.intent.md` first, then `destinations/<destination-slug>.prd.md`; a document given is saved as `destinations/<destination-slug>.source.md`.
     - `/roadwork-nav-to-destination` receives a destination and writes its items, the sanity todo last, and the `group` and `road-level` keys on each.
     - `/roadwork-navsanity` receives a group and writes a dated run section in the group's sanity todo.
     - `/roadwork-atlas` receives three documents and writes `atlases/<atlas-slug>/atlas.md` beside them, with the destinations it proposes.
-    - `/roadwork-map` receives a description or a document and writes `maps/<destination-slug>.md`; a document given is saved as `<map-slug>.source.md`.
-    - `/roadwork-guidebook` receives a description or a document and writes `guidebooks/<guidebook-slug>.md`; a document given is saved as `<guidebook-slug>.source.md`.
-    - `/roadwork-intent-insights` receives the day's interviews and writes a dated section in `docs/intent-insights.md`.
+    - `/roadwork-map` receives a description or a document and writes `maps/<destination-slug>.md`; a document given is saved as `maps/<map-slug>.source.md`.
+    - `/roadwork-guidebook` receives a description or a document and writes `guidebooks/<guidebook-slug>.md`; a document given is saved as `guidebooks/<guidebook-slug>.source.md`.
+    - `/roadwork-intent-insights` receives the day's interviews and writes a dated section in `docs/intent-insights.md` when first run and on every run after; the file exists once it has.
     - `/roadwork-audit` receives a document and a kind and writes a dated audit section on the item it names.
     - `/roadwork-config` receives a key and a value and writes the settings file, which is never committed.
     - `/roadwork-help` and `/roadwork-inventory` receive a question or nothing and write nothing.

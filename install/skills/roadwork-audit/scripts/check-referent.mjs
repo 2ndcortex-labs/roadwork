@@ -30,6 +30,19 @@ things are decided:
          last-segment span names that member but makes no folder's members
          tested. An unnamed member prints "omits <path>", a folder with a
          trailing slash.
+  kind   A span is a kind span when its first path segment is the
+         referent's name or a top-level member of the listing and one of its
+         segments holds a placeholder, <...> with no / inside; the referent's
+         name in front and trailing slashes are stripped, as for stale. It
+         names every listed member its shape fits: the same number of
+         segments, a segment without a placeholder matching literally, a
+         segment with one matching when each placeholder stands for one or
+         more characters other than / and the text around it is the same.
+         With a trailing slash it fits folders only, without one files only.
+         A member a kind span fits is named for the omission test, as by its
+         path, but makes no folder's members tested. A kind span that fits
+         nothing is not stale and prints nothing; a span with a placeholder
+         whose first segment is no top-level member names nothing.
 
   --document <file>    the document to check
   --referent <folder>  list the folder in-process, as list-referent.mjs does;
@@ -53,6 +66,7 @@ no credential; writes nothing.
 `;
 
 const reEscape = (s) => s.replace(/[.*+?^${}()|[\]\\/-]/g, '\\$&');
+const PLACEHOLDER = /<[^<>/]+>/;
 const lastSegment = (p) => p.slice(p.lastIndexOf('/') + 1);
 const parentOf = (p) => (p.includes('/') ? p.slice(0, p.lastIndexOf('/')) : '');
 
@@ -129,7 +143,26 @@ export function check({ documentText, listingText, name = null, allow = [] }) {
   const spans = [...new Set(backtickSpans(doc))];
   const spanNames = new Set(spans.map((s) => s.replace(/\/+$/, '')));
   const occurs = (p) => new RegExp('(?<![A-Za-z0-9_.\\-])' + reEscape(p) + '(?![A-Za-z0-9_\\-]|\\.[A-Za-z0-9])').test(doc);
-  const named = (p) => spanNames.has(lastSegment(p)) || occurs(p);
+
+  // The kind form: a span with a <...> placeholder segment names every member its shape fits.
+  const kindNamed = new Set();
+  for (const s of spans) {
+    const dir = /\/$/.test(s);
+    const segs = s.replace(/\/+$/, '').split('/');
+    const tries = [];
+    if (name !== null && segs[0] === name && segs.length > 1) tries.push(segs.slice(1));
+    if (topLevel.has(segs[0])) tries.push(segs);
+    for (const t of tries) {
+      if (!t.some((g) => PLACEHOLDER.test(g))) continue;
+      const res = t.map((g) => new RegExp('^' + g.split(PLACEHOLDER).map(reEscape).join('[^/]+') + '$'));
+      for (const e of entries) {
+        if (e.dir !== dir) continue;
+        const ps = e.p.split('/');
+        if (ps.length === res.length && res.every((re, i) => re.test(ps[i]))) kindNamed.add(e.p);
+      }
+    }
+  }
+  const named = (p) => spanNames.has(lastSegment(p)) || occurs(p) || kindNamed.has(p);
   const allowed = new Set(allow.map((a) => a.replace(/^\.\//, '').replace(/\/+$/, '')));
 
   const omits = [];
@@ -226,6 +259,27 @@ function buildFixture() {
   put(plain, '.gitignore', 'scratch/\n');
   put(plain, 'scratch/notes.txt', 'listed: no repository here\n');
   fs.mkdirSync(path.join(plain, 'empty'));
+  // The kinds fixture: a register whose variable members a document says by kind.
+  const kinds = path.join(dir, 'kinds');
+  put(kinds, '.git/HEAD', 'ref: refs/heads/main\n');
+  put(kinds, 'CLAUDE.md', 'The kinds fixture: members said by kind.\n');
+  put(kinds, 'items/first/item.md', '# First\n');
+  put(kinds, 'items/second/item.md', '# Second\n');
+  put(kinds, 'items/index', 'a file the folder kind does not name\n');
+  put(kinds, 'notes/alpha.md', '# Alpha\n');
+  put(kinds, 'notes/beta.md', '# Beta\n');
+  put(kinds, 'logs/2026-09.log', 'September\n');
+  put(kinds, 'logs/2026-10.log', 'October\n');
+  const kindsDoc = [
+    '# The kinds fixture',
+    '',
+    'The register keeps its law in `CLAUDE.md`.',
+    '',
+    '- `items/` holds one folder per item, `items/<n>/`, and the file `items/index`.',
+    '- `notes/` holds the notes, `notes/<name>.md`.',
+    '- `logs/` holds the monthly logs, `kinds/logs/<year>-<month>.log`.',
+    '',
+  ].join('\n');
   const full = [
     '# The fixture register',
     '',
@@ -243,9 +297,15 @@ function buildFixture() {
     full,
     missing: full.replace(' and its overview in `README.md`', ''),
     stale: full + '- `todo/missing-item/` was never filed; `register/docs/gone.md` was never written.\n',
+    kinds: kindsDoc,
+    'kinds-nofile': kindsDoc.replace(', and the file `items/index`', ''),
+    'kinds-empty': kindsDoc + '- `items/<n>/archive/` and `notes/<name>.txt` are kinds no member fits yet.\n',
+    'kinds-main': kindsDoc.replace('`notes/<name>.md`', '`main/notes/<name>.md`'),
+    'kinds-split': kindsDoc.replace('`notes/<name>.md`', '`notes/<na/me>.md`'),
+    'kinds-noslash': kindsDoc.replace('`items/<n>/`', '`items/<n>`'),
   };
   for (const [k, body] of Object.entries(docs)) fs.writeFileSync(path.join(dir, `doc-${k}.md`), body);
-  return { dir, ref, plain, doc: (k) => path.join(dir, `doc-${k}.md`) };
+  return { dir, ref, plain, kinds, doc: (k) => path.join(dir, `doc-${k}.md`) };
 }
 
 const EXPECTED_LISTING = [
@@ -348,6 +408,29 @@ export async function selftest(io = STDIO) {
     const l = listReferent(fx.plain);
     return (l.includes('dir scratch/\n') && l.includes('file scratch/notes.txt\n') && l.includes('dir empty/\n')) || JSON.stringify(l);
   });
+  const viaKinds = (doc) => run(main, ['--document', fx.doc(doc), '--referent', fx.kinds]);
+  const expect = async (doc, out, via = viaKinds) => {
+    const r = await via(doc);
+    return (r.code === (out === 'OK referent\n' ? 0 : 1) && r.out === out) || show(r);
+  };
+  await guard('control', 'a document naming the variable members by kind passes', () => expect('kinds', 'OK referent\n'));
+  await guard('control', 'a folder kind names no file of the same name', () =>
+    expect('kinds-nofile', 'omits items/index\nFAIL referent\n'));
+  await guard('control', 'an empty kind is not stale', () => expect('kinds-empty', 'OK referent\n'));
+  await guard('control', 'a kind span whose first segment is no top-level member names nothing', () =>
+    expect('kinds-main', 'omits notes/alpha.md\nomits notes/beta.md\nFAIL referent\n'));
+  await guard('control', 'the three existing documents give the same results as before', async () => {
+    const before = {
+      full: 'OK referent\n',
+      missing: 'omits README.md\nFAIL referent\n',
+      stale: 'stale register/docs/gone.md\nstale todo/missing-item/\nFAIL referent\n',
+    };
+    for (const [doc, out] of Object.entries(before)) {
+      const r = await expect(doc, out, viaReferent);
+      if (r !== true) return `${doc}: ${r}`;
+    }
+    return true;
+  });
 
   await guard('mutant', 'a member unnamed -> omits README.md', async () => {
     const r = await viaReferent('missing');
@@ -373,6 +456,16 @@ export async function selftest(io = STDIO) {
     const reordered = lines.join('\n');
     return (Buffer.compare(Buffer.from(reordered), Buffer.from(fresh)) !== 0 && !isSorted(reordered)) || 'the reordered listing passed';
   });
+  await guard('mutant', 'a member outside every kind -> omits <path>', async () => {
+    const file = path.join(fx.dir, 'referent-kinds.txt');
+    fs.writeFileSync(file, listReferent(fx.kinds) + 'file notes/extra.txt\n');
+    const r = await run(main, ['--document', fx.doc('kinds'), '--listing', file]);
+    return (r.code === 1 && r.out === 'omits notes/extra.txt\nFAIL referent\n') || show(r);
+  });
+  await guard('mutant', 'a placeholder written across two segments -> the members unnamed, omits', () =>
+    expect('kinds-split', 'omits notes/alpha.md\nomits notes/beta.md\nFAIL referent\n'));
+  await guard('mutant', 'a trailing slash dropped from a folder kind -> omits of the folders', () =>
+    expect('kinds-noslash', 'omits items/first/\nomits items/second/\nFAIL referent\n'));
 
   io.out(failed ? 'FAIL selftest\n' : 'OK selftest\n');
   return failed ? 1 : 0;
