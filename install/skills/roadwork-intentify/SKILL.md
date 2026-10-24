@@ -485,7 +485,7 @@ go with recos except:
 
 ### Confirm the complete shared understanding
 
-- Once the decision frontier is empty and every section is approved:
+- Once the decision frontier is empty and every section has been read back under Step 5:
   - Say so in one line.
   - Ask the user to confirm the complete shared understanding.
 - Offer each of these in its own block:
@@ -505,45 +505,12 @@ confirm
   - Then run the spec skill in the same turn.
 - **Do not write `intent.md` until the user confirms.**
 
-### Use the combined final-round offers only when approval is complete
+### Never offer confirmation beside an open round
 
-- If taking every recommendation in a round would empty the frontier, use the four-block closing below only when:
-  - Every section’s resulting facts have been read back.
-  - The response explicitly approves every affected section.
-  - No section remains awaiting approval.
-- Directly above the blocks:
-  - Restate each question of the round simply, following the reply-form rule.
-  - Present the affected sections’ resulting fact bullets so the Operator can approve the actual wording.
-- Close with these four blocks, in this order:
-
-```text
-go with recos and confirm
-```
-
-```text
-go with recos except:
-```
-
-```text
-go with recos
-```
-
-```text
-go with recos and confirm and /roadwork-specplan <ref>
-```
-
-- Make clear that the responses containing `confirm` also approve the presented section facts.
-- For a response containing confirmation:
-  - Write and accept the intent as on `confirm` alone.
-- For the response also containing `/roadwork-specplan <ref>`:
-  - Run the spec skill in the same turn after writing and accepting the intent.
-- If answered otherwise:
-  - Recompute the frontier.
-  - Obtain any outstanding section approvals.
-  - Continue to final confirmation.
-- If these conditions cannot be met in the round:
-  - Use the ordinary round offers.
-  - Complete section read-back before asking for final confirmation.
+- A round's closing is the two ordinary blocks of Step 3, `go with recos` and `go with recos except:`, and nothing more — even when taking every recommendation would empty the frontier.
+- The section read-back of Step 5 is its own message, sent only after the last round's answers are recorded in the item file; it never shares a message with an unanswered question, and its facts are built from recorded answers, never from recommendations not yet taken.
+- The section read-back message closes with three blocks, in this order: `confirm and /roadwork-specplan <ref>`, `confirm`, `sections except:`. `confirm` approves every section as read back and confirms the complete shared understanding in one word; `sections except:` takes the sections as read back but the bullets amended, added or struck after the colon, after which the changed sections are read back again with the same three blocks. These are Step 5's acceptance and modification blocks; no other word approves a section.
+- A message that carries a question carries no `confirm` block. The forms `go with recos and confirm` and `go with recos and confirm and /roadwork-specplan <ref>` are retired: a recommendation taken and a confirmation given are two answers to two messages.
 
 ## Step 7 — Write and accept `intent.md`
 
