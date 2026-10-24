@@ -2,7 +2,7 @@
 paths:
   - "**/roadwork-*/**"
 ---
-- **One register per project, `roadwork/`, typically and optimally at the Project Root (i.e.the folder where Claude was started) — no path under the project carries a register of its own.**
+- **One register per project, `roadwork/`, typically and optimally at the Project Root (i.e. the folder where Claude was started) — no path under the project carries a register of its own.**
 
   - Its top level is nine folders and two files, and nothing else:
     - `todo/`, `feature/`, `spark/` — the three sub-registers, where the work is.
