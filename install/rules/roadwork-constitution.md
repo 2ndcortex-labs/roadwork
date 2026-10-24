@@ -1,6 +1,8 @@
 ---
+---
 paths:
   - "**/roadwork-*/**"
+  - "**/roadwork/**"
 ---
 - **One register per project, `roadwork/`, typically and optimally at the Project Root (i.e. the folder where Claude was started) — no path under the project carries a register of its own.**
 
