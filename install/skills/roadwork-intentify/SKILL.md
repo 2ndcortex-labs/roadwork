@@ -395,13 +395,11 @@ go with recos except:
 
 - Include no:
   - Implementation or plan steps.
-  - Verification procedures.
+  - Verification procedures — "decided by one command" is one.
   - Change lists.
+  - Means: the technologies, structures, formats, file internals, tools or commands by which the outcome is made or checked, unless the Operator named one as a constraint in their own words; then it goes in Constraints, as the Operator's choice.
 - Those belong in `plan.md` and `spec.md`.
-- Include outcome-level constraints and evaluation requirements where applicable:
-  - A delivery deadline is an intent constraint.
-  - An observable success condition or required metric is an intent fact.
-  - A sequence of implementation or testing tasks is not.
+- Before any section is read back, test every constructed fact: does it say what is wanted, or how it is made or verified? A "how" fact is left out, whatever its source — an earlier answer, a recommendation taken, the filer's reading, a map — and the outcome it served is stated instead. A recommendation taken is the Operator's answer to the question asked, not their choice of means.
 
 ### Meet the section minimum without padding
 
