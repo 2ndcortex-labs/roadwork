@@ -380,7 +380,7 @@ paths:
 
 # Terms — the plain word, the agent's word, the meaning
 
-_One row per term in the skills' glossaries, then one per git word the skills' text puts in front of a person — those rows' meanings are plain git and have no home in the skills. The plain word is yours; the agent's word is the one in the skills' glossaries; the meaning is one line._
+- In all text for the Operator, use the plain words from the following terms table; (to maintain usage continuity)
 
 | Plain word | Agent's word | Meaning |
 |---|---|---|
