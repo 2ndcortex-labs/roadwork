@@ -100,7 +100,7 @@ Two messages. The first: the read-back's two questions — anything to add
 to the notes? any comments on the reading? — closed with `no, no` in its
 own block. The second, after the answer: the prepared questions the
 notes allow, each with a recommendation, in the roadwork-intentify round
-form, closed with three blocks in this order: `go with recos`; `go with
+form — a recommendation says what is wanted, never how it is made or checked: no technology, structure, format or command the notes did not name — closed with three blocks in this order: `go with recos`; `go with
 recos except:`; `go with recos and /roadwork-ingest spark/<item-name>` —
 for an idea that is work already.
 
