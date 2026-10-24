@@ -7,7 +7,7 @@ argument-hint: "[<notes> | spark/<item-name> to <destination-slug>]"
 
 ## Prerequisites
 
-- You should have the contents of roadwork-constitution.md in you working context. This file should have loaded from some level of .claude/rules/roadwork-constitution.md. If this file did not load you must notify the operator that this vital information was not loaded and you should refuse to execute this skill. You may advise the operator how to ensure the roadwork-constitution.md file automatically loads in your context.
+The constitution, `roadwork-constitution.md`, must be in the working context before this skill acts — the whole document, verbatim: its rule bullets, its guidance sections (the hierarchy, the offers, the back offers, the fact suffix, the externalities), its terms table and its glossary; a mention of the file, a summary of it, or a loaded fragment does not count. If it is not, find the file by walking up from the working directory: at each folder, look for `.claude/rules/roadwork-constitution.md`; stop at the first found, or at the filesystem root. Read that one file with the Read tool, once. If no folder on the way holds it, tell the Operator this vital information is missing and refuse to run this skill. Do not read it again in the same session unless a compaction has removed it or even altered it.
 
 # roadwork-spark — memorialize an idea
 
