@@ -22,7 +22,7 @@ built once and reused when built (a new capability) — and said in the reply
 with its reason in one clause ("done once" or "reused when built"). The
 notes may name the kind in plain words, any wording, no syntax; then that
 kind is filed, and when the test would have read it otherwise the reply
-says so in one clause. The kind is fixed at filing (Operator, 2026-09-15).
+says so in one clause. The kind is considered fixed at filing.
 
 ## 2. Refuse a duplicate
 
