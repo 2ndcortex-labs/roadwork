@@ -141,6 +141,114 @@ paths:
     - `/roadwork-audit` receives a document and a kind and writes a dated audit section on the item it names.
     - `/roadwork-config` receives a key and a value and writes the settings file, which is never committed.
     - `/roadwork-help` and `/roadwork-inventory` receive a question or nothing and write nothing.
+  
+- **Atlases.**
+  - An atlas is the highest-order thing in the register, above the destination.
+  - It is one folder, `atlases/<atlas-slug>/`.
+  - It holds the Operator's `vision.md`, `intent.md` and `architecture.md`, verbatim.
+  - It holds the skill's `atlas.md`: title, dated status, each document's source, a description derived from the vision and marked so.
+  - It is made by `/roadwork-atlas <atlas-slug> vision: … intent: … architecture: …` from documents by path, paste or URL.
+  - All three are required; nothing is written on a refusal.
+  - Bare, `/roadwork-atlas` lists the atlases with the destinations naming each.
+  - A destination names its atlas by the frontmatter key `atlas`: one atlas per destination, or empty.
+  - The key is asked by `/roadwork-destination`.
+  - The atlas skill suggests the atlas's destinations in `atlas.md`; a slug call derives them for an existing atlas.
+  - The atlas skill never writes a destination.
+  - No interview, no update: a changed document is replaced by hand.
+  - A retired atlas moves to `atlases/archive/` by hand.
+  
+- **Destinations.**
+  - A programme of work is a destination: two files in the register.
+  - Its intent, `destinations/<destination-slug>.intent.md`, in the item intent's form, interviewed and written first.
+  - Its product requirements document, `destinations/<destination-slug>.prd.md`, written from the intent.
+  - Both are made by `/roadwork-destination`.
+  - Bare, `/roadwork-destination` lists the destinations with their navigation state.
+  - `<new-slug> <description>`: an interview in `/roadwork-intentify`'s pattern, writing the intent and then the fixed form — a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section (the architecture read, the guidebooks drawn on, the changes to their stacks), numbered requirements, Out, Success.
+  - `<existing-slug>`: an update of both files — the intent revisited, a destination without one gaining it — with a dated changelog line.
+  - A pasted document or path: saved verbatim as `destinations/<destination-slug>.source.md`, then interviewed.
+  - `/roadwork-nav-to-destination <destination-slug>` (a slug only; anything else refused) turns it into a group.
+  - Every derived item cites the destination by path.
+  - Every derived item carries the line **Destination:** `<destination-slug>`: one destination per item, the group's; no frontmatter key.
+  - Every derived item carries the group `<destination-slug>-<YYYY-MM-DD>`.
+  - Every derived item is `blocked-by` the sanity todo `todo/<destination-slug>-sanity`, which the skill creates last.
+  - The sanity todo is the Operator's check of the decomposition and its completeness, worked by `/roadwork-navsanity`, archived on the Operator's word.
+  - Nothing in the group starts before that.
+  - A built destination's two files move to `destinations/archive/` by hand, together.
+  - `/roadwork-tasksplit <source>` is the small sibling: any document or list into a dated group of todos.
+  - One todo per unit the source delineates, the source's words verbatim.
+  - No sanity todo.
+
+- **Maps.**
+  - A map is the way to one destination, one map per destination: before agents, process, stack, judgements, inputs.
+  - One `maps/<destination-slug>.md` per map in the register, the destination's own slug, in the fixed form `/roadwork-map` writes; a map that keeps a name of its own, `the-lifecycle`, is the one exception.
+  - Bare, `/roadwork-map` lists the maps with the count of items naming each.
+  - `<destination-slug> <description>`: the interview; a slug that is not an open destination's, or whose destination already has a map, is refused.
+  - `<existing-slug>`: an update with a dated changelog line.
+  - A pasted document or path: saved verbatim as `maps/<destination-slug>.source.md`, then interviewed.
+  - An item names its map by one line, **Map:** `<map-slug>`, under its owner line: one map per item, no frontmatter key, the Referent line after it where one is named.
+  - The line is written by `/roadwork-intentify` when the Operator names one, or by `/roadwork-nav-to-destination` when the destination names one (its optional Map line, inherited by the group).
+  - `/roadwork-intentify` and `/roadwork-specplan` read the item's map.
+  - No skill enforces one.
+  - A retired map moves to `maps/archive/` by hand.
+  
+- **Naming.**
+  - Every roadwork register skill's name begins with `roadwork`: `roadwork-ingest`, `roadwork-spark`, `roadwork-destination`, `roadwork-nav-to-destination`, `roadwork-help`, `roadwork-map`, `roadwork-navsanity`, `roadwork-intentify`, `roadwork-specplan`, `roadwork-verify-and-archive`, `roadwork-tasksplit`, `roadwork-subagentifygroup`, `roadwork-atlas`, `roadwork-intent-insights`, `roadwork-audit`, `roadwork-config`, `roadwork-guidebook`, `roadwork-inventory`.
+  - Every lifecycle skill begins with `roadwork-`, the go included: `/roadwork-make`.
+  - `unlazy` is not one.
+- **Cohorts.**
+  - `/roadwork-subagentifygroup <group>` finds subgroups of a group's features that can be built in parallel by sub-agents.
+  - It finds them by a **rubric** every criterion of which must pass: no dependency edge between members, disjoint file ownership, accepted spec and plan with gates, no external and not in process, self-contained builds.
+  - The rubric is read back before any cohort is declared.
+  - Each cohort gets a **cohortmeister** `feature/cm-<group>-<cohort>`: a pseudo-feature the skill files itself, blocking every member.
+  - The cohortmeister's plan is unlazy's orchestrated PLAN form: one sub-agent per member, the CM's ledger as the results checker.
+  - `onroad-cohort` (features only) names the cohort.
+  - `/roadwork-make <CM>` runs the cohort.
+  - A member alone is refused unless the Operator says proceed: the **override**, unrecorded.
+  - A failed member **reverts** to standalone, with a dated note sending it through `/roadwork-specplan` again.
+  - `/roadwork-verify-and-archive <CM>` archives the met members with it: the **cascade**, members `shipped`, the CM `decided`.
+  - Cohorts sit last in the group's block.
+  - The skill sits after `/roadwork-nav-to-destination`, before `/roadwork-navsanity`, which checks cohorts.
+- **Lifecycle skills, in order:**
+  - `/roadwork-atlas` (three documents into an atlas, above a destination).
+  - `/roadwork-destination` (a destination: its intent and its product requirements document).
+  - `/roadwork-nav-to-destination <destination-slug>` (a destination into a group, a sanity todo last).
+  - `/roadwork-ingest` (ingest: kind decided, duplicates refused by judgment across the register, item placed in `ordering.md`; never archives an item — a converted spark's move into `spark/archive/` is its one archiving).
+  - `/roadwork-intentify <ref>` (read-back first — its four questions: the notes, the interpretation, the map, the referent — then the prepared round, then the design tree).
+  - `/roadwork-intentify` is roadwork-register-aware across the register and writes cross-notes and frontmatter into related items.
+  - `/roadwork-specplan <ref>` (`spec.md` with concerns first, `plan.md` with gates).
+  - On an existing accepted spec and plan, `/roadwork-specplan` runs a reconsideration: dated changelog, proven gates kept, the previous go ended, the spec proposed again.
+  - Every spec is written under the Operator's spec-writing guidelines, with tagged requirements and two verification rounds of fresh readers, one on the spec and one on the plan.
+  - `/roadwork-make <ref>` (the Operator's go: one item, refused while blocked).
+  - `/roadwork-make` writes `in-process`, the `working.md` line and the item's `GATES.md` from the plan, then builds under `/unlazy`.
+  - `/roadwork-verify-and-archive <ref>` (archiving: evaluates concerns, unmet gates and landing by ancestry, then interviews the Operator).
+  - On their word, the six-place act: resolution and `disposition`, move to `archive/`, strike from `ordering.md`, `working.md` and `in-process` cleared, dependents' `blocked-by` cleared.
+  - `/roadwork-verify-and-archive` then offers the next item, group first.
+  - Beside the chain, not a step: `/roadwork-help [<skill> | <ref> | <term>]` answers, and `/roadwork-intent-insights` learns from the day's interviews.
+  - `/roadwork-help` gives the overview with no argument, one thing with one.
+  - It reads live from `docs/teachme.md`, the glossaries and the register, and writes nothing.
+  - Each stops and hands back; none starts the next.
+  - An accepted spec is not a go: only `/roadwork-make` or the Operator's word is.
+  - **Every skill in the chain ends by offering the next logical skill and item**: the next step for this item, or, after archiving, the next item from `ordering.md`.
+  - It is an offer in one line, never an invocation.
+  - It is printed as the invocation itself, in its own fenced code block (three backticks, no language tag), so the Operator may copy and run it.
+  - Every offered block is preceded by one plain sentence naming the item, what is waiting on it, and what typing the block does.
+  - The state is folded into the sentence, never a heading.
+  - One sentence for a batch, every item named.
+  - Related offers combine into one invocation with the separator ` && `; the skill still never invokes it.
+  - The interrupting skills — `/roadwork-ingest`, `/roadwork-spark`, `/roadwork-verify-and-archive`, `/roadwork-specplan` — also end with the **back offers**, as do `/roadwork-atlas`, `/roadwork-destination`, `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-tasksplit`, `/roadwork-audit` and `/roadwork-intent-insights`.
+  - The back offers: up to five open lifecycle steps in flight, most recent first, read from the road plans at that moment, never from memory.
+  - A spark's exit is conversion only, on the Operator's word.
+
+- **Externalities and their notices**
+  - An externality is a dependency of a work item that will not be met without something specific happening outside the project — e.g. an account opened, a key issued, a third party acting. A pause in the project's own course (a push, a merge, a fetch, a reboot) is never one.
+  - The spec names each externality as a Dependencies entry: what must be true, who acts, how its completion is observed. On `/roadwork-specplan` spec acceptance the entry is written on the item: a `blocked-by` where another item acts, the `external` key where another party does. `/roadwork-make` refuses while the key is set; only the Operator clears it.
+  - An externality may be reported to a notification service: any receiver that accepts a webhook — an HTTP endpoint that takes a `POST` of a JSON record. The service is optional and is not part of Roadwork; the project chooses one, or none.
+ - Four settings keys in the register's `config.json` name the service, all optional: `notify-url`, the address a notice is posted to; `status-url`, the address an item's externalities' state is read from; `notify-token` and `status-token`, the credential each address wants, sent as the header `Authorization: Bearer <token>` when set and omitted when empty. The URLs are public addresses, set with `/roadwork-config <key> <value>`; the tokens are secrets, set by the config skill's file or environment route and never typed in chat, printed or committed.
+  - Nothing is sent or read while a key is empty. An empty `notify-url` means no notice, said in one line. An empty `status-url` means the state is asked of the Operator.
+  - The notice: one `POST` to `notify-url`, the record as JSON. The record's nine fields: `what`, `who-acts`, `how-observed`, `state` (`open` | `cleared`), `item` (the item's reference), `set-date`, `cleared-date` (ISO 8601 UTC, null while open), `cleared-words` (the words that cleared it, null while open), `atlas` (the item's destination's atlas slug, `none` where none). Only the response's status code is read; a code outside 200–299, or no answer within a bounded wait, is a failure said in one line and blocks nothing.
+  - The status read: one `GET` of `status-url` with `item=<ref>` appended as a query parameter. The answer is a JSON array of `{what, state}`, one per externality, matched to the item's Dependencies entries by `what`. The state is `unknown` on no answer, another form or a code outside 200–299, and `empty` on `[]`.
+  - When each is made: the notice once per entry when `/roadwork-specplan` sets it on acceptance, and once per entry when `/roadwork-make` clears it; the status read by `/roadwork-make` at its start, by `/roadwork-inventory` on its bare call, and by `/roadwork-verify-and-archive` in its evaluation.
+  - How the call is made is the agent's choice — curl, a script, anything that speaks the wire above. The config skill ships `scripts/externality.mjs` (`notify`, `status`) as one way; no skill or gate requires it. The two URLs are read from the settings file by whatever makes the call and are not printed in replies or records.
 
 ### N. Offers — the next step, the ways back, the batch
 
@@ -268,116 +376,7 @@ paths:
 6. Where the session knows of something to land, append the git offer(s) in their boxes, next ids. Otherwise none.
 7. Test every offer above against N.8; order the qualifying units so each unblocker runs before what it unblocks. Two or more: one box joined with ` && `, the last id. Fewer: the "No batch offer" sentence.
 8. Fact suffix if the minute is a multiple of six.
-9. On the Operator's reply: an id → the full box; run; record "typed as O<n>".    
-
-  
-- **Atlases.**
-  - An atlas is the highest-order thing in the register, above the destination.
-  - It is one folder, `atlases/<atlas-slug>/`.
-  - It holds the Operator's `vision.md`, `intent.md` and `architecture.md`, verbatim.
-  - It holds the skill's `atlas.md`: title, dated status, each document's source, a description derived from the vision and marked so.
-  - It is made by `/roadwork-atlas <atlas-slug> vision: … intent: … architecture: …` from documents by path, paste or URL.
-  - All three are required; nothing is written on a refusal.
-  - Bare, `/roadwork-atlas` lists the atlases with the destinations naming each.
-  - A destination names its atlas by the frontmatter key `atlas`: one atlas per destination, or empty.
-  - The key is asked by `/roadwork-destination`.
-  - The atlas skill suggests the atlas's destinations in `atlas.md`; a slug call derives them for an existing atlas.
-  - The atlas skill never writes a destination.
-  - No interview, no update: a changed document is replaced by hand.
-  - A retired atlas moves to `atlases/archive/` by hand.
-  
-- **Destinations.**
-  - A programme of work is a destination: two files in the register.
-  - Its intent, `destinations/<destination-slug>.intent.md`, in the item intent's form, interviewed and written first.
-  - Its product requirements document, `destinations/<destination-slug>.prd.md`, written from the intent.
-  - Both are made by `/roadwork-destination`.
-  - Bare, `/roadwork-destination` lists the destinations with their navigation state.
-  - `<new-slug> <description>`: an interview in `/roadwork-intentify`'s pattern, writing the intent and then the fixed form — a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section (the architecture read, the guidebooks drawn on, the changes to their stacks), numbered requirements, Out, Success.
-  - `<existing-slug>`: an update of both files — the intent revisited, a destination without one gaining it — with a dated changelog line.
-  - A pasted document or path: saved verbatim as `destinations/<destination-slug>.source.md`, then interviewed.
-  - `/roadwork-nav-to-destination <destination-slug>` (a slug only; anything else refused) turns it into a group.
-  - Every derived item cites the destination by path.
-  - Every derived item carries the line **Destination:** `<destination-slug>`: one destination per item, the group's; no frontmatter key.
-  - Every derived item carries the group `<destination-slug>-<YYYY-MM-DD>`.
-  - Every derived item is `blocked-by` the sanity todo `todo/<destination-slug>-sanity`, which the skill creates last.
-  - The sanity todo is the Operator's check of the decomposition and its completeness, worked by `/roadwork-navsanity`, archived on the Operator's word.
-  - Nothing in the group starts before that.
-  - A built destination's two files move to `destinations/archive/` by hand, together.
-  - `/roadwork-tasksplit <source>` is the small sibling: any document or list into a dated group of todos.
-  - One todo per unit the source delineates, the source's words verbatim.
-  - No sanity todo.
-
-- **Maps.**
-  - A map is the way to one destination, one map per destination: before agents, process, stack, judgements, inputs.
-  - One `maps/<destination-slug>.md` per map in the register, the destination's own slug, in the fixed form `/roadwork-map` writes; a map that keeps a name of its own, `the-lifecycle`, is the one exception.
-  - Bare, `/roadwork-map` lists the maps with the count of items naming each.
-  - `<destination-slug> <description>`: the interview; a slug that is not an open destination's, or whose destination already has a map, is refused.
-  - `<existing-slug>`: an update with a dated changelog line.
-  - A pasted document or path: saved verbatim as `maps/<destination-slug>.source.md`, then interviewed.
-  - An item names its map by one line, **Map:** `<map-slug>`, under its owner line: one map per item, no frontmatter key, the Referent line after it where one is named.
-  - The line is written by `/roadwork-intentify` when the Operator names one, or by `/roadwork-nav-to-destination` when the destination names one (its optional Map line, inherited by the group).
-  - `/roadwork-intentify` and `/roadwork-specplan` read the item's map.
-  - No skill enforces one.
-  - A retired map moves to `maps/archive/` by hand.
-  
-- **Naming.**
-  - Every roadwork register skill's name begins with `roadwork`: `roadwork-ingest`, `roadwork-spark`, `roadwork-destination`, `roadwork-nav-to-destination`, `roadwork-help`, `roadwork-map`, `roadwork-navsanity`, `roadwork-intentify`, `roadwork-specplan`, `roadwork-verify-and-archive`, `roadwork-tasksplit`, `roadwork-subagentifygroup`, `roadwork-atlas`, `roadwork-intent-insights`, `roadwork-audit`, `roadwork-config`, `roadwork-guidebook`, `roadwork-inventory`.
-  - Every lifecycle skill begins with `roadwork-`, the go included: `/roadwork-make`.
-  - `unlazy` is not one.
-- **Cohorts.**
-  - `/roadwork-subagentifygroup <group>` finds subgroups of a group's features that can be built in parallel by sub-agents.
-  - It finds them by a **rubric** every criterion of which must pass: no dependency edge between members, disjoint file ownership, accepted spec and plan with gates, no external and not in process, self-contained builds.
-  - The rubric is read back before any cohort is declared.
-  - Each cohort gets a **cohortmeister** `feature/cm-<group>-<cohort>`: a pseudo-feature the skill files itself, blocking every member.
-  - The cohortmeister's plan is unlazy's orchestrated PLAN form: one sub-agent per member, the CM's ledger as the results checker.
-  - `onroad-cohort` (features only) names the cohort.
-  - `/roadwork-make <CM>` runs the cohort.
-  - A member alone is refused unless the Operator says proceed: the **override**, unrecorded.
-  - A failed member **reverts** to standalone, with a dated note sending it through `/roadwork-specplan` again.
-  - `/roadwork-verify-and-archive <CM>` archives the met members with it: the **cascade**, members `shipped`, the CM `decided`.
-  - Cohorts sit last in the group's block.
-  - The skill sits after `/roadwork-nav-to-destination`, before `/roadwork-navsanity`, which checks cohorts.
-- **Lifecycle skills, in order:**
-  - `/roadwork-atlas` (three documents into an atlas, above a destination).
-  - `/roadwork-destination` (a destination: its intent and its product requirements document).
-  - `/roadwork-nav-to-destination <destination-slug>` (a destination into a group, a sanity todo last).
-  - `/roadwork-ingest` (ingest: kind decided, duplicates refused by judgment across the register, item placed in `ordering.md`; never archives an item — a converted spark's move into `spark/archive/` is its one archiving).
-  - `/roadwork-intentify <ref>` (read-back first — its four questions: the notes, the interpretation, the map, the referent — then the prepared round, then the design tree).
-  - `/roadwork-intentify` is roadwork-register-aware across the register and writes cross-notes and frontmatter into related items.
-  - `/roadwork-specplan <ref>` (`spec.md` with concerns first, `plan.md` with gates).
-  - On an existing accepted spec and plan, `/roadwork-specplan` runs a reconsideration: dated changelog, proven gates kept, the previous go ended, the spec proposed again.
-  - Every spec is written under the Operator's spec-writing guidelines, with tagged requirements and two verification rounds of fresh readers, one on the spec and one on the plan.
-  - `/roadwork-make <ref>` (the Operator's go: one item, refused while blocked).
-  - `/roadwork-make` writes `in-process`, the `working.md` line and the item's `GATES.md` from the plan, then builds under `/unlazy`.
-  - `/roadwork-verify-and-archive <ref>` (archiving: evaluates concerns, unmet gates and landing by ancestry, then interviews the Operator).
-  - On their word, the six-place act: resolution and `disposition`, move to `archive/`, strike from `ordering.md`, `working.md` and `in-process` cleared, dependents' `blocked-by` cleared.
-  - `/roadwork-verify-and-archive` then offers the next item, group first.
-  - Beside the chain, not a step: `/roadwork-help [<skill> | <ref> | <term>]` answers, and `/roadwork-intent-insights` learns from the day's interviews.
-  - `/roadwork-help` gives the overview with no argument, one thing with one.
-  - It reads live from `docs/teachme.md`, the glossaries and the register, and writes nothing.
-  - Each stops and hands back; none starts the next.
-  - An accepted spec is not a go: only `/roadwork-make` or the Operator's word is.
-  - **Every skill in the chain ends by offering the next logical skill and item**: the next step for this item, or, after archiving, the next item from `ordering.md`.
-  - It is an offer in one line, never an invocation.
-  - It is printed as the invocation itself, in its own fenced code block (three backticks, no language tag), so the Operator may copy and run it.
-  - Every offered block is preceded by one plain sentence naming the item, what is waiting on it, and what typing the block does.
-  - The state is folded into the sentence, never a heading.
-  - One sentence for a batch, every item named.
-  - Related offers combine into one invocation with the separator ` && `; the skill still never invokes it.
-  - The interrupting skills — `/roadwork-ingest`, `/roadwork-spark`, `/roadwork-verify-and-archive`, `/roadwork-specplan` — also end with the **back offers**, as do `/roadwork-atlas`, `/roadwork-destination`, `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-tasksplit`, `/roadwork-audit` and `/roadwork-intent-insights`.
-  - The back offers: up to five open lifecycle steps in flight, most recent first, read from the road plans at that moment, never from memory.
-  - A spark's exit is conversion only, on the Operator's word.
-
-- **Externalities and their notices**
-  - An externality is a dependency of a work item that will not be met without something specific happening outside the project — e.g. an account opened, a key issued, a third party acting. A pause in the project's own course (a push, a merge, a fetch, a reboot) is never one.
-  - The spec names each externality as a Dependencies entry: what must be true, who acts, how its completion is observed. On `/roadwork-specplan` spec acceptance the entry is written on the item: a `blocked-by` where another item acts, the `external` key where another party does. `/roadwork-make` refuses while the key is set; only the Operator clears it.
-  - An externality may be reported to a notification service: any receiver that accepts a webhook — an HTTP endpoint that takes a `POST` of a JSON record. The service is optional and is not part of Roadwork; the project chooses one, or none.
- - Four settings keys in the register's `config.json` name the service, all optional: `notify-url`, the address a notice is posted to; `status-url`, the address an item's externalities' state is read from; `notify-token` and `status-token`, the credential each address wants, sent as the header `Authorization: Bearer <token>` when set and omitted when empty. The URLs are public addresses, set with `/roadwork-config <key> <value>`; the tokens are secrets, set by the config skill's file or environment route and never typed in chat, printed or committed.
-  - Nothing is sent or read while a key is empty. An empty `notify-url` means no notice, said in one line. An empty `status-url` means the state is asked of the Operator.
-  - The notice: one `POST` to `notify-url`, the record as JSON. The record's nine fields: `what`, `who-acts`, `how-observed`, `state` (`open` | `cleared`), `item` (the item's reference), `set-date`, `cleared-date` (ISO 8601 UTC, null while open), `cleared-words` (the words that cleared it, null while open), `atlas` (the item's destination's atlas slug, `none` where none). Only the response's status code is read; a code outside 200–299, or no answer within a bounded wait, is a failure said in one line and blocks nothing.
-  - The status read: one `GET` of `status-url` with `item=<ref>` appended as a query parameter. The answer is a JSON array of `{what, state}`, one per externality, matched to the item's Dependencies entries by `what`. The state is `unknown` on no answer, another form or a code outside 200–299, and `empty` on `[]`.
-  - When each is made: the notice once per entry when `/roadwork-specplan` sets it on acceptance, and once per entry when `/roadwork-make` clears it; the status read by `/roadwork-make` at its start, by `/roadwork-inventory` on its bare call, and by `/roadwork-verify-and-archive` in its evaluation.
-  - How the call is made is the agent's choice — curl, a script, anything that speaks the wire above. The config skill ships `scripts/externality.mjs` (`notify`, `status`) as one way; no skill or gate requires it. The two URLs are read from the settings file by whatever makes the call and are not printed in replies or records.
+9. On the Operator's reply: an id → the full box; run; record "typed as O<n>".     
 
 ## Glossary
 
