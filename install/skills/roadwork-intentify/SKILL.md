@@ -461,8 +461,8 @@ go with recos except:
   - Allow additions or modifications through free text.
   - Present independent section approvals together where the tool supports them.
 - Otherwise, use the offer form:
-  - A sentence followed by an acceptance block.
-  - A sentence followed by a block for additions or modifications.
+  - A sentence followed by `confirm` (and, before it, `confirm and /roadwork-specplan <ref>`), the acceptance block.
+  - A sentence followed by `sections except:`, the modifications block — the three blocks as Step 6 names them.
 - Treat only an explicit answer as approval:
   - Never interpret silence as acceptance.
 
