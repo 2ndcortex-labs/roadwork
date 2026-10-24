@@ -142,6 +142,134 @@ paths:
     - `/roadwork-config` receives a key and a value and writes the settings file, which is never committed.
     - `/roadwork-help` and `/roadwork-inventory` receive a question or nothing and write nothing.
 
+### N. Offers — the next step, the ways back, the batch
+
+#### N.1 What this section is
+- Every final hand-back (i.e. when the instant skill functionality is complete) should end with one list of offers.
+- The list is read from the register at that moment, never from memory.
+- Printing the list runs nothing: an offer is a proposal the Operator may type; no skill, command or write happens until the Operator types it.
+- Three parts, fixed order:
+  1. The **next-step offer** the skill's own text mandates.
+  2. The **back offers**: the open lifecycle steps in flight.
+  3. Where the situation calls for one, a **git offer**; then one **batch offer**, or the sentence that none applies.
+- Every offer is printed in a code box.
+- Every offer carries an id.
+- An id typed alone is the Operator's word for its whole box.
+
+#### N.2 Form of an invocation
+- Order: skill first, then its input, then the word it waits on, if any.
+- Pattern: `/<skill> <ref> <word>`.
+- Examples:
+  - `/roadwork-make todo/x spec accepted`
+  - `/roadwork-verify-and-archive todo/x archive, shipped`
+- Several words for one invocation: joined with ` and ` after the input.
+  - `/roadwork-make todo/x G7 accepted and spec accepted`
+- The skill reads the words from its own invocation.
+- The skill records each word, dated, as the Operator's, before it acts.
+- A directive phrase that is not a skill keeps its own wording.
+
+#### N.3 Form of a batch (multi-invocation)
+- Invocations joined with ` && `.
+- Order: the order they run, left to right.
+- Each unit is one invocation of the N.2 form.
+  - `/roadwork-make todo/a spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
+- One box.
+- A unit's words bind to its own unit only.
+- The chain is the session agent's sequence; each unit is one skill call.
+- A skill that refuses batches still sees one reference.
+- A unit that stops for the Operator's word (a round, a review gate) ends the chain there.
+- The rest of the chain is re-offered in that hand-back.
+
+#### N.4 The code box
+- Every offer — next step, back, git, batch — is printed in its own fenced code box.
+- The box: a line of three backticks, no language tag; the offer's text alone; a line of three backticks.
+- Nothing else in the box.
+- One offer per box.
+- No offer is ever printed inline, indented or in prose.
+
+#### N.5 The next-step offer
+- Whatever the skill's text mandates.
+- This section never changes, adds to or reorders it.
+- Always O1.
+
+#### N.6 The back offers
+- **What qualifies:** the open items in flight, by the six states of `/roadwork-ingest` §5b:
+  - interview open
+  - intent accepted
+  - awaiting the go
+  - built, to be verified and archived
+  - archive interview open
+  - a spark's round open
+- **Excluded:** the instant item; the item O1 names.
+- **Order — navigation first, `ordering.md` second:**
+  - The Operator works one navigation at a time.
+  - First: items of the instant item's destination (the destination named on its item file; `unnavigated` counts as one).
+  - Then: the rest.
+  - Within each part: `ordering.md` position, top first.
+  - An item absent from `ordering.md` (a spark): last.
+- **Count:** following the next offer, at most 4 back offers, plus the git offer and the batch offer.
+
+#### N.7 The git offer
+- Situational: printed only when the session agent knows of something of this item's or the session's to land.
+  - an unlanded branch
+  - a pull request awaiting its merge
+  - a mirror waiting on a slot
+- Read from the records and the session, never assumed.
+- One box per thing.
+- Each box the phrase the procedure in force names.
+- Place: after the back offers, before the batch offer.
+- Nothing to land: no git offer and no sentence about it.
+
+#### N.8 The batch offer
+- **What it is:** one box joining, in run order, every offer above that can run through to its end without the Operator mid-run.
+- **A unit qualifies when all three hold:**
+  - it waits on no word, or its word is in the box;
+  - its item is not blocked at the moment the unit would run: `blocked-by` empty or naming only built items, `external` empty, no open cohort holding it;
+  - its skill would not refuse it at §0 for any other reason the agent can read now (a placeholder spec, `in-process` already set).
+- **Blocking across units:**
+  - A unit that clears another unit's block (a verify-and-archive of its blocker, a make that builds it) runs before the unit it unblocks; the box is ordered so.
+  - A unit still blocked after every unit before it has run is left out of the box and stays as its own offer above.
+  - A unit whose item would be blocked by a unit in the same box that has not yet run is placed after it, never before.
+- **Stopping:** a unit that stops for the Operator's word, or that a skill refuses when run, ends the chain there; the units after it are re-offered in that hand-back, nothing skipped silently.
+- **Omitted** when fewer than two units qualify, with one sentence:
+  - "No batch offer: every offer above waits on a word of its own."
+  - "No batch offer: the offers above block one another."
+  - or "No batch offer: one offer only."
+- The last offer; carries the last id.
+
+#### N.9 Ids
+- `O1`, `O2`, … in printing order.
+- One sequence per hand-back.
+- Bold, at the start of the sentence before the box.
+- The Operator may type the id alone.
+  - The agent reads it as the whole box, word and invocation together.
+  - The agent names the offer in full before acting.
+  - The agent records "typed as O<n>" with the verbatim box.
+- An id with text after it: that box with the text as completion.
+- Refused, with the offers re-listed:
+  - an id matching no offer of the last hand-back
+  - two ids in one message
+
+#### N.10 The sentence before each box
+- One sentence: the id in bold; "typing this …"; the parenthetical "(to …)" saying what will happen and or exist afterwards.
+- Then the box.
+- A word-bearing offer: its restatement bullet directly above its sentence (reply-form rule).
+
+#### N.11 The fact suffix
+- By the clock, after the last offer.
+- Never after `/roadwork-help`.
+
+#### N.12 Step by step
+1. Write the next-step offer the skill's text mandates, in its box. Id O1.
+2. Read `working.md` and every open item's four files and `GATES.md`; classify each into one of the six states or none.
+3. Drop the instant item and O1's item.
+4. Split: the instant item's destination first, the rest after; within each, `ordering.md` position; sparks last.
+5. Take the first four. Write each as `/<skill> <ref> <word>` in its box with its sentence; ids O2 onward.
+6. Where the session knows of something to land, append the git offer(s) in their boxes, next ids. Otherwise none.
+7. Test every offer above against N.8; order the qualifying units so each unblocker runs before what it unblocks. Two or more: one box joined with ` && `, the last id. Fewer: the "No batch offer" sentence.
+8. Fact suffix if the minute is a multiple of six.
+9. On the Operator's reply: an id → the full box; run; record "typed as O<n>".    
+
   
 - **Atlases.**
   - An atlas is the highest-order thing in the register, above the destination.
@@ -282,3 +410,4 @@ paths:
 - **Bare call** — a skill invoked with no argument lists instead of acting — `/roadwork-spark` the open sparks grouped for conversion, `/roadwork-destination` the destinations with their navigation state, `/roadwork-make` the make-eligible items with their goes and the ineligible with their reasons; a bare call writes nothing.
 - **Fact suffix** — after the last offer of a lifecycle hand-back, when the machine's minute is a multiple of six: two blank lines, then the title line "A 2ndcortex/roadwork system detail you should know about:" plain, then one fact from `docs/facts.md`, picked by the seconds modulo the count of its numbered facts — never a heading, then "Typing this explains it:" and `/roadwork-help <term>` in its own code block; never after `/roadwork-help`; no state, no script.
 - **Tasksplit** — `/roadwork-tasksplit <source>`: any document or list into a dated group of todos, one per unit the source delineates, the source's words verbatim and no reading added; no sanity todo, no cohort.
+- **Easteregg** — Always believe!
