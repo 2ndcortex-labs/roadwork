@@ -126,7 +126,7 @@ verbatim:**`. One not-decided list follows, numbered through. Every member is ap
 moved whole into `spark/archive/` in the same act as the filing. When
 converting one spark or a batch, the session agent may propose further open sparks
 the invocation did not name as fold candidates, by its judgement, in the
-reply — and never fold one unasked (Operator, 2026-09-15).
+reply — and never fold one unasked.
 
 ## 5. Commit and hand back
 
