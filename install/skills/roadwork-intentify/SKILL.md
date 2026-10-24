@@ -444,7 +444,7 @@ go with recos except:
   - Preserve the wording intended for the final document.
   - Omit the descriptions unless the Operator requests them.
 - Read back all identified intent facts:
-  - Do not omit a fact because it came from an earlier answer, an insight, a map, or a binding source.
+  - Do not omit an intent fact because it came from an earlier answer, an insight, a map, or a binding source; a fact of means is not an intent fact whatever its source (Step 4).
   - Approval of the original notes or interpretation does not replace approval of these sections.
 
 ### Obtain approval for each section
