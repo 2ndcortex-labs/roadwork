@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-guidebook — a guidebook, made with the Operator
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the
 Guidebooks bullet). A guidebook is one file, `guidebooks/<guidebook-slug>.md`,
 in the register's `guidebooks/`. It is a standardized knowledge base, broad
 in application: the standards that hold, the stack preferred and which
@@ -162,7 +162,7 @@ slug —
 ```
 
 — else no offer. Then the back offers as `/roadwork-ingest` §5b computes
-them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

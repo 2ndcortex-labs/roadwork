@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-spark — memorialize an idea
 
-Roadwork conventions: as per roadwork-constitution.md including its glossary. A spark is an
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. A spark is an
 idea, not work: `roadwork/spark/<item-name>/idea.md` and nothing else —
 "minimalistic, no frontmatter, designed to be a quick way to document
 ideas for later consideration" (Operator, 2026-09-10). "Nothing beyond
@@ -33,7 +33,7 @@ would become neither in process nor blocked by an open item, the most
 other items or sparks it would unblock or absorb — and give each group one
 line of reason.
 
-Print each group as: a line with the kind (todo or feature, by the road plans test (the glossary's **Road plans** entry)), a proposed
+Print each group as: a line with the kind (todo or feature, by the road plans test (the terms table's **Road plans** row)), a proposed
 item name in the Operator's words, and the reason; then one bullet per
 spark — its reference and a short description in the session agent's words, never
 the notes re-quoted; then one sentence, "Typing this converts these <n>

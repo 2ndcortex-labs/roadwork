@@ -17,7 +17,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
   - `intent.md`.
   - `plan.md`.
   - `spec.md`.
-- For Roadwork conventions, lifecycle and glossary consult roadwork-constitution.md glossary.
+- Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary.
 - This skill produces **`intent.md`**: the originator’s proto-spec, expressed in the originator’s own terms:
   - What is wanted.
   - Why it is wanted.

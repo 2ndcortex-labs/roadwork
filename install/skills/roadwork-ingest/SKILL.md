@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-ingest — ingest an item
 
-Road plans are `roadwork/` with `todo/`, `feature/`, `spark/` (Roadwork conventions: roadwork-constitution.md including its glossary; This skill files a **todo** or a
+Road plans are `roadwork/` with `todo/`, `feature/`, `spark/` (Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary). This skill files a **todo** or a
 **feature** from the Operator's notes. Sparks are `/roadwork-spark`'s;
 interviews are `/roadwork-intentify`'s; archiving is `/roadwork-verify-and-archive`'s. This skill ends
 when the item exists, is placed, and its first round is prepared.
@@ -20,7 +20,7 @@ when the item exists, is placed, and its first round is prepared.
 
 A batch (`ref && ref`) is refused here: one filing at a time — each item is its own folder and its own prepared round — except a **spark batch**: `spark/<a> && spark/<b> && …`, all in one home, which §4b converts into one item (Operator, 2026-09-15). Many todos from one source file through this form by `/roadwork-tasksplit`.
 
-Kind: decided by the session agent by the road plans test (the glossary's **Road plans** entry) — a todo is done once and is
+Kind: decided by the session agent by the road plans test (the terms table's **Road plans** row) — a todo is done once and is
 then over (a fix, chore, decision to take, finding to trace); a feature is
 built once and reused when built (a new capability) — and said in the reply
 with its reason in one clause ("done once" or "reused when built"). The
@@ -141,7 +141,7 @@ where the line landed in `ordering.md`, and the "not decided" list, numbered as 
 by offering the next step as one invocation in its own code block, preceded by its sentence (offer form) — `/roadwork-intentify <ref>`, which opens
 with the read-back — as an offer, never by invoking it (every skill in
 the chain ends this way: Roadwork conventions). Then the back offers
-of §5b, on their own lines after the next-step offer. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+of §5b, on their own lines after the next-step offer. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## 5b. Back offers
 

@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-destination — a destination, made with the Operator
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well (the
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the
 Destinations bullet). A destination is two files beside each other in the
 register's `destinations/`: `<destination-slug>.intent.md` — what is wanted
 and why, in the Operator's words, in the item intent's form (the form
@@ -219,7 +219,7 @@ Then, always, the navigation offer:
 ```
 
 Then the back offers as `/roadwork-ingest` §5b computes them — up to
-five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

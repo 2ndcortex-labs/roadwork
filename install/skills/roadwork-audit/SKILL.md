@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-audit — one document, five fresh readers, three kinds of audit
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well. This skill sits beside the lifecycle chain: it reads one document, dispatches readers, records their findings, and offers the work. It never edits the document it reads, never rules on a finding (the Operator does), and never runs a second round of readers on its own.
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill sits beside the lifecycle chain: it reads one document, dispatches readers, records their findings, and offers the work. It never edits the document it reads, never rules on a finding (the Operator does), and never runs a second round of readers on its own.
 
 ## 1. Invocation and kinds
 

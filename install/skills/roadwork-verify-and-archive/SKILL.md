@@ -11,7 +11,7 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-verify-and-archive — verify and archive one item
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well. Takes **one**
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. Takes **one**
 reference (`todo/<item-name>`, `feature/<item-name>`, `main/<kind>/<item-name>`)
 — or a **batch** of them, `<ref> && <ref>` (roadwork
 register rule) — and acts in the register. **Started or
@@ -111,7 +111,7 @@ with the skill that item is ready for (an item with a non-empty
 `/roadwork-specplan <ref>`; accepted spec → `/roadwork-make <ref>`; already in process
 → `/roadwork-verify-and-archive <ref>` when its gates are met. Say why the top of the list
 was skipped when it was. Offer only — never invoke.
-End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry).
+End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

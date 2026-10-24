@@ -11,11 +11,11 @@ The constitution, `roadwork-constitution.md`, must be in the working context bef
 
 # roadwork-help — the map, or one thing, read live
 
-Roadwork conventions: this skill's glossary; in a workspace, its rules file as well. This skill sits
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill sits
 beside the lifecycle chain, not in it: it never files, interviews,
 writes or builds. It reads and answers. Its sources are the teach-me
 (`docs/teachme.md` in the register),
-the glossary every lifecycle skill carries, and the register itself —
+the constitution's terms table and glossary (`roadwork-constitution.md`), and the register itself —
 read at the call, never from memory.
 
 ## 1. Resolve the argument
@@ -30,10 +30,10 @@ Read the argument in this order, first match wins:
   the item of §3.
 - **a skill name** — a folder of that name among the skills, with or
   without the leading `/`: the skill of §3.
-- **a term** — a glossary entry of that name (case-insensitive) in the
-  lifecycle skills' glossary: the term of §3.
+- **a term** — a glossary entry or a terms-table row of that name (case-insensitive)
+  in the constitution: the term of §3.
 - **anything else** — one line: "not found: `<argument>` is not a
-  reference, a skill or a glossary term", then what this skill takes,
+  reference, a skill or a term", then what this skill takes,
   then stop.
 
 ## 2. The map
@@ -55,7 +55,7 @@ or the skill's own description line, read at the call.
   `in-process`, the gates met per `GATES.md` when one exists, what blocks
   it — and the next skill it is ready for, by the states of
   `/roadwork-ingest` §5b; read from the item's files.
-- **A term**: the glossary entry, verbatim, and the teach-me's paragraph
+- **A term**: the glossary entry or the terms-table row, verbatim, and the teach-me's paragraph
   that explains it, when one does.
 
 Say "not found" as §1 when the item, skill or term does not exist; never
@@ -65,7 +65,7 @@ invent a state.
 
 Every answer names the file it was read from, in one trailing line
 ("read from: …"). The teach-me is read from the register's `docs/`
-(`docs/teachme.md`); the glossary from the skill's own file; an item from
+(`docs/teachme.md`); a term from the constitution, `roadwork-constitution.md`; an item from
 its folder; a skill from its `SKILL.md`. Nothing is answered from what
 the session agent remembers.
 
@@ -74,7 +74,7 @@ the session agent remembers.
 Writes nothing — no file, no line in any register. When the argument was
 an item, end with one offer, the next skill that item is ready for, as
 one invocation in its own code block preceded by its sentence (offer
-form), never invoked. Otherwise no offer. As a checkbox list where the harness has a question tool, blocks otherwise (the glossary's **Offer form** entry). No back offers: this skill
+form), never invoked. Otherwise no offer. As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row). No back offers: this skill
 interrupts nothing.
 
 ## Never
