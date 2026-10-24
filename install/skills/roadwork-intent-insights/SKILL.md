@@ -29,7 +29,7 @@ From the records, what they teach about how the Operator decides: a recommendati
 
 ## 4. The confirm
 
-Print the day's section whole — `## <date>` and its bullets — then the round's three blocks as `/roadwork-intentify` §2 closes a round: `go with recos and confirm` writes it; `go with recos except:` takes the bullets as they stand but the ones amended or struck after the colon, then asks again; `go with recos` settles the bullets and writes nothing. A day already in the document is refused with one line before anything is distilled; nothing is written, nothing rewritten.
+Print the day's section whole — `## <date>` and its bullets — then this skill's three blocks, in this order: `go with recos and confirm` writes it; `go with recos except:` takes the bullets as they stand but the ones amended or struck after the colon, then asks again; `go with recos` settles the bullets and writes nothing.
 
 ## 5. Write and commit
 
