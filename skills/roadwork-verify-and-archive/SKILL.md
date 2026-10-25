@@ -44,7 +44,7 @@ Read the item folder whole. Produce a numbered list of findings:
   and every open question in `intent.md` or `spec.md` still open.
 - **Gates:** every gate in `GATES.md` not met or abandoned, from
   `gate-check --status` (never from the checkboxes alone); if no
-  `GATES.md` exists, say the item was never built here. A review gate accepted on the invocation's line (`G<n> accepted and …`) is recorded met in `GATES.md` first, its EVIDENCE the Operator's word, dated.
+  `GATES.md` exists, say the item was never built here. A review gate accepted on the invocation's line (`… given G<n> accepted`) is recorded met in `GATES.md` first, its EVIDENCE the Operator's word, dated.
 - **Landing:** for every tracked change the item names (branch commits at
   any path it names), fetch that path's `origin/main` and test
   `git merge-base --is-ancestor <commit> origin/main`. Report each as

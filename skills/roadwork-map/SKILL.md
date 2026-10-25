@@ -84,7 +84,7 @@ the decisions the Operator's. The root branches for a map:
 - **Crossings** — open items, destinations and other maps this one
   touches; read, never written into.
 
-Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `confirm and /roadwork-intentify <ref>` in its own block — the reference §6 would offer — and `confirm` in another, or `confirm` alone when §6 would offer none; on the pair, write the file as on `confirm` alone, then run the interview skill in the same turn.
+Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `/roadwork-intentify <ref> given confirm` in its own block — the reference §6 would offer — and `confirm` in another, or `confirm` alone when §6 would offer none; on the pair, write the file as on `confirm` alone, then run the interview skill in the same turn.
 Do not write the file until they confirm.
 
 ## 4. Write the map — the fixed form

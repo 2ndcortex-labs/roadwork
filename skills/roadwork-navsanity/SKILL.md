@@ -99,7 +99,7 @@ itself is yours):
 ## 4. Ten checkup questions — one round
 
 Put these to the Operator in the roadwork-intentify round form, closed as `/roadwork-intentify` §2 closes a round, each with the
-relevant findings attached and a recommendation, closed after the questions with three blocks in this order: `go with recos` — every recommendation taken; `go with recos except:` — the questions that differ answered after the colon; `go with recos and group is right and /roadwork-verify-and-archive todo/<group>-sanity` — every recommendation taken, the group right, the sanity todo archived in the same turn; the pieces are the ten answers by number, typed, no block — then **wait**:
+relevant findings attached and a recommendation, closed after the questions with three blocks in this order: `go with recos` — every recommendation taken; `go with recos except:` — the questions that differ answered after the colon; `/roadwork-verify-and-archive todo/<group>-sanity given go with recos and group is right` — every recommendation taken, the group right, the sanity todo archived in the same turn; the pieces are the ten answers by number, typed, no block — then **wait**:
 
 1. Does the group cover everything the source asks, or is something
    missing?
@@ -149,7 +149,7 @@ Commit in the register (its commits local).
 
 Reply with: the source; the six results in one line each; the changes
 made; what remains open. End with the offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked:
-`group is right and /roadwork-verify-and-archive todo/<group>-sanity` — the word recorded in the run's section before the archive skill runs — or, once said, `/roadwork-verify-and-archive todo/<group>-sanity` alone;
+`/roadwork-verify-and-archive todo/<group>-sanity given group is right` — the word recorded in the run's section before the archive skill runs — or, once said, `/roadwork-verify-and-archive todo/<group>-sanity` alone;
 otherwise the change awaiting their word or the next run; plus the
 top-most unblocked item in `ordering.md` with its skill. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 

@@ -283,22 +283,27 @@ paths:
 - An id typed alone is the Operator's word for its whole box.
 
 #### N.2 Form of an invocation
-- Order: skill first, then its input, then the word it waits on, if any.
-- Pattern: `/<skill> <ref> <word>`.
+- Order: skill first, then its input, then the words, if any.
+- Pattern: `/<skill> <ref> [<own word>] [given <prior word>]`.
+- Two kinds of word, told apart by whose record they change:
+  - The skill's **own word**: one its own text asks for and records — `archive, shipped`, `go with recos`, `confirm` to the interview that is running, `D1 handled: …`. It follows the input directly.
+  - A **prior word**: an earlier step's acceptance the Operator gives on the same line — `spec accepted` (the spec skill's product), `G<n> accepted` (the ledger's gate), `confirm` to the interview that offered this skill, `group is right` (the sanity run's). It follows the input, or the own word, after ` given `.
+- A word the skill does not own never follows the input bare: `given` says the word is the step before's, not the skill's argument.
 - Examples:
-  - `/roadwork-make todo/x spec accepted`
-  - `/roadwork-verify-and-archive todo/x archive, shipped`
-- Several words for one invocation: joined with ` and ` after the input.
-  - `/roadwork-make todo/x G7 accepted and spec accepted`
-- The skill reads the words from its own invocation.
-- The skill records each word, dated, as the Operator's, before it acts.
-- A directive phrase that is not a skill keeps its own wording.
+  - `/roadwork-verify-and-archive todo/x archive, shipped` — the own word
+  - `/roadwork-make todo/x given spec accepted` — a prior word
+  - `/roadwork-verify-and-archive todo/x archive, shipped given G10 accepted` — both
+- Several words of one kind: joined with ` and `.
+  - `/roadwork-make todo/x given G7 accepted and spec accepted`
+- The skill reads every word from its own invocation.
+- A prior word the skill records where it belongs — the spec, the ledger, the intent, the run's section — dated, as the Operator's, before it acts, exactly as the step that asked for it would have; an own word as its own text says.
+- A directive phrase that is not a skill keeps its own wording; a prior word rides it the same way, after ` given `.
 
 #### N.3 Form of a batch (multi-invocation)
 - Invocations joined with ` && `.
 - Order: the order they run, left to right.
 - Each unit is one invocation of the N.2 form.
-  - `/roadwork-make todo/a spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
+  - `/roadwork-make todo/a given spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
 - One box.
 - A unit's words bind to its own unit only.
 - The chain is the session agent's sequence; each unit is one skill call.
@@ -391,7 +396,7 @@ paths:
 2. Read `working.md` and every open item's four files and `GATES.md`; classify each into one of the six states or none.
 3. Drop the instant item and O1's item.
 4. Split: the instant item's destination first, the rest after; within each, `ordering.md` position; sparks last.
-5. Take the first four. Write each as `/<skill> <ref> <word>` in its box with its sentence; ids O2 onward.
+5. Take the first four. Write each as `/<skill> <ref> [<own word>] [given <prior word>]` in its box with its sentence; ids O2 onward.
 6. Where the session knows of something to land, append the git offer(s) in their boxes, next ids. Otherwise none.
 7. Test every offer above against N.8; order the qualifying units so each unblocker runs before what it unblocks. Two or more: one box joined with ` && `, the last id. Fewer: the "No batch offer" sentence.
 8. Fact suffix if the minute is a multiple of six.
@@ -448,7 +453,7 @@ paths:
 | the item's folder name | Item name | The kebab-case name chosen when the item is filed, in your words, never reused. |
 | several at once | Batch invocation | Several references on one line joined with ` && `, run as one command where the skill allows it. Nothing to do with a shipment (Batch): this batch is of references. |
 | a list-only call | Bare call | A skill typed with nothing after it lists instead of acting and writes nothing; the help skill prints its overview, the config skill asks its empty keys. |
-| how offers look | Offer form | Anything you are invited to type is printed in its own code box with one sentence saying what typing it does, or offered as a choice to tick; a document you are asked to accept is printed whole before its offer. |
+| how offers look | Offer form | Anything you are invited to type is printed in its own code box with one sentence saying what typing it does, or offered as a choice to tick; a document you are asked to accept is printed whole before its offer; a word of the step before rides the invocation after `given`. |
 | the fact at the end | Fact suffix | Now and then a hand-back ends with one fact about the system and a box holding the command that explains it. |
 | a list into todos | Tasksplit | Any document or list turned into a dated group of todos, one per unit, the source's words kept. |
 | your notes, word for word | Notes verbatim | Your words quoted exactly under a dated heading, never paraphrased; the agent's reading is marked as its own. |

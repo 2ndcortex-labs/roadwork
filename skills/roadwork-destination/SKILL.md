@@ -126,7 +126,7 @@ branches for a destination, in that order:
 - **Map** — is a map wanted for this destination? "no" always an answer.
   A yes makes no map here: §6 offers `/roadwork-map <destination-slug>`.
 
-Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `confirm and /roadwork-nav-to-destination <destination-slug>` in its own block and `confirm` in another; on the pair, write both files as on `confirm` alone, then run the navigation skill in the same turn.
+Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `/roadwork-nav-to-destination <destination-slug> given confirm` in its own block and `confirm` in another; on the pair, write both files as on `confirm` alone, then run the navigation skill in the same turn.
 Do not write either file until they confirm.
 
 ## 4. Write the destination — two files, the fixed forms

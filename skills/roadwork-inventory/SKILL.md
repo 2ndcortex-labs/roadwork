@@ -59,14 +59,14 @@ or, when a block follows it (the next step, inline, below), ``- **O<k>** `<ref>`
 
 An item in process is shown in place under its destination, not pulled out. An open item with no line in `ordering.md` prints last in its block, its first line ending ` · not in the ordering`. A destination navigated but with no open item prints one bullet, **no open items**; one not yet navigated prints nothing under its line.
 
-**The next step, inline.** Directly under the second line of each work item whose next step can run now, one fenced code block (three backticks, no language tag) holding that item's next-step invocation, or the Operator's word and the invocation together, and nothing else, its three lines indented two spaces so the bullet list continues through it. The next step by the state clause, the same reading the back offers use:
+**The next step, inline.** Directly under the second line of each work item whose next step can run now, one fenced code block (three backticks, no language tag) holding that item's next-step invocation, or the invocation with the Operator's word after `given`, and nothing else, its three lines indented two spaces so the bullet list continues through it. The next step by the state clause, the same reading the back offers use:
 
 - **awaits interview** → `/roadwork-intentify <ref>`
 - **intent drafted, not accepted** → `/roadwork-intentify <ref>`
 - **intent accepted** → `/roadwork-specplan <ref>`
 - **awaits the go** → `/roadwork-make <ref>`
 - **in process, all gates met** → `/roadwork-verify-and-archive <ref>`
-- **in process at G<n>**, the gate the Operator approves (its `APPROVER:` line in `GATES.md` naming the Operator; a manual gate without one, or a command gate, is not) → `G<n> accepted and <next step>` — several of the Operator's gates unmet in a run, `G<n> and G<m> accepted`; the next step the make hand-back's reading: `open the pull request for <repo> <branch>` where the item's `base.json` names a branch the Not yet landed block prints, `/roadwork-verify-and-archive <ref>` where no unmet gate follows the run, no block where neither holds
+- **in process at G<n>**, the gate the Operator approves (its `APPROVER:` line in `GATES.md` naming the Operator; a manual gate without one, or a command gate, is not) → `<next step> given G<n> accepted` — several of the Operator's gates unmet in a run, `given G<n> and G<m> accepted`; the next step the make hand-back's reading: `open the pull request for <repo> <branch>` where the item's `base.json` names a branch the Not yet landed block prints, `/roadwork-verify-and-archive <ref>` where no unmet gate follows the run, no block where neither holds
 
 A line whose clause is **in process at G<n>** at a gate the Operator does not approve, **in process, no ledger**, **external: …** or **awaits the go · blocked by …** carries no block, its state clause standing alone; a blocked line at any earlier lifecycle state carries the block that state gives, the blocked clause after the bold state; a line whose clause is none of those listed carries no block; **not in the ordering** is a placement, not a state, so such a line carries the block its state gives. Every bullet that carries a block opens with its id, `O1`, `O2`, … in printing order across the whole page, one sequence, restarting at `O1` on every page printed; a bullet without a block carries no id; the fact suffix's help block, when the clock prints it, takes the next id. An id typed alone after the page is the Operator's word for that block. The page offers nothing after itself: these blocks are part of the page, printed, never invoked.
 
@@ -136,7 +136,7 @@ navigated 2026-03-02 · 5 open items · 4 ready
 - **O3** `feature/quay-crane-certified` · secondary · **in process at G3 (the Operator's review of the crane's papers)**
   the quay crane certified for the season
   ```
-  G3 accepted and /roadwork-verify-and-archive feature/quay-crane-certified
+  /roadwork-verify-and-archive feature/quay-crane-certified given G3 accepted
   ```
 - **O4** `todo/timer-manual-written` · side · **awaits interview** · blocked by `feature/lamp-timer` (in process at G2 (the timer switches the lamps at dusk))
   the timer's manual written for the keeper
