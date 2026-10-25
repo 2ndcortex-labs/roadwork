@@ -41,6 +41,6 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 38. A spark is one file, an idea parked for later; its only exit is conversion into a todo or a feature on your word. — Road plans
 39. Now and then, when the clock's minute is a multiple of six, a hand-back ends with one fact like this, under its title line, and a box holding the command that explains it; the seconds pick the fact. — Fact suffix
 40. A map is the way to one destination, one map per destination — the process, the stack, the judgements, the inputs, and how it was done before agents. — Map
-41. The work plans are a copy of a remote: never pushed; the remote ships the skeleton, the docs, the rule and the skills, never a map or an item. — Home
+41. The work plans are a copy of the Roadwork home's scaffold, made once by its init tool and never pushed; the rule and the skills are installed into your project's .claude folders and refreshed by re-running the init, and no map or item ever comes from the home. — Home
 42. Above the destinations sits the atlas: three documents of yours — vision, intent, architecture — verbatim in one folder with the skill's atlas.md; a destination names the atlas it serves by its atlas key, or leaves it empty. — Atlas
 43. An externality is what will not happen without something specific and out-of-band happening; a merge that is merely slow is a pause, not one. The spec names it, the key records it, only the Operator clears it. — External
