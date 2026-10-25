@@ -163,7 +163,8 @@ set), the build is orchestrated, not solo:
    ownership; open one wave — a cohort larger than the host's
    concurrency limit launches in waves in order, each sealed before the
    next opens; launch **one background sub-agent per member** — a
-   narrow brief: the member's folder, its `GATES.md`, its `OWNS:`,
+   builder (the constitution's Sub-agents bullet; its family the setting
+   `subagent-builder` names) — a narrow brief: the member's folder, its `GATES.md`, its `OWNS:`,
    "build the deliverable in the four passes, run the gates, record
    evidence; never approve, never archive, never post anywhere outside
    the workspace, never write outside your paths" — record every handle
