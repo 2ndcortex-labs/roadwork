@@ -474,6 +474,8 @@ paths:
 | descends from | ancestry | Whether one record is in the history of another; how landing is proven. |
 | a project's record store | repo | A folder whose history git keeps; a project, its work plans, or a remote. |
 | the insights | intent-insights | What the interviews taught about how you decide, one section per day in the plans' docs folder, written by the end-of-day skill on your word and read by the interview before it reads your notes back. |
+| the work-plans folder itself | Roadwork register | The project's `roadwork/` folder as a whole: the three sub-registers, the five folders beside them, the order and in-process files and the register's own files; a copy of the home's `scaffold/`, made once. |
+| the helper kinds | Sub-agent types | The six kinds of helper a skill may dispatch — reader, finder, explore, research, builder, reviewer — each on the model family its setting names. |
 
 
 ## Glossary
