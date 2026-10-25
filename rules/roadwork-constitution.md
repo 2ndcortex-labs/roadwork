@@ -380,6 +380,7 @@ paths:
 - One sentence: the id in bold; "typing this …"; the parenthetical "(to …)" saying what will happen and or exist afterwards.
 - Then the box.
 - A word-bearing offer: its restatement bullet directly above its sentence.
+- The restatement: one bullet per word, the question in plain words, the options with the recommended one first and its reason, two sentences at most; a gate's bullet says what is approved and where it was shown; a courtesy copy that replaces nothing printed above it.
 
 #### N.11 The fact suffix
 - By the clock, after the last offer.
