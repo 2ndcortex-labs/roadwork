@@ -22,9 +22,9 @@ SCHEMA.push({ key: 'status-url', meaning: "the URL Roadwork reads an item's exte
 SCHEMA.push({ key: 'versioned', meaning: "the project's changes land by pull request — yes where branches are opened as pull requests, no where the register runs in an unversioned project; unset reads as no", shape: 'yes or no', secret: false, valid: (v) => v === 'yes' || v === 'no' });
 // A list key, optional: the project's standards folders, relative to the project's root, each an existing folder under it.
 SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folders, in the project's own structure — coding standards, brand, styling and the like; optional, empty where a project keeps none; a list, in the order given", shape: "a list of folder paths relative to the project's root, each an existing folder under it", secret: false, list: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
-// The sub-agent group, optional: the model family each sub-agent type runs on; unset reads as the default named in each meaning.
-const MODELS = ['haiku', 'sonnet', 'opus', 'fable'];
-const isModel = (v) => MODELS.includes(v);
+// The sub-agent group, optional: the model family each sub-agent type runs on — a family name the dispatching host resolves (any vendor), never a release;
+// unset reads as the default named in each meaning. Shape only: one token, no spaces, no version suffix; whether the host serves the family is the skill's check at dispatch.
+const isFamily = (v) => /^\S+$/.test(v) && !/\d$/.test(v) && !/[-._]\d+([-._]\d+)*$/.test(v);
 for (const [type, dflt, what] of [
   ['reader', 'sonnet', 'a fresh reader of a document against one question (the verification rounds, the audit, the sanity checks)'],
   ['finder', 'haiku', 'a fact lookup for the dispatcher (a file, a commit, a config value, what another item says)'],
@@ -32,7 +32,7 @@ for (const [type, dflt, what] of [
   ['research', 'sonnet', 'outside documents and facts, compared and summarised'],
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
   ['reviewer', 'opus', 'a finished change checked against its brief'],
-]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; optional, unset reads as ${dflt}`, shape: 'one of haiku, sonnet, opus, fable', secret: false, valid: isModel });
+]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family the host offers assumed; optional, unset reads as ${dflt}`, shape: 'a model family name the host resolves; one token, no spaces, no version number', secret: false, valid: isFamily });
 // Instance keys: docs/local/config-keys.json beside the register's config.json (ignored by git, instance material):
 // [{ "key", "meaning", "shape": "non-empty" | "https" | "kebab", "secret": true|false }, ...]. Merged after the schema; a key the schema has is refused.
 const SHAPES = { 'non-empty': ['non-empty', nonEmpty], https: ['an https:// URL', isHttps], kebab: ['kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$', (v) => KEBAB.test(v)] };
