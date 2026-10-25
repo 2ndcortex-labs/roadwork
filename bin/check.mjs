@@ -4,7 +4,7 @@
 // Prints "OK <mode>" for each passing mode and one "FAIL <mode> <what>" line per failure; exit 0 only when all pass,
 // 1 when any fails, 2 on a usage error. Reads the Roadwork repository's files wherever it is run from; writes only into folders it
 // makes under the system's temporary folder (the self-tests' working folder and the compiled Python files), never
-// into the home.
+// into the Roadwork repository.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';

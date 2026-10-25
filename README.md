@@ -40,7 +40,7 @@ Pull or download a newer copy of the Roadwork repository and run its init again 
 
 ## Migrating a cloned register
 
-Before 1.0.0 a register was a clone of this whole repository and carried an `install/` folder holding the rule and the skills. To migrate such a register, delete its `install/` folder and nothing else. From then on, install and refresh the rule and the skills as under Updating: the init finds a register at that path and leaves it untouched.
+Before 1.0.0 a register was a clone of this whole repository and carried an `install/` folder holding the rule and the skills. To migrate such a register, delete its `install/` folder and nothing else; if its folder has another name, rename it `roadwork` first. From then on, install and refresh the rule and the skills as under Updating: the init finds a register at that path and leaves it untouched.
 
 ## License
 
