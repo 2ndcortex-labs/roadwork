@@ -5,13 +5,10 @@ paths:
 ---
 - **One register per project, `roadwork/`, typically and optimally at the Project Root (i.e. the folder where Claude was started) — no path under the project carries a register of its own.**
 
-  - Its top level is nine folders and two files, and nothing else:
+  - Its top level is eight folders and two files, and nothing else:
     - `todo/`, `feature/`, `spark/` — the three sub-registers, where the work is.
     - `docs/`, `destinations/`, `maps/`, `guidebooks/`, `atlases/` — what outlasts any one item.
-    - `install/` — the skills and the rule as the clone brought them from the Roadwork home; a copy, not the register's, never written, never a source.
-      - `install/rules/` holds the rule, `install/rules/roadwork-constitution.md`.
-      - `install/skills/` holds one folder per skill, each with its `SKILL.md`: the `roadwork-` skills named under Naming, `install/skills/roadwork-make/` among them, and `install/skills/unlazy/`, the unlazy skill copied whole from its own repository, whose files `install/skills/unlazy/<name>` and folders `install/skills/unlazy/<name>/` are its own.
-    - `ordering.md` and `working.md` — the order and the in-process list (their own bullet below); beside them the register's own files: `CLAUDE.md`, its anchor; `README.md`; `LICENSE`; `.gitignore`; and `config.json`, the settings file, ignored by git and never committed.
+    - `ordering.md` and `working.md` — the order and the in-process list (their own bullet below); beside them the register's own files: `CLAUDE.md`, its anchor; `.gitignore`; and `config.json`, the settings file, ignored by git and never committed.
   - Every folder named here, and every `archive/` under one, carries an anchor `CLAUDE.md` saying what it holds and which bullet of this rule governs it.
   - The anchors below the top are `todo/CLAUDE.md`, `todo/unnavigated/CLAUDE.md`, `feature/CLAUDE.md`, `feature/unnavigated/CLAUDE.md`, `spark/CLAUDE.md`, `docs/CLAUDE.md`, `docs/context/CLAUDE.md`, `destinations/CLAUDE.md`, `destinations/archive/CLAUDE.md`, `maps/CLAUDE.md`, `maps/archive/CLAUDE.md`, `guidebooks/CLAUDE.md`, `guidebooks/archive/CLAUDE.md`, `atlases/CLAUDE.md` and `atlases/archive/CLAUDE.md`.
 - **The three sub-registers.**
@@ -38,20 +35,21 @@ paths:
   - No `specs/` folder anywhere; a spec lives only in its item.
 - **The five folders beside the work.**
   - `docs/`: documents that outlast any one item. Fixed members: `docs/teachme.md`, `docs/facts.md`; `docs/context/`, the graduated specs, one `docs/context/<item-name>.md` per item archived shipped, written by `/roadwork-verify-and-archive` and by nothing else; `local/`, instance material (the audit's instance-strings list), ignored by git; `docs/<name>.source.md`, a document a tasksplit was made from.
-  - The terms table lives in this constitution alone, its section "Terms — the plain word, the agent's word, the meaning": one row per glossary term and one per git word a skill puts in front of a person. Every glossary term has a row; `/roadwork-audit` is the check. The register keeps no copy.
+  - The terms table lives in this constitution alone, its section "Terms — the plain word, the agent's word, the meaning": one row per glossary term and one per git word a skill puts in front of a person. Every glossary term has a row; `/roadwork-audit` is the check, and `bin/check.mjs` in the home. The register keeps no copy.
   - `destinations/`: per destination `destinations/<destination-slug>.intent.md`, written first, and `destinations/<destination-slug>.prd.md`, written from it; `destinations/<destination-slug>.source.md` where a document was given. A destination is built when every item of it is archived; then all its files move together to `destinations/archive/`, as `destinations/archive/<destination-slug>.intent.md`, `destinations/archive/<destination-slug>.prd.md` and `destinations/archive/<destination-slug>.source.md`. Destinations made before the intent step have no intent file; the destination skill's update writes one.
   - `maps/`: one `maps/<destination-slug>.md` per destination, `maps/<map-slug>.source.md` where a document was given; `maps/archive/` for the retired, as `maps/archive/<destination-slug>.md` and `maps/archive/<map-slug>.source.md`.
   - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given; `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
   - `atlases/`: one `atlases/<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired, as `atlases/archive/<atlas-slug>/`.
 - **The register.**
-  - One per project, a clone of a remote Roadwork repository.
-  - Never pushed to; its commits local.
-  - The remote ships the skeleton with its anchors, the docs, the rule and the skills.
-  - The remote never ships a map or an item: maps and items are the project's own.
+  - One per project, a copy of the home's `scaffold/`, made once by the home's init tool.
+  - No remote; never pushed; its commits local.
+  - The home ships the skeleton with its anchors and the two docs; the rule and the skills are installed into the project by the same tool and refreshed by re-running it.
+  - The home never ships a map or an item: maps and items are the project's own.
   - The project's law names the register's path and the alias, if any, of its reference prefix.
   - A spec archived shipped graduates to the register's `docs/context/` as a decision record.
 - **The settings file.**
   - `config.json` at the register's root holds the instance's values the skills read by key; its schema is the config skill's (`/roadwork-config`), a key outside it an instance key listed in `docs/local/config-keys.json`.
+  - Four keys of the schema place the register in its project: `project-root`, the project's root as a path relative to the register (default `..`); `ref-alias`, a second reference prefix the project's law allows beside `main`, one lowercase token (default empty, none); `repos`, the repositories the not-yet-landed block reads, as paths relative to the project root (default `.`, the project's own); `audit-root-prefix`, the prefix the audit's path check requires, ending in `/` (default empty, paths written from the project's root).
   - **Every roadwork skill must read `config.json` before it acts** — a mandate, not a convenience: the register's `roadwork/config.json`, read once per run through the config skill's script with no argument, `node <config skill>/scripts/config.mjs`, and its lines held in the working context for the run — every key of the schema and every instance key with its value, a secret as "set, <n> characters" or "empty", never its value. A skill that has not read it does not act, as a skill without the constitution in context does not act: the constitution read and `config.json` read are the two preconditions of every run. The file is read by the script and by nothing else — never opened, parsed or printed directly.
   - A key the run needs that reads empty takes the default the schema names for it; a key without a default is asked of the Operator by the config skill's empty-keys prompt, never by the running skill.
 - **Frontmatter**
@@ -267,7 +265,7 @@ paths:
   - Every worker's brief carries the goal, the relevant paths, the allowed changes, the acceptance checks and the output wanted back; paths, not pasted content, and the brief is the worker's whole world.
   - Effort: the session agent's judgement at the time of each dispatch, set explicitly from the task's difficulty — the depth of reading or building the brief asks for, how much a miss would cost; no level is fixed by this rule or by a skill.
   - A sub-agent's return is evidence, not a decision: the session agent reads every finding and claim, accepts or rejects each by its own judgement, records the disposition and the reason, and reverifies a builder's claim of done by the gates before relying on it. A finding is never incorporated because a sub-agent produced it, nor dropped without the reason said.
-  - Tiny changes are handled directly; no role is spawned for every task. No sub-agent speaks to the Operator, posts to a relay or touches a key; a sub-agent's handle never appears in a reply.
+  - Tiny changes are handled directly; no role is spawned for every task. No sub-agent speaks to the Operator, posts to any channel outside the session or touches a key; a sub-agent's handle never appears in a reply.
   - Where a skill runs its sub-agents as one workflow, the model family above binds every agent of the workflow the same, and the effort is the session agent's one judgement for that run, set once for all of them.
 
 ### N. Offers — the next step, the ways back, the batch
@@ -407,7 +405,7 @@ paths:
 | the work-plans system | Roadwork | The work-plans system by 2nd Cortex Labs: the plans and the skills that work them. |
 | work-plans folder | Road plans | Your project's `roadwork/` folder, the one place its work is recorded; todos, features and sparks each in their own sub-folder. |
 | a work item | Item | One folder holding a todo or feature file plus its intent, plan and spec; a spark holds one idea file only. |
-| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of a remote, never updating it. |
+| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of the home's scaffold, made once; never updating the home. |
 | an item's name-with-path | Reference (ref) | How an item is pointed at: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`, or `main/<kind>/<item-name>` from anywhere. |
 | the item's header keys | Frontmatter | The block at the top of an item file: blocker, blocking, blocked-by, external, group, in-process, disposition, road-level; a feature's onroad-cohort before the last. |
 | something out-of-band we wait on | External | A dependency that will not be met without something specific and out-of-band happening; a wait in the due course, such as a merge, is not one. The spec names it, one entry per act outside the project, never one per party or per service; the key records it; only you clear it; its observed-by test runs at acceptance and before a make, a command where one is written, your word where not. |
@@ -480,9 +478,9 @@ paths:
 
 ## Glossary
 
-- **Roadwork register** — the project's `roadwork/`: the one place its work is recorded. Three **sub-registers**: `todo/` (fixes, chores, decisions, findings), `feature/` (new capabilities), `spark/` (ideas; never worked); the test: a todo is done once, a feature is reused when built — the Operator may name the kind against it. Should be located in the session startup directory (i.e. project home directory)
+- **Roadwork register** — the project's `roadwork/`, a copy of the home's scaffold, made once; never updating the home: the one place its work is recorded. Three **sub-registers**: `todo/` (fixes, chores, decisions, findings), `feature/` (new capabilities), `spark/` (ideas; never worked); the test: a todo is done once, a feature is reused when built — the Operator may name the kind against it. Should be located in the session startup directory (i.e. project home directory)
 - **Item** — one folder under its destination's folder in a sub-register (`unnavigated/` until a navigation cites it): `todo.md` or `feature.md` (the **item file**) plus `intent.md`, `plan.md`, `spec.md`; a spark holds only `idea.md`.
-- **Home** — the register an item lives in: the project's one register.
+- **Home** — the register an item lives in: the project's one register, a copy of the home's scaffold, made once; never updating the home.
 - **Reference (ref)** — `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`; from anywhere, `main/<kind>/<item-name>` — the project's law may alias the prefix.
 - **Frontmatter** — the YAML block opening an item file: `blocker`, `blocking`, `blocked-by`, `external`, `group`, `in-process`, `disposition`, `road-level` (the item's level within its destination — `main`, `secondary`, `side` — or empty), a feature's `onroad-cohort` before it.
 - **External** — the `external` key: an externality, a dependency that will not be met without something specific and out-of-band happening an operational pause in the due course — a push, a merge, a fetch, a reboot — is never one. Stated by the spec skill as a fact in the spec's Dependencies section (what, who acts, how observed) — one entry per out-of-band act, never per party or per service — and written on spec acceptance: a `blocked-by` where another item acts, the key's text where another party does, with the item file's dated `**External set**` line; emptied only by the Operator, with the dated `**External cleared**` line; `/roadwork-make` refuses while it is set; its observed-by part run as a test at acceptance and before a make, a command deciding it where one is written, the Operator's word where not; notified where the workspace names an address.

@@ -12,8 +12,10 @@ frontmatter) → `/roadwork-intentify` interviews → `/roadwork-specplan` write
 plan with gates → `/roadwork-make` is the Operator's go and builds under `/unlazy`
 → `/roadwork-verify-and-archive` archives. An accepted spec is not a go. One
 register per project, at the path the project's law names; no path under the
-project carries one of its own. This folder is a clone of a remote Roadwork
-repository: never pushed to, its commits local; the
-remote ships the skeleton with its anchors, the docs, the rule and the skills,
-never a map and never an item. Roadwork register law: the constitution,
-`.claude/rules/roadwork-constitution.md`, the remote's.
+project carries one of its own. This folder is a copy of the Roadwork home's
+`scaffold/`, made once by `roadwork-init`, never updating the home and never
+updated from it: never pushed, its commits local; the home ships the skeleton
+with its anchors and the two docs, never a map and never an item; the rule and
+the skills live in the project's `.claude/` folders, refreshed by re-running
+the init. Roadwork register law: the constitution,
+`.claude/rules/roadwork-constitution.md`.
