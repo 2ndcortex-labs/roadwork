@@ -6,7 +6,7 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 3. A todo or a feature is a folder of four files: the item file, the intent, the plan and the spec; the ledger, GATES.md, joins them when the build starts. — Item
 4. Your project has one work-plans folder, at the path its law names; no folder under the project carries its own. — Home
 5. An item is named by its kind and folder, like todo/fix-the-greeting-wording; from anywhere, main/<kind>/<item-name>, a prefix your project's law may alias. — Reference (ref)
-6. Every item file opens with eight keys — blocker, blocking, blocked-by, external, group, in-process, disposition, road-level — empty until something sets them; a feature carries a ninth, onroad-cohort. — Frontmatter
+6. Every item file opens with nine keys — blocker, blocking, blocked-by, external, group, in-process, gated, disposition, road-level — empty until something sets them; a feature carries a tenth, onroad-cohort. — Frontmatter
 7. The order file lists what comes next, top first, with one clause per line saying why; the working file lists what is in process now. — `ordering.md`
 8. Every decision is the Operator's; the session agent finds the facts and asks. — Operator (user)
 9. The session agent is whichever agent runs the session in which you typed the command. — Session agent

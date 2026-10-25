@@ -69,6 +69,7 @@ in the Operator's words — never a skill name (Roadwork conventions) — four f
      external: ""
      group: []
      in-process: ""
+     gated: ""
      disposition: ""
      onroad-cohort: ""    # feature.md only — omit on todo.md
      road-level: ""       # main | secondary | side — set by /roadwork-nav-to-destination, empty until then

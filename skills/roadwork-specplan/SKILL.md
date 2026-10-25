@@ -391,7 +391,7 @@ the counts. One round per document.
 ## 3b. Ending the previous go (reconsideration only)
 
 A reconsidered spec is proposed, not accepted, and the previous go ends:
-clear the item's `in-process`, remove its `working.md` line if present,
+clear the item's `in-process` and `gated` (the latter with its `**Gated cleared (<date>, by the reconsideration):** <what now holds>` line on the item file where it was set), remove its `working.md` line if present,
 and set the item file's status line to "reconsidered <date>; the
 previous go ended; awaiting acceptance and a new go". Say so in the
 reply.
