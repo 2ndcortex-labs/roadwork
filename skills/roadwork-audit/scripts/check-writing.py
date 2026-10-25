@@ -4,8 +4,15 @@ Defaults from the register, found upward from the working directory (the nearest
 import sys, os, re, argparse, subprocess
 HERE=os.path.dirname(os.path.abspath(__file__))
 CONFIG_MJS=os.path.normpath(os.path.join(HERE,'..','..','roadwork-config','scripts','config.mjs'))
+def given_cwd():
+    """The working directory as given: $PWD where it names the working directory (a shell keeps it so), never resolved through a link; else the OS's."""
+    p=os.environ.get('PWD','')
+    try:
+        if os.path.isabs(p) and os.path.samefile(p,'.'): return p
+    except OSError: pass
+    return os.getcwd()
 def find_register():
-    d=os.getcwd()
+    d=given_cwd()
     while True:
         for r in (os.path.join(d,'roadwork'), d):
             if os.path.isfile(os.path.join(r,'ordering.md')) and os.path.isfile(os.path.join(r,'working.md')): return r
@@ -14,7 +21,7 @@ def find_register():
         d=parent
 def register():
     r=find_register()
-    if r is None: print(f'USAGE FAIL: no register found above {os.getcwd()} (a folder holding ordering.md and working.md); pass --strings and --root-prefix'); sys.exit(2)
+    if r is None: print(f'USAGE FAIL: no register found above {given_cwd()} (a folder holding ordering.md and working.md); pass --strings and --root-prefix'); sys.exit(2)
     return r
 def setting(reg, key):
     cfg=os.path.join(reg,'config.json')

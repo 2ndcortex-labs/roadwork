@@ -16,8 +16,16 @@ def git(args, cwd):
     r=subprocess.run(['git']+args, cwd=cwd, capture_output=True, text=True)
     return r.stdout.strip() if r.returncode==0 else None
 
+def given_cwd():
+    """The working directory as given: $PWD where it names the working directory (a shell keeps it so), never resolved through a link; else the OS's."""
+    p=os.environ.get('PWD','')
+    try:
+        if os.path.isabs(p) and os.path.samefile(p,'.'): return p
+    except OSError: pass
+    return os.getcwd()
+
 def find_register():
-    d=os.getcwd()
+    d=given_cwd()
     while True:
         for r in (os.path.join(d,'roadwork'), d):
             if os.path.isfile(os.path.join(r,'ordering.md')) and os.path.isfile(os.path.join(r,'working.md')): return r
@@ -51,7 +59,7 @@ def read_twins(reg):
     return pairs
 
 def is_repo(path): return os.path.isdir(path) and git(['rev-parse','--show-toplevel'],path) is not None
-def is_top(path): return is_repo(path) and os.path.realpath(git(['rev-parse','--show-toplevel'],path))==os.path.realpath(path)
+def is_top(path): return is_repo(path) and os.path.samefile(git(['rev-parse','--show-toplevel'],path),path)
 
 def twin(rel, root):
     """For a path under a repository pair's copy or under its document: (repo, document, copy, rest). Else None."""

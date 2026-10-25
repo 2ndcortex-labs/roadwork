@@ -8,7 +8,7 @@
 //   <repo> <branch> — pushed, not landed; last fetch <time>
 //   <repo> <default> — <n> commits ahead of origin, on the default branch; no pull request from here
 // With --repo --branch: that branch's line alone, or `landed`.
-import { existsSync, statSync } from 'node:fs';
+import { existsSync, statSync, realpathSync } from 'node:fs';
 import { join, dirname, resolve, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -51,9 +51,11 @@ function setting(key) {
 const versioned = setting('versioned');
 if (versioned !== 'yes') process.exit(2);
 
-// The project root: --root; else the register's folder resolved through the setting project-root, unset `..`.
+// The project root: --root, as given; else the register's folder resolved through the setting project-root, unset `..`,
+// through any link, as the root found from this script's own folder always was (node resolves the script's path).
 const projectRootSetting = setting('project-root');
-const root = opt.root ? resolve(opt.root) : resolve(register, projectRootSetting === 'empty' ? '..' : projectRootSetting);
+const physical = (p) => { try { return realpathSync(p); } catch { return p; } };
+const root = opt.root ? resolve(opt.root) : physical(resolve(register, projectRootSetting === 'empty' ? '..' : projectRootSetting));
 
 // The repositories: the setting repos, paths from the project root, in its order; unset, `.`, the root's own repository.
 // Each is named by its folder's last segment.
