@@ -3,7 +3,7 @@
 // Usage: node config.mjs [--config-file PATH] [set <key> <value> | set <list-key> [<path> …] | get <key> | set-from-env | set-from-file <key> <path> | empty]
 // Secrets are never printed: only "set, <n> characters" or "empty". No network, no dependencies.
 import { existsSync, readFileSync, writeFileSync, chmodSync, statSync } from 'node:fs';
-import { join, dirname, resolve, relative, isAbsolute, basename, sep } from 'node:path';
+import { join, dirname, resolve, relative, isAbsolute, sep } from 'node:path';
 import process from 'node:process';
 
 const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/;
@@ -33,6 +33,12 @@ for (const [type, dflt, what] of [
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
   ['reviewer', 'opus', 'a finished change checked against its brief'],
 ]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family the host offers assumed; optional, unset reads as ${dflt}, never asked for by the empty-keys prompt`, shape: 'a model family name the host resolves; one token, no spaces, no dashed or dotted version number', secret: false, valid: isFamily, optional: true });
+// The project's place, optional, each with its default: where the project's root is from the register, a second reference prefix,
+// the repositories the not-yet-landed block reads, the writing audit's path prefix. Unset reads as the default in each meaning.
+SCHEMA.push({ key: 'project-root', meaning: "the project's root, as a relative path from the register — `..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper; every path a skill resolves against the project's root starts from it; optional, unset reads as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
+SCHEMA.push({ key: 'ref-alias', meaning: "a second reference prefix the project's law allows beside `main` (`<alias>/<kind>/<item-name>`), read by the inventory and the externality test; optional, unset reads as none, never asked for by the empty-keys prompt", shape: 'one lowercase token, kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$, or empty', secret: false, optional: true, valid: (v) => v === '' || KEBAB.test(v) });
+SCHEMA.push({ key: 'repos', meaning: "the repositories the inventory's not-yet-landed block and the unlanded check read, each a git clone; optional, unset reads as `.`, the project's own repository; a list, in the order given", shape: "a list of folder paths relative to the project's root, each an existing folder under it, `.` the root itself", secret: false, list: true, allowRoot: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
+SCHEMA.push({ key: 'audit-root-prefix', meaning: "the prefix every path in a document must start with under the writing audit's path check; optional, unset reads as empty — paths written from the project's root, no prefix required", shape: 'a relative path ending in `/`, or empty', secret: false, optional: true, valid: (v) => v === '' || (v.endsWith('/') && !v.startsWith('/') && !/\s/.test(v)) });
 // Instance keys: docs/local/config-keys.json beside the register's config.json (ignored by git, instance material):
 // [{ "key", "meaning", "shape": "non-empty" | "https" | "kebab", "secret": true|false }, ...]. Merged after the schema; a key the schema has is refused.
 const SHAPES = { 'non-empty': ['non-empty', nonEmpty], https: ['an https:// URL', isHttps], kebab: ['kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$', (v) => KEBAB.test(v)] };
@@ -64,21 +70,21 @@ function findConfig() {
   }
 }
 
-// The project's root: the folder that holds nethub/ where the register sits at nethub/nexus/roadwork/; elsewhere the folder that holds the register.
+// The project's root: the register's folder resolved through the setting project-root; unset, the folder that holds the register.
 function projectRoot(file) {
-  const d = dirname(file);
-  if (basename(d) === 'roadwork' && basename(dirname(d)) === 'nexus' && basename(dirname(dirname(d))) === 'nethub') return dirname(dirname(dirname(d)));
-  return dirname(d);
+  const v = load(file)['project-root'];
+  return resolve(dirname(file), typeof v === 'string' && v ? v : '..');
 }
-// A list key's entries: each resolved against the root, normalised root-relative, refused when it escapes the root, is not a folder, or repeats.
-function listEntries(key, paths, root) {
+// A list key's entries: each resolved against the root, normalised root-relative, refused when it escapes the root, is not a folder, or repeats;
+// the root itself is `.` where the key admits it (allowRoot), refused elsewhere.
+function listEntries(key, paths, root, allowRoot) {
   const out = [];
   for (const p of paths) {
     const abs = resolve(root, p);
     const rel = relative(root, abs);
-    if (rel === '' || rel.startsWith('..') || isAbsolute(rel)) fail(`${key} refused: ${p} escapes the project's root ${root}`);
+    if ((rel === '' && !allowRoot) || rel.startsWith('..') || isAbsolute(rel)) fail(`${key} refused: ${p} escapes the project's root ${root}`);
     if (!isDirUnder(abs)) fail(`${key} refused: ${p} is not an existing folder under the project's root ${root}`);
-    const norm = rel.split(sep).join('/');
+    const norm = rel === '' ? '.' : rel.split(sep).join('/');
     if (out.includes(norm)) fail(`${key} refused: ${norm} repeated`);
     out.push(norm);
   }
@@ -140,7 +146,7 @@ if (cmd === undefined) {
   process.stdout.write(out.join('\n') + '\n');
 } else if (cmd === 'set' && byKey.get(rest[0])?.list) {
   const [key, ...paths] = rest;
-  const entries = listEntries(key, paths, projectRoot(file));
+  const entries = listEntries(key, paths, projectRoot(file), !!byKey.get(key).allowRoot);
   const obj = load(file);
   obj[key] = entries;
   save(file, obj);

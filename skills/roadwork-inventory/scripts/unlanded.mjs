@@ -2,12 +2,13 @@
 // unlanded.mjs — the branches of the project's repositories not yet landed on origin's default branch, from local refs only.
 // Usage: node unlanded.mjs [--root <project root>] [--repo <name> --branch <branch>] [--config-file <config.json>]
 // Prints nothing and exits 2 unless the register's config key `versioned` is `yes` (roadwork-config). Never fetches, pushes or writes.
+// Reads the keys `project-root` and `repos` through the config script as it reads `versioned`.
 // Line forms (the spec of todo/stale-branches-surfaced-as-offers, R3–R4):
 //   <repo> <branch> — <n> commits, <d> days (tip <YYYY-MM-DD>); last fetch <YYYY-MM-DD HH:MM | never>[ — waits on <branch>]
 //   <repo> <branch> — pushed, not landed; last fetch <time>
 //   <repo> <default> — <n> commits ahead of origin, on the default branch; no pull request from here
 // With --repo --branch: that branch's line alone, or `landed`.
-import { existsSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { join, dirname, resolve, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -25,41 +26,41 @@ function fail(msg) { process.stderr.write(msg + '\n'); process.exit(1); }
 const here = dirname(fileURLToPath(import.meta.url));
 const CONFIG_MJS = resolve(here, '..', '..', 'roadwork-config', 'scripts', 'config.mjs');
 
-// The project root: --root; else the nearest ancestor of this script holding nethub/; else the parent of the nearest register above the cwd.
-function findRoot() {
-  if (opt.root) return resolve(opt.root);
-  for (let d = here; ; d = dirname(d)) {
-    if (existsSync(join(d, 'nethub'))) return d;
+// The register: the folder of --config-file; else the nearest above the cwd holding roadwork/ordering.md (that roadwork/) or
+// ordering.md itself, as the config script finds it; else, with --root, <root>/roadwork.
+function findRegister() {
+  if (opt['config-file']) return dirname(resolve(opt['config-file']));
+  for (let d = process.cwd(); ; d = dirname(d)) {
+    if (existsSync(join(d, 'roadwork', 'ordering.md'))) return join(d, 'roadwork');
+    if (existsSync(join(d, 'ordering.md'))) return d;
     if (dirname(d) === d) break;
   }
-  for (let d = process.cwd(); ; d = dirname(d)) {
-    if (existsSync(join(d, 'roadwork', 'ordering.md'))) return d;
-    if (existsSync(join(d, 'ordering.md'))) return dirname(d);
-    if (dirname(d) === d) fail('no project root found');
-  }
+  if (opt.root) return join(resolve(opt.root), 'roadwork');
+  fail('no project root found');
 }
-const root = findRoot();
-const inWorkspace = existsSync(join(root, 'nethub'));
-const configFile = opt['config-file'] || (inWorkspace ? join(root, 'nethub', 'nexus', 'roadwork', 'config.json') : join(root, 'roadwork', 'config.json'));
+const register = findRegister();
+const configFile = opt['config-file'] ? resolve(opt['config-file']) : join(register, 'config.json');
 
-// The gate: config.mjs get versioned, read through --config-file as the config skill reads it.
-let versioned = 'empty';
-if (existsSync(configFile)) {
-  try { versioned = execFileSync(process.execPath, [CONFIG_MJS, '--config-file', configFile, 'get', 'versioned'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { versioned = 'empty'; }
+// One key, read through --config-file as the config skill reads it: its value, its lines for a list key, or 'empty'.
+function setting(key) {
+  if (!existsSync(configFile)) return 'empty';
+  try { return execFileSync(process.execPath, [CONFIG_MJS, '--config-file', configFile, 'get', key], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return 'empty'; }
 }
+
+// The gate: config.mjs get versioned.
+const versioned = setting('versioned');
 if (versioned !== 'yes') process.exit(2);
 
-// The repositories: in a workspace, the statement of authority's names at the workspace pattern's paths; outside, the root's own repository.
+// The project root: --root; else the register's folder resolved through the setting project-root, unset `..`.
+const projectRootSetting = setting('project-root');
+const root = opt.root ? resolve(opt.root) : resolve(register, projectRootSetting === 'empty' ? '..' : projectRootSetting);
+
+// The repositories: the setting repos, paths from the project root, in its order; unset, `.`, the root's own repository.
+// Each is named by its folder's last segment.
 function repositories() {
-  if (!inWorkspace) return [{ name: basename(root), path: root }];
-  const statement = join(root, 'nethub', 'nexus', 'CLAUDE.md');
-  const text = existsSync(statement) ? readFileSync(statement, 'utf8') : '';
-  const m = text.match(/holds the seat over: ([^.\n]+)/);
-  const names = m ? m[1].split(',').map((s) => s.trim()).filter(Boolean) : [];
-  return names.map((name) => ({
-    name,
-    path: name === 'nethub' ? join(root, 'nethub') : name === 'standup-guy' ? join(root, 'nethub', 'standup-guy') : join(root, name),
-  }));
+  const listed = setting('repos');
+  const paths = listed === 'empty' ? ['.'] : listed.split('\n').map((s) => s.trim()).filter(Boolean);
+  return paths.map((p) => { const path = join(root, p); return { name: basename(path), path }; });
 }
 
 function git(path, a) {
