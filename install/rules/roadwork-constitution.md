@@ -230,7 +230,7 @@ paths:
   - `/roadwork-verify-and-archive` then offers the next item, group first.
   - Beside the chain, not a step: `/roadwork-help [<skill> | <ref> | <term>]` answers, and `/roadwork-intent-insights` learns from the day's interviews.
   - `/roadwork-help` gives the overview with no argument, one thing with one.
-  - It reads live from `docs/teachme.md`, the glossaries and the register, and writes nothing.
+  - It reads live from `docs/teachme.md`, this constitution's terms table and glossary, and the register, and writes nothing.
   - Each stops and hands back; none starts the next.
   - An accepted spec is not a go: only `/roadwork-make` or the Operator's word is.
   - **Every skill in the chain ends by offering the next logical skill and item**: the next step for this item, or, after archiving, the next item from `ordering.md`.
@@ -268,7 +268,7 @@ paths:
   - Effort: the session agent's judgement at the time of each dispatch, set explicitly from the task's difficulty — the depth of reading or building the brief asks for, how much a miss would cost; no level is fixed by this rule or by a skill.
   - A sub-agent's return is evidence, not a decision: the session agent reads every finding and claim, accepts or rejects each by its own judgement, records the disposition and the reason, and reverifies a builder's claim of done by the gates before relying on it. A finding is never incorporated because a sub-agent produced it, nor dropped without the reason said.
   - Tiny changes are handled directly; no role is spawned for every task. No sub-agent speaks to the Operator, posts to a relay or touches a key; a sub-agent's handle never appears in a reply.
-  - Where a skill runs its sub-agents as one workflow, the model family and effort above bind every agent of the workflow the same.
+  - Where a skill runs its sub-agents as one workflow, the model family above binds every agent of the workflow the same, and the effort is the session agent's one judgement for that run, set once for all of them.
 
 ### N. Offers — the next step, the ways back, the batch
 
@@ -502,7 +502,7 @@ paths:
 - **Cohortmeister (CM)** — `feature/cm-<group>-<cohort>`: the pseudo-feature that blocks a cohort's members, is onroaded in their place, and whose ledger is the results checker; archives them by cascade.
 - **Rubric** — the five pass/fail criteria a subgroup must meet to be a cohort: no dependency edge, disjoint ownership, accepted spec and plan with gates, no external and not in process, self-contained builds.
 - **Reconsideration** — `/roadwork-specplan`'s second mode: on an item whose accepted spec and plan already exist, re-read them against everything dated since; a dated `Reconsidered` changelog, proven gates carried, the previous go ended, the spec proposed again.
-- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: six predefined questions on the spec, five on the plan, one fresh reader each — run as one workflow where the harness runs workflows, on the top model of the tier one step below the session's (or the session's own where no lower tier exists) at an effort the dispatcher sets, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
+- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: six predefined questions on the spec, five on the plan, one fresh reader each — run as one workflow where the harness runs workflows, each a reader on the model family the setting `subagent-reader` names at the effort the session agent judges for the documents, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
 - **Back offers** — the second offer line of the four interrupting skills: up to five open lifecycle steps in flight, most recent first, read from the roadwork register; offers, never runs; each preceded by one sentence saying what typing it does.
 - **Item name** — the kebab-case folder name of an item, chosen at ingest in the Operator's words, the last part of its reference (`todo/<item-name>`, `main/<kind>/<item-name>`); never reused; never a skill name. "Slug" is a generic word, not the register's term; the register names its slugs by their bearer — `<destination-slug>`, `<map-slug>`, `<guidebook-slug>`, `<atlas-slug>`.
 - **Batch invocation** — one skill, many references on one line, separated by ` && `; accepted by `/roadwork-verify-and-archive` and `/roadwork-make`, and by `/roadwork-ingest` for a spark batch only (sparks of one home, converting into one item — the bare `/roadwork-spark` lists them grouped), refused by the rest with a reason; offers are printed as invocations in code blocks, related ones combined.

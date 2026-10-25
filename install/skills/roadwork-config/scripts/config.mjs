@@ -32,7 +32,7 @@ for (const [type, dflt, what] of [
   ['research', 'sonnet', 'outside documents and facts, compared and summarised'],
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
   ['reviewer', 'opus', 'a finished change checked against its brief'],
-]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family the host offers assumed; optional, unset reads as ${dflt}`, shape: 'a model family name the host resolves; one token, no spaces, no dashed or dotted version number', secret: false, valid: isFamily });
+]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family the host offers assumed; optional, unset reads as ${dflt}, never asked for by the empty-keys prompt`, shape: 'a model family name the host resolves; one token, no spaces, no dashed or dotted version number', secret: false, valid: isFamily, optional: true });
 // Instance keys: docs/local/config-keys.json beside the register's config.json (ignored by git, instance material):
 // [{ "key", "meaning", "shape": "non-empty" | "https" | "kebab", "secret": true|false }, ...]. Merged after the schema; a key the schema has is refused.
 const SHAPES = { 'non-empty': ['non-empty', nonEmpty], https: ['an https:// URL', isHttps], kebab: ['kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$', (v) => KEBAB.test(v)] };

@@ -277,7 +277,7 @@ no, no
 ### Find facts yourself
 
 - Finding facts is your job, never the user’s.
-- If a frontier question needs an environmental fact, look it up yourself or dispatch a sub-agent:
+- If a frontier question needs an environmental fact, look it up yourself or dispatch a sub-agent — a finder, or an explore where the place is not known (the constitution's Sub-agents bullet; the family its `subagent-<type>` setting names):
   - A file.
   - A commit.
   - A channel record.
