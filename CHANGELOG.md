@@ -4,6 +4,10 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 
 ## [Unreleased]
 
+### Changed
+
+- The form of an invocation that carries a word (the constitution's N.2): a word the invoked skill owns follows the input bare; a word of the step before — `spec accepted`, `G<n> accepted`, `confirm` to the interview that offered the skill, `group is right` — follows after `given`, so it never reads as the skill's argument. The skills' offers now state the form the constitution states (they still read `<word> and /<skill>`, the order the constitution left in 1.0.0).
+
 ## [1.0.1] - 2026-10-25
 
 ### Fixed

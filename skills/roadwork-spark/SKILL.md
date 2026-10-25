@@ -114,7 +114,7 @@ to the notes? any comments on the reading? — closed with `no, no` in its
 own block. The second, after the answer: the prepared questions the
 notes allow, each with a recommendation, in the roadwork-intentify round
 form — a recommendation says what is wanted, never how it is made or checked: no technology, structure, format or command the notes did not name — closed with three blocks in this order: `go with recos`; `go with
-recos except:`; `go with recos and /roadwork-ingest spark/<item-name>` —
+recos except:`; `/roadwork-ingest spark/<item-name> given go with recos` —
 for an idea that is work already.
 
 Wait after each. Whatever comes back — all, some, or the closings alone — fold it

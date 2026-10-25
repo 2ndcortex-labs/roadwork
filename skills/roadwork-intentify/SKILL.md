@@ -476,7 +476,7 @@ go with recos except:
   - Allow additions or modifications through free text.
   - Present independent section approvals together where the tool supports them.
 - Otherwise, use the offer form:
-  - A sentence followed by `confirm` (and, before it, `confirm and /roadwork-specplan <ref>`), the acceptance block.
+  - A sentence followed by `confirm` (and, before it, `/roadwork-specplan <ref> given confirm`), the acceptance block.
   - A sentence followed by `sections except:`, the modifications block — the three blocks as Step 6 names them.
 - Treat only an explicit answer as approval:
   - Never interpret silence as acceptance.
@@ -506,7 +506,7 @@ go with recos except:
 - Offer each of these in its own block:
 
 ```text
-confirm and /roadwork-specplan <ref>
+/roadwork-specplan <ref> given confirm
 ```
 
 ```text
@@ -515,7 +515,7 @@ confirm
 
 - On `confirm`:
   - Write and accept the intent.
-- On `confirm and /roadwork-specplan <ref>`:
+- On `/roadwork-specplan <ref> given confirm`:
   - Write and accept the intent as on `confirm` alone.
   - Then run the spec skill in the same turn.
 - **Do not write `intent.md` until the user confirms.**
@@ -524,7 +524,7 @@ confirm
 
 - A round's closing is the two ordinary blocks of Step 3, `go with recos` and `go with recos except:`, and nothing more — even when taking every recommendation would empty the frontier.
 - The section read-back of Step 5 is its own message, sent only after the last round's answers are recorded in the item file; it never shares a message with an unanswered question, and its facts are built from recorded answers, never from recommendations not yet taken.
-- The section read-back message closes with three blocks, in this order: `confirm and /roadwork-specplan <ref>`, `confirm`, `sections except:`. `confirm` approves every section as read back and confirms the complete shared understanding in one word; `sections except:` takes the sections as read back but the bullets amended, added or struck after the colon, after which the changed sections are read back again with the same three blocks. These are Step 5's acceptance and modification blocks; no other word approves a section.
+- The section read-back message closes with three blocks, in this order: `/roadwork-specplan <ref> given confirm`, `confirm`, `sections except:`. `confirm` approves every section as read back and confirms the complete shared understanding in one word; `sections except:` takes the sections as read back but the bullets amended, added or struck after the colon, after which the changed sections are read back again with the same three blocks. These are Step 5's acceptance and modification blocks; no other word approves a section.
 - A message that carries a question carries no `confirm` block. The forms `go with recos and confirm` and `go with recos and confirm and /roadwork-specplan <ref>` are retired: a recommendation taken and a confirmation given are two answers to two messages.
 
 ## Step 7 — Write and accept `intent.md`
