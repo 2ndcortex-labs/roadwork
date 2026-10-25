@@ -154,7 +154,7 @@ where the line landed in `ordering.md`, and the "not decided" list, numbered as 
 by offering the next step as one invocation in its own code block, preceded by its sentence (offer form) — `/roadwork-intentify <ref>`, which opens
 with the read-back — as an offer, never by invoking it (every skill in
 the chain ends this way: Roadwork conventions). Then the back offers
-of §5b, on their own lines after the next-step offer. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+of §5b, on their own lines after the next-step offer. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## 5b. Back offers
 

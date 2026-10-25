@@ -72,7 +72,7 @@ for landing / do not archive), in the roadwork-intentify round form, closed as `
 Ask for the disposition if the Operator has not said it: `shipped`,
 `withdrawn`, `superseded by <ref>`, `decided`, or `abandoned` (work
 started or claimed but not carried through — the shortfall is recorded,
-not hidden). The round closes with two blocks in this order — `archive, <disposition>`, the recommended disposition, every finding's recommendation taken; `archive, <disposition> except:`, the same, the findings that differ listed after the colon, per item in a batch (`<item>.<n>`) — then one block per other disposition the findings allow, the word alone; the word is the archive's, the act follows it. Directly above the first block, each finding the word answers is restated simply (reply-form rule). Where §1 found an **Unlanded branch**, the last block printed — after the archive blocks and every other offer, each with an O-number; a git-related offer is always the last in the list (Operator, 2026-10-15) — is the pull-request offer, `open the pull request for <repo> <branch>`, one block per such branch, the Operator's word for one merge handshake on it (the project's merge procedure); a branch `node <inventory>/scripts/unlanded.mjs` printed as `pushed, not landed` gets no offer, its pull request presumed open; the Operator's word still archives, the dispositions unchanged. A disposition typed with the invocation (`archive, shipped` and the reference) is the round's answer. Do not archive on silence.
+not hidden). The round closes with two blocks in this order — `archive, <disposition>`, the recommended disposition, every finding's recommendation taken; `archive, <disposition> except:`, the same, the findings that differ listed after the colon, per item in a batch (`<item>.<n>`) — then one block per other disposition the findings allow, the word alone; the word is the archive's, the act follows it. Directly above the first block, each finding the word answers is restated simply. Where §1 found an **Unlanded branch**, the last block printed — after the archive blocks and every other offer, each with an O-number; a git-related offer is always the last in the list (Operator, 2026-10-15) — is the pull-request offer, `open the pull request for <repo> <branch>`, one block per such branch, the Operator's word for one merge handshake on it (the project's merge procedure); a branch `node <inventory>/scripts/unlanded.mjs` printed as `pushed, not landed` gets no offer, its pull request presumed open; the Operator's word still archives, the dispositions unchanged. A disposition typed with the invocation (`archive, shipped` and the reference) is the round's answer. Do not archive on silence.
 
 ## 3. Archive — one act, on the Operator's word
 
@@ -111,7 +111,7 @@ not hidden). The round closes with two blocks in this order — `archive, <dispo
 
 ## 4. Offer the next step — ordering- and group-aware
 
-Read the home's `ordering.md` top to bottom — its blocks placed by `bucket-list-priority` and its items by `road-level` (the navigation's §5), so nothing is re-sorted here. Candidates are open items
+Read the register's `ordering.md` top to bottom — its blocks placed by `bucket-list-priority` and its items by `road-level` (the navigation's §5), so nothing is re-sorted here. Candidates are open items
 not in process whose `blocked-by` is empty or names only built items
 (all gates met) and whose `external` is empty. Offer, as one invocation in its own code block, preceded by its sentence (offer form):
 
@@ -124,7 +124,7 @@ with the skill that item is ready for (an item with a non-empty
 `/roadwork-specplan <ref>`; accepted spec → `/roadwork-make <ref>`; already in process
 → `/roadwork-verify-and-archive <ref>` when its gates are met. Say why the top of the list
 was skipped when it was. Offer only — never invoke.
-End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

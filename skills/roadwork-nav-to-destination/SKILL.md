@@ -151,7 +151,7 @@ block's place in `ordering.md`; the sanity todo's reference. End with the
 offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked: `/roadwork-navsanity <group>` (until that
 skill exists: the Operator reads the sanity todo and archives it by
 `/roadwork-verify-and-archive`), and the top-most unblocked item in `ordering.md` with its
-skill as the next logical item now. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+skill as the next logical item now. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 The specs this skill writes follow `/roadwork-specplan` §0a — the
 Operator's spec-writing guidelines — and get its verification rounds.

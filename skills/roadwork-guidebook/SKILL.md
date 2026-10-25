@@ -164,7 +164,7 @@ The source file stays beside it and moves with it to `archive/`.
 
 Commit in the register (its commits local). Reply with: the guidebook's
 path (and the source's, if any); its title; the crossings found; then the
-guidebook printed whole and verbatim, before the offers (reply-form rule).
+guidebook printed whole and verbatim, before the offers.
 End with one offer, one invocation in its own code block, preceded by its
 sentence (offer form), never invoked: the open destination first by the inventory's order that has no **Map:** line and no map file —
 the highest `bucket-list-priority`, ties by `ordering.md` position, then
@@ -175,7 +175,7 @@ slug —
 ```
 
 — else no offer. Then the back offers as `/roadwork-ingest` §5b computes
-them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

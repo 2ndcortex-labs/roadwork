@@ -28,7 +28,7 @@ Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossa
 
 ## 1. Invocation and kinds
 
-`/roadwork-audit <document> <kind> [<path> …] [--referent <folder>] [--item <ref>]` — `<document>` a path from the workspace root; `<kind>` one of `writing`, `truth`, `continuity`, `all`; the paths after the kind are extra sources (truth) or counterparts (continuity); `--referent <folder>` names a folder referent, an input of the truth kind: the folder the document describes, its listing a source (§4); `--item <ref>` names the register item the findings land on.
+`/roadwork-audit <document> <kind> [<path> …] [--referent <folder>] [--item <ref>]` — `<document>` a path from the project's root; `<kind>` one of `writing`, `truth`, `continuity`, `all`; the paths after the kind are extra sources (truth) or counterparts (continuity); `--referent <folder>` names a folder referent, an input of the truth kind: the folder the document describes, its listing a source (§4); `--item <ref>` names the register item the findings land on.
 
 - With no kind the skill asks which kind and does nothing else. With a document that does not exist it says so and stops. A bare `/roadwork-audit` prints the kinds and the known pairs (§4) and writes nothing.
 - *writing* tests how the document reads: the Operator's four rules and the paths-and-instance-strings question, the document alone.
@@ -38,7 +38,7 @@ Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossa
 
 ## 2. The reader form (every kind)
 
-Five fresh readers — the reader type of the constitution's Sub-agents bullet — launched in parallel through the harness's Agent tool, on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the document at hand (this skill's Sub-agents section). One question each; each reader is given the document's path and, for truth and continuity, the sources' paths, and nothing else; each writes its report verbatim to its file. Findings are line-numbered, at most ten per reader; a reader with none writes "clean".
+Five fresh readers — the reader type of the constitution's Sub-agents bullet — launched in parallel through the host's Agent tool, on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the document at hand (this skill's Sub-agents section). One question each; each reader is given the document's path and, for truth and continuity, the sources' paths, and nothing else; each writes its report verbatim to its file. Findings are line-numbered, at most ten per reader; a reader with none writes "clean".
 
 The five prompts come from `scripts/dispatch-plan.py --doc <document> --kind <kind> [--sources <path>…] --report-dir <dir> [--root <root>] [--copy <repo>=<commons|main|working-tree>…]`: run it, read its VERSION lines (truth, continuity — §4; a COPY QUESTION means stop and ask, nothing dispatched), send its five prompts as five Agent calls in one turn, wait for all five, then read the five reports from `<dir>/q1.md` … `q5.md`. The reader brief, `texts/reader-brief.md`, verbatim (the bracketed clause for truth and continuity only):
 
@@ -85,4 +85,4 @@ Print every reader's findings whole, the checker's set first for writing. Then o
 
 ## Never
 
-Never edits the document; never names a model family of its own for the readers (the key does); never files on a bare call; never a second round of readers on its own; never rules a finding out (the Operator does, on the holder item); never posts anywhere outside the workspace.
+Never edits the document; never names a model family of its own for the readers (the key does); never files on a bare call; never a second round of readers on its own; never rules a finding out (the Operator does, on the holder item); never posts anywhere outside the project.

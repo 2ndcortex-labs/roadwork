@@ -116,7 +116,7 @@ Commit in the register (its commits local). Reply with: the cohorts and their me
 members and why; the CMs filed; the block's new order. End with the
 offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked: the Operator's acceptance of each CM's
 `spec.md`, then `/roadwork-make <CM>` (or `/roadwork-navsanity
-<group>` first, which now checks cohorts). Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+<group>` first, which now checks cohorts). Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 The specs this skill writes follow `/roadwork-specplan` §0a — the
 Operator's spec-writing guidelines — and get its verification rounds.

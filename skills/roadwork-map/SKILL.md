@@ -160,7 +160,7 @@ it and moves with it to `archive/`.
 
 Commit in the register (its commits local). Reply with: the map's path
 (and the source's, if any); its title and the count of its Process steps;
-the crossings found; then the map printed whole and verbatim, before the offers (reply-form rule). End with the offer, one invocation in its own code
+the crossings found; then the map printed whole and verbatim, before the offers. End with the offer, one invocation in its own code
 block, preceded by its sentence (offer form), never invoked: the top-most
 open item, not in process, whose file names a destination the map's
 opening paragraph names —
@@ -170,7 +170,7 @@ opening paragraph names —
 ```
 
 — else no offer. Then the back offers as `/roadwork-ingest` §5b computes
-them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

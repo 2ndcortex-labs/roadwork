@@ -115,14 +115,14 @@ item touched in this session; ask which only if ambiguous). Then:
 Read the whole folder and everything the intent cites. Then, before
 writing a line of spec, assemble the constraints that will bind it:
 
-- **Workspace law**: the workspace's brief (its `CLAUDE.md`), the path-scoped
+- **Project law**: the project's law (its `CLAUDE.md`), the path-scoped
   rules that match the files the work will touch, the consulted law
-  docs the brief points to, the project scope, as the workspace states it.
+  docs the brief points to, the project scope, as the project's law states it.
 - **The canon**: the project's canon, consulted generally for anything the work
   does with a remote (PRs, reviews).
 - **Skills in force**: list every skill available in this session by
   name with the commit of the tree that provides it (the skills' tree at `HEAD` for
-  workspace skills). Each skill that governs an aspect of the work —
+  project skills). Each skill that governs an aspect of the work —
   security, compliance, UX, brand, voice, completion discipline — is
   a constraint on the spec and is named in it.
 - **The destination's intent**: when the item file carries a **Destination:** line, read `destinations/<destination-slug>.intent.md` in the register before a line of spec is written, and, where that intent's Atlas line names an atlas, `atlases/<atlas-slug>/intent.md` as well; the spec's header records each reading on its Destination intent line — the file, the date, what it bound — or `none` for an item under no destination. A destination without an intent file (made before the destination skill wrote one): the line reads `none — the destination has no intent file`, the reply says so in one line and offers `/roadwork-destination <destination-slug>` (its update interviews the intent first), and the run proceeds — the reading is enforced by nothing, as the map is.
@@ -276,7 +276,7 @@ findings, each with the file and line it points at; say 'clean' if
 none. Do not rewrite anything. Do not read any other file." The seven
 questions, verbatim:
 
-**Where the harness runs workflows**, the seven run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — each a reader (the constitution's Sub-agents bullet), on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the documents at hand. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the harness runs none, or the run is declined, the seven run as sub-agents as the brief says, bounded the same way; no round is lost to it.
+**Where the host runs workflows**, the seven run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — each a reader (the constitution's Sub-agents bullet), on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the documents at hand. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the host runs none, or the run is declined, the seven run as sub-agents as the brief says, bounded the same way; no round is lost to it.
 
 1. Traceability both ways — does every material commitment in the intent appear in the spec, and does every consequential requirement in the spec trace to the intent or to a line marked [proposed]? List every gap in each direction.
 2. Silent additions — does the spec add scope, constraints, implementation choices, dates, budgets, responsibilities, or success measures that the intent did not give, without marking them [proposed]? List each with its line and what in the intent it stretches.
@@ -329,7 +329,7 @@ Status: proposed. From: spec.md <date>. Runs under /unlazy.
 ## Stack
 Reuses: <the assets relied on, by path — a checker by path and its modes; or "none">
 Creates: <the assets written and where they live; or "none">
-Invokes: <the tools called — an MCP server, a CLI, a harness tool, a vendor's service — each followed by its mark: (preferred — <guidebook-slug>) | (preferred — the map's own) | (departure: <reason>) | (departure: the intent's — <where>) | (no preference stated); or "none">
+Invokes: <the tools called — an MCP server, a CLI, a host tool, a vendor's service — each followed by its mark: (preferred — <guidebook-slug>) | (preferred — the map's own) | (departure: <reason>) | (departure: the intent's — <where>) | (no preference stated); or "none">
 Changes of this plan: <its extensions or modifications of the spec's Stack reference> | none
 (An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — committable is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which. The marks are read against the spec's Stack Reference, on the Invokes line only: preferred — the reference names this tool for this purpose, from a guidebook's copied Stack section or from the map's own words; departure — the reference names another tool for the purpose and the plan calls this one, the reason given, proposed in the hand-back and decided by the acceptance; the intent's departure — the reference names another tool for the purpose and the intent's Constraints name this one, the Operator having asked for it, where, named in the hand-back and not proposed; no preference stated — the reference names nothing for the purpose, the reference is none, or no guidebook with a stack has been written; nothing is a departure where there was nothing to depart from. The tools on the Invokes line are separated by semicolons, each tool's mark the last parenthesis of its entry, a reason holding no semicolon. The plan carries no Reference line: the reference is the spec's.)
 
@@ -376,7 +376,7 @@ After the plan is drafted, dispatch **five fresh sub-agents in
 parallel**, one question each, given only `spec.md` and `plan.md` and
 its question, with the same brief. The five questions, verbatim:
 
-**Where the harness runs workflows**, the five run as one workflow in the same form as the spec's — one agent per question, given `spec.md` and `plan.md`, the same shape and cap, each a reader on the family `subagent-reader` names at the effort the session agent judges, the record the session agent's from the journal, sub-agents the fallback. The plan's round is its own run: the plan does not exist when the spec's round runs; both rounds share one run only on a re-run.
+**Where the host runs workflows**, the five run as one workflow in the same form as the spec's — one agent per question, given `spec.md` and `plan.md`, the same shape and cap, each a reader on the family `subagent-reader` names at the effort the session agent judges, the record the session agent's from the journal, sub-agents the fallback. The plan's round is its own run: the plan does not exist when the spec's round runs; both rounds share one run only on a re-run.
 
 1. Coverage both ways — does every acceptance criterion have at least one gate, and does every gate trace to a criterion? List the orphans in each direction.
 2. Honest oracles — can each CHECK actually fail? Name any oracle that cannot fail, any EXPECT that copies a supplied number, and any manual gate a command could decide.
@@ -411,7 +411,7 @@ authorization."
 
 Reply with the areas of concern first, each with its owner and the
 decision it needs; then the requirements in one line each; then where
-the files are; then `spec.md` and `plan.md` printed whole and verbatim (reply-form rule), before the offers. In a reconsideration run, name the mode, the changelog
+the files are; then `spec.md` and `plan.md` printed whole and verbatim, before the offers. In a reconsideration run, name the mode, the changelog
 and every **requirement change** before the concerns. Ask the owner to review the spec against the idea: does
 it solve the stated problem, and are the intent's open questions
 answered or carried forward? **Do not build. Do not start `/unlazy` on
@@ -421,8 +421,8 @@ Operator says build or runs `/roadwork-make` (ruling 2026-09-10, after the sessi
 built on "spec accepted" alone). End by offering the next step as one invocation in its own code block, preceded by its sentence (offer form)
 — `spec accepted and /roadwork-make <ref>`, the acceptance and the go on one line, or `/roadwork-make <ref>` alone once the spec is accepted — as an offer, never by
 invoking it (every skill in the chain ends this way: Roadwork conventions).
-Directly above that offer, every area of concern its word settles is restated simply (reply-form rule).
-End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+Directly above that offer, every area of concern its word settles is restated simply.
+End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 **Files the make will touch.** After the two documents and before the restatement and the offers, under the heading "Files the make will touch", one list: every existing file the make will change and every file it will create, one line each — the path, then in parentheses at most eight words, verb first, what is done to that file, never why. The list is of the project's files the build changes or creates; the chain's own bookkeeping is left out — the item's folder and everything the lifecycle writes there (the item file, the spec's and plan's status lines, the ledger, `base.json`, the checker and its records), the register's `ordering.md` and `working.md`, and any folder a check makes outside the project; a product the build writes elsewhere in the register (a guidebook, a graduated document) is a project file and is listed. Where nothing remains, the list is the one line "none: the build writes only the chain's own records". Drawn from the spec's Design, the plan's "touches:" clauses, the Stack's "Creates:" line and the files the gates' commands name; a file no document names by path is listed by its function, one line per file where the plan knows them one by one, one line for a group otherwise ("Script(s) to sort and merge the data"). Before printing, compare the list to the plan's lines: every path a "touches:" clause, the "Creates:" line or a gate's command names is in it, the excluded bookkeeping apart. The list binds nothing and is printed, never written to a file; the make's hand-back and the archive round do not reprint it.
 

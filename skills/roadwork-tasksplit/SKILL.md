@@ -101,7 +101,7 @@ Reply with the group's name, the source's path, and every todo filed with
 its reference; say that the Operator may run `/roadwork-navsanity <group>`
 by hand later. End by offering the next step for the group's first todo —
 `/roadwork-intentify <ref>` — as one invocation in its own code block, preceded by its sentence (offer form), never
-invoked, then the back offers as `/roadwork-ingest` §5b computes them. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+invoked, then the back offers as `/roadwork-ingest` §5b computes them. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

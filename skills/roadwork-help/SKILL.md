@@ -87,7 +87,7 @@ the session agent remembers.
 Writes nothing — no file, no line in any register. When the argument was
 an item, end with one offer, the next skill that item is ready for, as
 one invocation in its own code block preceded by its sentence (offer
-form), never invoked. Otherwise no offer. As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row). No back offers: this skill
+form), never invoked. Otherwise no offer. As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row). No back offers: this skill
 interrupts nothing.
 
 ## Never
