@@ -4,6 +4,26 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-25
+
+### Fixed
+
+- The constitution's anchor list names its sixteenth anchor, `scaffold/spark/archive/CLAUDE.md` (as `spark/archive/CLAUDE.md` in the register), which the tree carried and the list did not.
+- The constitution's `docs/` bullet names `docs/local/twins.txt`, the twin pairs file beside the instance-strings list.
+- The alias of the reference prefix is named as the `ref-alias` setting at every place the constitution speaks of it; the sentence that gave the project's law a share in it is gone.
+
+### Changed
+
+- "The home", where it meant this repository, reads "the Roadwork repository" in the constitution and the skills; the register's own glossary entry Home keeps its meaning (where an item lives).
+- The parenthetical "(reply-form rule)", a citation of a rule this repository never shipped, is struck from the constitution and the skills; what it pointed at is now written in the constitution itself: N.10's restatement form (one bullet per concern, gate, finding or section the word answers; the form of each), the new point N.13 (a document asked about is printed whole before its offer), and the Offer form row of the terms table.
+- "Workspace", in the sense of the project a register serves, reads "project"; "harness" reads "the host"; the unlazy skill, shipped as its own project publishes it, is untouched.
+- The `words` check of `bin/check.mjs` guards "reply-form" and "harness" as well, and skips `skills/unlazy/`; CONTRIBUTING.md says so.
+
+### Added
+
+- `CODE_OF_CONDUCT.md`: the Contributor Covenant, version 2.1, with a contact address; CONTRIBUTING.md points at it.
+- The workflow runs the smoke test, `node bin/smoke.mjs`, as a second step after `node bin/check.mjs`.
+
 ## [1.0.0] - 2026-10-25
 
 ### Added

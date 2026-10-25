@@ -114,13 +114,15 @@ function selftests(fail) {
   }
 }
 
-// (5) words — no file under rules/, skills/ or scaffold/ carries a word that means something only inside the project
-// that first built Roadwork (case-insensitive, whole words). Each word is spelled with a one-letter class, a [ ] for
+// (5) words — no file under rules/, skills/ or scaffold/ (the unlazy skill left out) carries a word that means something
+// only inside the project that first built Roadwork, or one of the two words the shipped texts gave up in 1.0.1
+// (case-insensitive, whole words). Each word is spelled with a one-letter class, a [ ] for
 // the space or a repetition, so that the words themselves appear nowhere in the tree, this file included.
-const WORDS = /\b(nethu[b]|buz[z]|rela[y]|nexu[s]|cchb[a]|repo[ ]man|standup[ ]guy|ba{2})\b/i;
+const WORDS = /\b(nethu[b]|buz[z]|rela[y]|nexu[s]|cchb[a]|repo[ ]man|standup[ ]guy|ba{2}|reply[-]form|harnes[s])\b/i;
 function words(fail) {
   for (const top of ['rules', 'skills', 'scaffold']) {
     for (const p of walk(at(top))) {
+      if (top === 'skills' && rel(p).split('/')[1] === 'unlazy') continue;
       const t = read(p);
       if (t === null || t.includes('\0')) continue;
       t.split('\n').forEach((line, k) => {

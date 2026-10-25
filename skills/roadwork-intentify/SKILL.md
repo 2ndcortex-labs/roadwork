@@ -193,7 +193,7 @@ no, no and go with recos except:
 no, no
 ```
 
-- Where the harness has a question tool:
+- Where the host has a question tool:
   - Present the questions with “nothing” first.
   - If the tool cannot take one choice, use the blocks above.
 
@@ -330,7 +330,7 @@ go with recos except:
 ```
 
 - A plain answer list is also an answer.
-- Where the harness has a question tool:
+- Where the host has a question tool:
   - Put one question per item.
   - Put the recommendation first, labelled `(recommended)`.
   - Follow it with the round’s alternatives.
@@ -471,7 +471,7 @@ go with recos except:
   - Add a fact.
   - Modify any bullet.
 - Use clear section and bullet references so the Operator can identify changes compactly.
-- Where the harness has a question tool:
+- Where the host has a question tool:
   - Offer acceptance first.
   - Allow additions or modifications through free text.
   - Present independent section approvals together where the tool supports them.
@@ -669,7 +669,7 @@ intent accepted <date>
 - Print `intent.md` whole and verbatim in the reply:
   - Include the frontmatter, description, every section, every fact, and every description.
   - The compact facts-only read-back does not replace this full-file reply.
-- Place the file before the offers, following the reply-form rule.
+- Place the file before the offers.
 - If an existing intent was replaced, say what changed.
 
 ### Surface item-file corrections explicitly

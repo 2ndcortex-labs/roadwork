@@ -40,7 +40,7 @@ Read the register's `atlases/` — `archive/` excluded — and print a count lin
 
 ## 3. Ingest — all three held before anything is written
 
-Read every part before writing anything: a path by the harness's file read, its bytes as given; a URL by the harness's fetch tool, asked for the page's text whole and verbatim, nothing summarised — what it returns is the text as fetched; a pasted part from the message, its lines as given. Hold all three, then test the slug: kebab-case, and in none of `atlases/`, `atlases/archive/`, `destinations/`, `destinations/archive/` (a slug is never reused, and a destination's slug is never an atlas's).
+Read every part before writing anything: a path by the host's file read, its bytes as given; a URL by the host's fetch tool, asked for the page's text whole and verbatim, nothing summarised — what it returns is the text as fetched; a pasted part from the message, its lines as given. Hold all three, then test the slug: kebab-case, and in none of `atlases/`, `atlases/archive/`, `destinations/`, `destinations/archive/` (a slug is never reused, and a destination's slug is never an atlas's).
 
 **The intent it serves.** Nothing sits above an atlas, so the intent read before anything is written is the atlas's own `intent.md`: the part given as `atlases/<atlas-slug>/intent.md` is read as the intent it serves — this atlas's own — as given, before `atlas.md` is written, and `atlas.md`'s status line records the reading. The Operator's word — whatever the invocation carries beyond the slug and the three parts — is read as intent where it adds to the document and recorded verbatim in that status line, `none` where no word was given; it is never replacing or editing `intent.md`, which is saved as given, and where the word contradicts the document the reply says so and the document stands. The three parts are still all held before anything is written; one level up is the minimum, not a limitation, and an atlas, having no level above, reads its own intent and stops — the destinations under it read that intent as the level above them.
 
@@ -94,7 +94,7 @@ taken: `<destination-slug>`[ (archived)] — covers: <heading>, <heading>
 
 ## 5. Commit and hand back
 
-One commit in the register (its commits local) for the atlas. Reply with: the folder's path; the three sources, one line each; the description, marked derived; then `atlas.md` printed whole and verbatim, before the offers (reply-form rule).
+One commit in the register (its commits local) for the atlas. Reply with: the folder's path; the three sources, one line each; the description, marked derived; then `atlas.md` printed whole and verbatim, before the offers.
 
 The section of §4b is printed whole and verbatim after `atlas.md`'s body — a slug call prints the section alone, the atlas file otherwise unchanged. Then, before the listing offer, one offer per suggestion in printing order: **O<n>** — typing this starts the destination interview from the suggestion (to make the destination `<slug>` under the atlas `<atlas-slug>`): and the block `/roadwork-destination <slug> <the paragraph>` on one line; a `no suggestion` section offers none.
 
@@ -104,7 +104,7 @@ Then the listing offer, **O<n+1>** — "Typing this lists the destinations; upda
 /roadwork-destination
 ```
 
-Then the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+Then the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

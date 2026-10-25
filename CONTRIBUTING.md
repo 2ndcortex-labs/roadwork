@@ -1,5 +1,7 @@
 # Contributing to Roadwork
 
+Everyone taking part is held to the code of conduct, `CODE_OF_CONDUCT.md`, the Contributor Covenant 2.1.
+
 Changes come in as pull requests on GitHub. The steps:
 
 1. Fork the repository and make a branch for your change.
@@ -22,7 +24,7 @@ Changes come in as pull requests on GitHub. The steps:
 - `skills` — every folder under `skills/` has a `SKILL.md` whose header holds `name` and `description`, and every skill but `unlazy` has its `## Prerequisites` and `## Sub-agents` sections.
 - `terms` — every entry of the constitution's glossary has a row in its terms table.
 - `selftests` — every shipped script that has a `--selftest` passes it, and every shipped Python script compiles.
-- `words` — no file under `rules/`, `skills/` or `scaffold/` carries a word from the list in `bin/check.mjs`: words that meant something only inside the project Roadwork was first built in.
+- `words` — no file under `rules/`, `skills/` or `scaffold/` (the unlazy skill left out) carries a word from the list in `bin/check.mjs`: words that meant something only inside the project Roadwork was first built in, and two the shipped texts gave up in 1.0.1, "reply-form" and "harness".
 
 `bin/smoke.mjs` is the trial of the init: in an empty temporary project it runs the init, then the installed config and inventory scripts, and checks that the help skill's inputs are in place.
 

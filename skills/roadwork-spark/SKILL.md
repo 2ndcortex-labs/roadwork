@@ -52,7 +52,7 @@ spark — its reference and a short description in the session agent's words, ne
 the notes re-quoted; then one sentence, "Typing this converts these <n>
 sparks into one <kind> named `<item-name>`:" — "this spark" when the
 group is one — and the batched ingest
-invocation in its own fenced code block (reply-form rule), the members
+invocation in its own fenced code block, the members
 joined with ` && `:
 
 ```

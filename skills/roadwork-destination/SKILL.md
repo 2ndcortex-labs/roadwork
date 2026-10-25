@@ -217,7 +217,7 @@ beside them and moves with them to `archive/`.
 
 Commit in the register (its commits local). Reply with: the destination's
 path (and the source's, if any); its title and the count of requirements; the guidebooks drawn on and whether the recommendation was taken;
-the crossings found; then the destination printed whole and verbatim — the intent first, then the PRD — before the offers (reply-form rule). End with the offers, each one invocation in its own code
+the crossings found; then the destination printed whole and verbatim — the intent first, then the PRD — before the offers. End with the offers, each one invocation in its own code
 block, preceded by its sentence (offer form), never invoked. When the
 interview answered yes to **Map**, this one first, never made here — Typing this makes the map of this destination with you:
 
@@ -232,7 +232,7 @@ Then, always, the navigation offer:
 ```
 
 Then the back offers as `/roadwork-ingest` §5b computes them — up to
-five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 

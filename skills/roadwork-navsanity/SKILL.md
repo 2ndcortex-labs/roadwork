@@ -57,7 +57,7 @@ if any; the PRD if any; the group's block in the register's
 among members and to items outside the group.
 
 Thoroughness is breadth, and breadth is what sub-agents are for:
-dispatch one sub-agent per sub-register — as one workflow where the harness runs workflows, one agent per sub-register, each reporting its facts in one shape (file, line, one sentence each; no cap — a reader lists what it finds), each a reader (the constitution's Sub-agents bullet) on the model family the settings key `subagent-reader` names, its default where empty, at the effort the session agent judges for the run; where the harness runs none, or the run is declined, sub-agents as before; the findings stay yours — to read its members and report
+dispatch one sub-agent per sub-register — as one workflow where the host runs workflows, one agent per sub-register, each reporting its facts in one shape (file, line, one sentence each; no cap — a reader lists what it finds), each a reader (the constitution's Sub-agents bullet) on the model family the settings key `subagent-reader` names, its default where empty, at the effort the session agent judges for the run; where the host runs none, or the run is declined, sub-agents as before; the findings stay yours — to read its members and report
 facts (files present, frontmatter values, citations, ordering lines), and
 for a large group one per check type in step 3 to gather that check's
 evidence — in parallel, each with a narrow brief and the file paths it
@@ -151,7 +151,7 @@ Reply with: the source; the six results in one line each; the changes
 made; what remains open. End with the offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked:
 `group is right and /roadwork-verify-and-archive todo/<group>-sanity` — the word recorded in the run's section before the archive skill runs — or, once said, `/roadwork-verify-and-archive todo/<group>-sanity` alone;
 otherwise the change awaiting their word or the next run; plus the
-top-most unblocked item in `ordering.md` with its skill. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the harness has a question tool, blocks otherwise (the terms table's **Offer form** row).
+top-most unblocked item in `ordering.md` with its skill. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never
 
