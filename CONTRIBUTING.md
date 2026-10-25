@@ -18,7 +18,7 @@ Changes come in as pull requests on GitHub. The steps:
 
 `.github/workflows/check.yml` runs `node bin/check.mjs` on every push and every pull request, on Node.js 24. It runs five checks, each of which you can also run alone, as `node bin/check.mjs <check>`:
 
-- `anchors` — every anchor of the scaffold is present: the register's own files (`scaffold/CLAUDE.md`, `scaffold/.gitignore`, `scaffold/ordering.md`, `scaffold/working.md`, `scaffold/docs/teachme.md`, `scaffold/docs/facts.md`) and the `CLAUDE.md` of every folder the constitution lists, with the one under `spark/archive/`.
+- `anchors` — every anchor of the scaffold is present: the register's own files (`scaffold/CLAUDE.md`, `scaffold/.gitignore`, `scaffold/ordering.md`, `scaffold/working.md`, `scaffold/docs/teachme.md`, `scaffold/docs/facts.md`) and the `CLAUDE.md` of every folder the constitution lists, and `scaffold/spark/archive/CLAUDE.md`.
 - `skills` — every folder under `skills/` has a `SKILL.md` whose header holds `name` and `description`, and every skill but `unlazy` has its `## Prerequisites` and `## Sub-agents` sections.
 - `terms` — every entry of the constitution's glossary has a row in its terms table.
 - `selftests` — every shipped script that has a `--selftest` passes it, and every shipped Python script compiles.

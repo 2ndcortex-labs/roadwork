@@ -7,15 +7,16 @@ Beside them, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/`, ea
 `ordering.md` is the living, loose prioritization — one ordered list, top is
 next, maintained by agent judgment; the basis for "what should we do next?".
 `working.md` records the items in process (dated list, not a history). The
-base-case workflow, in order: `/roadwork-ingest` files (notes verbatim, the filer's reading, placeholders,
+workflow, in order: `/roadwork-ingest` files (notes verbatim, the filer's reading, placeholders,
 frontmatter) → `/roadwork-intentify` interviews → `/roadwork-specplan` writes spec and
 plan with gates → `/roadwork-make` is the Operator's go and builds under `/unlazy`
 → `/roadwork-verify-and-archive` archives. An accepted spec is not a go. One
 register per project, at the path the project's law names; no path under the
-project carries one of its own. This folder is a copy of the Roadwork home's
-`scaffold/`, made once by `roadwork-init`, never updating the home and never
-updated from it: never pushed, its commits local; the home ships the skeleton
-with its anchors and the two docs, never a map and never an item; the rule and
-the skills live in the project's `.claude/` folders, refreshed by re-running
-the init. Roadwork register law: the constitution,
+project carries one of its own. This folder is a copy of the Roadwork
+repository's `scaffold/`, made once by the init tool, `bin/roadwork-init.mjs` in
+the Roadwork repository, never updating that repository and never updated from
+it: never pushed, its commits local; the repository ships the skeleton with its
+anchors and its two docs, `docs/teachme.md` and `docs/facts.md`, never a map and
+never an item; the rule and the skills live in the project's `.claude/` folders,
+refreshed by re-running the init. Roadwork register law: the constitution,
 `.claude/rules/roadwork-constitution.md`.

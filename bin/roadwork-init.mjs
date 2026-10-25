@@ -12,8 +12,10 @@ const USAGE = `Usage: node bin/roadwork-init.mjs <register-path> [--project <roo
 
 Sets Roadwork up in a project, or refreshes it.
 
-  <register-path>   where the project's register goes, for example my-project/roadwork.
-                    When nothing is there yet, this home's scaffold/ is copied there
+  <register-path>   where the project's register goes, for example my-project/roadwork;
+                    its last folder must be named roadwork, as the rule loads only for
+                    files under a roadwork/ folder.
+                    When nothing is there yet, this repository's scaffold/ is copied there
                     once, the line "Copied from Roadwork <release> (${HOME_ADDRESS})
                     on <date>" is added to the copy's CLAUDE.md, and the copy is made
                     its own git repository with one commit and no remote. When a
@@ -23,13 +25,13 @@ Sets Roadwork up in a project, or refreshes it.
                     ancestor of it. Default: the register path's parent.
 
 Every run replaces <root>/.claude/rules/roadwork-constitution.md and each of this
-home's skill folders under <root>/.claude/skills/ with this home's copies; any other
-file or folder there is left alone. It then prints the line to add to the project's
-CLAUDE.md, and writes nothing else.
+repository's skill folders under <root>/.claude/skills/ with this repository's copies;
+any other file or folder there is left alone. It then prints the line to add to the
+project's CLAUDE.md, and writes nothing else.
 
-Refused, exit 1: a register path that exists and is not a register; a register path
-inside this home; a --project that is not the register path's parent or an ancestor
-of it.
+Refused, exit 1: a register path whose last folder is not named roadwork; a register
+path that exists and is not a register; a register path inside this repository; a
+--project that is not the register path's parent or an ancestor of it.
 `;
 
 const say = (line) => process.stdout.write(`${line}\n`);
@@ -77,13 +79,15 @@ const home = real(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const scaffold = path.join(home, 'scaffold');
 const rule = path.join(home, 'rules', 'roadwork-constitution.md');
 const skillsHome = path.join(home, 'skills');
-if (!isDir(scaffold) || !fs.existsSync(rule) || !isDir(skillsHome)) stop(`the home at ${home} lacks scaffold/, rules/roadwork-constitution.md or skills/`);
+if (!isDir(scaffold) || !fs.existsSync(rule) || !isDir(skillsHome)) stop(`the Roadwork repository at ${home} lacks scaffold/, rules/roadwork-constitution.md or skills/`);
 
 const register = real(registerArg);
 const root = projectArg === null ? path.dirname(register) : real(projectArg);
 
-// --- the three refusals, before anything is written -----------------------------------------------------------------
-if (isInside(register, home)) stop(`refused: ${register} is inside the Roadwork home at ${home}; give a path in your project`);
+// --- the four refusals, before anything is written ------------------------------------------------------------------
+if (isInside(register, home)) stop(`refused: ${register} is inside the Roadwork repository at ${home}; give a path in your project`);
+// the name as given, not through a link: the rule's header loads it only for files under a folder named roadwork/
+if (path.basename(path.resolve(registerArg)) !== 'roadwork') stop(`refused: ${register} is not named roadwork; the register's folder must be named roadwork, as the rule loads only for files under a roadwork/ folder`);
 if (projectArg !== null && (register === root || !isInside(register, root))) stop(`refused: --project ${root} is not the register path's parent or an ancestor of it`);
 const exists = fs.lstatSync(register, { throwIfNoEntry: false }) !== undefined;
 if (exists && !isRegister(register)) stop(`refused: ${register} exists and is not a register (a register holds ordering.md and working.md)`);
@@ -98,6 +102,7 @@ function releaseOf() {
 }
 
 // --- a first run: the scaffold copied once, the release line, the register's own repository -------------------------
+let madeRepository = false;
 if (firstRun) {
   const release = releaseOf();
   const d = new Date();
@@ -128,6 +133,7 @@ if (firstRun) {
         stop(`git ${what} failed in ${register} (${why}); the register was copied without its first commit`);
       }
     }
+    madeRepository = true;
   }
 }
 
@@ -144,8 +150,8 @@ const SKILL_NAME = /^[a-z0-9][a-z0-9-]*$/;
 const skills = fs.readdirSync(skillsHome, { withFileTypes: true }).filter((e) => e.isDirectory()).map((e) => e.name).sort();
 for (const name of skills) {
   const target = path.join(skillsDir, name);
-  // The one recursive delete in Roadwork's tools, so that a file the home no longer ships vanishes from the installed
-  // skill. The target is built here from the home's own skill folder name, never from an argument's text: it must sit
+  // The one recursive delete in Roadwork's tools, so that a file the repository no longer ships vanishes from the
+  // installed skill. The target is built here from the repository's own skill folder name, never from an argument's text: it must sit
   // directly under <root>/.claude/skills/ and its last segment must be that name, or nothing is removed.
   if (!SKILL_NAME.test(name) || path.dirname(target) !== skillsDir || path.basename(target) !== name || path.relative(skillsDir, target) !== name) {
     stop(`refused to replace ${target}: not a skill folder directly under ${skillsDir}`);
@@ -155,5 +161,7 @@ for (const name of skills) {
 }
 
 // --- the law line ---------------------------------------------------------------------------------------------------
+// on a first run that made the register a repository, the tail: a git project must ignore it, or the project's
+// repository records it as a link to another repository
 const rel = path.relative(root, register).split(path.sep).join('/');
-say(`Roadwork register: ${rel} — add this to your project's law${firstRun ? ' — and to its ignore file if you keep the two apart' : ''}`);
+say(`Roadwork register: ${rel} — add this to your project's law${madeRepository ? ` — and \`${rel}\` to its ignore file: the register is a git repository of its own` : ''}`);

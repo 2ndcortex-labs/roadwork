@@ -2,27 +2,27 @@
 
 Roadwork is a work-plans system for projects run with Claude Code, by 2nd Cortex Labs. It keeps one folder of plans in your project, the register — todos (fixes and chores, done once), features (capabilities, built once and reused) and sparks (ideas parked for later) — and a set of skills that work them: a note is filed, an interview settles what is wanted, a spec and a plan are written with pass-or-fail gates, the build runs against the gates, and the result is verified and archived. Each step is a command you type, such as `/roadwork-ingest` or `/roadwork-make`, and each ends by offering the next.
 
-This repository is the Roadwork home. It ships three things: the rule every skill follows, `rules/roadwork-constitution.md`; the skills, `skills/`; and the skeleton of the register, `scaffold/`. An init tool, `bin/roadwork-init.mjs`, copies the skeleton into your project once and installs the rule and the skills where Claude Code finds them. Nothing here belongs to any one project: no keys, no names, no items. Your items, maps and records are yours and never come from here.
+This is the Roadwork repository. It ships three things: the rule every skill follows, `rules/roadwork-constitution.md`; the skills, `skills/`; and the skeleton of the register, `scaffold/`. An init tool, `bin/roadwork-init.mjs`, copies the skeleton into your project once and installs the rule and the skills where Claude Code finds them. Nothing here belongs to any one project: no keys, no names, no items. Your items, maps and records are yours and never come from here.
 
-You need Claude Code, which loads skills from a project's `.claude/skills/` and rules from its `.claude/rules/`; Node.js (CI uses version 24), for the init and the skills' scripts, with nothing to install from a package registry; git, so the init can make the register a repository of its own (without git it still copies and installs); and Python 3 for two of the audit skill's scripts.
+You need Claude Code, which loads skills from a project's `.claude/skills/` and rules from its `.claude/rules/`; Node.js 22 or later (CI runs 24), for the init and the skills' scripts, with nothing to install from a package registry; git, so the init can make the register a repository of its own (without git it still copies and installs); and Python 3 for two of the audit skill's scripts.
 
 ## Quickstart
 
 ```
-git clone https://github.com/2ndcortex-labs/roadwork.git roadwork-home
-node roadwork-home/bin/roadwork-init.mjs <your-project>/roadwork
+git clone https://github.com/2ndcortex-labs/roadwork.git roadwork-repo
+node roadwork-repo/bin/roadwork-init.mjs <your-project>/roadwork
 echo 'Roadwork register: roadwork' >> <your-project>/CLAUDE.md
 cat <your-project>/roadwork/docs/teachme.md
 ```
 
 1. Clone this repository anywhere outside your project (or download a release and unpack it).
-2. Run the init with the path where your project's register should go. It ends by printing a line that begins `Roadwork register: roadwork — add this to your project's law`.
-3. Add that line, `Roadwork register: roadwork`, to your project's `CLAUDE.md` — the instructions Claude Code loads in every session, which the skills call the project's law. If you keep the register out of your project's own git history, add the same path to the project's ignore file.
+2. Run the init with the path where your project's register should go: a folder named `roadwork`, usually at your project's root. The name is required — the rule loads only for files under a `roadwork/` folder, and a project has one register, `roadwork/`. The init ends by printing a line that begins `Roadwork register: roadwork — add this to your project's law`. It refuses, with one line and exit status 1, a register path whose last folder is not named `roadwork`, a path that exists and is not a register, a path inside the Roadwork repository, and a `--project` that is not the register path's parent or an ancestor of it.
+3. Add that line, `Roadwork register: roadwork`, to your project's `CLAUDE.md` — the instructions Claude Code loads in every session, which the skills call the project's law. If your project is a git repository, add `roadwork/` to its `.gitignore`: the register is a git repository of its own.
 4. Read the teach-me, `roadwork/docs/teachme.md` in your project: a walk-through of the register and the commands, written for a person. In a Claude Code session, `/roadwork-help` answers questions about it.
 
 ## Updating
 
-Pull or download a newer home and run the init again with the same register path. It finds the register there and leaves it untouched; it replaces `.claude/rules/roadwork-constitution.md` and each of the home's skill folders under `.claude/skills/` with the newer copies, so a file a skill no longer has disappears. Any other rule or skill in those folders is left alone. `docs/install-and-update.md` gives the details.
+Pull or download a newer copy of the Roadwork repository and run its init again with the same register path. It finds the register there and leaves it untouched; it replaces `.claude/rules/roadwork-constitution.md` and each skill folder the repository ships under `.claude/skills/` with the newer copies, so a file a skill no longer has disappears. Any other rule or skill in those folders is left alone. `docs/install-and-update.md` gives the details.
 
 ## Layout
 
