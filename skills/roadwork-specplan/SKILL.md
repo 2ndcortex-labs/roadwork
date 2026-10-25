@@ -117,7 +117,7 @@ writing a line of spec, assemble the constraints that will bind it:
 
 - **Project law**: the project's law (its `CLAUDE.md`), the path-scoped
   rules that match the files the work will touch, the consulted law
-  docs it points to, the project scope, as it states it.
+  docs the law points to, the project scope, as the law states it.
 - **The canon**: the project's canon, consulted generally for anything the work
   does with a remote (PRs, reviews).
 - **Skills in force**: list every skill available in this session by
