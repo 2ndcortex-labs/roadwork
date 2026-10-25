@@ -57,7 +57,7 @@ if any; the PRD if any; the group's block in the register's
 among members and to items outside the group.
 
 Thoroughness is breadth, and breadth is what sub-agents are for:
-dispatch one sub-agent per sub-register — as one workflow where the harness runs workflows, one agent per sub-register, each reporting its facts in one shape (file, line, one sentence each; no cap — a reader lists what it finds), on the top model of the tier below the session's, or the session's own where no lower tier exists, at an effort the dispatching agent sets for the run; where the harness runs none, or the run is declined, sub-agents as before; the findings stay yours — to read its members and report
+dispatch one sub-agent per sub-register — as one workflow where the harness runs workflows, one agent per sub-register, each reporting its facts in one shape (file, line, one sentence each; no cap — a reader lists what it finds), each a reader (the constitution's Sub-agents bullet) on the model family the settings key `subagent-reader` names, its default where empty, at the effort the session agent judges for the run; where the harness runs none, or the run is declined, sub-agents as before; the findings stay yours — to read its members and report
 facts (files present, frontmatter values, citations, ordering lines), and
 for a large group one per check type in step 3 to gather that check's
 evidence — in parallel, each with a narrow brief and the file paths it

@@ -34,6 +34,13 @@ _One row per term in the skills' glossaries, then one per git word the skills' t
 | the five tests | Rubric | The five pass-or-fail tests a set of features must meet to be built together. |
 | a rethink | Reconsideration | Running the spec skill again on an item whose spec and plan were accepted — after a failed build, a changed dependency, an amended intent, or your wish to rethink; the old go ends. |
 | the fresh-eyes review | Verification round | Six fresh readers on a spec and five on a plan, one question each, before you see it. |
+| a reading helper | reader | A helper given a document and one question, returning findings only; the fresh-eyes review's readers. Runs on the family the setting `subagent-reader` names. |
+| a lookup helper | finder | A helper that fetches one fact from inside the project — a file, a commit, a setting, what another item says — with its source. Runs on the family `subagent-finder` names. |
+| a search helper | explore | A helper that sweeps the project to find where something lives, returning locations. Runs on the family `subagent-explore` names. |
+| an outside-sources helper | research | A helper that reads documentation and other outside sources and returns a short summary with links. Runs on the family `subagent-research` names. |
+| a building helper | builder | A helper that builds one deliverable inside its allowed files under the item's gates and reports every write. Runs on the family `subagent-builder` names. |
+| a checking helper | reviewer | A helper that checks a finished change against its brief and returns findings with evidence; it changes nothing. Runs on the family `subagent-reviewer` names. |
+| the helper's model | model family | The vendor's line a helper runs on — sonnet, opus, haiku, or another vendor's — never a release number; the newest release is assumed. Set per helper type with the config skill. |
 | the way-back offers | Back offers | After an interruption, up to five open steps offered, most recent first. |
 | the item's folder name | Item name | The kebab-case name chosen when the item is filed, in your words, never reused. |
 | several at once | Batch invocation | Several references on one line joined with ` && `, run as one command where the skill allows it. Nothing to do with a shipment (Batch): this batch is of references. |
