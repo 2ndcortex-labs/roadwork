@@ -15,5 +15,5 @@ register per project, at the path the project's law names; no path under the
 project carries one of its own. This folder is a clone of a remote Roadwork
 repository: never pushed to, its commits local; the
 remote ships the skeleton with its anchors, the docs, the rule and the skills,
-never a map and never an item. Roadwork register law: the rule
-`.claude/rules/roadwork-register.md`, the remote's.
+never a map and never an item. Roadwork register law: the constitution,
+`.claude/rules/roadwork-constitution.md`, the remote's.
