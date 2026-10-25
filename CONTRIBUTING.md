@@ -1,5 +1,7 @@
 # Contributing to Roadwork
 
+Everyone taking part is held to the code of conduct, `CODE_OF_CONDUCT.md`, the Contributor Covenant 2.1.
+
 Changes come in as pull requests on GitHub. The steps:
 
 1. Fork the repository and make a branch for your change.
