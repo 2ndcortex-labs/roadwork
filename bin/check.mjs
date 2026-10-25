@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// check — the home's own checks, the ones CI runs. Node only, no dependencies.
+// check — the Roadwork repository's own checks, the ones CI runs. Node only, no dependencies.
 // Usage: node bin/check.mjs [anchors | skills | terms | selftests | words | all]   (default: all)
 // Prints "OK <mode>" for each passing mode and one "FAIL <mode> <what>" line per failure; exit 0 only when all pass,
-// 1 when any fails, 2 on a usage error. Reads the home's files wherever it is run from; writes only into folders it
+// 1 when any fails, 2 on a usage error. Reads the Roadwork repository's files wherever it is run from; writes only into folders it
 // makes under the system's temporary folder (the self-tests' working folder and the compiled Python files), never
 // into the home.
 import fs from 'node:fs';
