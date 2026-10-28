@@ -295,6 +295,7 @@ paths:
   - `/roadwork-verify-and-archive todo/x archive, shipped given G10 accepted` — both
 - Several words of one kind: joined with ` and `.
   - `/roadwork-make todo/x given G7 accepted and spec accepted`
+- A hand-back waiting on more than one word prints its first box answering all of it — the invocation, every word, those of one kind joined with ` and `, the prior words after one `given` — then its twin ending `except:`, the Operator listing after the colon what they answer differently, then one box per word. The set of boxes is the skill's, printed every time.
 - The skill reads every word from its own invocation.
 - A prior word the skill records where it belongs — the spec, the ledger, the intent, the run's section — dated, as the Operator's, before it acts, exactly as the step that asked for it would have; an own word as its own text says.
 - A directive phrase that is not a skill keeps its own wording; a prior word rides it the same way, after ` given `.
@@ -317,6 +318,8 @@ paths:
 - Nothing else in the box.
 - One offer per box.
 - No offer is ever printed inline, indented or in prose.
+- Where the host has a question tool, the offers may be put as one list of choices instead: the next step first, then the rest in their order; each choice the invocation itself, its sentence as the description; "none of these" and the free-text choice always present.
+- A ticked choice is the Operator's word for that offer, run in the same turn; several ticks of a batch-accepting skill run as one batch; a batch-refusing skill takes one tick per turn; anything typed in the free-text choice is a message. The fact suffix follows the list as text.
 
 #### The next-step offer
 - Whatever the skill's text mandates.
@@ -380,6 +383,7 @@ paths:
 - Refused, with the offers re-listed:
   - an id matching no offer of the last hand-back
   - two ids in one message
+  - an id with text after it where the offer takes no completion
 
 #### The sentence before each box
 - One sentence: the id in bold; "typing this …"; the parenthetical "(to …)" saying what will happen and or exist afterwards.
