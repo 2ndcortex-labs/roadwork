@@ -53,8 +53,8 @@ paths:
   - **Every roadwork skill must read `config.json` before it acts** — a mandate, not a convenience: the register's `roadwork/config.json`, read once per run through the config skill's script with no argument, `node <config skill>/scripts/config.mjs`, and its lines held in the working context for the run — every key of the schema and every instance key with its value, a secret as "set, <n> characters" or "empty", never its value. A skill that has not read it does not act, as a skill without the constitution in context does not act: the constitution read and `config.json` read are the two preconditions of every run. The file is read by the script and by nothing else — never opened, parsed or printed directly.
   - A key the run needs that reads empty takes the default the schema names for it; a key without a default is asked of the Operator by the config skill's empty-keys prompt, never by the running skill.
 - **Frontmatter**
-  - It opens every `todo.md` and `feature.md`: eight keys, always present, empty allowed.
-  - A `feature.md` carries nine: `onroad-cohort` eighth (see Cohorts) and `road-level` last.
+  - It opens every `todo.md` and `feature.md`: nine keys, always present, empty allowed; an item filed before the key existed reads an absent key as empty.
+  - A `feature.md` carries ten: `onroad-cohort` ninth (see Cohorts) and `road-level` last.
   - The last key, `road-level`, is the item's level within its destination: `main`, `secondary` or `side`.
   - `road-level` is set by `/roadwork-nav-to-destination` from the destination's requirement, empty until then; the sanity todo is `main`.
   - `road-level` is read with the destination's `bucket-list-priority` to keep the loose order, never to rewrite it.
@@ -75,6 +75,14 @@ paths:
   - `group`: names shared by items that belong together; an item may carry several.
   - Groups are never declared; a name carries its formation date, `<name>-<YYYY-MM-DD>`.
   - `in-process`: the date `/roadwork-make` put the item on the road; empty when not; cleared by `/roadwork-verify-and-archive`, or by `/roadwork-specplan` when a reconsideration ends the previous go.
+  - `gated`: a build `/roadwork-make` stopped at a gate it cannot meet from inside the project; one string, `"<YYYY-MM-DD>: G<n> — <what it waits on, one clause>"`; empty when nothing waits.
+  - It is written only by `/roadwork-make`, where it stops with a gate unmet for a reason outside the build; never on an abandoned gate, never on a review gate waiting on the Operator's word.
+  - The test for outside the build: the gate's check names a thing outside the build — a settings key empty, a service not answering, another party's act, a file only the Operator supplies — and a rerun without a change outside the build would fail the same; the one-line reason is recorded in the key's text.
+  - The write is recorded on the item file as `**Gated (<YYYY-MM-DD>, by /roadwork-make):** <the key's text>`.
+  - It is cleared by `/roadwork-make` when the gate passes on a later run, by the Operator by hand, by `/roadwork-verify-and-archive`'s archive act, and by `/roadwork-specplan`'s reconsideration with `in-process`.
+  - The clearing is recorded on the item file as `**Gated cleared (<YYYY-MM-DD>, by /roadwork-make | the Operator | the reconsideration):** <what now holds>`, the Operator's as `"<their words>" — <what now holds>`.
+  - `gated` and `external` are never both set on one item.
+  - An absent `gated` key is read as empty.
   - `disposition`: empty while open; set by `/roadwork-verify-and-archive` at archiving.
   - Its values: `shipped`, `withdrawn`, `superseded by <ref>`, `decided`, or `abandoned`.
   - An item never built, partly built, or only apparently built may be archived on the Operator's word with its shortfall recorded.
@@ -222,7 +230,7 @@ paths:
   - On an existing accepted spec and plan, `/roadwork-specplan` runs a reconsideration: dated changelog, proven gates kept, the previous go ended, the spec proposed again.
   - Every spec is written under the Operator's spec-writing guidelines, with tagged requirements and two verification rounds of fresh readers, one on the spec and one on the plan.
   - `/roadwork-make <ref>` (the Operator's go: one item, refused while blocked).
-  - `/roadwork-make` writes `in-process`, the `working.md` line and the item's `GATES.md` from the plan, then builds under `/unlazy`.
+  - `/roadwork-make` writes `in-process`, the `working.md` line and the item's `GATES.md` from the plan, then builds under `/unlazy`; it writes `gated` where it stops outside the build.
   - `/roadwork-verify-and-archive <ref>` (archiving: evaluates concerns, unmet gates and landing by ancestry, then interviews the Operator).
   - On their word, the six-place act: resolution and `disposition`, move to `archive/`, strike from `ordering.md`, `working.md` and `in-process` cleared, dependents' `blocked-by` cleared.
   - `/roadwork-verify-and-archive` then offers the next item, group first.
@@ -421,8 +429,9 @@ paths:
 | a work item | Item | One folder holding a todo or feature file plus its intent, plan and spec; a spark holds one idea file only. |
 | where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of the Roadwork repository's scaffold, made once; never updating that repository. |
 | an item's name-with-path | Reference (ref) | How an item is pointed at: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`, or `main/<kind>/<item-name>` from anywhere. |
-| the item's header keys | Frontmatter | The block at the top of an item file: blocker, blocking, blocked-by, external, group, in-process, disposition, road-level; a feature's onroad-cohort before the last. |
+| the item's header keys | Frontmatter | The block at the top of an item file: blocker, blocking, blocked-by, external, group, in-process, gated, disposition, road-level; a feature's onroad-cohort before the last. |
 | something out-of-band we wait on | External | A dependency that will not be met without something specific and out-of-band happening; a wait in the due course, such as a merge, is not one. The spec names it, one entry per act outside the project, never one per party or per service; the key records it; only you clear it; its observed-by test runs at acceptance and before a make, a command where one is written, your word where not. |
+| a build stopped from outside | gated | A build the make stopped at a gate it cannot meet from inside the project, with the date and what it waits on; printed and counted by the inventory page; cleared when the gate passes or on your word. |
 | the order file | `ordering.md` | The loose list of what comes next, top first; beside it `working.md` lists what is in process now. |
 | you, the owner | Operator (user) | The human owner of the project; every decision is yours. |
 | the agent in your session | Session agent | The agent running the session that typed the command. |
@@ -498,8 +507,9 @@ paths:
 - **Item** — one folder under its destination's folder in a sub-register (`unnavigated/` until a navigation cites it): `todo.md` or `feature.md` (the **item file**) plus `intent.md`, `plan.md`, `spec.md`; a spark holds only `idea.md`.
 - **Home** — the register an item lives in: the project's one register, a copy of the Roadwork repository's scaffold, made once; never updating that repository.
 - **Reference (ref)** — `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`; from anywhere, `main/<kind>/<item-name>` — the `ref-alias` setting may alias the prefix.
-- **Frontmatter** — the YAML block opening an item file: `blocker`, `blocking`, `blocked-by`, `external`, `group`, `in-process`, `disposition`, `road-level` (the item's level within its destination — `main`, `secondary`, `side` — or empty), a feature's `onroad-cohort` before it.
+- **Frontmatter** — the YAML block opening an item file: `blocker`, `blocking`, `blocked-by`, `external`, `group`, `in-process`, `gated`, `disposition`, `road-level` (the item's level within its destination — `main`, `secondary`, `side` — or empty), a feature's `onroad-cohort` before it.
 - **External** — the `external` key: an externality, a dependency that will not be met without something specific and out-of-band happening an operational pause in the due course — a push, a merge, a fetch, a reboot — is never one. Stated by the spec skill as a fact in the spec's Dependencies section (what, who acts, how observed) — one entry per out-of-band act, never per party or per service — and written on spec acceptance: a `blocked-by` where another item acts, the key's text where another party does, with the item file's dated `**External set**` line; emptied only by the Operator, with the dated `**External cleared**` line; `/roadwork-make` refuses while it is set; its observed-by part run as a test at acceptance and before a make, a command deciding it where one is written, the Operator's word where not; notified where the project names an address.
+- **Gated** — the `gated` key: a build `/roadwork-make` stopped at a gate it cannot meet from inside the project, one string `"<YYYY-MM-DD>: G<n> — <what it waits on, one clause>"`, empty when nothing waits. Written only by `/roadwork-make` where it stops with a gate unmet for a reason outside the build — the gate's check names a thing outside the build (a settings key empty, a service not answering, another party's act, a file only the Operator supplies) and a rerun without a change outside the build would fail the same, the one-line reason recorded in the key's text — never on an abandoned gate, never on a review gate waiting on the Operator's word; recorded with the item file's dated `**Gated**` line. Cleared by the make when the gate passes on a later run, by the Operator by hand, by `/roadwork-verify-and-archive`'s archive act and by `/roadwork-specplan`'s reconsideration, with the dated `**Gated cleared**` line; never set together with `external`; an absent key read as empty; printed and counted by the inventory page.
 - **`ordering.md`** — the register's loose priority list; top is next. **`working.md`** — the register's dated list of items in process.
 - **Operator** — the human owner; every decision is theirs. **Session agent** — the agent running the session that invokes the skill.
 - **Project scope** — everything at and under the root the project's law names; the paths an item touches are its **Paths:** line.

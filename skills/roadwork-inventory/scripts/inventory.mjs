@@ -201,7 +201,7 @@ const ledgerOf = (it) => { if (!ledgers.has(it.ref)) ledgers.set(it.ref, ledger(
 // exactly one unlanded line names as its second word (the lines block 4 prints, before the filter); else
 // `/roadwork-verify-and-archive <ref>` where no unmet gate follows the run; else none, and the line carries no block.
 function acceptance(it) {
-  if (!it.state.startsWith('in process at G')) return null;
+  if (!it.state.startsWith('in process at G') || it.state.includes(', gated since')) return null;
   const l = ledgerOf(it);
   const run = [];
   for (let k = l.gates.findIndex((x) => x.id === l.gate); k >= 0 && k < l.gates.length; k++) {
@@ -286,12 +286,20 @@ function lifecycle(it) {
   if (!isAccepted(spec)) return 'spec drafted, not accepted';
   return 'awaits the go';
 }
+// The `gated` key, a build the make stopped from outside: `"<date>: G<n> — <what it waits on>"`, read only on an item in
+// process and printed as the tail `, gated since <date>: <what it waits on>` — the date the text before its first `: `, the
+// rest after it with a leading `G<n> — ` stripped; a text without `: ` printed whole after `gated since `; absent or empty, nothing.
+function gatedTail(it) {
+  const g = typeof it.fm.gated === 'string' ? it.fm.gated.trim() : '';
+  if (!g) return '';
+  const i = g.indexOf(': ');
+  return i < 0 ? `, gated since ${g}` : `, gated since ${g.slice(0, i)}: ${g.slice(i + 2).replace(/^G\d+ — /, '')}`;
+}
 function state(it, depth = 0) {
   if (it.fm['in-process']) {
     const l = ledgerOf(it);
-    if (!l) return 'in process, no ledger';
-    if (l.met) return 'in process, all gates met';
-    return `in process at G${l.gate} (${l.title})`;
+    const clause = !l ? 'in process, no ledger' : l.met ? 'in process, all gates met' : `in process at G${l.gate} (${l.title})`;
+    return clause + gatedTail(it);
   }
   if (it.fm.external) return `external: ${it.fm.external} — ${externalState(it)}`;
   for (const entry of it.fm['blocked-by'] || []) {
@@ -309,15 +317,15 @@ const NEXT = {
 };
 // A blocked line: `<lifecycle state> · blocked by …`; lifeOf gives that prefix, any other state itself.
 const lifeOf = (t) => (t.match(/^(awaits interview|intent drafted, not accepted|intent accepted|spec drafted, not accepted|awaits the go) · blocked by /) || [, t])[1];
-const nextOf = (t) => { const s = lifeOf(t); return s !== t && s === 'awaits the go' ? undefined : NEXT[s]; };
+const nextOf = (t) => { if (t.includes(', gated since')) return undefined; const s = lifeOf(t); return s !== t && s === 'awaits the go' ? undefined : NEXT[s]; };
 const BUCKET = (t) => { const s = lifeOf(t); return s !== t && s === 'awaits the go' ? 'blocked'
   : (s === 'awaits interview' || s === 'intent drafted, not accepted') ? 'interview'
   : (s === 'intent accepted' || s === 'spec drafted, not accepted') ? 'accepted'
   : s === 'awaits the go' ? 'go' : s.startsWith('in process') ? 'process' : s.startsWith('external') ? 'external' : null; };
 
 for (const it of items) it.state = state(it);
-const counts = { interview: 0, accepted: 0, go: 0, process: 0, blocked: 0, external: 0 };
-for (const it of items) { const b = BUCKET(it.state); if (b) counts[b]++; }
+const counts = { interview: 0, accepted: 0, go: 0, process: 0, blocked: 0, external: 0, gated: 0 };
+for (const it of items) { const b = BUCKET(it.state); if (b) counts[b]++; if (b === 'process' && it.state.includes(', gated since')) counts.gated++; }
 
 function orderedItems(folder, order) {
   const mine = items.filter((it) => it.folder === folder);
@@ -398,7 +406,7 @@ if (opt.only) {
   const removed = opt.removed ? `removed ${opt.removed}` : '';
   out.push(`Filtered by ${opt['filtered-by'] || ''}: ${[kept, removed].filter(Boolean).join('; ')}.`, '');
 }
-out.push([count(items.length, 'open work item', 'open work items'), `${counts.interview} await interview`, `${counts.accepted} intent accepted`, `${counts.go} await the go`, `${counts.process} in process`, `${counts.blocked} blocked`, `${counts.external} external`].join(' · '), '');
+out.push([count(items.length, 'open work item', 'open work items'), `${counts.interview} await interview`, `${counts.accepted} intent accepted`, `${counts.go} await the go`, `${counts.process} in process`, `${counts.blocked} blocked`, `${counts.external} external`, `${counts.gated} gated`].join(' · '), '');
 
 const atlasRank = (a) => { const ps = destinations.filter((d) => d.atlas === a.slug && d.priority !== null).map((d) => d.priority); return ps.length ? Math.max(...ps) : null; };
 atlases.sort((a, b) => { const ra = atlasRank(a), rb = atlasRank(b); if (ra !== rb) { if (ra === null) return 1; if (rb === null) return -1; return rb - ra; } return a.slug < b.slug ? -1 : 1; });

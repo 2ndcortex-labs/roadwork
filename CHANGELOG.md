@@ -8,6 +8,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 
 - The Offers section states what nethub's reply-form rule carried alone: the multi-word form (one box answering all the words, its `except:` twin, then one box per word), the question-tool form (one list of choices, a tick the word, several ticks one batch where the skill accepts batches), and the refusal of an id with text where the offer takes no completion; that rule can retire.
 - `scaffold/config.json`, the settings file with every key of the schema present and empty: a fresh register carries it from the init's copy on, owner-only, ignored by the register's git as before (the constitution's register bullet; `docs/how-the-pieces-fit.md`; the config skill).
+- The frontmatter key `gated` — a build the make stopped at a gate it cannot meet from inside the project, with the date and what it waits on; written and cleared by the make, read and counted by the inventory page, put as a finding by the archive skill, emptied by the archive act and a reconsideration (the constitution's Frontmatter bullet, its terms row and glossary entry).
 
 ### Changed
 

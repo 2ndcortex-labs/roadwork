@@ -45,6 +45,7 @@ Read the item folder whole. Produce a numbered list of findings:
 - **Gates:** every gate in `GATES.md` not met or abandoned, from
   `gate-check --status` (never from the checkboxes alone); if no
   `GATES.md` exists, say the item was never built here. A review gate accepted on the invocation's line (`… given G<n> accepted`) is recorded met in `GATES.md` first, its EVIDENCE the Operator's word, dated.
+- **Gated:** for an item whose `gated` key is set — a build stopped from outside — one finding, `**Gated:** <the key's text>`, put to the Operator as the question whether to archive over the wait, the options archive as is (the wait recorded on the item file, the key emptied by the act), wait for the gate, or do not archive, the recommendation this skill's by the gate's state; this skill clears nothing itself.
 - **Landing:** for every tracked change the item names (branch commits at
   any path it names), fetch that path's `origin/main` and test
   `git merge-base --is-ancestor <commit> origin/main`. Report each as
@@ -80,7 +81,7 @@ not hidden). The round closes with two blocks in this order — `archive, <dispo
   one or two sentences, the Operator's words where they decided>";
   unresolved findings the Operator chose to archive over — unmet gates, an
   unbuilt plan, unverified landing — are listed there, dated.
-- Frontmatter: `in-process: ""`; `disposition: "<shipped | withdrawn |
+- Frontmatter: `in-process: ""`; `gated: ""`; `disposition: "<shipped | withdrawn |
   superseded by <ref> | decided | abandoned>"` — the only writer of this
   key.
 - Move the folder whole into its destination folder's `archive/`, the sibling of its items.
