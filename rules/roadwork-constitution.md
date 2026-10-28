@@ -268,9 +268,9 @@ paths:
   - Tiny changes are handled directly; no role is spawned for every task. No sub-agent speaks to the Operator, posts to any channel outside the session or touches a key; a sub-agent's handle never appears in a reply.
   - Where a skill runs its sub-agents as one workflow, the model family above binds every agent of the workflow the same, and the effort is the session agent's one judgement for that run, set once for all of them.
 
-### N. Offers — the next step, the ways back, the batch
+### Offers — the next step, the ways back, the batch
 
-#### N.1 What this section is
+#### What this section is
 - Every final hand-back (i.e. when the instant skill functionality is complete) should end with one list of offers.
 - The list is read from the register at that moment, never from memory.
 - Printing the list runs nothing: an offer is a proposal the Operator may type; no skill, command or write happens until the Operator types it.
@@ -282,7 +282,7 @@ paths:
 - Every offer carries an id.
 - An id typed alone is the Operator's word for its whole box.
 
-#### N.2 Form of an invocation
+#### Form of an invocation
 - Order: skill first, then its input, then the words, if any.
 - Pattern: `/<skill> <ref> [<own word>] [given <prior word>]`.
 - Two kinds of word, told apart by whose record they change:
@@ -299,7 +299,7 @@ paths:
 - A prior word the skill records where it belongs — the spec, the ledger, the intent, the run's section — dated, as the Operator's, before it acts, exactly as the step that asked for it would have; an own word as its own text says.
 - A directive phrase that is not a skill keeps its own wording; a prior word rides it the same way, after ` given `.
 
-#### N.3 Form of a batch (multi-invocation)
+#### Form of a batch (multi-invocation)
 - Invocations joined with ` && `.
 - Order: the order they run, left to right.
 - Each unit is one invocation of the N.2 form.
@@ -311,19 +311,19 @@ paths:
 - A unit that stops for the Operator's word (a round, a review gate) ends the chain there.
 - The rest of the chain is re-offered in that hand-back.
 
-#### N.4 The code box
+#### The code box
 - Every offer — next step, back, git, batch — is printed in its own fenced code box.
 - The box: a line of three backticks, no language tag; the offer's text alone; a line of three backticks.
 - Nothing else in the box.
 - One offer per box.
 - No offer is ever printed inline, indented or in prose.
 
-#### N.5 The next-step offer
+#### The next-step offer
 - Whatever the skill's text mandates.
 - This section never changes, adds to or reorders it.
 - Always O1.
 
-#### N.6 The back offers
+#### The back offers
 - **What qualifies:** the open items in flight, by the six states of `/roadwork-ingest` §5b:
   - interview open
   - intent accepted
@@ -340,7 +340,7 @@ paths:
   - An item absent from `ordering.md` (a spark): last.
 - **Count:** following the next offer, at most 4 back offers, plus the git offer and the batch offer.
 
-#### N.7 The git offer
+#### The git offer
 - Situational: printed only when the session agent knows of something of this item's or the session's to land.
   - an unlanded branch
   - a pull request awaiting its merge
@@ -351,7 +351,7 @@ paths:
 - Place: after the back offers, before the batch offer.
 - Nothing to land: no git offer and no sentence about it.
 
-#### N.8 The batch offer
+#### The batch offer
 - **What it is:** one box joining, in run order, every offer above that can run through to its end without the Operator mid-run.
 - **A unit qualifies when all three hold:**
   - it waits on no word, or its word is in the box;
@@ -368,7 +368,7 @@ paths:
   - or "No batch offer: one offer only."
 - The last offer; carries the last id.
 
-#### N.9 Ids
+#### Ids
 - `O1`, `O2`, … in printing order.
 - One sequence per hand-back.
 - Bold, at the start of the sentence before the box.
@@ -381,17 +381,17 @@ paths:
   - an id matching no offer of the last hand-back
   - two ids in one message
 
-#### N.10 The sentence before each box
+#### The sentence before each box
 - One sentence: the id in bold; "typing this …"; the parenthetical "(to …)" saying what will happen and or exist afterwards.
 - Then the box.
 - A word-bearing offer: its restatement bullet directly above its sentence.
 - The restatement: one bullet per concern, gate, finding or section the word answers, the question in plain words, the options with the recommended one first and its reason, two sentences at most; a gate's bullet says what is approved and where it was shown; a courtesy copy that replaces nothing printed above it; offered as choices to tick, the restatement is each choice's description.
 
-#### N.11 The fact suffix
+#### The fact suffix
 - By the clock, after the last offer.
 - Never after `/roadwork-help`.
 
-#### N.12 Step by step
+#### Step by step
 1. Write the next-step offer the skill's text mandates, in its box. Id O1.
 2. Read `working.md` and every open item's four files and `GATES.md`; classify each into one of the six states or none.
 3. Drop the instant item and O1's item.
@@ -402,7 +402,7 @@ paths:
 8. Fact suffix if the minute is a multiple of six.
 9. On the Operator's reply: an id → the full box; run; record "typed as O<n>".     
 
-#### N.13 The document before the offers
+#### The document before the offers
 - A document a skill writes and then asks the Operator's word on — an intent, a spec and plan, a destination, a map, a guidebook, a demo a review gate names — is printed whole and verbatim in the reply, after the hand-back's summary and before the offers, regardless of length, never folded or cut.
 - A document not yet shown is printed before its word is offered, never folded into an offer's box, the restatement of N.10 between them.
 
