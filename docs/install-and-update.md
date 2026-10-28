@@ -19,7 +19,7 @@ node bin/roadwork-init.mjs --help
 
 When nothing exists at the register path, the init:
 
-1. copies the Roadwork repository's `scaffold/` there whole: `CLAUDE.md`, `.gitignore`, `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/` with what they hold;
+1. copies the Roadwork repository's `scaffold/` there whole: `CLAUDE.md`, `.gitignore`, `config.json` (the settings file, every key empty, made owner-only), `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/` with what they hold;
 2. adds one line at the end of the register's `CLAUDE.md`, the release line: `Copied from Roadwork <release> (github.com/2ndcortex-labs/roadwork) on <date>`, where the release is the version in the newest release heading of the repository's `CHANGELOG.md` (`unreleased` when there is none) and the date is the day of the run — so a register made from a downloaded release with no git history still says where it came from;
 3. makes the register a git repository of its own with one commit, `Register copied from Roadwork <release>`, made under a local name (`roadwork-init`) so that it works on a machine with no git identity set, and with no remote: the register's history stays on your machine and is never pushed; your project's own repository, if it has one, is not touched;
 4. installs the rule and the skills, as every run does (below);

@@ -36,7 +36,7 @@ Pull or download a newer copy of the Roadwork repository and run its init again 
 - `docs/` — this repository's own documents: `docs/install-and-update.md`, the init and the update path; `docs/how-the-pieces-fit.md`, the rule, the skills, the scaffold, the register and the settings file.
 - `rules/roadwork-constitution.md` — the rule, called the constitution: the register's layout, how each skill acts, and the terms table and glossary every skill's words come from.
 - `skills/` — the skills, one folder each, `skills/<skill>/` with its `SKILL.md`: the nineteen whose names begin `roadwork-`, and `unlazy`, a completion-discipline skill the build runs under, shipped as its own project publishes it.
-- `scaffold/` — the skeleton the init copies into a project as its register: `CLAUDE.md`, `.gitignore`, `ordering.md` (what comes next), `working.md` (what is in process), and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/`, each with a `CLAUDE.md` saying what it holds.
+- `scaffold/` — the skeleton the init copies into a project as its register: `CLAUDE.md`, `.gitignore`, `config.json` (the settings file, every key empty, ignored by the register's git), `ordering.md` (what comes next), `working.md` (what is in process), and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/`, each with a `CLAUDE.md` saying what it holds.
 
 ## Migrating a cloned register
 

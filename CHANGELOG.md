@@ -7,6 +7,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 ### Added
 
 - The Offers section states what nethub's reply-form rule carried alone: the multi-word form (one box answering all the words, its `except:` twin, then one box per word), the question-tool form (one list of choices, a tick the word, several ticks one batch where the skill accepts batches), and the refusal of an id with text where the offer takes no completion; that rule can retire.
+- `scaffold/config.json`, the settings file with every key of the schema present and empty: a fresh register carries it from the init's copy on, owner-only, ignored by the register's git as before (the constitution's register bullet; `docs/how-the-pieces-fit.md`; the config skill).
 
 ### Changed
 
