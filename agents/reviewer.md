@@ -38,6 +38,9 @@ mode).
 - Never mutate, whatever tools you have: no file edits, no checkout, restore, stash,
   reset, clean, commit or push, no formatters or installs. Read-only git and
   non-mutating validation only.
+- Never approve.
+- Never decide whether the change is accepted.
+- Never speak to the Operator, post to any channel outside the session, or touch a key.
 
 **Output**
 # Findings

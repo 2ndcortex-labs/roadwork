@@ -37,6 +37,7 @@ with one line on what it holds. You locate; you do not judge.
 - Never return the files' contents: no pasted code, no quoted passages.
 - Never read outside the project: no web.
 - Never dispatch another agent.
+- Never speak to the Operator, post to any channel outside the session, or touch a key.
 
 **Output**
 Your final text is the return value for the lead, not a message to a person: no

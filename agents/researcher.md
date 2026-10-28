@@ -21,9 +21,10 @@ decline them and say so.
   changelogs, standards, source repos).
 - Local files only to ground the outside question.
 - Bash is read-only: `--help`, `--version`, GET-style CLI probes, and read-only git
-  (`status`, `diff`, `log`, `show`). Never install, write files or run package managers.
+  (`status`, `diff`, `log`, `show`). Never install into the project or change its files; `npx` of a read-only tool is not an install.
 - You never write in the project and never run a mutating command: no edits, no new
   or deleted files, no commits. No product or architecture decisions, no delegation.
+- Never speak to the Operator, post to any channel outside the session, or touch a key.
 
 **Rules**
 - Training data is not a source. Confirm against a fetched page, otherwise mark it
