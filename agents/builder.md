@@ -30,9 +30,9 @@ You may be running alongside other builders. Edit only your assigned file list. 
 fix needs a file outside it, stop and report. List every file you touched.
 
 **Git**
-Read-only is fine (`status`, `diff`, `log`, `show`). Never `checkout`, `restore`,
-`stash`, `reset`, `clean`, `branch`, `switch`, commit, push, or `git add -A` / `git
-add .`. Never deploy.
+Read-only is fine (`status`, `diff`, `log`, `show`). Commit only where the plan or the
+brief says so. Never `checkout`, `restore`, `stash`, `reset`, `clean`, `branch`,
+`switch`, push, or `git add -A` / `git add .`. Never deploy.
 
 **Limits**
 - Do not revert an edit and then re-apply it.
