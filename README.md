@@ -2,7 +2,7 @@
 
 Roadwork is a work-plans system for projects run with Claude Code, by 2nd Cortex Labs. It keeps one folder of plans in your project, the register — todos (fixes and chores, done once), features (capabilities, built once and reused) and sparks (ideas parked for later) — and a set of skills that work them: a note is filed, an interview settles what is wanted, a spec and a plan are written with pass-or-fail gates, the build runs against the gates, and the result is verified and archived. Each step is a command you type, such as `/roadwork-ingest` or `/roadwork-make`, and each ends by offering the next.
 
-This is the Roadwork repository. It ships three things: the rule every skill follows, `rules/roadwork-constitution.md`; the skills, `skills/`; and the skeleton of the register, `scaffold/`. An init tool, `bin/roadwork-init.mjs`, copies the skeleton into your project once and installs the rule and the skills where Claude Code finds them. Nothing here belongs to any one project: no keys, no names, no items. Your items, maps and records are yours and never come from here.
+This is the Roadwork repository. It ships three things: the rule every skill follows, `rules/roadwork-constitution.md`; the skills, `skills/`; and the skeleton of the register, `scaffold/`. An init tool, `bin/roadwork-init.mjs`, copies the skeleton into your project once and installs the rule, the skills and the agent files — `agents/`, one instruction file per sub-agent type the constitution defines — where Claude Code finds them. Nothing here belongs to any one project: no keys, no names, no items. Your items, maps and records are yours and never come from here.
 
 You need Claude Code, which loads skills from a project's `.claude/skills/` and rules from its `.claude/rules/`; Node.js 22 or later (CI runs 24), for the init and the skills' scripts, with nothing to install from a package registry; git, so the init can make the register a repository of its own (without git it still copies and installs); and Python 3 for two of the audit skill's scripts.
 
@@ -22,7 +22,7 @@ cat <your-project>/roadwork/docs/teachme.md
 
 ## Updating
 
-Pull or download a newer copy of the Roadwork repository and run its init again with the same register path. It finds the register there and leaves it untouched; it replaces `.claude/rules/roadwork-constitution.md` and each skill folder the repository ships under `.claude/skills/` with the newer copies, so a file a skill no longer has disappears. Any other rule or skill in those folders is left alone. `docs/install-and-update.md` gives the details.
+Pull or download a newer copy of the Roadwork repository and run its init again with the same register path. It finds the register there and leaves it untouched; it replaces `.claude/rules/roadwork-constitution.md`, each skill folder the repository ships under `.claude/skills/` and each agent file it ships under `.claude/agents/` with the newer copies, so a file a skill no longer has disappears. Any other rule, skill or agent file in those folders is left alone. `docs/install-and-update.md` gives the details.
 
 ## Layout
 

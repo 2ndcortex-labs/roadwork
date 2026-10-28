@@ -18,13 +18,14 @@ Changes come in as pull requests on GitHub. The steps:
 
 ## What CI runs
 
-`.github/workflows/check.yml` runs `node bin/check.mjs` on every push and every pull request, on Node.js 24. It runs five checks, each of which you can also run alone, as `node bin/check.mjs <check>`:
+`.github/workflows/check.yml` runs `node bin/check.mjs` on every push and every pull request, on Node.js 24. It runs six checks, each of which you can also run alone, as `node bin/check.mjs <check>`:
 
 - `anchors` — every anchor of the scaffold is present: the register's own files (`scaffold/CLAUDE.md`, `scaffold/.gitignore`, `scaffold/ordering.md`, `scaffold/working.md`, `scaffold/docs/teachme.md`, `scaffold/docs/facts.md`) and the `CLAUDE.md` of every folder the constitution lists, and `scaffold/spark/archive/CLAUDE.md`.
 - `skills` — every folder under `skills/` has a `SKILL.md` whose header holds `name` and `description`, and every skill but `unlazy` has its `## Prerequisites` and `## Sub-agents` sections.
 - `terms` — every entry of the constitution's glossary has a row in its terms table.
 - `selftests` — every shipped script that has a `--selftest` passes it, and every shipped Python script compiles.
 - `words` — no file under `rules/`, `skills/` or `scaffold/` (the unlazy skill left out) carries a word from the list in `bin/check.mjs`: words that meant something only inside the project Roadwork was first built in, and two the shipped texts gave up in 1.0.1, "reply-form" and "harness".
+- `agents` — `agents/` holds exactly the six agent files, one per sub-agent type the constitution defines, each with a frontmatter `name` equal to its file name, a `color` no other has, and no `model` key.
 
 `bin/smoke.mjs` is the trial of the init: in an empty temporary project it runs the init, then the installed config and inventory scripts, and checks that the help skill's inputs are in place.
 

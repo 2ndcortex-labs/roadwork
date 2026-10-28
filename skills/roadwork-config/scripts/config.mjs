@@ -29,10 +29,17 @@ for (const [type, dflt, what] of [
   ['reader', 'sonnet', 'a fresh reader of a document against one question (the verification rounds, the audit, the sanity checks)'],
   ['finder', 'haiku', 'a fact lookup for the dispatcher (a file, a commit, a config value, what another item says)'],
   ['explore', 'sonnet', 'local file discovery across the project'],
-  ['research', 'sonnet', 'outside documents and facts, compared and summarised'],
+  ['researcher', 'sonnet', 'outside documents and facts, compared and summarised'],
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
   ['reviewer', 'opus', 'a finished change checked against its brief'],
 ]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family the host offers assumed; optional, unset reads as ${dflt}, never asked for by the empty-keys prompt`, shape: 'a model family name the host resolves; one token, no spaces, no dashed or dotted version number', secret: false, valid: isFamily, optional: true });
+// A renamed key's old name, read through while the new key is empty and the old holds a value; never written, never deleted.
+const OLD_KEYS = { 'subagent-researcher': 'subagent-research' };
+const readThrough = (obj, key) => {
+  const old = OLD_KEYS[key];
+  const v = old && isEmpty(obj[key]) ? obj[old] : undefined;
+  return typeof v === 'string' && v ? { old, value: v, note: `(read from the old key ${old}; set it under the new name)` } : null;
+};
 // The project's place, optional, each with its default: where the project's root is from the register, a second reference prefix,
 // the repositories the not-yet-landed block reads, the writing audit's path prefix. Unset reads as the default in each meaning.
 SCHEMA.push({ key: 'project-root', meaning: "the project's root, as a relative path from the register — `..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper; every path a skill resolves against the project's root starts from it; optional, unset reads as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
@@ -136,13 +143,16 @@ const [cmd, ...rest] = args;
 if (cmd === undefined) {
   const obj = load(file);
   const out = [];
+  const readOld = new Set();
   for (const s of SCHEMA) {
     const raw = obj[s.key];
     const v = Array.isArray(raw) ? raw.join(', ') : (typeof raw === 'string' ? raw : (raw == null ? '' : String(raw)));
-    if (s.secret) out.push(`${s.key}: ${v ? `set, ${v.length} characters` : 'empty'}`);
+    const rt = readThrough(obj, s.key);
+    if (rt) { readOld.add(rt.old); out.push(`${s.key}: ${rt.value} ${rt.note}`); }
+    else if (s.secret) out.push(`${s.key}: ${v ? `set, ${v.length} characters` : 'empty'}`);
     else out.push(`${s.key}: ${v || 'empty'}`);
   }
-  for (const k of Object.keys(obj)) if (!byKey.has(k)) out.push(`${k}: unknown, not in the schema`);
+  for (const k of Object.keys(obj)) if (!byKey.has(k) && !readOld.has(k)) out.push(`${k}: unknown, not in the schema`);
   process.stdout.write(out.join('\n') + '\n');
 } else if (cmd === 'set' && byKey.get(rest[0])?.list) {
   const [key, ...paths] = rest;
@@ -156,8 +166,11 @@ if (cmd === undefined) {
   const key = rest[0];
   const s = byKey.get(key);
   if (!s) check(key, '');
-  const raw = load(file)[key];
-  if (s.secret) { const v = typeof raw === 'string' ? raw : ''; process.stdout.write(v ? `set, ${v.length} characters\n` : 'empty\n'); }
+  const obj = load(file);
+  const raw = obj[key];
+  const rt = readThrough(obj, key);
+  if (rt) { process.stdout.write(rt.value + '\n'); process.stderr.write(`${key}: ${rt.note}\n`); }
+  else if (s.secret) { const v = typeof raw === 'string' ? raw : ''; process.stdout.write(v ? `set, ${v.length} characters\n` : 'empty\n'); }
   else if (s.list) process.stdout.write(Array.isArray(raw) && raw.length ? raw.join('\n') + '\n' : 'empty\n');
   else process.stdout.write((typeof raw === 'string' && raw) ? raw + '\n' : 'empty\n');
 } else if (cmd === 'set') {

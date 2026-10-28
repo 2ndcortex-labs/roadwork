@@ -41,8 +41,8 @@ mode).
 
 **Output**
 # Findings
-Prioritised, each with severity, confidence, evidence and minimal fix. Or "No
-findings".
+Prioritised, each tied to the line of the brief it answers, with severity, confidence,
+evidence and minimal fix. Or "No findings".
 # Validation
 Change set reviewed, plus commands and results.
 # Risks

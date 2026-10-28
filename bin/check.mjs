@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // check — the Roadwork repository's own checks, the ones CI runs. Node only, no dependencies.
-// Usage: node bin/check.mjs [anchors | skills | terms | selftests | words | all]   (default: all)
+// Usage: node bin/check.mjs [anchors | skills | terms | selftests | words | agents | all]   (default: all)
 // Prints "OK <mode>" for each passing mode and one "FAIL <mode> <what>" line per failure; exit 0 only when all pass,
 // 1 when any fails, 2 on a usage error. Reads the Roadwork repository's files wherever it is run from; writes only into folders it
 // makes under the system's temporary folder (the self-tests' working folder and the compiled Python files), never
@@ -133,7 +133,32 @@ function words(fail) {
   }
 }
 
-const MODES = { anchors, skills, terms, selftests, words };
+// (6) agents — agents/ holds exactly the six agent files, one per sub-agent type the constitution defines, and no other
+// .md; each opens with frontmatter whose name is its file's stem, holds a color distinct from the other five, and no
+// model key: the model family is the settings file's, never the agent file's.
+const AGENTS = ['reader.md', 'finder.md', 'explore.md', 'researcher.md', 'builder.md', 'reviewer.md'];
+function agents(fail) {
+  const dir = at('agents');
+  if (!isDir(dir)) { fail('agents/ missing'); return; }
+  const md = fs.readdirSync(dir).filter((n) => n.endsWith('.md'));
+  for (const n of AGENTS) if (!md.includes(n)) fail(`agents/${n} missing`);
+  for (const n of md) if (!AGENTS.includes(n)) fail(`agents/${n} is not one of the six agent files`);
+  const colors = new Map();
+  for (const n of AGENTS.filter((x) => md.includes(x))) {
+    const fm = (read(path.join(dir, n)) || '').match(/^---\n([\s\S]*?)\n---(\n|$)/);
+    if (!fm) { fail(`agents/${n} opens with no YAML frontmatter`); continue; }
+    const key = (k) => (fm[1].match(new RegExp(`^${k}:[ \\t]*(.*)$`, 'm')) || [])[1];
+    const stem = n.slice(0, -3);
+    if (key('name')?.trim() !== stem) fail(`agents/${n}: the frontmatter's name is not ${stem}`);
+    if (key('model') !== undefined) fail(`agents/${n}: the frontmatter has a model key`);
+    const color = key('color')?.trim();
+    if (!color) fail(`agents/${n}: the frontmatter has no color`);
+    else if (colors.has(color)) fail(`agents/${n}: the color ${color} is also agents/${colors.get(color)}'s`);
+    else colors.set(color, n);
+  }
+}
+
+const MODES = { anchors, skills, terms, selftests, words, agents };
 const arg = process.argv.slice(2);
 if (arg.includes('--help') || arg.includes('-h')) {
   process.stdout.write(`Usage: node bin/check.mjs [${Object.keys(MODES).join(' | ')} | all]   (default: all)\n`);
