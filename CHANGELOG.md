@@ -4,6 +4,10 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 
 ## [Unreleased]
 
+### Added
+
+- The Offers section states what nethub's reply-form rule carried alone: the multi-word form (one box answering all the words, its `except:` twin, then one box per word), the question-tool form (one list of choices, a tick the word, several ticks one batch where the skill accepts batches), and the refusal of an id with text where the offer takes no completion; that rule can retire.
+
 ### Changed
 
 - The form of an invocation that carries a word (the constitution's N.2): a word the invoked skill owns follows the input bare; a word of the step before — `spec accepted`, `G<n> accepted`, `confirm` to the interview that offered the skill, `group is right` — follows after `given`, so it never reads as the skill's argument. The skills' offers now state the form the constitution states (they still read `<word> and /<skill>`, the order the constitution left in 1.0.0).
