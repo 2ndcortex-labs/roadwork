@@ -24,7 +24,7 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-config — the settings file
 
-Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill keeps one file, `roadwork/config.json` at the register's root: the instance's values the other skills read by key. The file is ignored by the register's git and written mode 600. The session agent invokes the script, `node <skill>/scripts/config.mjs`, for every read and write and never opens the file itself. The script finds the register by walking up from the working directory to the first folder holding `roadwork/ordering.md` (or, inside the register, its `ordering.md`); it creates the file `{}` when it is missing.
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill keeps one file, `roadwork/config.json` at the register's root: the instance's values the other skills read by key. The file is ignored by the register's git and written mode 600; the scaffold ships it with every key of the schema present and empty, so a fresh register carries it from the init's copy on. The session agent invokes the script, `node <skill>/scripts/config.mjs`, for every read and write and never opens the file itself. The script finds the register by walking up from the working directory to the first folder holding `roadwork/ordering.md` (or, inside the register, its `ordering.md`); it creates the file `{}` when it is missing.
 
 ## 0. The schema
 
