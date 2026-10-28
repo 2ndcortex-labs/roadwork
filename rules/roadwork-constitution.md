@@ -303,7 +303,7 @@ paths:
 - Invocations joined with ` && `.
 - Order: the order they run, left to right.
 - Each unit is one invocation in the form the part "Form of an invocation" states.
-- `/roadwork-make todo/a given spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
+  `/roadwork-make todo/a given spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
 - One box.
 - A unit's words bind to its own unit only.
 - The chain is the session agent's sequence; each unit is one skill call.
