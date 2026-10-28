@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// roadwork-init — copies the Roadwork scaffold into a project once, and installs (or refreshes) the rule and the skills.
+// roadwork-init — copies the Roadwork scaffold into a project once, and installs (or refreshes) the rule, the skills and
+// the agent files.
 // Node only, no dependencies. Run `node bin/roadwork-init.mjs --help` for the usage.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -24,9 +25,10 @@ Sets Roadwork up in a project, or refreshes it.
   --project <root>  the project's root folder: the register path's parent or an
                     ancestor of it. Default: the register path's parent.
 
-Every run replaces <root>/.claude/rules/roadwork-constitution.md and each of this
-repository's skill folders under <root>/.claude/skills/ with this repository's copies;
-any other file or folder there is left alone. It then prints the line to add to the
+Every run replaces <root>/.claude/rules/roadwork-constitution.md, each of this
+repository's skill folders under <root>/.claude/skills/ and each of its agent files
+under <root>/.claude/agents/ with this repository's copies; any other file or folder
+there is left alone. It then prints the line to add to the
 project's CLAUDE.md, and writes nothing else.
 
 Refused, exit 1: a register path whose last folder is not named roadwork; a register
@@ -79,7 +81,8 @@ const home = real(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const scaffold = path.join(home, 'scaffold');
 const rule = path.join(home, 'rules', 'roadwork-constitution.md');
 const skillsHome = path.join(home, 'skills');
-if (!isDir(scaffold) || !fs.existsSync(rule) || !isDir(skillsHome)) stop(`the Roadwork repository at ${home} lacks scaffold/, rules/roadwork-constitution.md or skills/`);
+const agentsHome = path.join(home, 'agents');
+if (!isDir(scaffold) || !fs.existsSync(rule) || !isDir(skillsHome) || !isDir(agentsHome)) stop(`the Roadwork repository at ${home} lacks scaffold/, rules/roadwork-constitution.md, skills/ or agents/`);
 
 const register = real(registerArg);
 const root = projectArg === null ? path.dirname(register) : real(projectArg);
@@ -160,6 +163,18 @@ for (const name of skills) {
   }
   if (fs.lstatSync(target, { throwIfNoEntry: false }) !== undefined) fs.rmSync(target, { recursive: true });
   fs.cpSync(path.join(skillsHome, name), target, { recursive: true });
+}
+
+// the agent files: each of the repository's agents/*.md replaced by name, the one file, never the folder: a project's
+// own agent files beside them stay
+const agentsDir = path.join(root, '.claude', 'agents');
+fs.mkdirSync(agentsDir, { recursive: true });
+const AGENT_FILE = /^[a-z0-9][a-z0-9-]*\.md$/;
+const agents = fs.readdirSync(agentsHome, { withFileTypes: true }).filter((e) => e.isFile() && AGENT_FILE.test(e.name)).map((e) => e.name).sort();
+for (const name of agents) {
+  const target = path.join(agentsDir, name);
+  fs.rmSync(target, { force: true });
+  fs.copyFileSync(path.join(agentsHome, name), target);
 }
 
 // --- the law line ---------------------------------------------------------------------------------------------------

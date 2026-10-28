@@ -43,7 +43,7 @@ paths:
 - **The register.**
   - One per project, a copy of the Roadwork repository's `scaffold/`, made once by its init tool.
   - No remote; never pushed; its commits local.
-  - The Roadwork repository ships the skeleton with its anchors, the two docs and the settings file with every key empty; the rule and the skills are installed into the project by the same tool and refreshed by re-running it.
+  - The Roadwork repository ships the skeleton with its anchors, the two docs and the settings file with every key empty; the rule, the skills and the agent files are installed into the project by the same tool and refreshed by re-running it.
   - It never ships a map or an item: maps and items are the project's own.
   - The project's law names the register's path; the alias, if any, of its reference prefix is the `ref-alias` setting.
   - A spec archived shipped graduates to the register's `docs/context/` as a decision record.

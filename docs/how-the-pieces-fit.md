@@ -1,6 +1,6 @@
 # How the pieces fit
 
-Roadwork has five pieces: the rule, the skills, the scaffold, the register made from the scaffold, and the settings file. The Roadwork repository — this one — ships the first three; `bin/roadwork-init.mjs` turns them into the other two in your project (`docs/install-and-update.md` describes it). Paths inside a project are written here from the project's root, with the register at its usual place, `roadwork/`.
+Roadwork has five pieces: the rule, the skills, the scaffold, the register made from the scaffold, and the settings file. The Roadwork repository — this one — ships the first three, and beside them the agent files, `agents/`, one instruction file per sub-agent type the constitution defines; `bin/roadwork-init.mjs` turns the first three into the other two in your project and installs the rule, the skills and the agent files into its `.claude/` folders (`docs/install-and-update.md` describes it). Paths inside a project are written here from the project's root, with the register at its usual place, `roadwork/`.
 
 ## The vocabulary
 
@@ -35,4 +35,4 @@ Work moves through the skills in one order, each a command you type and each end
 - `README.md`, the overview and quickstart; `LICENSE`, the MIT License; `CHANGELOG.md`, the releases; `CONTRIBUTING.md`, how to propose a change; `.gitignore`; and `.github/workflows/check.yml`, the CI workflow.
 - `bin/` — `bin/roadwork-init.mjs`, the init; `bin/check.mjs`, the checks CI runs; `bin/smoke.mjs`, a trial of the init in an empty temporary project.
 - `docs/` — `docs/install-and-update.md` and this page, `docs/how-the-pieces-fit.md`.
-- `rules/roadwork-constitution.md`, the rule; `skills/`, the skills; and `scaffold/`, the register's skeleton.
+- `rules/roadwork-constitution.md`, the rule; `skills/`, the skills; `agents/`, the agent files; and `scaffold/`, the register's skeleton.
