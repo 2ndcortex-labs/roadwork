@@ -302,8 +302,8 @@ paths:
 #### Form of a batch (multi-invocation)
 - Invocations joined with ` && `.
 - Order: the order they run, left to right.
-- Each unit is one invocation as per the defined form of an invocation section.
-  - `/roadwork-make todo/a given spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
+- Each unit is one invocation in the form the part "Form of an invocation" states.
+- `/roadwork-make todo/a given spec accepted && /roadwork-verify-and-archive todo/b archive, shipped && /roadwork-specplan feature/c`
 - One box.
 - A unit's words bind to its own unit only.
 - The chain is the session agent's sequence; each unit is one skill call.
@@ -398,13 +398,13 @@ paths:
 4. Split: the instant item's destination first, the rest after; within each, `ordering.md` position; sparks last.
 5. Take the first four. Write each as `/<skill> <ref> [<own word>] [given <prior word>]` in its box with its sentence; ids O2 onward.
 6. Where the session knows of something to land, append the git offer(s) in their boxes, next ids. Otherwise none.
-7. Test every offer above against the batch order guidance; order the qualifying units so each unblocker runs before what it unblocks. Two or more: one box joined with ` && `, the last id. Fewer: the "No batch offer" sentence.
+7. Test every offer above against the part "The batch offer"; order the qualifying units so each unblocker runs before what it unblocks. Two or more: one box joined with ` && `, the last id. Fewer: the "No batch offer" sentence.
 8. Fact suffix if the minute is a multiple of six.
 9. On the Operator's reply: an id → the full box; run; record "typed as O<n>".     
 
 #### The document before the offers
 - A document a skill writes and then asks the Operator's word on — an intent, a spec and plan, a destination, a map, a guidebook, a demo a review gate names — is printed whole and verbatim in the reply, after the hand-back's summary and before the offers, regardless of length, never folded or cut.
-- A document not yet shown is printed before its word is offered, never folded into an offer's box, the restatement of The sentence before each box between them.
+- A document not yet shown is printed before its word is offered, never folded into an offer's box, the restatement bullet (the part "The sentence before each box") between them.
 
 # Terms — the plain word, the agent's word, the meaning
 
