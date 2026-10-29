@@ -14,6 +14,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 ### Changed
 
 - The form of an invocation that carries a word (the constitution's N.2): a word the invoked skill owns follows the input bare; a word of the step before — `spec accepted`, `G<n> accepted`, `confirm` to the interview that offered the skill, `group is right` — follows after `given`, so it never reads as the skill's argument. The skills' offers now state the form the constitution states (they still read `<word> and /<skill>`, the order the constitution left in 1.0.0).
+- The six agent files under `agents/` complete their limits against the constitution's sub-agents bullet (builder's and reviewer's missing may-nots, the general no-Operator/no-channel/no-key line in all six); researcher's prohibition narrowed so running a read-only tool by `npx` is not an install.
 
 ## [1.0.1] - 2026-10-25
 

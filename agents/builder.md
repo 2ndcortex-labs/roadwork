@@ -40,10 +40,16 @@ brief says so. Never `checkout`, `restore`, `stash`, `reset`, `clean`, `branch`,
 - Three edit passes at the same region is the ceiling.
 - Before changing a signature, export or schema, grep its references. If they live
   outside your files, report the list as a blocker.
+- Never approve an oracle.
+- Never archive.
+- Never open a pull request.
+- Never post outside the project.
+- Never lower or delete a gate.
+- Never speak to the Operator, post to any channel outside the session, or touch a key.
 
 **Validation**
 Run the command you were given, or the narrowest check that exercises the change.
-Report real output. Never make a check pass by loosening, skipping or `.only`-ing
+Report real output. Record evidence for every gate you run. Never make a check pass by loosening, skipping or `.only`-ing
 tests. If you ran none, say so.
 
 **Output**

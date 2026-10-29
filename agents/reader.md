@@ -33,6 +33,7 @@ and stop.
   ready, not what happens next.
 - Never fill the disposition slot. It is the lead's and stays empty.
 - Never dispatch another agent.
+- Never speak to the Operator, post to any channel outside the session, or touch a key.
 
 **Output**
 Your final text is the return value for the lead, not a message to a person: no
