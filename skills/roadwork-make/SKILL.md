@@ -16,7 +16,7 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 ## Sub-agents
 
 - Six sub-agent types are defined in the constitution's bullet "Sub-agents and their models" — reader, finder, explore, researcher, builder, reviewer — and this skill may dispatch any of them; the three categories there describe the types, they do not limit which a skill uses. Where a step of this skill needs a type the constitution does not name, the step defines it in place — its purpose, what it is given, what it returns, what it may and may not do, and the `subagent-<type>` key it reads for its model family, a key the config skill's schema must carry before the type is dispatched — and the definition holds for this skill alone until the constitution adopts it.
-- The type of each dispatch is the session agent's determination at the time of invocation, from what the task asks for — a document read against a question, a fact looked up, files found, outside sources compared, a deliverable built, a change checked — unless a step of this skill names the type itself, in which case that step's type is used.
+- The type of each dispatch is the session agent's determination at the time of invocation, from what the task asks for — a document read against a question, a fact looked up, files found, outside sources compared, a deliverable built, a change checked — unless a step of this skill names the type itself, in which case that step's type is used. Each dispatch is made as the host's agent of that type's name, so the type's instruction file under `.claude/agents/` (`reader.md`, `finder.md`, `explore.md`, `researcher.md`, `builder.md`, `reviewer.md`) is its standing instructions and the brief carries the task only.
 - The model family of each type is the value of its `subagent-<type>` key in `config.json`, read under Prerequisites — a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family assumed at dispatch; a key read "empty" takes the default the config skill's schema names. This skill names no model family and no release itself.
 - The effort of each dispatch is the session agent's judgement at the time of invocation, set from the task's difficulty — the depth of reading or building the brief asks for, how much a miss would cost — and set explicitly on every dispatch; no fixed level is prescribed here.
 - A sub-agent's return is evidence, not a decision: the session agent reads every finding and claim, accepts or rejects each one by its own judgement, records the disposition and the reason, and reverifies a builder's claim of done by the gates before relying on it. A finding is never incorporated because a sub-agent produced it, nor dropped without the reason said.
@@ -166,9 +166,9 @@ set), the build is orchestrated, not solo:
    `OWNS:` as equal sets, else fail closed. Claim every leaf's
    ownership; open one wave — a cohort larger than the host's
    concurrency limit launches in waves in order, each sealed before the
-   next opens; launch **one background sub-agent per member** — a
-   builder (the constitution's Sub-agents bullet; its family the setting
-   `subagent-builder` names) — a narrow brief: the member's folder, its `GATES.md`, its `OWNS:`,
+   next opens; launch **one background sub-agent per member**, dispatched as the
+   host's `builder` agent (the constitution's Sub-agents bullet; its family the setting
+   `subagent-builder` names; its instruction file `.claude/agents/builder.md`) — a narrow brief: the member's folder, its `GATES.md`, its `OWNS:`,
    "build the deliverable in the four passes, run the gates, record
    evidence; never approve, never archive, never post anywhere outside
    the project, never write outside your paths" — record every handle

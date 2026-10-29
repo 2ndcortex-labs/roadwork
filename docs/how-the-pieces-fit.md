@@ -1,6 +1,6 @@
 # How the pieces fit
 
-Roadwork has five pieces: the rule, the skills, the scaffold, the register made from the scaffold, and the settings file. The Roadwork repository — this one — ships the first three, and beside them the agent files, `agents/`, one instruction file per sub-agent type the constitution defines; `bin/roadwork-init.mjs` turns the first three into the other two in your project and installs the rule, the skills and the agent files into its `.claude/` folders (`docs/install-and-update.md` describes it). Paths inside a project are written here from the project's root, with the register at its usual place, `roadwork/`.
+Roadwork has five pieces: the rule, the skills, the scaffold, the register made from the scaffold, and the settings file. The Roadwork repository — this one — ships the first three, and beside them the agent files, `agents/`, one instruction file per sub-agent type the constitution defines; `bin/roadwork-init.mjs` turns the first three into the other two in your project and installs the rule, the skills and the agent files into its `.claude/` folders (`docs/install-and-update.md` describes it); a skill that dispatches a sub-agent names the host's agent of the type's name, so the type's instruction file — `reader.md`, `finder.md`, `explore.md`, `researcher.md`, `builder.md` or `reviewer.md` under `.claude/agents/` — is the sub-agent's standing instructions and the skill's brief its task. Paths inside a project are written here from the project's root, with the register at its usual place, `roadwork/`.
 
 ## The vocabulary
 
