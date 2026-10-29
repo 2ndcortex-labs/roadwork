@@ -2,6 +2,8 @@
   "org-slug": "",
   "notify-url": "",
   "status-url": "",
+  "notify-token": "",
+  "status-token": "",
   "versioned": "",
   "standards-folders": [],
   "subagent-reader": "",

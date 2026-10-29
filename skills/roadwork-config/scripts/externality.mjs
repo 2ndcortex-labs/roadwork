@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// roadwork-config — externality.mjs: the calling script of the Roadwork skills, the one place `notify-url` and `status-url` are read.
+// roadwork-config — externality.mjs: the calling script of the Roadwork skills, the one place `notify-url`, `status-url`, `notify-token` and `status-token` are read.
 // Usage: node externality.mjs [--config-file <path>] [--item <ref>] [--wait-ms <n>] notify --state open|cleared --entry <file> | status
 // Reads the settings file in-process at the call and prints neither URL, nor any part of one. No dependencies.
 // Exit 0 on every notice and status outcome; 1 on a fault (one line naming it); 2 on usage.
@@ -77,9 +77,11 @@ async function main() {
       what: entry.what, 'who-acts': entry['who-acts'], 'how-observed': entry['how-observed'], state: opt.state, item: opt.item,
       'set-date': entry['set-date'], 'cleared-date': entry['cleared-date'], 'cleared-words': entry['cleared-words'], atlas: entry.atlas,
     };
+    const token = key('notify-token');
+    const headers = { 'content-type': 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}) };
     let code;
     try {
-      const res = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: AbortSignal.timeout(waitMs) });
+      const res = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body), signal: AbortSignal.timeout(waitMs) });
       code = res.status;
     } catch { code = null; }
     if (code !== null && code >= 200 && code <= 299) return say([`notice sent: ${opt.state}, ${opt.item}`]);
@@ -89,9 +91,10 @@ async function main() {
   const base = key('status-url');
   if (!base) return say(['no status URL (set status-url by /roadwork-config)']);
   const url = `${base}${base.includes('?') ? '&' : '?'}item=${encodeURIComponent(opt.item)}`;
+  const token = key('status-token');
   let res, text;
   try {
-    res = await fetch(url, { method: 'GET', signal: AbortSignal.timeout(waitMs) });
+    res = await fetch(url, { method: 'GET', ...(token ? { headers: { authorization: `Bearer ${token}` } } : {}), signal: AbortSignal.timeout(waitMs) });
     text = await res.text();
   } catch { return say(['unknown: no answer']); }
   if (res.status < 200 || res.status > 299) return say([`unknown: status code ${res.status}`]);
