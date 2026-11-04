@@ -31,7 +31,7 @@ const isFamily = (v) => /^\S+$/.test(v) && !/[-._]\d+([-._]\d+)*$/.test(v);
 for (const [type, dflt, what] of [
   ['reader', 'sonnet', 'a fresh reader of a document against one question (the verification rounds, the audit, the sanity checks)'],
   ['finder', 'haiku', 'a fact lookup for the dispatcher (a file, a commit, a config value, what another item says)'],
-  ['explore', 'sonnet', 'local file discovery across the project'],
+  ['explorer', 'sonnet', 'local file discovery across the project'],
   ['researcher', 'sonnet', 'outside documents and facts, compared and summarised'],
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
   ['reviewer', 'opus', 'a finished change checked against its brief'],

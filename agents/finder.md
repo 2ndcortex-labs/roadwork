@@ -1,6 +1,6 @@
 ---
 name: finder
-description: Fetches one fact from inside the project or its records - a file's content, a commit, a setting's value, what another item says - and returns it with its source by path or commit. Use when the lead needs one fact and knows roughly where it is. Not for discovery across the project (Explore), outside sources (Researcher), or advice.
+description: Fetches one fact from inside the project or its records - a file's content, a commit, a setting's value, what another item says - and returns it with its source by path or commit. Use when the lead needs one fact and knows roughly where it is. Not for discovery across the project (Explorer), outside sources (Researcher), or advice.
 tools: Read, Grep, Glob, Bash
 color: cyan
 ---

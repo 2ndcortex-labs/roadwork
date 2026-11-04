@@ -37,7 +37,7 @@ if (init.status === 0 && !/^Roadwork register: roadwork\b/m.test(init.stdout)) f
 
 if (init.status === 0) {
   // 1a. the agent files: each of the repository's six installed byte-equal (the changed builder.md replaced), the stranger kept
-  for (const name of ['reader.md', 'finder.md', 'explore.md', 'researcher.md', 'builder.md', 'reviewer.md']) {
+  for (const name of ['reader.md', 'finder.md', 'explorer.md', 'researcher.md', 'builder.md', 'reviewer.md']) {
     const installed = path.join(agents, name);
     if (!fs.existsSync(installed)) fail(`.claude/agents/${name} missing in the project`);
     else if (!fs.readFileSync(installed).equals(fs.readFileSync(path.join(agentsHome, name)))) fail(`.claude/agents/${name} differs from the repository's agents/${name}`);
