@@ -136,7 +136,7 @@ function words(fail) {
 // (6) agents — agents/ holds exactly the six agent files, one per sub-agent type the constitution defines, and no other
 // .md; each opens with frontmatter whose name is its file's stem, holds a color distinct from the other five, and no
 // model key: the model family is the settings file's, never the agent file's.
-const AGENTS = ['reader.md', 'finder.md', 'explore.md', 'researcher.md', 'builder.md', 'reviewer.md'];
+const AGENTS = ['reader.md', 'finder.md', 'explorer.md', 'researcher.md', 'builder.md', 'reviewer.md'];
 function agents(fail) {
   const dir = at('agents');
   if (!isDir(dir)) { fail('agents/ missing'); return; }
