@@ -19,6 +19,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 - The six agent files under `agents/` complete their limits against the constitution's sub-agents bullet (builder's and reviewer's missing may-nots, the general no-Operator/no-channel/no-key line in all six); researcher's prohibition narrowed so running a read-only tool by `npx` is not an install.
 - `notify-url` and `status-url` are public addresses, printed in the clear and set in chat with `/roadwork-config <key> <value>`; a credential once carried in a URL is moved to the token key before updating.
 - The sub-agent type `explore` is renamed `explorer`: its agent file is `agents/explorer.md`, its settings key `subagent-explorer`; the old key is not read through, and every skill, the constitution, the checks and the docs name the new one.
+- The register's template folder `scaffold/` is renamed `skeleton/`, and the word with it across the repository: the rule, the README, CONTRIBUTING, the docs, the init tool (which now copies `skeleton/` into a project), the check's anchors and words modes, the config skill and the skeleton's own `CLAUDE.md`, `docs/facts.md` and `docs/teachme.md`; this changelog's history keeps the old name.
 
 ## [1.0.1] - 2026-10-25
 

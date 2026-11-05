@@ -41,7 +41,7 @@ paths:
   - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given; `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
   - `atlases/`: one `atlases/<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired, as `atlases/archive/<atlas-slug>/`.
 - **The register.**
-  - One per project, a copy of the Roadwork repository's `scaffold/`, made once by its init tool.
+  - One per project, a copy of the Roadwork repository's `skeleton/`, made once by its init tool.
   - No remote; never pushed; its commits local.
   - The Roadwork repository ships the skeleton with its anchors, the two docs and the settings file with every key empty; the rule, the skills and the agent files are installed into the project by the same tool and refreshed by re-running it.
   - It never ships a map or an item: maps and items are the project's own.
@@ -427,7 +427,7 @@ paths:
 | the work-plans system | Roadwork | The work-plans system by 2nd Cortex Labs: the plans and the skills that work them. |
 | work-plans folder | Road plans | Your project's `roadwork/` folder, the one place its work is recorded; todos, features and sparks each in their own sub-folder. |
 | a work item | Item | One folder holding a todo or feature file plus its intent, plan and spec; a spark holds one idea file only. |
-| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of the Roadwork repository's scaffold, made once; never updating that repository. |
+| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of the Roadwork repository's skeleton, made once; never updating that repository. |
 | an item's name-with-path | Reference (ref) | How an item is pointed at: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`, or `main/<kind>/<item-name>` from anywhere. |
 | the item's header keys | Frontmatter | The block at the top of an item file: blocker, blocking, blocked-by, external, group, in-process, gated, disposition, road-level; a feature's onroad-cohort before the last. |
 | something out-of-band we wait on | External | A dependency that will not be met without something specific and out-of-band happening; a wait in the due course, such as a merge, is not one. The spec names it, one entry per act outside the project, never one per party or per service; the key records it; only you clear it; its observed-by test runs at acceptance and before a make, a command where one is written, your word where not. |
@@ -497,15 +497,15 @@ paths:
 | descends from | ancestry | Whether one record is in the history of another; how landing is proven. |
 | a project's record store | repo | A folder whose history git keeps; a project, its work plans, or a remote. |
 | the insights | intent-insights | What the interviews taught about how you decide, one section per day in the plans' docs folder, written by the end-of-day skill on your word and read by the interview before it reads your notes back. |
-| the work-plans folder itself | Roadwork register | The project's `roadwork/` folder as a whole: the three sub-registers, the five folders beside them, the order and in-process files and the register's own files; a copy of the Roadwork repository's `scaffold/`, made once. |
+| the work-plans folder itself | Roadwork register | The project's `roadwork/` folder as a whole: the three sub-registers, the five folders beside them, the order and in-process files and the register's own files; a copy of the Roadwork repository's `skeleton/`, made once. |
 | the helper kinds | Sub-agent types | The six kinds of helper a skill may dispatch — reader, finder, explorer, researcher, builder, reviewer — each on the model family its setting names. |
 
 
 ## Glossary
 
-- **Roadwork register** — the project's `roadwork/`, a copy of the Roadwork repository's scaffold, made once; never updating that repository: the one place its work is recorded. Three **sub-registers**: `todo/` (fixes, chores, decisions, findings), `feature/` (new capabilities), `spark/` (ideas; never worked); the test: a todo is done once, a feature is reused when built — the Operator may name the kind against it. Should be located in the session startup directory (i.e. project home directory)
+- **Roadwork register** — the project's `roadwork/`, a copy of the Roadwork repository's skeleton, made once; never updating that repository: the one place its work is recorded. Three **sub-registers**: `todo/` (fixes, chores, decisions, findings), `feature/` (new capabilities), `spark/` (ideas; never worked); the test: a todo is done once, a feature is reused when built — the Operator may name the kind against it. Should be located in the session startup directory (i.e. project home directory)
 - **Item** — one folder under its destination's folder in a sub-register (`unnavigated/` until a navigation cites it): `todo.md` or `feature.md` (the **item file**) plus `intent.md`, `plan.md`, `spec.md`; a spark holds only `idea.md`.
-- **Home** — the register an item lives in: the project's one register, a copy of the Roadwork repository's scaffold, made once; never updating that repository.
+- **Home** — the register an item lives in: the project's one register, a copy of the Roadwork repository's skeleton, made once; never updating that repository.
 - **Reference (ref)** — `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`; from anywhere, `main/<kind>/<item-name>` — the `ref-alias` setting may alias the prefix.
 - **Frontmatter** — the YAML block opening an item file: `blocker`, `blocking`, `blocked-by`, `external`, `group`, `in-process`, `gated`, `disposition`, `road-level` (the item's level within its destination — `main`, `secondary`, `side` — or empty), a feature's `onroad-cohort` before it.
 - **External** — the `external` key: an externality, a dependency that will not be met without something specific and out-of-band happening an operational pause in the due course — a push, a merge, a fetch, a reboot — is never one. Stated by the spec skill as a fact in the spec's Dependencies section (what, who acts, how observed) — one entry per out-of-band act, never per party or per service — and written on spec acceptance: a `blocked-by` where another item acts, the key's text where another party does, with the item file's dated `**External set**` line; emptied only by the Operator, with the dated `**External cleared**` line; `/roadwork-make` refuses while it is set; its observed-by part run as a test at acceptance and before a make, a command deciding it where one is written, the Operator's word where not; notified where the project names an address.

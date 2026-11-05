@@ -13,7 +13,7 @@ plan with gates → `/roadwork-make` is the Operator's go and builds under `/unl
 → `/roadwork-verify-and-archive` archives. An accepted spec is not a go. One
 register per project, at the path the project's law names; no path under the
 project carries one of its own. This folder is a copy of the Roadwork
-repository's `scaffold/`, made once by the init tool, `bin/roadwork-init.mjs` in
+repository's `skeleton/`, made once by the init tool, `bin/roadwork-init.mjs` in
 the Roadwork repository, never updating that repository and never updated from
 it: never pushed, its commits local; the repository ships the skeleton with its
 anchors and its two docs, `docs/teachme.md` and `docs/facts.md`, never a map and
