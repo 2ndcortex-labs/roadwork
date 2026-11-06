@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // roadwork-config — reads and sets roadwork/config.json (the register's settings file).
-// Usage: node config.mjs [--config-file PATH] [set <key> <value> | set <list-key> [<path> …] | get <key> | set-from-env | set-from-file <key> <path> | empty]
+// Usage: node config.mjs [--config-file PATH] [set <key> <value> | set <list-key> [<path> …] | get <key> | unset <key> | set-from-env | set-from-file <key> <path> | empty]
 // Secrets are never printed: only "set, <n> characters" or "empty". No network, no dependencies.
 import { existsSync, readFileSync, writeFileSync, chmodSync, statSync } from 'node:fs';
 import { join, dirname, resolve, relative, isAbsolute, sep } from 'node:path';
@@ -21,8 +21,6 @@ SCHEMA.push({ key: 'notify-url', meaning: "the URL Roadwork posts an externality
 SCHEMA.push({ key: 'status-url', meaning: "the URL Roadwork reads an item's externalities' state from, by the make skill at its start and by the inventory's bare call; optional — empty means the Operator is asked, never asked for by the empty-keys prompt; a public address as `notify-url` is, set the same ways", shape: 'an https:// URL', secret: false, optional: true, valid: isHttps });
 SCHEMA.push({ key: 'notify-token', meaning: "the credential `notify-url` wants, sent as `Authorization: Bearer <token>` on the notice when set and omitted when empty; optional, never asked for by the empty-keys prompt; a secret: masked in every reply, set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
 SCHEMA.push({ key: 'status-token', meaning: "the credential `status-url` wants, sent as `Authorization: Bearer <token>` on the status read when set and omitted when empty; optional, never asked for by the empty-keys prompt; a secret: masked in every reply, set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
-// Yes/no key: the project's changes land by pull request; unset reads as no. Not optional: the empty-keys prompt lists it until set.
-SCHEMA.push({ key: 'versioned', meaning: "the project's changes land by pull request — yes where branches are opened as pull requests, no where the register runs in an unversioned project; unset reads as no", shape: 'yes or no', secret: false, valid: (v) => v === 'yes' || v === 'no' });
 // A list key, optional: the project's standards folders, relative to the project's root, each an existing folder under it.
 SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folders, in the project's own structure — coding standards, brand, styling and the like; optional, empty where a project keeps none; a list, in the order given", shape: "a list of folder paths relative to the project's root, each an existing folder under it", secret: false, list: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
 // The sub-agent group, optional: the model family each sub-agent type runs on — a family name the dispatching host resolves (any vendor), never a release;
@@ -43,11 +41,10 @@ const readThrough = (obj, key) => {
   const v = old && isEmpty(obj[key]) ? obj[old] : undefined;
   return typeof v === 'string' && v ? { old, value: v, note: `(read from the old key ${old}; set it under the new name)` } : null;
 };
-// The project's place, optional, each with its default: where the project's root is from the register, a second reference prefix,
-// the repositories the not-yet-landed block reads, the writing audit's path prefix. Unset reads as the default in each meaning.
+// The project's place, three keys, optional, each with its default: where the project's root is from the register, a second
+// reference prefix, the writing audit's path prefix. Unset reads as the default in each meaning.
 SCHEMA.push({ key: 'project-root', meaning: "the project's root, as a relative path from the register — `..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper; every path a skill resolves against the project's root starts from it; optional, unset reads as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
 SCHEMA.push({ key: 'ref-alias', meaning: "a second reference prefix the project's law allows beside `main` (`<alias>/<kind>/<item-name>`), read by the inventory and the externality test; optional, unset reads as none, never asked for by the empty-keys prompt", shape: 'one lowercase token, kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$, or empty', secret: false, optional: true, valid: (v) => v === '' || KEBAB.test(v) });
-SCHEMA.push({ key: 'repos', meaning: "the repositories the inventory's not-yet-landed block and the unlanded check read, each a git clone; optional, unset reads as `.`, the project's own repository; a list, in the order given", shape: "a list of folder paths relative to the project's root, each an existing folder under it, `.` the root itself", secret: false, list: true, allowRoot: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
 SCHEMA.push({ key: 'audit-root-prefix', meaning: "the prefix every path in a document must start with under the writing audit's path check; optional, unset reads as empty — paths written from the project's root, no prefix required", shape: 'a relative path ending in `/`, or empty', secret: false, optional: true, valid: (v) => v === '' || (v.endsWith('/') && !v.startsWith('/') && !/\s/.test(v)) });
 // Instance keys: docs/local/config-keys.json beside the register's config.json (ignored by git, instance material):
 // [{ "key", "meaning", "shape": "non-empty" | "https" | "kebab", "secret": true|false }, ...]. Merged after the schema; a key the schema has is refused.
@@ -176,6 +173,13 @@ if (cmd === undefined) {
   else if (s.secret) { const v = typeof raw === 'string' ? raw : ''; process.stdout.write(v ? `set, ${v.length} characters\n` : 'empty\n'); }
   else if (s.list) process.stdout.write(Array.isArray(raw) && raw.length ? raw.join('\n') + '\n' : 'empty\n');
   else process.stdout.write((typeof raw === 'string' && raw) ? raw + '\n' : 'empty\n');
+} else if (cmd === 'unset') {
+  // Removes one key from the file, written as set writes it; any key name, no shape check. A key absent: nothing written.
+  if (rest.length !== 1) fail('usage: unset <key>');
+  const key = rest[0];
+  const obj = existsSync(file) ? load(file) : {};
+  if (!Object.hasOwn(obj, key)) process.stdout.write(`${key}: not set\n`);
+  else { delete obj[key]; save(file, obj); process.stdout.write(`unset ${key}\n`); }
 } else if (cmd === 'set') {
   if (rest.length !== 2) fail('usage: set <key> <value>');
   const [key, value] = rest;
@@ -206,5 +210,5 @@ if (cmd === undefined) {
   if (empty.length === 0) process.stdout.write('none\n');
   else process.stdout.write(empty.map((s, i) => `${i + 1}. ${s.key} — ${s.meaning}`).join('\n') + '\n');
 } else {
-  fail(`unknown command ${cmd}; the commands: set, get, set-from-env, set-from-file, empty`);
+  fail(`unknown command ${cmd}; the commands: set, get, unset, set-from-env, set-from-file, empty`);
 }

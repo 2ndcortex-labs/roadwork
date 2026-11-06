@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-// unlanded.mjs — the branches of the project's repositories not yet landed on origin's default branch, from local refs only.
-// Usage: node unlanded.mjs [--root <project root>] [--repo <name> --branch <branch>] [--config-file <config.json>]
-// Prints nothing and exits 2 unless the register's config key `versioned` is `yes` (roadwork-config). Never fetches, pushes or writes.
-// Reads the keys `project-root` and `repos` through the config script as it reads `versioned`.
-// Line forms (the spec of todo/stale-branches-surfaced-as-offers, R3–R4):
+// unlanded.mjs — one branch of one repository of the project, landed on origin's default branch or not, from local refs only.
+// Usage: node unlanded.mjs --path <repository root> --branch <branch> [--root <project root>] [--config-file <config.json>]
+// --path is the repository's folder as a path from the project's root, `.` the root itself, as an item's landing.json
+// records it; the repository is named by that folder's last segment. Never fetches, pushes or writes. Reads the key
+// `project-root` through the config script.
+// Prints that branch's line, or `landed`. Line forms (the spec of todo/stale-branches-surfaced-as-offers, R3–R4):
 //   <repo> <branch> — <n> commits, <d> days (tip <YYYY-MM-DD>); last fetch <YYYY-MM-DD HH:MM | never>[ — waits on <branch>]
 //   <repo> <branch> — pushed, not landed; last fetch <time>
-//   <repo> <default> — <n> commits ahead of origin, on the default branch; no pull request from here
-// With --repo --branch: that branch's line alone, or `landed`.
+// A path that is no repository prints `<repo> — no clone at <path>` and exits 1.
 import { existsSync, statSync, realpathSync } from 'node:fs';
 import { join, dirname, resolve, basename } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -17,10 +17,11 @@ import process from 'node:process';
 const args = process.argv.slice(2);
 const opt = {};
 for (let i = 0; i < args.length; i++) {
-  if (args[i].startsWith('--')) { opt[args[i].slice(2)] = args[i + 1]; i++; }
-  else fail(`unexpected argument ${args[i]}`);
+  if (!['--root', '--path', '--branch', '--config-file'].includes(args[i])) fail(`unexpected argument ${args[i]}`);
+  if (i + 1 >= args.length) fail(`${args[i]} needs a value`);
+  opt[args[i].slice(2)] = args[++i];
 }
-if ((opt.repo && !opt.branch) || (!opt.repo && opt.branch)) fail('--repo and --branch go together');
+if (!opt.path || !opt.branch) fail('--path and --branch go together, both required');
 function fail(msg) { process.stderr.write(msg + '\n'); process.exit(1); }
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -47,23 +48,14 @@ function setting(key) {
   try { return execFileSync(process.execPath, [CONFIG_MJS, '--config-file', configFile, 'get', key], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { return 'empty'; }
 }
 
-// The gate: config.mjs get versioned.
-const versioned = setting('versioned');
-if (versioned !== 'yes') process.exit(2);
-
 // The project root: --root, as given; else the register's folder resolved through the setting project-root, unset `..`,
 // through any link, as the root found from this script's own folder always was (node resolves the script's path).
 const projectRootSetting = setting('project-root');
 const physical = (p) => { try { return realpathSync(p); } catch { return p; } };
 const root = opt.root ? resolve(opt.root) : physical(resolve(register, projectRootSetting === 'empty' ? '..' : projectRootSetting));
 
-// The repositories: the setting repos, paths from the project root, in its order; unset, `.`, the root's own repository.
-// Each is named by its folder's last segment.
-function repositories() {
-  const listed = setting('repos');
-  const paths = listed === 'empty' ? ['.'] : listed.split('\n').map((s) => s.trim()).filter(Boolean);
-  return paths.map((p) => { const path = join(root, p); return { name: basename(path), path }; });
-}
+// The repository: --path from the project root, named by its folder's last segment.
+const repository = (() => { const path = join(root, opt.path); return { name: basename(path), path }; })();
 
 function git(path, a) {
   try { return execFileSync('git', ['-C', path, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).replace(/\n$/, ''); } catch { return null; }
@@ -75,7 +67,7 @@ const ymd = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate(
 const ymdhm = (d) => `${ymd(d)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 
 function readRepo(r) {
-  if (!existsSync(join(r.path, '.git')) && git(r.path, ['rev-parse', '--git-dir']) === null) return { lines: [`${r.name} — no clone at ${r.path}`], rows: [] };
+  if (!existsSync(join(r.path, '.git')) && git(r.path, ['rev-parse', '--git-dir']) === null) return { lines: [`${r.name} — no clone at ${r.path}`], rows: [], noClone: true };
   const head = git(r.path, ['symbolic-ref', '-q', 'refs/remotes/origin/HEAD']);
   const def = head ? head.replace('refs/remotes/origin/', '') : 'main';
   const base = `origin/${def}`;
@@ -123,14 +115,7 @@ function readRepo(r) {
   return { lines, rows: all.map((x) => ({ ...x, line: fmt(x) })) };
 }
 
-const repos = repositories();
-if (opt.repo) {
-  const r = repos.find((x) => x.name === opt.repo);
-  if (!r) fail(`${opt.repo}: not a repository of this project`);
-  const row = readRepo(r).rows.find((x) => x.branch === opt.branch);
-  process.stdout.write((row ? row.line : 'landed') + '\n');
-} else {
-  const out = [];
-  for (const r of repos) out.push(...readRepo(r).lines);
-  if (out.length) process.stdout.write(out.join('\n') + '\n');
-}
+const read = readRepo(repository);
+if (read.noClone) { process.stdout.write(read.lines[0] + '\n'); process.exit(1); }
+const row = read.rows.find((x) => x.branch === opt.branch);
+process.stdout.write((row ? row.line : 'landed') + '\n');

@@ -4,7 +4,6 @@
   "status-url": "",
   "notify-token": "",
   "status-token": "",
-  "versioned": "",
   "standards-folders": [],
   "subagent-reader": "",
   "subagent-finder": "",
@@ -14,6 +13,5 @@
   "subagent-reviewer": "",
   "project-root": "",
   "ref-alias": "",
-  "repos": [],
   "audit-root-prefix": ""
 }

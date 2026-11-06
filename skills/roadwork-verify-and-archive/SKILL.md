@@ -46,13 +46,16 @@ Read the item folder whole. Produce a numbered list of findings:
   `gate-check --status` (never from the checkboxes alone); if no
   `GATES.md` exists, say the item was never built here. A review gate accepted on the invocation's line (`… given G<n> accepted`) is recorded met in `GATES.md` first, its EVIDENCE the Operator's word, dated.
 - **Gated:** for an item whose `gated` key is set — a build stopped from outside — one finding, `**Gated:** <the key's text>`, put to the Operator as the question whether to archive over the wait, the options archive as is (the wait recorded on the item file, the key emptied by the act), wait for the gate, or do not archive, the recommendation this skill's by the gate's state; this skill clears nothing itself.
-- **Landing:** for every tracked change the item names (branch commits at
-  any path it names), fetch that path's `origin/main` and test
-  `git merge-base --is-ancestor <commit> origin/main`. Report each as
+- **Landing:** for each entry of the item's `landing.json` (the landing
+  record `/roadwork-make` writes at the go, `{ "path", "branch" }`), fetch
+  the `origin/main` of the repository at the entry's `path`, read from the
+  project's root, and test `git merge-base --is-ancestor <tip> origin/main`,
+  `<tip>` the tip of the entry's branch. Report each as
   landed, not landed, or **unverified** when the fetch failed — a check
   that did not run is not a check that passed; never report "landed"
-  without the fetch.
-- **Unlanded branch:** where the config key `versioned` is `yes`, for every tracked branch the item names, the line `node <inventory>/scripts/unlanded.mjs` `--repo <name> --branch <branch>` prints when it prints one that is not `pushed, not landed` — a branch with no upstream or ahead of it and not an ancestor of `origin/main`; the script reads local refs and fetches nothing, so this finding stands beside Landing, never in its place.
+  without the fetch. Where the item has no `landing.json`, or its list is
+  empty, the finding is the one line "no landing to prove: the item records no tracked change".
+- **Unlanded branch:** for each entry of the item's `landing.json`, the line `node <inventory>/scripts/unlanded.mjs --path <path> --branch <branch>` prints when it prints one that is not `pushed, not landed` — a branch with no upstream or ahead of it and not an ancestor of `origin/main`; the script reads local refs and fetches nothing, so this finding stands beside Landing, never in its place.
 - **Dependents:** every item in the register whose `blocked-by` names this
   one, and whether archiving would unblock it.
 - **Externalities:** for an item whose `external` is set, one finding per entry the key names with the status read's answer for it (the rule's section "Externalities and their notices"): cleared, open, unmatched, unknown or no status URL; an entry cleared on the item gets none; a finding is put to the Operator as every finding is; this skill clears nothing and posts nothing.
