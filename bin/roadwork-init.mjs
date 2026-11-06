@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// roadwork-init — copies the Roadwork scaffold into a project once, and installs (or refreshes) the rule, the skills and
+// roadwork-init — copies the Roadwork skeleton into a project once, and installs (or refreshes) the rule, the skills and
 // the agent files.
 // Node only, no dependencies. Run `node bin/roadwork-init.mjs --help` for the usage.
 import fs from 'node:fs';
@@ -16,7 +16,7 @@ Sets Roadwork up in a project, or refreshes it.
   <register-path>   where the project's register goes, for example my-project/roadwork;
                     its last folder must be named roadwork, as the rule loads only for
                     files under a roadwork/ folder.
-                    When nothing is there yet, this repository's scaffold/ is copied there
+                    When nothing is there yet, this repository's skeleton/ is copied there
                     once, the line "Copied from Roadwork <release> (${HOME_ADDRESS})
                     on <date>" is added to the copy's CLAUDE.md, and the copy is made
                     its own git repository with one commit and no remote. When a
@@ -78,11 +78,11 @@ const isDir = (p) => { try { return fs.statSync(p).isDirectory(); } catch { retu
 const isRegister = (p) => isDir(p) && fs.existsSync(path.join(p, 'ordering.md')) && fs.existsSync(path.join(p, 'working.md'));
 
 const home = real(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
-const scaffold = path.join(home, 'scaffold');
+const skeleton = path.join(home, 'skeleton');
 const rule = path.join(home, 'rules', 'roadwork-constitution.md');
 const skillsHome = path.join(home, 'skills');
 const agentsHome = path.join(home, 'agents');
-if (!isDir(scaffold) || !fs.existsSync(rule) || !isDir(skillsHome) || !isDir(agentsHome)) stop(`the Roadwork repository at ${home} lacks scaffold/, rules/roadwork-constitution.md, skills/ or agents/`);
+if (!isDir(skeleton) || !fs.existsSync(rule) || !isDir(skillsHome) || !isDir(agentsHome)) stop(`the Roadwork repository at ${home} lacks skeleton/, rules/roadwork-constitution.md, skills/ or agents/`);
 
 const register = real(registerArg);
 const root = projectArg === null ? path.dirname(register) : real(projectArg);
@@ -104,14 +104,14 @@ function releaseOf() {
   return m ? m[1] : 'unreleased';
 }
 
-// --- a first run: the scaffold copied once, the release line, the register's own repository -------------------------
+// --- a first run: the skeleton copied once, the release line, the register's own repository -------------------------
 let madeRepository = false;
 if (firstRun) {
   const release = releaseOf();
   const d = new Date();
   const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   fs.mkdirSync(path.dirname(register), { recursive: true });
-  fs.cpSync(scaffold, register, { recursive: true, errorOnExist: true, force: false });
+  fs.cpSync(skeleton, register, { recursive: true, errorOnExist: true, force: false });
   // the settings file: shipped with every key empty, ignored by the register's git, owner-only as the config skill writes it
   fs.chmodSync(path.join(register, 'config.json'), 0o600);
   const anchor = path.join(register, 'CLAUDE.md');

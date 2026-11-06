@@ -31,7 +31,7 @@ function walk(dir, out = []) {
 const lastLine = (s) => String(s || '').trim().split('\n').pop() || '';
 const CONSTITUTION = at('rules', 'roadwork-constitution.md');
 
-// (1) anchors — every anchor of the scaffold present: the register's own files and docs, the anchors the
+// (1) anchors — every anchor of the skeleton present: the register's own files and docs, the anchors the
 // constitution's Folders bullet lists below the top, and spark/archive/CLAUDE.md, which its rule "every archive/
 // under one carries an anchor" requires though the list omits it.
 function anchors(fail) {
@@ -41,7 +41,7 @@ function anchors(fail) {
   const line = c.split('\n').find((l) => l.includes('The anchors below the top are'));
   const listed = line ? [...line.matchAll(/`([^`\s]+\/CLAUDE\.md)`/g)].map((m) => m[1]) : [];
   if (!listed.length) { fail('the constitution\'s anchor list ("The anchors below the top are …") not found'); return; }
-  for (const p of [...new Set([...own, ...listed, 'spark/archive/CLAUDE.md'])]) if (!isFile(at('scaffold', p))) fail(`scaffold/${p} missing`);
+  for (const p of [...new Set([...own, ...listed, 'spark/archive/CLAUDE.md'])]) if (!isFile(at('skeleton', p))) fail(`skeleton/${p} missing`);
 }
 
 // (2) skills — every skill folder has a SKILL.md whose frontmatter holds name and description, and whose text has
@@ -114,13 +114,13 @@ function selftests(fail) {
   }
 }
 
-// (5) words — no file under rules/, skills/ or scaffold/ (the unlazy skill left out) carries a word that means something
+// (5) words — no file under rules/, skills/ or skeleton/ (the unlazy skill left out) carries a word that means something
 // only inside the project that first built Roadwork, or one of the two words the shipped texts gave up in 1.0.1
 // (case-insensitive, whole words). Each word is spelled with a one-letter class, a [ ] for
 // the space or a repetition, so that the words themselves appear nowhere in the tree, this file included.
 const WORDS = /\b(nethu[b]|buz[z]|rela[y]|nexu[s]|cchb[a]|repo[ ]man|standup[ ]guy|ba{2}|reply[-]form|harnes[s])\b/i;
 function words(fail) {
-  for (const top of ['rules', 'skills', 'scaffold']) {
+  for (const top of ['rules', 'skills', 'skeleton']) {
     for (const p of walk(at(top))) {
       if (top === 'skills' && rel(p).split('/')[1] === 'unlazy') continue;
       const t = read(p);

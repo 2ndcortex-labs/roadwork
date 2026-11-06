@@ -1,6 +1,6 @@
 # Installing and updating Roadwork
 
-This page describes `bin/roadwork-init.mjs`, the one tool that sets Roadwork up in a project and keeps it current. It copies the Roadwork repository's `scaffold/` into your project once, as the project's register — the folder where the project's plans are recorded — and on every run installs the rule, the skills and the agent files into the project's `.claude/` folders, where Claude Code finds them. It runs on Node.js with nothing to install from a package registry, and uses git when git is present.
+This page describes `bin/roadwork-init.mjs`, the one tool that sets Roadwork up in a project and keeps it current. It copies the Roadwork repository's `skeleton/` into your project once, as the project's register — the folder where the project's plans are recorded — and on every run installs the rule, the skills and the agent files into the project's `.claude/` folders, where Claude Code finds them. It runs on Node.js with nothing to install from a package registry, and uses git when git is present.
 
 Paths inside a project are written here from the project's root, with the register at its usual place, `roadwork/`.
 
@@ -19,7 +19,7 @@ node bin/roadwork-init.mjs --help
 
 When nothing exists at the register path, the init:
 
-1. copies the Roadwork repository's `scaffold/` there whole: `CLAUDE.md`, `.gitignore`, `config.json` (the settings file, every key empty, made owner-only), `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/` with what they hold;
+1. copies the Roadwork repository's `skeleton/` there whole: `CLAUDE.md`, `.gitignore`, `config.json` (the settings file, every key empty, made owner-only), `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/` with what they hold;
 2. adds one line at the end of the register's `CLAUDE.md`, the release line: `Copied from Roadwork <release> (github.com/2ndcortex-labs/roadwork) on <date>`, where the release is the version in the newest release heading of the repository's `CHANGELOG.md` (`unreleased` when there is none) and the date is the day of the run — so a register made from a downloaded release with no git history still says where it came from;
 3. makes the register a git repository of its own with one commit, `Register copied from Roadwork <release>`, made under a local name (`roadwork-init`) so that it works on a machine with no git identity set, and with no remote: the register's history stays on your machine and is never pushed; your project's own repository, if it has one, is not touched;
 4. installs the rule, the skills and the agent files, as every run does (below);
@@ -71,4 +71,4 @@ With `--project`, the rule, the skills and the agent files go into the root's `.
 - `README.md`, the overview and quickstart; `LICENSE`, the MIT License; `CHANGELOG.md`, the releases; `CONTRIBUTING.md`, how to propose a change; `.gitignore`; and `.github/workflows/check.yml`, the CI workflow.
 - `bin/` — `bin/roadwork-init.mjs`, the init this page describes; `bin/check.mjs`, the checks CI runs; `bin/smoke.mjs`, a trial of the init in an empty temporary project.
 - `docs/` — this page, `docs/install-and-update.md`, and `docs/how-the-pieces-fit.md`.
-- `rules/roadwork-constitution.md`, the rule; `skills/`, one folder per skill, `skills/<skill>/`; `agents/`, the agent files, one per sub-agent type; and `scaffold/`, the register's skeleton.
+- `rules/roadwork-constitution.md`, the rule; `skills/`, one folder per skill, `skills/<skill>/`; `agents/`, the agent files, one per sub-agent type; and `skeleton/`, the register's skeleton.
