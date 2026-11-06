@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // roadwork-inventory — prints the inventory page (the skill's §4 form) from the register's files.
-// Usage: node inventory.mjs [--root <register>] [--date <YYYY-MM-DD>] [--unlanded-lines <file>] [--filtered-by "<words>" --kept "<reading>" --removed "<reading>" --only <token> [<token> …]]
-// Reads the register only; writes nothing; fetches nothing; never opens config.json (unlanded.mjs reads `versioned` through the config script;
-// the config skill's externality.mjs reads `status-url` for each item whose `external` is set, the page's one network call; this script
-// reads `ref-alias` through the config script).
+// Usage: node inventory.mjs [--root <register>] [--date <YYYY-MM-DD>] [--filtered-by "<words>" --kept "<reading>" --removed "<reading>" --only <token> [<token> …]]
+// Reads the register only; writes nothing; fetches nothing; never opens config.json (the config skill's externality.mjs
+// reads `status-url` for each item whose `external` is set, the page's one network call; this script reads `ref-alias`
+// through the config script).
 // A line in process at a gate the Operator approves (its GATES.md block's APPROVER: line naming the Operator, no CHECK: line)
-// carries `G<n> accepted and <next step>`: from a ledger only gate ids and titles are printed, from base.json the branch alone read.
+// carries `G<n> accepted and <next step>`: from a ledger only gate ids and titles are printed.
 // Exit 0 with the page on stdout; exit 1 with the first fault on stderr.
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname, resolve, basename } from 'node:path';
@@ -20,7 +20,7 @@ const argv = process.argv.slice(2);
 const opt = { only: null };
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
-  if (a === '--root' || a === '--filtered-by' || a === '--kept' || a === '--removed' || a === '--date' || a === '--unlanded-lines') {
+  if (a === '--root' || a === '--filtered-by' || a === '--kept' || a === '--removed' || a === '--date') {
     if (i + 1 >= argv.length) fail(`${a} needs a value`);
     opt[a.slice(2)] = argv[++i];
   } else if (a === '--only') {
@@ -197,9 +197,8 @@ const ledgerOf = (it) => { if (!ledgers.has(it.ref)) ledgers.set(it.ref, ledger(
 
 // The Operator's word at an unmet gate, the make hand-back's reading reused. The run: the first unmet gate and the gates
 // directly after it in ledger order, while each is unmet and the Operator's (an APPROVER: line naming the Operator, no
-// CHECK: line). The next step: `open the pull request for <repo> <branch>` where the item's base.json names a branch that
-// exactly one unlanded line names as its second word (the lines block 4 prints, before the filter); else
-// `/roadwork-verify-and-archive <ref>` where no unmet gate follows the run; else none, and the line carries no block.
+// CHECK: line). The next step: `/roadwork-verify-and-archive <ref>` where no unmet gate follows the run; else none, and
+// the line carries no block.
 function acceptance(it) {
   if (!it.state.startsWith('in process at G') || it.state.includes(', gated since')) return null;
   const l = ledgerOf(it);
@@ -210,12 +209,8 @@ function acceptance(it) {
     run.push(x.id);
   }
   if (!run.length) return null;
-  let branch = '';
-  try { const b = JSON.parse(readFileSync(join(it.dir, 'base.json'), 'utf8')).branch; if (typeof b === 'string') branch = b; } catch { branch = ''; }
-  const named = branch ? unlanded.filter((line) => line.split(' ')[1] === branch) : [];
   const rest = l.unmet.filter((x) => !run.includes(x));
-  const next = named.length === 1 ? `open the pull request for ${named[0].split(' ')[0]} ${branch}`
-    : !rest.length ? `/roadwork-verify-and-archive ${it.ref}` : null;
+  const next = !rest.length ? `/roadwork-verify-and-archive ${it.ref}` : null;
   return { run, next };
 }
 
@@ -343,28 +338,18 @@ const sparks = dirs(join(root, 'spark')).filter((n) => existsSync(join(root, 'sp
   return { ref: `spark/${name}`, title: heading(text), assignment };
 });
 
-// --- not yet landed ------------------------------------------------------------
-let unlanded = [];
-{
-  const r = spawnSync(process.execPath, [join(here, 'unlanded.mjs'), '--config-file', join(root, 'config.json')], { encoding: 'utf8' });
-  if (r.status === 1) fail(`unlanded.mjs failed: ${(r.stderr || '').trim()}`);
-  unlanded = (r.stdout || '').split('\n').filter((l) => l.trim() !== '');
-}
-
 // --- the filter --------------------------------------------------------------------
 const only = opt.only ? new Set(opt.only) : null;
 const keepItem = (it) => !only || only.has(it.ref);
 const keepSpark = (s) => !only || only.has(s.ref);
-const keepUnlanded = (line) => { if (!only) return true; const m = line.match(/^(\S+) (\S+)/); return !!m && only.has(`unlanded:${m[1]}/${m[2]}`); };
 
 // --- render ------------------------------------------------------------------------
-// The skill's §4 form. Two options serve the item checkers' byte comparisons only: --date prints that date in the
-// title in place of the machine's, --unlanded-lines prints a file's lines in place of unlanded.mjs's output.
+// The skill's §4 form. One option serves the item checkers' byte comparisons only: --date prints that date in the
+// title in place of the machine's.
 const pad = (v) => String(v).padStart(2, '0');
 const clock = new Date();
 const date = opt.date ?? `${clock.getFullYear()}-${pad(clock.getMonth() + 1)}-${pad(clock.getDate())}`;
 if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) fail(`--date needs YYYY-MM-DD, got ${JSON.stringify(date)}`);
-if (opt['unlanded-lines'] !== undefined) unlanded = read(resolve(opt['unlanded-lines'])).split('\n').filter((l) => l.trim() !== '');
 
 const out = [];
 let id = 0;
@@ -437,10 +422,5 @@ out.push('## Ideas parked for later');
   if (!sparks.length) out.push('- no open items');
   else if (!kept.length) out.push('- no keyword-filtered items found');
   else for (const s of kept) out.push(`- \`${s.ref}\` · ${s.title} · ${s.assignment}`);
-}
-{
-  const kept = unlanded.filter(keepUnlanded);
-  if (unlanded.length && (kept.length || !only)) { out.push('', '## Not yet landed'); for (const l of kept) out.push(`- ${l}`); }
-  else if (unlanded.length && only) out.push('', '## Not yet landed', '- no keyword-filtered items found');
 }
 process.stdout.write(out.join('\n') + '\n');

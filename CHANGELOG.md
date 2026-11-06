@@ -20,6 +20,11 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 - `notify-url` and `status-url` are public addresses, printed in the clear and set in chat with `/roadwork-config <key> <value>`; a credential once carried in a URL is moved to the token key before updating.
 - The sub-agent type `explore` is renamed `explorer`: its agent file is `agents/explorer.md`, its settings key `subagent-explorer`; the old key is not read through, and every skill, the constitution, the checks and the docs name the new one.
 - The register's template folder `scaffold/` is renamed `skeleton/`, and the word with it across the repository: the rule, the README, CONTRIBUTING, the docs, the init tool (which now copies `skeleton/` into a project), the check's anchors and words modes, the config skill and the skeleton's own `CLAUDE.md`, `docs/facts.md` and `docs/teachme.md`; this changelog's history keeps the old name.
+- The make records each item's landings at the go in `landing.json`, in the item's folder — one `{ "path", "branch" }` per landing, read from the plan's "lands as" lines, which the plan form now writes in one fixed form, `branch <branch> of <path>` or `a local commit in the register`; the archive's landing and unlanded-branch findings and the make's unpushed line read it, the unlanded check taking `--path <path> --branch <branch>`; the config script gains `unset <key>`, the one way a key leaves the settings file.
+
+### Removed
+
+- The settings keys `repos` and `versioned`; the inventory page's not-yet-landed block, with its `--unlanded-lines` option, the `unlanded:` filter form and the terms row "Not yet landed"; the unlanded check's list mode. The inventory reads the register alone; an item's landing is its own record.
 
 ## [1.0.1] - 2026-10-25
 

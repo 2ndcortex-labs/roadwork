@@ -50,7 +50,7 @@ if (init.status === 0) {
     const lines = config.stdout.split('\n').filter((l) => l !== '');
     if (!lines.length) fail('the config script printed no key lines');
     for (const l of lines) if (!/^[a-z0-9][a-z0-9-]*: \S/.test(l)) fail(`the config script printed a line that is not "<key>: <value>": ${l}`);
-    for (const k of ['project-root', 'ref-alias', 'repos', 'audit-root-prefix']) if (!lines.some((l) => l.startsWith(`${k}: `))) fail(`the config script printed no ${k} line`);
+    for (const k of ['project-root', 'ref-alias', 'audit-root-prefix']) if (!lines.some((l) => l.startsWith(`${k}: `))) fail(`the config script printed no ${k} line`);
   }
   // 3. the inventory script bare, from inside the new register (it finds the register upward from where it runs)
   const inventory = run('the inventory script', [path.join(skills, 'roadwork-inventory', 'scripts', 'inventory.mjs')], register);

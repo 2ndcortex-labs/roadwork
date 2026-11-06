@@ -322,9 +322,10 @@ evidence. Form:
 Status: proposed. From: spec.md <date>. Runs under /unlazy.
 
 ## Order of work
-1. <step> — needs: <prior steps or nothing>; touches: <paths>; lands
-   as: <local commit in the register | part of the project's batch>
+1. <step> — needs: <prior steps or nothing>; touches: <paths>;
+   lands as: branch <branch> of <path> | a local commit in the register
 2. …
+(One "lands as" line per landing, in one of two forms, the step's prose free beside it: `branch <branch> of <path>` for a tracked change, `<path>` the repository's folder as a path from the project's root, `.` the root itself; `a local commit in the register` for the register's own commits, and for a change to a repository outside the project, which the item's own records name — `/roadwork-make` reads these lines at the go to write the item's landing record.)
 
 ## Stack
 Reuses: <the assets relied on, by path — a checker by path and its modes; or "none">

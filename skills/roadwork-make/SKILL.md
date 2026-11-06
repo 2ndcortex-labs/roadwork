@@ -111,14 +111,17 @@ Refuse, naming the reason, and stop when:
   only when the Operator says so in words (the override — a low-impact
   decision, not recorded), then treat the member as standalone for this
   run.
+- the item's landings cannot be recorded (§1): a plan line `lands as: branch <branch> of <path>` whose path lies in no git repository under the project's root, or an entry of the item's Paths line that git tracks, outside the register, and that lies under none of the repository roots §1 resolves from the plan's lines — name the path.
 
 ## 1. Record
 
 In one edit: `in-process: "<today>"` in the frontmatter; a status line
 "in process since <today>" in the item file; one line appended to the
 register's `working.md` — `- <ref> — since <date>, by <session agent or sub-agent>, at
-<first unmet gate id>`. `working.md` is a dated list of what is in
+<first unmet gate id>`; and the item's landing record, `landing.json` in the item's folder. `working.md` is a dated list of what is in
 process, not a history: one line per item, removed at archiving.
+
+`landing.json` is a JSON list of `{ "path", "branch" }` objects, one per distinct pair the plan's `lands as: branch <branch> of <path>` lines name (the plan form of `/roadwork-specplan`): `path` the root of the git repository at or above the line's path, resolved from the project's root (the setting `project-root`) and written as a path from that root, `.` for the root itself — never found by scanning the project for repositories; `branch` the line's branch. A plan whose lines name only `a local commit in the register` gets the empty list, `[]`, written all the same. The record is read back by `/roadwork-verify-and-archive` to prove the landing and by §4 below.
 
 ## 2. Ledger
 
@@ -138,6 +141,8 @@ Run the build exactly as the unlazy skill prescribes against that
 commands you wrote or understand), run, work each deliverable in the four
 passes, `--reverify` returned work, record evidence; an impossible gate is
 `ABANDON`ed with a reason, never deleted.
+
+A run that continues an existing ledger (the item already in process, §0) first writes `landing.json` where the item's folder has none, as §1 writes it, so an item put on the road before the record existed gains it on its next run.
 
 At the end of every run, take the first unmet gate in the ledger's order — never an abandoned one, never a review gate awaiting the Operator's word — and apply the test for a stop outside the build (the constitution's Frontmatter bullet, `gated`): the gate's check names a thing outside the build — a settings key empty, a service not answering, another party's act, a file only the Operator supplies — and a rerun without a change outside the build would fail the same. Where it holds, write `gated: "<today>: G<n> — <what it waits on>"` in the frontmatter, the clause the one-line reason, and the line `**Gated (<date>, by /roadwork-make):** <the key's text>` on the item file; `working.md`'s "at" is unchanged. Where a later run stops outside the build at another gate while the key still names the earlier one, rewrite the key with the new date and gate and add a new `**Gated**` line, the old one standing as history. Where the gate the key names is met at the end of a later run (its box checked in `GATES.md`), write `gated: ""` and the line `**Gated cleared (<date>, by /roadwork-make):** <what now holds>`. Nothing is written for an abandoned gate or a review gate awaiting the Operator. The Operator may clear the key by hand, recorded as `**Gated cleared (<date>, the Operator):** "<their words>" — <what now holds>`.
 
@@ -202,7 +207,7 @@ set), the build is orchestrated, not solo:
 - **ALL MET:** say so with the measured count, name where the commits
   sit, and end with the offer — `/roadwork-verify-and-archive <ref>` — one invocation in its own code block, preceded by its sentence (offer form), never
   invoked.
-  Where the config key `versioned` is `yes` and `node <inventory>/scripts/unlanded.mjs` `--repo <name> --branch <branch>` prints an unlanded line for the branch the commits sit on, the line says `unpushed on <repo> <branch>` and the pull-request offer — `open the pull request for <repo> <branch>`, in the offer form with its O-number, the Operator's word for one merge handshake on that branch — is printed after the verify-and-archive offer, last of the hand-back's offers (a git-related offer is always the last in the list: Operator, 2026-10-15); the script reads local refs and fetches nothing.
+  For each entry of the item's `landing.json`, run `node <inventory>/scripts/unlanded.mjs --path <path> --branch <branch>`; where it prints an unlanded line, the line says `unpushed on <repo> <branch>` and the pull-request offer — `open the pull request for <repo> <branch>`, in the offer form with its O-number, the Operator's word for one merge handshake on that branch — is printed after the verify-and-archive offer, last of the hand-back's offers (a git-related offer is always the last in the list: Operator, 2026-10-15); the script reads local refs and fetches nothing. An empty or absent record prints neither.
 - **Anything else** (unmet, abandoned, awaiting an owner decision): a
   handoff — the unmet and abandoned ids, what each needs, and who decides. Where the run stopped outside the build (§3), the handoff names the stop in one line in the plain word — "a build stopped from outside: G<n>, <what it waits on>" — and says the `gated` key was written. Where a review gate names a demo, the demo is printed whole and verbatim, before the offer. For a documentary item whose product existed before the build (a rewrite), the review gate's hand-back prints the whole document first, the diff after, then "Claims kept unchanged" — the document's lines the diff did not touch, as a list — then "Proposed additions": where the builder found the referent carries something the document does not name, one line each, for the Operator's word, each taken or struck. Every review-gate hand-back repeats the spec's `## Frozen parts` list verbatim under the words "Left unexamined".
   Offer nothing else; the item stays in process. Where the only unmet gates are the Operator's review gates, the one offer is `/roadwork-verify-and-archive <ref> given G<n> accepted` — several gates as `given G<n> and G<m> accepted` — the acceptance recorded in the ledger as the Operator's, dated, before the archive skill runs. Directly above that offer, each gate its word accepts is restated simply.
