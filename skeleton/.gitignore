@@ -3,7 +3,5 @@
 # unlazy scope state (cohortmeister runs): leases, PLAN.md, logs — never history
 .unlazy/
 .unlazy-hook-state.json
-# the instance's settings file — instance material, never committed
-config.json
-# the instance-strings list for /roadwork-audit — instance material, never committed
+# the audit's instance strings and twins — local to the project, never committed
 docs/local/

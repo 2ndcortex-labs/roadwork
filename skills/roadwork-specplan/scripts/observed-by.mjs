@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 // roadwork-specplan — observed-by.mjs: runs every externality entry's observed-by test, at acceptance and before a make.
 // Usage: node observed-by.mjs run --item-dir <dir> [--wait-ms <n>] [--record acceptance|make] [--date <YYYY-MM-DD>] | count --item-dir <dir>
-// Reads <dir>/spec.md's ## Dependencies; an entry another register item acts on is skipped. No dependencies, no network; one setting,
-// `ref-alias`, read through the config script from the register above <dir> (none when that register has no config.json).
+// Reads <dir>/spec.md's ## Dependencies; an entry another register item acts on is skipped, the item named by a reference
+// with any prefix. No dependencies, no network, no setting read.
 // Prints no line of a command's output: the output is kept in a file under a folder made by mkdtemp, named on a failure's line.
 // Exit 0 whenever it ran; 1 on a fault (one line naming it); 2 on usage.
 import { appendFileSync, closeSync, existsSync, mkdtempSync, openSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { spawn, spawnSync } from 'node:child_process';
+import { join } from 'node:path';
+import { spawn } from 'node:child_process';
 import process from 'node:process';
 
 const USAGE = 'usage: node observed-by.mjs run --item-dir <dir> [--wait-ms <n>] [--record acceptance|make] [--date <YYYY-MM-DD>] | count --item-dir <dir>';
@@ -18,24 +17,10 @@ const fail = (m) => end(process.stderr, m, 1);
 const usage = (m) => end(process.stderr, `${m}\n${USAGE}`, 2);
 
 const ENTRY = /^D(\d+)\.\s+(.*?) — who acts: (.*?) — observed by: (.*)$/;
-const CONFIG_MJS = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'roadwork-config', 'scripts', 'config.mjs');
-// The reference prefixes an item party may carry: `main`, and the setting ref-alias where set. The register: the nearest folder
-// at or above the item's folder holding ordering.md.
-function refAlias(dir) {
-  for (let d = resolve(dir); ; d = dirname(d)) {
-    if (existsSync(join(d, 'ordering.md'))) {
-      const file = join(d, 'config.json');
-      if (!existsSync(file)) return '';
-      const r = spawnSync(process.execPath, [CONFIG_MJS, '--config-file', file, 'get', 'ref-alias'], { encoding: 'utf8' });
-      const v = r.status === 0 ? (r.stdout || '').trim() : '';
-      return v === 'empty' ? '' : v;
-    }
-    if (dirname(d) === d) return '';
-  }
-}
-const escape = (s) => s.replace(/[.*+?^$|()[\]{}\\]/g, '\\$&');
-const itemParty = (alias) => new RegExp('^`?(' + ['todo', 'feature', 'main', ...(alias ? [escape(alias)] : [])].join('|') + ')\\/');
-let ITEM_PARTY = itemParty('');
+// An item party: a reference with any prefix, everything before the last `todo/` or `feature/` segment, whatever its
+// characters or depth, or absent (the inventory's PARTY, the same expression).
+const itemParty = () => /^`?(?:\S*\/)?(?:todo|feature)\//;
+const ITEM_PARTY = itemParty();
 const TAGS = /((?:\s*\[[^[\]]*\])+)\s*$/;
 const SPAN = /^`([^`]+)`$/;
 
@@ -121,7 +106,6 @@ async function main() {
   if (!existsSync(dir) || !statSync(dir).isDirectory()) return fail(`--item-dir: ${dir} is not a folder`);
   const specFile = join(dir, 'spec.md');
   if (!existsSync(specFile)) return fail(`spec.md missing in ${dir}`);
-  ITEM_PARTY = itemParty(refAlias(dir));
   const text = readFileSync(specFile, 'utf8');
   const lines = text.split('\n');
   const list = entries(lines);

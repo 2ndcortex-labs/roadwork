@@ -31,7 +31,7 @@ Changes come in as pull requests on GitHub. The steps:
 
 ## What a change must not carry
 
-No key, token, password or other secret; no machine name, personal path or address; and no value that belongs to one project only. A value that has to differ from project to project is read from the register's settings file, `roadwork/config.json`, through the config skill, or from a file in the register's `roadwork/docs/local/`, both ignored by git — never written into a shipped file.
+No key, token, password or other secret; no machine name, personal path or address; and no value that belongs to one project only. A value that has to differ from project to project is read from the register's settings file, `roadwork/config.json`, through the config skill — committed with the register and carrying only the schema's keys — or from a file in the register's `roadwork/docs/local/`, ignored by git; never written into a shipped file.
 
 ## The unlazy skill
 
