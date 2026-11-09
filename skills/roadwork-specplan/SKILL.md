@@ -124,7 +124,7 @@ writing a line of spec, assemble the constraints that will bind it:
   name, as installed in the project's `.claude/skills/` on the date of
   writing. Each skill that governs an aspect of the work —
   security, compliance, UX, brand, voice, completion discipline — is
-  a constraint on the spec and is named in it.
+  a constraint on the spec and is named in it. For an item whose work writes code, the builder's code ruleset — `.claude/agents/builder.md`, its Scope section — is a constraint on the Design and is named under Constraints applied; a documentary item is not bound by it.
 - **The destination's intent**: when the item file carries a **Destination:** line, read `destinations/<destination-slug>.intent.md` in the register before a line of spec is written, and, where that intent's Atlas line names an atlas, `atlases/<atlas-slug>/intent.md` as well; the spec's header records each reading on its Destination intent line — the file, the date, what it bound — or `none` for an item under no destination. A destination without an intent file (made before the destination skill wrote one): the line reads `none — the destination has no intent file`, the reply says so in one line and offers `/roadwork-destination <destination-slug>` (its update interviews the intent first), and the run proceeds — the reading is enforced by nothing, as the map is.
   Why the intent above: the destination is the level above the item, and its intent says what the destination is for, so the spec is written knowing it — a requirement that serves the item but not its destination is seen before it is built, not after. The destination's intent is read before anything is written; its reading is recorded so the spec says what bound it; one level up is the minimum, not a limitation — the atlas's intent above the destination is read too where the destination names one, and the spec may read further up.
 - **The map**: when the item file carries a **Map:** line, read
@@ -350,6 +350,11 @@ Changes of this plan: <its extensions or modifications of the spec's Stack refer
   EXPECT: OK referent
   ALLOWED: <path> — <reason>
   EVIDENCE: pending
+- [ ] G<n>: the test the builder leaves for the risky logic passes (optional)
+  VERIFY: automated check
+  CHECK: <the builder's test, run as it was left>
+  EXPECT: <its success marker>
+  EVIDENCE: pending
 - [ ] G2: …
 (One gate per acceptance criterion at least; manual gates only where no
 command can decide. Every gate names its verification kind in `VERIFY:`
@@ -357,7 +362,8 @@ command can decide. Every gate names its verification kind in `VERIFY:`
 automated check — and a manual gate its `APPROVER:` where established.
 Never a numerical threshold the intent did not give. Lint the ledger:
 node <unlazy>/scripts/gate-lint.mjs — it accepts both keys.
-The reality gate: the plan of an item with a folder referent carries it, written in the plan's Gates by `/roadwork-specplan` — the document the item's product, the referent the spec's folder; no per-item checker is needed for it; each `--allow` path and its reason on an `ALLOWED:` line under the gate, one per path.)
+The reality gate: the plan of an item with a folder referent carries it, written in the plan's Gates by `/roadwork-specplan` — the document the item's product, the referent the spec's folder; no per-item checker is needed for it; each `--allow` path and its reason on an `ALLOWED:` line under the gate, one per path.
+The optional gate: taken only where the spec writes risky logic — a branch, a loop, a parser, money or security — and struck otherwise; the make's default is unchanged.)
 
 ## Batching and governance
 <where each change goes; who approves>

@@ -24,6 +24,23 @@ delegate.
 - Task outside your role: do no partial work, return a brief reason.
 - Done means the change is in place and validation ran. No adjacent refactors, renames
   or tests beyond the task.
+- Before editing, list every place the change must reach — callers, tests, fixtures, config, exports — and read them; that list is the change's scope.
+- A shortcut with a known limit gets a code comment in this form: `shortcut: <the limit>, <when to upgrade>`.
+
+The lead-in, the six rungs, the "Never cut" line and the test rule below are from Ponytail 5.3.3 by Dietrich Gebert (github.com/DietrichGebert/ponytail, `skills/ponytail/SKILL.md` at commit 96608e0), MIT License, Copyright (c) 2026 DietrichGebert; copied 2026-11-09.
+
+Take the first option that fully works:
+
+1. Does it need to exist? Skip features, options and flexibility nobody asked for, and name them in one line. A vague request ("build me X") gets the smallest version that does the core job.
+2. Already in this codebase (a helper, component, service, pattern)? Use it the way the surrounding code does.
+3. Standard library or a platform feature? Use it, unless the project has its own. A house component beats a native widget.
+4. An installed dependency? Use it. Never add a dependency for a few lines.
+5. Can it be one line a reader gets at a glance? One line.
+6. Otherwise: the minimum code that works.
+
+- Lazy code without its check is unfinished: new non-trivial logic (a branch, a loop, a parser, money or security, or a whole new script or app) leaves one small test or an assert-based self-check. Trivial changes need none.
+
+Never cut: validation at trust boundaries, error handling that prevents data loss, security, accessibility, the calibration real hardware needs, anything the user asked for.
 
 **File ownership**
 You may be running alongside other builders. Edit only your assigned file list. If the
@@ -60,7 +77,6 @@ Files changed.
 # Validation
 Commands, real output, pass or fail. If none, say so.
 # Risks
-Issues, unchecked items, or edits you could not make because they sat outside your
-files.
+What was skipped, what was not checked, the risk — every cut said; and edits you could not make because they sat outside your files.
 
 Never run a recursive delete (rm -rf, rmSync, rmtree) on a path derived from an argument or a default; a test stub runs with its working directory inside a folder made by mkdtemp, never the workspace root.

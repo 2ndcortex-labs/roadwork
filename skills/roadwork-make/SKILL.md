@@ -137,7 +137,7 @@ passes, `--reverify` returned work, record evidence; an impossible gate is
 At the end of every run, take the first unmet gate in the ledger's order — never an abandoned one, never a review gate awaiting the Operator's word — and apply the test for a stop outside the build (the constitution's Frontmatter bullet, `gated`): the gate's check names a thing outside the build — a settings key empty, a service not answering, another party's act, a file only the Operator supplies — and a rerun without a change outside the build would fail the same. Where it holds, write `gated: "<today>: G<n> — <what it waits on>"` in the frontmatter, the clause the one-line reason, and the line `**Gated (<date>, by /roadwork-make):** <the key's text>` on the item file; `working.md`'s "at" is unchanged. Where a later run stops outside the build at another gate while the key still names the earlier one, rewrite the key with the new date and gate and add a new `**Gated**` line, the old one standing as history. Where the gate the key names is met at the end of a later run (its box checked in `GATES.md`), write `gated: ""` and the line `**Gated cleared (<date>, by /roadwork-make):** <what now holds>`. Nothing is written for an abandoned gate or a review gate awaiting the Operator. The Operator may clear the key by hand, recorded as `**Gated cleared (<date>, the Operator):** "<their words>" — <what now holds>`.
 
 Every change goes where the plan's lands-as line says. Update `working.md`'s "at" as gates are met.
-The builder's line, for a documentary item, in every builder's brief: a thing the referent carries that the document lacks is listed under "Proposed additions", never dropped — "adding would add a rule" is never a reason to leave it out.
+The builder's line, for a documentary item, in every builder's brief: a thing the referent carries that the document lacks is listed under "Proposed additions", never dropped — "adding would add a rule" is never a reason to leave it out. Every builder's brief asks for the report's Risks part as its tail — what was skipped, what was not checked, the risk — as the output wanted back, and the lead reads that tail before accepting the work; every reviewer's brief names the finding form of `reviewer.md`: what the code does, what goes wrong, the fix, the consequence of leaving it.
 
 ## 3b. A cohortmeister's run
 
@@ -163,7 +163,7 @@ set), the build is orchestrated, not solo:
    host's `builder` agent (the constitution's Sub-agents bullet; its family the setting
    `subagent-builder` names; its instruction file `.claude/agents/builder.md`) — a narrow brief: the member's folder, its `GATES.md`, its `OWNS:`,
    "build the deliverable in the four passes, run the gates, record
-   evidence; never approve, never archive, never post anywhere outside
+   evidence; end with the report's tail — what was skipped, what was not checked, the risk; never approve, never archive, never post anywhere outside
    the project, never write outside your paths" — record every handle
    (`dispatch-check start`); seal the wave; wait.
 4. For each returned leaf: record its return (`dispatch-check return`),
