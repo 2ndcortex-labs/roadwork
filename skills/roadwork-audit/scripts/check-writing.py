@@ -50,7 +50,7 @@ if a.paths:
             t=m.group(1)
             if '/' not in t or ' ' in t: continue
             if re.match(r'^/[a-z]+(-[a-z0-9]+)+$',t): continue          # a slash command
-            if re.match(r'^(change|origin|refs|main)/',t): continue      # a git ref
+            if re.match(r'^(change|origin|refs|main)/',t): continue      # a history reference, not a path
             if t.startswith('/') or t.startswith('...'): fail('PATHS',f'line {i}: `{t}` opens with a slash or an ellipsis')
             lit=t.split('<',1)[0]
             if '<' in t and '/' in lit: lit=lit[:lit.rindex('/')+1]

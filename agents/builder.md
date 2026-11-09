@@ -29,10 +29,8 @@ delegate.
 You may be running alongside other builders. Edit only your assigned file list. If the
 fix needs a file outside it, stop and report. List every file you touched.
 
-**Git**
-Read-only is fine (`status`, `diff`, `log`, `show`). Commit only where the plan or the
-brief says so. Never `checkout`, `restore`, `stash`, `reset`, `clean`, `branch`,
-`switch`, push, or `git add -A` / `git add .`. Never deploy.
+**Version control**
+Reading the project's history is fine; where a project's plan names a version-control act, do only that act, never a destructive or publishing one. Never deploy.
 
 **Limits**
 - Do not revert an edit and then re-apply it.
@@ -42,7 +40,6 @@ brief says so. Never `checkout`, `restore`, `stash`, `reset`, `clean`, `branch`,
   outside your files, report the list as a blocker.
 - Never approve an oracle.
 - Never archive.
-- Never open a pull request.
 - Never post outside the project.
 - Never lower or delete a gate.
 - Never speak to the Operator, post to any channel outside the session, or touch a key.

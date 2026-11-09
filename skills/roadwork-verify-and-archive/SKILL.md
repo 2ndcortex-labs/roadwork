@@ -1,6 +1,6 @@
 ---
 name: roadwork-verify-and-archive
-description: Verifies one built item against its gates and landing and archives it on the Operator's word.
+description: Verifies one built item against its gates and archives it on the Operator's word.
 when_to_use: Use when the user says /roadwork-verify-and-archive <ref>, "archive <item>", "done with <item>", "ship it" for an item.
 argument-hint: <ref> [&& <ref> …]
 ---
@@ -46,16 +46,6 @@ Read the item folder whole. Produce a numbered list of findings:
   `gate-check --status` (never from the checkboxes alone); if no
   `GATES.md` exists, say the item was never built here. A review gate accepted on the invocation's line (`… given G<n> accepted`) is recorded met in `GATES.md` first, its EVIDENCE the Operator's word, dated.
 - **Gated:** for an item whose `gated` key is set — a build stopped from outside — one finding, `**Gated:** <the key's text>`, put to the Operator as the question whether to archive over the wait, the options archive as is (the wait recorded on the item file, the key emptied by the act), wait for the gate, or do not archive, the recommendation this skill's by the gate's state; this skill clears nothing itself.
-- **Landing:** for each entry of the item's `landing.json` (the landing
-  record `/roadwork-make` writes at the go, `{ "path", "branch" }`), fetch
-  the `origin/main` of the repository at the entry's `path`, read from the
-  project's root, and test `git merge-base --is-ancestor <tip> origin/main`,
-  `<tip>` the tip of the entry's branch. Report each as
-  landed, not landed, or **unverified** when the fetch failed — a check
-  that did not run is not a check that passed; never report "landed"
-  without the fetch. Where the item has no `landing.json`, or its list is
-  empty, the finding is the one line "no landing to prove: the item records no tracked change".
-- **Unlanded branch:** for each entry of the item's `landing.json`, the line `node <inventory>/scripts/unlanded.mjs --path <path> --branch <branch>` prints when it prints one that is not `pushed, not landed` — a branch with no upstream or ahead of it and not an ancestor of `origin/main`; the script reads local refs and fetches nothing, so this finding stands beside Landing, never in its place.
 - **Dependents:** every item in the register whose `blocked-by` names this
   one, and whether archiving would unblock it.
 - **Externalities:** for an item whose `external` is set, one finding per entry the key names with the status read's answer for it (the rule's section "Externalities and their notices"): cleared, open, unmatched, unknown or no status URL; an entry cleared on the item gets none; a finding is put to the Operator as every finding is; this skill clears nothing and posts nothing.
@@ -71,19 +61,19 @@ one archiving act, and §4 offers once.
 Before asking, append `**Archive interview (<date>):**` to the item file
 with the findings of §1 in bullets — the section marks the item "archiving
 open" for the back offers until the disposition is written. Put each finding to the Operator as one numbered question with your
-recommendation (archive as is / archive with the shortfall recorded / wait
-for landing / do not archive), in the roadwork-intentify round form, closed as `/roadwork-intentify` §2 closes a round, and **wait**.
+recommendation (archive as is / archive with the shortfall recorded / wait /
+do not archive), in the roadwork-intentify round form, closed as `/roadwork-intentify` §2 closes a round, and **wait**.
 Ask for the disposition if the Operator has not said it: `shipped`,
 `withdrawn`, `superseded by <ref>`, `decided`, or `abandoned` (work
 started or claimed but not carried through — the shortfall is recorded,
-not hidden). The round closes with two blocks in this order — `archive, <disposition>`, the recommended disposition, every finding's recommendation taken; `archive, <disposition> except:`, the same, the findings that differ listed after the colon, per item in a batch (`<item>.<n>`) — then one block per other disposition the findings allow, the word alone; the word is the archive's, the act follows it. Directly above the first block, each finding the word answers is restated simply. Where §1 found an **Unlanded branch**, the last block printed — after the archive blocks and every other offer, each with an O-number; a git-related offer is always the last in the list (Operator, 2026-10-15) — is the pull-request offer, `open the pull request for <repo> <branch>`, one block per such branch, the Operator's word for one merge handshake on it (the project's merge procedure); a branch `node <inventory>/scripts/unlanded.mjs` printed as `pushed, not landed` gets no offer, its pull request presumed open; the Operator's word still archives, the dispositions unchanged. A disposition typed with the invocation (`archive, shipped` and the reference) is the round's answer. Do not archive on silence.
+not hidden). The round closes with two blocks in this order — `archive, <disposition>`, the recommended disposition, every finding's recommendation taken; `archive, <disposition> except:`, the same, the findings that differ listed after the colon, per item in a batch (`<item>.<n>`) — then one block per other disposition the findings allow, the word alone; the word is the archive's, the act follows it. Directly above the first block, each finding the word answers is restated simply. A disposition typed with the invocation (`archive, shipped` and the reference) is the round's answer. Do not archive on silence.
 
 ## 3. Archive — one act, on the Operator's word
 
 - Item file: status line "archived <date> — <disposition>: <resolution in
   one or two sentences, the Operator's words where they decided>";
   unresolved findings the Operator chose to archive over — unmet gates, an
-  unbuilt plan, unverified landing — are listed there, dated.
+  unbuilt plan — are listed there, dated.
 - Frontmatter: `in-process: ""`; `gated: ""`; `disposition: "<shipped | withdrawn |
   superseded by <ref> | decided | abandoned>"` — the only writer of this
   key.
@@ -110,8 +100,8 @@ not hidden). The round closes with two blocks in this order — `archive, <dispo
   applies one test: a `spec.md` carrying a line that begins `_Not yet
   specified` is a placeholder and graduates nothing. No other disposition
   graduates, and item names are never reused, so a record is never
-  overwritten. The copy rides the same commit as the rest of the act.
-- Commit in the register (its commits local). No PR.
+  overwritten. The copy is written in the same act.
+- Save in the register.
 
 ## 4. Offer the next step — ordering- and group-aware
 
@@ -132,6 +122,5 @@ End with the back offers as `/roadwork-ingest` §5b computes them — up to five
 
 ## Never
 
-Never archive without the Operator's word; never touch `spark/`; never
-report landing without a completed fetch; never strike an ordering line
+Never archive without the Operator's word; never touch `spark/`; never strike an ordering line
 for an item that stays open; never invoke the next skill.

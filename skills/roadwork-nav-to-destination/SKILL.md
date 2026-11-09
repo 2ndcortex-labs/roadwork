@@ -108,7 +108,7 @@ one item form; this skill adds nothing to it), with:
   sanity todo's reference** (filled in at step 6), `blocking` on the
   other side, `blocker` re-derived;
 - The item file carries its `**Paths:**` line as `/roadwork-ingest` §3 gives it, when the source names paths.
-- the item's folder under `<kind>/<destination-slug>/`; an existing item cited from `unnavigated/` — or from another destination's folder, on the Operator's word [proposed: a re-navigation's move, the same act] — is moved there in the same act, by `git mv`, history kept.
+- the item's folder under `<kind>/<destination-slug>/`; an existing item cited from `unnavigated/` — or from another destination's folder, on the Operator's word [proposed: a re-navigation's move, the same act] — is moved there in the same act, moved whole.
 
 A navigation should generally exist immediately after a destination is established. Where unnavigated items exist — filed before the navigation existed — they should helpfully inform the navigation, to a degree: read them for the requirements they already answer, cite them, never file them twice (the Operator, 2026-09-18).
 
@@ -143,9 +143,9 @@ other item's `blocked-by`. It archives only on the Operator's word, through
 `/roadwork-verify-and-archive`; "sanity check also for completness" — `/roadwork-navsanity` works
 it. Nothing in the group starts before it is verified and archived.
 
-## 7. Commit and hand back
+## 7. Save and hand back
 
-Commit in the register (its commits local). Reply with: the destination's path; the group name; the group list
+Save in the register. Reply with: the destination's path; the group name; the group list
 with kinds and homes; the requirement → item mapping's gaps, if any; the
 block's place in `ordering.md`; the sanity todo's reference. End with the
 offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked: `/roadwork-navsanity <group>` (until that
@@ -161,4 +161,4 @@ Operator's spec-writing guidelines — and get its verification rounds.
 Never build; never interview beyond the one read-back (each item's
 `/roadwork-intentify` is its own); never file an item outside `/roadwork-ingest`'s form;
 never read a PRD from anywhere but `destinations/`; never make or amend a destination (that is `/roadwork-destination`); never create the sanity todo
-first; never archive, move, or strike anything; never open a PR.
+first; never archive, move, or strike anything.

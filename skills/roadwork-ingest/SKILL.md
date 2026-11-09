@@ -86,7 +86,7 @@ in the Operator's words — never a skill name (Roadwork conventions) — four f
   5. `**Paths:** <path>, <path>` — the paths the work touches, relative to the project's root, comma-separated; written when the source names them (the notes, a document, a destination), omitted otherwise; never a frontmatter key. An item touching the register names the register's path as the project's law names it, deeper where narrower.
   6. `**Operator's initial notes (<date>, verbatim):** "…"` — the notes
      exactly as given, quotation marks and all. Later notes: `**Operator's
-     addendum (<date>, verbatim):**`, appended, never merged.
+     addendum (<date>, verbatim):**`, appended, never folded in.
   7. `**The session agent's reading of the notes (the filer's; pending the
      Operator's correction).**` — what you take the notes to mean, in
      bullets, each claim traceable to a phrase in the notes or to a fact
@@ -146,10 +146,9 @@ converting one spark or a batch, the session agent may propose further open spar
 the invocation did not name as fold candidates, by its judgement, in the
 reply — and never fold one unasked.
 
-## 5. Commit and hand back
+## 5. Save and hand back
 
-Commit in the register (its commits local) with a message naming the item
-and the Operator's directive. Reply with: the reference, the kind and its
+Save in the register. Reply with: the reference, the kind and its
 reason, the frontmatter you set and what you set on other items,
 where the line landed in `ordering.md`, and the "not decided" list, numbered as filed. End
 by offering the next step as one invocation in its own code block, preceded by its sentence (offer form) — `/roadwork-intentify <ref>`, which opens
@@ -193,8 +192,8 @@ what is waiting on it (the state, in plain words), what typing the block
 does — then its fenced code block (three backticks, no language tag),
 `/<skill> <ref>`, using the reference forms of the rule. Related offers combine
 into one invocation with ` && ` — one sentence for the combined invocation,
-every item named: related means the same skill, the same state, the same landing
-(for verify-and-archive, tracked changes that landed in the same batch; for
+every item named: related means the same skill, the same state, the same batch
+(for verify-and-archive, changes that shipped in the same batch; for
 roadwork-make, changes that will ride the same batch), by the session agent's judgement; the
 offers of skills that refuse a batch never combine. When no item qualifies, print nothing — no heading,
 no "none". Offers only; never invoke.
@@ -203,4 +202,4 @@ no "none". Offers only; never invoke.
 
 Never paraphrase the notes; never file into a home the notes do not
 support; never file a duplicate; never write `intent.md`, `spec.md`, or
-`plan.md` content; never archive, move, or strike an item; never open a PR.
+`plan.md` content; never archive, move, or strike an item.

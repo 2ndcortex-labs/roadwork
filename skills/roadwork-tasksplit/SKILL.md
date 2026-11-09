@@ -47,7 +47,7 @@ on. The skill never edits the source. Read it whole.
 
 The units are what the source itself delineates: its list items, its
 headings, its numbered steps, its paragraphs where nothing finer exists.
-One todo per unit — never merged or split beyond the source's structure.
+One todo per unit — never combined or split beyond the source's structure.
 An item that reads as a capability is still a todo; the skill never files
 a feature and never refuses a unit for its shape. Dependencies exist only
 where the source states an order or a dependency in words.
@@ -94,9 +94,9 @@ checking for this" (Operator). The group is never cohorted ("no cohort
 subagenting" — Operator): todos only, so `/roadwork-subagentifygroup` does
 not apply.
 
-## 6. Commit and hand back
+## 6. Save and hand back
 
-Commit in the register (its commits local).
+Save in the register.
 Reply with the group's name, the source's path, and every todo filed with
 its reference; say that the Operator may run `/roadwork-navsanity <group>`
 by hand later. End by offering the next step for the group's first todo —
@@ -107,4 +107,4 @@ invoked, then the back offers as `/roadwork-ingest` §5b computes them. Then the
 
 Never a feature; never a PRD (that is `/roadwork-nav-to-destination`); never a sanity todo
 or a sanity check; never a cohort; never a reading added; never a
-paraphrase of the source; never a second read-back; never a PR.
+paraphrase of the source; never a second read-back.

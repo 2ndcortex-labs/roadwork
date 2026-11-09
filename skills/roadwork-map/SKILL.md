@@ -69,7 +69,7 @@ reading of it, marked as yours, and ask the two questions — anything to
 add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 §2, closed as `/roadwork-intentify` §2 closes a round: the design tree, the frontier asked whole each round, every question
 numbered with your recommendation, the facts found by you, never asked;
-the decisions the Operator's. The root branches for a map:
+the decisions the Operator's. The root nodes for a map:
 
 - **The destination it reaches** — which destination this is the way to; in one paragraph.
 - **Guidebooks** — which of the register's guidebooks apply, listed as the
@@ -139,7 +139,7 @@ The Stack section's order is fixed: one copied Stack section per guidebook drawn
 changes and interview only that, then rewrite the file whole on confirm
 and append one dated line under `## Changelog` saying what changed; the
 Guidebooks line and the excerpts may be added or changed as any update.
-The Stack branch is asked when the Operator names the stack among what changes, and whenever the requirements file's Guidebooks line names a guidebook of which the map's Stack section carries no excerpt — said at the read-back; "none" an answer each time.
+The Stack node is asked when the Operator names the stack among what changes, and whenever the requirements file's Guidebooks line names a guidebook of which the map's Stack section carries no excerpt — said at the read-back; "none" an answer each time.
 The Process keeps its numbers; a dropped step is struck ("~~n.~~ dropped
 <date>: <why>"), never renumbered, so that plans citing steps stay true.
 
@@ -151,14 +151,14 @@ first, verbatim, as `maps/<map-slug>.source.md` in the owning home (a
 header line above it: `_Source of <map-slug>, received <date>; verbatim._`).
 Then the interview of §3, shortened to what the source leaves open: read
 back your reading of the source into the six parts and the guidebooks it
-draws on, its stack mapped onto the Stack section's order — a named guidebook that resolves to no file said and asked, the Stack branch asked where the source names none — ask the two
+draws on, its stack mapped onto the Stack section's order — a named guidebook that resolves to no file said and asked, the Stack node asked where the source names none — ask the two
 questions, then only the rounds the gaps need. The map is written as §4;
 its first changelog line names the source. The source file stays beside
 it and moves with it to `archive/`.
 
-## 6. Commit and hand back
+## 6. Save and hand back
 
-Commit in the register (its commits local). Reply with: the map's path
+Save in the register. Reply with: the map's path
 (and the source's, if any); its title and the count of its Process steps;
 the crossings found; then the map printed whole and verbatim, before the offers. End with the offer, one invocation in its own code
 block, preceded by its sentence (offer form), never invoked: the top-most
@@ -179,4 +179,4 @@ destination; never file, interview or spec an item (those are the
 chain's); never write into an item, a destination, a guidebook or another
 map; never renumber a step; never write a map the Operator did
 not confirm; never archive or move a map; never a frontmatter key on any
-item; never open a PR.
+item.

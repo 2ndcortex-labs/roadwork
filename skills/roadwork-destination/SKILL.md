@@ -82,18 +82,18 @@ add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 numbered with your recommendation, the facts found by you, never asked;
 the decisions the Operator's.
 
-**The intent first, and the atlas before it.** The **Atlas** branch is asked
+**The intent first, and the atlas before it.** The **Atlas** node is asked
 first: where the destination serves an atlas, that atlas's intent document,
 `atlases/<atlas-slug>/intent.md` (every atlas has one — the atlas skill saves
 its three documents at creation), is read before the destination's intent is written —
 it is the level above this destination, and the destination's intent names
-it on its Atlas line. A destination serves the atlas's intent, so its own intent is written knowing it; one level up is the minimum, not a limitation. The atlas's `architecture.md` is read there too, after its intent, for the Stack branch below.
-Then the intent's root branches, in the
+it on its Atlas line. A destination serves the atlas's intent, so its own intent is written knowing it; one level up is the minimum, not a limitation. The atlas's `architecture.md` is read there too, after its intent, for the Stack node below.
+Then the intent's root nodes, in the
 order `/roadwork-intentify` §2 gives them — Problem, Proposed outcome,
 Affected users and systems, Constraints, Open questions — and only then the
-PRD's branches: the PRD is written from the intent, never the other way. One
+PRD's nodes: the PRD is written from the intent, never the other way. One
 interview, one frontier per round; one confirm writes both files. The root
-branches for a destination, in that order:
+nodes for a destination, in that order:
 
 - **Atlas** — which atlas does this destination serve, if any? The open
   atlases listed by slug with their description (as the bare
@@ -190,12 +190,12 @@ Changes to the guidebooks' stacks: <the extensions or modifications, stated> | n
 - <date>: made, from <destination-slug>.intent.md.
 ```
 
-The Stack section is written from the Stack branch; the frontmatter gains no key for it.
+The Stack section is written from the Stack node; the frontmatter gains no key for it.
 
 The `atlas` key holds the slug of the one open atlas the destination serves, or stays empty (`""`); it is written by this skill alone, from the **Atlas** answer of §3.
 
 **An update** (`<existing-slug>`): read both files back whole, ask what
-changes and interview only that — the intent revisited as well as the PRD; the **Atlas** question asked only when the key is empty, the **Map** question only when the file carries no Map line; the **Stack** branch asked when the Operator names the stack among what changes, when the update sets or changes the `atlas` key — the architecture read then as at creation — and when the file carries no Stack section, "none" an answer each time, the section written from its answers. A destination that has a PRD and no intent (one made before this form) is interviewed for its intent first — the intent's five branches, the atlas's intent read as above where the PRD's `atlas` key names one — and its intent written; the PRD is left as it is unless the Operator changes it. Then rewrite the changed file whole on confirm
+changes and interview only that — the intent revisited as well as the PRD; the **Atlas** question asked only when the key is empty, the **Map** question only when the file carries no Map line; the **Stack** node asked when the Operator names the stack among what changes, when the update sets or changes the `atlas` key — the architecture read then as at creation — and when the file carries no Stack section, "none" an answer each time, the section written from its answers. A destination that has a PRD and no intent (one made before this form) is interviewed for its intent first — the intent's five nodes, the atlas's intent read as above where the PRD's `atlas` key names one — and its intent written; the PRD is left as it is unless the Operator changes it. Then rewrite the changed file whole on confirm
 and append one dated line under the PRD's `## Changelog` that names what changed in each file; the intent's status line gains `; updated <date>` when the intent changed. The
 requirements keep their numbers; a dropped one is struck ("~~n.~~ dropped
 <date>: <why>"), never renumbered, so that items citing numbers stay true.
@@ -207,15 +207,15 @@ elsewhere, a brief, a page of notes — save it first, verbatim, as
 `destinations/<destination-slug>.source.md` in the owning home (a header
 line above it: `_Source of <destination-slug>, received <date>; verbatim._`).
 Then the interview of §3, shortened to what the source leaves open: read
-back your reading of the source into the four parts and, where the source names a stack, its Stack section — the architecture, the guidebooks, the changes, the source's prose mapped onto the three lines, a named guidebook that resolves to no file said and asked — the Stack branch asked where the source names none, ask the two
-questions, then only the rounds the gaps need — the intent's branches among
+back your reading of the source into the four parts and, where the source names a stack, its Stack section — the architecture, the guidebooks, the changes, the source's prose mapped onto the three lines, a named guidebook that resolves to no file said and asked — the Stack node asked where the source names none, ask the two
+questions, then only the rounds the gaps need — the intent's nodes among
 them. The intent is written from the shortened interview, never copied from the source; the `.prd.md` is written as
 §4, from the intent; its first changelog line names the intent and the source; the source file stays as it is
 beside them and moves with them to `archive/`.
 
-## 6. Commit and hand back
+## 6. Save and hand back
 
-Commit in the register (its commits local). Reply with: the destination's
+Save in the register. Reply with: the destination's
 path (and the source's, if any); its title and the count of requirements; the guidebooks drawn on and whether the recommendation was taken;
 the crossings found; then the destination printed whole and verbatim — the intent first, then the PRD — before the offers. End with the offers, each one invocation in its own code
 block, preceded by its sentence (offer form), never invoked. When the
@@ -240,5 +240,4 @@ Never decompose a destination into items (that is
 `/roadwork-nav-to-destination`); never navigate; never build; never write a
 destination the Operator did not confirm; never renumber a requirement;
 never write into an item, a spark or another destination; never archive
-or move a destination; never a frontmatter key on any item; never copy a source into the intent; never a sweep over existing destinations — each gains its intent on the Operator's invocation, one at a time; never open a
-PR.
+or move a destination; never a frontmatter key on any item; never copy a source into the intent; never a sweep over existing destinations — each gains its intent on the Operator's invocation, one at a time.

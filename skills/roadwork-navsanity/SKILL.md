@@ -143,7 +143,7 @@ results (clean or findings), the ten answers verbatim, and every change
 made as `- change: <ref> — <what>`. The sanity todo is the group's audit
 trail; the skill may run again, each run its own section.
 
-Commit in the register (its commits local).
+Save in the register.
 
 ## 7. Hand back
 
@@ -157,5 +157,4 @@ top-most unblocked item in `ordering.md` with its skill. Then the fact suffix, b
 
 Never delete, withdraw, or strike; never act without the Operator's
 word; never build; never archive (that is `/roadwork-verify-and-archive`); never touch
-`spark/`; never a second interview beyond the ten questions; never open
-a PR.
+`spark/`; never a second interview beyond the ten questions.

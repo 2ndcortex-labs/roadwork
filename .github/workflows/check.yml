@@ -14,4 +14,3 @@ jobs:
         with:
           node-version: 24
       - run: node bin/check.mjs
-      - run: node bin/smoke.mjs

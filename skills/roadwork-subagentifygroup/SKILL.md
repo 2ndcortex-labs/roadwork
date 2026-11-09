@@ -37,7 +37,7 @@ are "1 per cohort member". This skill never builds.
 A batch (`ref && ref`) is refused here: one group at a time.
 
 Every **feature** member of the group in the register by the `group` key;
-todos are ignored. Read each member's `feature.md`, `intent.md`,
+todos are left out. Read each member's `feature.md`, `intent.md`,
 `spec.md`, `plan.md`, and the group's block in `ordering.md`.
 
 ## 1. The rubric — score every candidate subgroup
@@ -110,9 +110,9 @@ their existing order; then each cohort as its CM's line with the members
 indented beneath it — cohorts last. Reasons re-derived on every moved
 line.
 
-## 5. Commit and hand back
+## 5. Save and hand back
 
-Commit in the register (its commits local). Reply with: the cohorts and their members; the sequential
+Save in the register. Reply with: the cohorts and their members; the sequential
 members and why; the CMs filed; the block's new order. End with the
 offer, one invocation in its own code block, preceded by its sentence (offer form), never invoked: the Operator's acceptance of each CM's
 `spec.md`, then `/roadwork-make <CM>` (or `/roadwork-navsanity
