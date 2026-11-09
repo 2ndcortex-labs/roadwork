@@ -40,11 +40,11 @@ Read the register's `atlases/` — `archive/` excluded — and print a count lin
 
 ## 3. Ingest — all three held before anything is written
 
-Read every part before writing anything: a path by the host's file read, its bytes as given; a URL by the host's fetch tool, asked for the page's text whole and verbatim, nothing summarised — what it returns is the text as fetched; a pasted part from the message, its lines as given. Hold all three, then test the slug: kebab-case, and in none of `atlases/`, `atlases/archive/`, `destinations/`, `destinations/archive/` (a slug is never reused, and a destination's slug is never an atlas's).
+Read every part before writing anything: a path by the host's file read, its bytes as given; a URL by the host's `WebFetch` tool, asked for the page's text whole and verbatim, nothing summarised — what it returns is the text as fetched; a pasted part from the message, its lines as given. Hold all three, then test the slug: kebab-case, and in none of `atlases/`, `atlases/archive/`, `destinations/`, `destinations/archive/` (a slug is never reused, and a destination's slug is never an atlas's).
 
 **The intent it serves.** Nothing sits above an atlas, so the intent read before anything is written is the atlas's own `intent.md`: the part given as `atlases/<atlas-slug>/intent.md` is read as the intent it serves — this atlas's own — as given, before `atlas.md` is written, and `atlas.md`'s status line records the reading. The Operator's word — whatever the invocation carries beyond the slug and the three parts — is read as intent where it adds to the document and recorded verbatim in that status line, `none` where no word was given; it is never replacing or editing `intent.md`, which is saved as given, and where the word contradicts the document the reply says so and the document stands. The three parts are still all held before anything is written; one level up is the minimum, not a limitation, and an atlas, having no level above, reads its own intent and stops — the destinations under it read that intent as the level above them.
 
-The skill refuses the whole call — one line naming the cause, nothing written: no folder, no file, no commit — when:
+The skill refuses the whole call — one line naming the cause, nothing written: no folder, no file, nothing saved — when:
 - a part is missing, or a part is given twice (on the line and pasted, or twice either way);
 - a path does not exist, or is not a text file;
 - a URL does not answer, answers with an error, or returns an empty body or a body with no text;
@@ -58,13 +58,13 @@ Derived after `atlas.md` is written (a creation) or read (a slug call); nothing 
 
 ## 4. Write the atlas — the fixed form
 
-The folder `atlases/<atlas-slug>/` with the three documents — `vision.md`, `intent.md`, `architecture.md` — each saved as given (a path's or a pasted part's bytes unchanged) or as fetched (a URL's text as the fetch tool returned it), and `atlas.md` in this form and no other:
+The folder `atlases/<atlas-slug>/` with the three documents — `vision.md`, `intent.md`, `architecture.md` — each saved as given (a path's or a pasted part's bytes unchanged) or as fetched (a URL's text as the `WebFetch` tool returned it), and `atlas.md` in this form and no other:
 
 ```
 # Atlas: <title>
 _Atlas, made <date> by /roadwork-atlas; its intent.md read as the intent it serves; the Operator's word: "<verbatim>" | none; open until retired._
 
-**vision.md:** <the path as given | pasted | <URL>, fetched <date>, as the fetch tool rendered it>
+**vision.md:** <the path as given | pasted | <URL>, fetched <date>, as the `WebFetch` tool rendered it>
 **intent.md:** <the same, for its own source>
 **architecture.md:** <the same, for its own source>
 
@@ -92,9 +92,9 @@ taken: `<destination-slug>`[ (archived)] — covers: <heading>, <heading>
 
 (The `taken:` lines zero or more, before the bullets; the bullets one or more, or the one line `- no suggestion: the taken destinations cover every section` in their place; the headings' text as in `architecture.md`; the section is written whole and replaced whole, so `atlas.md` carries it once; the folder keeps its four files, no file per suggestion.)
 
-## 5. Commit and hand back
+## 5. Save and hand back
 
-One commit in the register (its commits local) for the atlas. Reply with: the folder's path; the three sources, one line each; the description, marked derived; then `atlas.md` printed whole and verbatim, before the offers.
+Save in the register. Reply with: the folder's path; the three sources, one line each; the description, marked derived; then `atlas.md` printed whole and verbatim, before the offers.
 
 The section of §4b is printed whole and verbatim after `atlas.md`'s body — a slug call prints the section alone, the atlas file otherwise unchanged. Then, before the listing offer, one offer per suggestion in printing order: **O<n>** — typing this starts the destination interview from the suggestion (to make the destination `<slug>` under the atlas `<atlas-slug>`): and the block `/roadwork-destination <slug> <the paragraph>` on one line; a `no suggestion` section offers none.
 
@@ -108,4 +108,4 @@ Then the back offers as `/roadwork-ingest` §5b computes them — up to five, mo
 
 ## Never
 
-Never interview (the three documents are the Operator's, taken as given); never update an atlas (a changed document is replaced by hand); never archive or move an atlas (retirement to `atlases/archive/` is by hand); never write a destination or its `atlas` key (that is `/roadwork-destination`'s); never a second atlas in one call; never write anything on a refusal; never open a PR.
+Never interview (the three documents are the Operator's, taken as given); never update an atlas (a changed document is replaced by hand); never archive or move an atlas (retirement to `atlases/archive/` is by hand); never write a destination or its `atlas` key (that is `/roadwork-destination`'s); never a second atlas in one call; never write anything on a refusal.

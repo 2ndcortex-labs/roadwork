@@ -48,10 +48,10 @@ From the records, what they teach about how the Operator decides: a recommendati
 
 Print the day's section whole — `## <date>` and its bullets — then this skill's three blocks, in this order: `go with recos and confirm` writes it; `go with recos except:` takes the bullets as they stand but the ones amended or struck after the colon, then asks again; `go with recos` settles the bullets and writes nothing.
 
-## 5. Write and commit
+## 5. Write and save
 
-On the confirm, append the section to `docs/intent-insights.md` in the register — the file created with the title `# Intent insights` and one line, `_What the interviews taught about how the Operator decides; read by /roadwork-intentify before every read-back; appended by /roadwork-intent-insights, one section per day, never rewritten._`, when it does not exist — one commit in the register (its commits local). No bullet carries a key, a token, a URL or any secret value: the Operator's words are quoted as the record carries them, and a record that carries such a value is cited by reference, never quoted. Reply with the section printed whole and verbatim, then the back offers as `/roadwork-ingest` §5b computes them, then the fact suffix, by the clock.
+On the confirm, append the section to `docs/intent-insights.md` in the register — the file created with the title `# Intent insights` and one line, `_What the interviews taught about how the Operator decides; read by /roadwork-intentify before every read-back; appended by /roadwork-intent-insights, one section per day, never rewritten._`, when it does not exist — saved in the register. No bullet carries a key, a token, a URL or any secret value: the Operator's words are quoted as the record carries them, and a record that carries such a value is cited by reference, never quoted. Reply with the section printed whole and verbatim, then the back offers as `/roadwork-ingest` §5b computes them, then the fact suffix, by the clock.
 
 ## Never
 
-Never write without the confirm; never rewrite an earlier day's section; never edit a skill, an item file or an intent; never read a spec, a plan or a ruling for an insight; never schedule itself; never push; never open a PR; never write a key, a token, a URL or a secret value into the document.
+Never write without the confirm; never rewrite an earlier day's section; never edit a skill, an item file or an intent; never read a spec, a plan or a ruling for an insight; never schedule itself; never write a key, a token, a URL or a secret value into the document.

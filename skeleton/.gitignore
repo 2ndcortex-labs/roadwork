@@ -1,7 +1,0 @@
-.DS_Store
-*.local.md
-# unlazy scope state (cohortmeister runs): leases, PLAN.md, logs — never history
-.unlazy/
-.unlazy-hook-state.json
-# the audit's instance strings and twins — local to the project, never committed
-docs/local/

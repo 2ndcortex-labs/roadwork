@@ -35,7 +35,7 @@ const CONSTITUTION = at('rules', 'roadwork-constitution.md');
 // constitution's Folders bullet lists below the top, and spark/archive/CLAUDE.md, which its rule "every archive/
 // under one carries an anchor" requires though the list omits it.
 function anchors(fail) {
-  const own = ['CLAUDE.md', '.gitignore', 'ordering.md', 'working.md', 'docs/teachme.md', 'docs/facts.md'];
+  const own = ['CLAUDE.md', 'ordering.md', 'working.md', 'docs/teachme.md', 'docs/facts.md'];
   const c = read(CONSTITUTION);
   if (c === null) { fail('rules/roadwork-constitution.md missing, so its anchor list cannot be read'); return; }
   const line = c.split('\n').find((l) => l.includes('The anchors below the top are'));

@@ -72,7 +72,7 @@ add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 §2, closed as `/roadwork-intentify` §2 closes a round: the design tree, the
 frontier asked whole each round, every question numbered with your
 recommendation, the facts found by you, never asked; the decisions the
-Operator's. The root branches for a guidebook:
+Operator's. The root nodes for a guidebook:
 
 - **What it covers** — the field the guidebook holds knowledge of, and how
   broadly it applies; in one paragraph.
@@ -160,9 +160,9 @@ the gaps need. The guidebook is written as §4; its first changelog line
 names the source.
 The source file stays beside it and moves with it to `archive/`.
 
-## 6. Commit and hand back
+## 6. Save and hand back
 
-Commit in the register (its commits local). Reply with: the guidebook's
+Save in the register. Reply with: the guidebook's
 path (and the source's, if any); its title; the crossings found; then the
 guidebook printed whole and verbatim, before the offers.
 End with one offer, one invocation in its own code block, preceded by its
@@ -182,5 +182,4 @@ them — up to five, most recent first, as offers only. Then the fact suffix, by
 Never enforce a guidebook (no skill checks one); never write into a map,
 an item or a destination; never file, interview or spec an item (those
 are the chain's); never write a guidebook the Operator did not confirm;
-never archive or move a guidebook; never a frontmatter key on any item;
-never open a PR.
+never archive or move a guidebook; never a frontmatter key on any item.

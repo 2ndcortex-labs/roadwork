@@ -27,7 +27,7 @@ SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folder
 const isFamily = (v) => /^\S+$/.test(v) && !/[-._]\d+([-._]\d+)*$/.test(v);
 for (const [type, dflt, what] of [
   ['reader', 'sonnet', 'a fresh reader of a document against one question (the verification rounds, the audit, the sanity checks)'],
-  ['finder', 'haiku', 'a fact lookup for the dispatcher (a file, a commit, a config value, what another item says)'],
+  ['finder', 'haiku', "a fact lookup for the dispatcher (a file, a record of the project's history, a config value, what another item says), returned with its source by path"],
   ['explorer', 'sonnet', 'local file discovery across the project'],
   ['researcher', 'sonnet', 'outside documents and facts, compared and summarised'],
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
@@ -42,7 +42,7 @@ const readThrough = (obj, key) => {
 };
 // The project's place, two keys, optional, each set at setup: where the project's root is from the register (unset reads as
 // the default in its meaning), and the list key `standards-folders` above.
-SCHEMA.push({ key: 'project-root', meaning: "the project's root as a relative path from the register (`..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper), read by the config script, the unlanded check, the audit's dispatch and writing-check scripts and the make, intentify and audit skills' texts so that every path a skill resolves against the project's root starts from it, set at setup by the setup skill, or by hand, optional, unset reading as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
+SCHEMA.push({ key: 'project-root', meaning: "the project's root as a relative path from the register (`..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper), read by the config script, the audit's dispatch and writing-check scripts and the make, intentify and audit skills' texts so that every path a skill resolves against the project's root starts from it, set at setup by the setup skill, or by hand, optional, unset reading as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
 const byKey = new Map();
 
 function fail(msg) { process.stderr.write(msg + '\n'); process.exit(1); }

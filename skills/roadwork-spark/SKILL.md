@@ -104,8 +104,8 @@ _Spark, filed <date>; open until converted._
 
 The Destination line is optional: absent until the spark is assigned (§4b).
 
-Commit `idea.md` — as filed, nothing else — in the register
-before the round of §4 is presented, always. The round's answer lands in a second commit.
+Save `idea.md` — as filed, nothing else — in the register
+before the round of §4 is presented, always: saved first, the round's answer saved after.
 
 ## 4. At most one round
 
@@ -123,7 +123,7 @@ into `idea.md` under `**Round (<date>):**` as pairs — one line `The pairs
 number, a dash, and the Operator's answer for it as a summary that loses no
 meaning; a closing alone records each recommendation's text as the answer taken; a question back is carried
 in its pair by dated clauses until decided — the one record written as a
-summary rather than verbatim (Operator, 2026-09-23) — in a second commit,
+summary rather than verbatim (Operator, 2026-09-23) — saved after the filing,
 and stop. An answer that arrives later, after other
 work, is folded in the same way, under `**Round (<date>):**` — the record
 is the Operator's, late or not. Until an answer comes the spark stands on
@@ -135,7 +135,7 @@ the notes and the reading. No second round, ever.
 spark to a destination. The argument is read as this word when it opens with `spark/`
 and carries ` to ` — notes that file a new spark never open with `spark/`. The
 word appends the Destination line of §3 to the spark's `idea.md` — the
-invocation verbatim and dated — in one register commit; a second
+invocation verbatim and dated — saved in the register; a second
 assignment appends a new dated line and never rewrites the first, the
 inventory page reading the last. The word is refused with its reason when
 `spark/<item-name>/idea.md` does not exist among the open sparks (an archived

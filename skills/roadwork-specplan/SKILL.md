@@ -52,7 +52,7 @@ The standard every spec written by this skill — in either mode — and by
 update specplan skill to tighten spec writing - some ideas:
 
 Create a bespoke specification from the supplied intent document. The intent document was developed through a thorough process and is the authoritative statement of the desired outcome. Treat its settled decisions as established; do not repeat discovery or reopen them without identifying a specific contradiction, omission, or feasibility concern.
-The work may concern any kind of project, deliverable, process, service, or build. Do not assume software, a repository, particular tools, or a particular execution method.
+The work may concern any kind of project, deliverable, process, service, or build. Do not assume software, a source tree, particular tools, or a particular execution method.
 Preserve intent and prevent assumptions
 
 * Faithfully translate the intent into clear requirements, deliverables, boundaries, and acceptance criteria.
@@ -119,10 +119,10 @@ writing a line of spec, assemble the constraints that will bind it:
   rules that match the files the work will touch, the consulted law
   docs the law points to, the project scope, as the law states it.
 - **The canon**: the project's canon, consulted generally for anything the work
-  does with a remote (PRs, reviews).
+  does outside the project (reviews, shipping).
 - **Skills in force**: list every skill available in this session by
-  name with the commit of the tree that provides it (the skills' tree at `HEAD` for
-  project skills). Each skill that governs an aspect of the work —
+  name, as installed in the project's `.claude/skills/` on the date of
+  writing. Each skill that governs an aspect of the work —
   security, compliance, UX, brand, voice, completion discipline — is
   a constraint on the spec and is named in it.
 - **The destination's intent**: when the item file carries a **Destination:** line, read `destinations/<destination-slug>.intent.md` in the register before a line of spec is written, and, where that intent's Atlas line names an atlas, `atlases/<atlas-slug>/intent.md` as well; the spec's header records each reading on its Destination intent line — the file, the date, what it bound — or `none` for an item under no destination. A destination without an intent file (made before the destination skill wrote one): the line reads `none — the destination has no intent file`, the reply says so in one line and offers `/roadwork-destination <destination-slug>` (its update interviews the intent first), and the run proceeds — the reading is enforced by nothing, as the map is.
@@ -143,8 +143,8 @@ writing a line of spec, assemble the constraints that will bind it:
   the spec;
   or depend on. Use sub-agents for breadth; never ask the owner for a
   fact you can read.
-- **Prior art — searched by default, routine by ground**: the session agent's own knowledge of how a thing is best done is a dated sample and cannot be checked from inside; it is a hypothesis, never the source of a design. So before the Design is drafted, each consequential design decision — an approach, a structure, a dependency, an interface, a protocol, a tool — is either routine on a ground another reader can check, or searched. Routine means one of three grounds, named in the spec: a working instance in the project the Design reuses, by path; a dictating source — the intent's constraints, the standards folders, a guidebook, the map; or no alternative of consequence — one reasonable way, or a choice that changes nothing anyone would care about (a rename, a text edit, a documentary change whose design is wording). "Already known" is not a ground. Every other decision is searched: dispatch the host's `researcher` agent, one or several (the constitution's Sub-agents bullet; its instruction file `.claude/agents/researcher.md`), to find how it is done now by actively maintained projects (a release or commit within twelve months) under a clear license (a license file naming one the project may use; no file, no candidate) and in current documentation; depth and the number of candidates follow the decision's weight, the session agent's judgement as effort is. Each returns, per decision, in one shape: the candidates (name, address, license, last release or commit date), each one's approach in a paragraph, its dependencies, its known issues; "none found" as a return. Compare them and draw the Design from what proves out; where the search contradicts what the agent believed, the search wins unless the intent or the standards say otherwise, and the contradiction is recorded. The spec draws designs — approach, interfaces, pitfalls — never code; each borrowing is named by its source and tagged `[proposed]`; prior art never adds scope. Under Constraints applied, state that anything taken verbatim at the make is license-compatible and attributed. Where nothing is found, or the host offers no outside search, the entry says so and the Design proceeds; the search informs, it never blocks.
-- **Outside dependencies**: for every step's landing, every tool invoked and every act by another party, what must be true first that this seat cannot make true and that will not come about in the due course — the rule's test (the Frontmatter bullet). A fact, gathered and stated in the spec's Dependencies section, the observed-by part a command where one can decide it, never printing a credential; never asked of the owner as a decision. One entry per out-of-band act — an account on Cloudways is one entry, a token scoped for that account's access another; never one per party or per service.
+- **Prior art — searched by default, routine by ground**: the session agent's own knowledge of how a thing is best done is a dated sample and cannot be checked from inside; it is a hypothesis, never the source of a design. So before the Design is drafted, each consequential design decision — an approach, a structure, a dependency, an interface, a protocol, a tool — is either routine on a ground another reader can check, or searched. Routine means one of three grounds, named in the spec: a working instance in the project the Design reuses, by path; a dictating source — the intent's constraints, the standards folders, a guidebook, the map; or no alternative of consequence — one reasonable way, or a choice that changes nothing anyone would care about (a rename, a text edit, a documentary change whose design is wording). "Already known" is not a ground. Every other decision is searched: dispatch the host's `researcher` agent, one or several (the constitution's Sub-agents bullet; its instruction file `.claude/agents/researcher.md`), to find how it is done now by actively maintained projects (a release or change within twelve months) under a clear license (a license file naming one the project may use; no file, no candidate) and in current documentation; depth and the number of candidates follow the decision's weight, the session agent's judgement as effort is. Each returns, per decision, in one shape: the candidates (name, address, license, last release or change date), each one's approach in a paragraph, its dependencies, its known issues; "none found" as a return. Compare them and draw the Design from what proves out; where the search contradicts what the agent believed, the search wins unless the intent or the standards say otherwise, and the contradiction is recorded. The spec draws designs — approach, interfaces, pitfalls — never code; each borrowing is named by its source and tagged `[proposed]`; prior art never adds scope. Under Constraints applied, state that anything taken verbatim at the make is license-compatible and attributed. Where nothing is found, or the host offers no outside search, the entry says so and the Design proceeds; the search informs, it never blocks.
+- **Outside dependencies**: for every step's lands-as place, every tool invoked and every act by another party, what must be true first that this seat cannot make true and that will not come about in the due course — the rule's test (the Frontmatter bullet). A fact, gathered and stated in the spec's Dependencies section, the observed-by part a command where one can decide it, never printing a credential; never asked of the owner as a decision. One entry per out-of-band act — an account on Cloudways is one entry, a token scoped for that account's access another; never one per party or per service.
 
 Where two constraints contradict, or a constraint cannot be satisfied
 by this change, that is an **area of concern**: record it with the
@@ -168,7 +168,7 @@ Replace the stub whole. Form:
 ```
 # Spec: <title from intent.md>
 Status: proposed. From: intent.md accepted <date>. Author: the session agent for <owner>.
-Skills in force: <name@commit, …>. Law in force: <brief@commit, rules matched>.
+Skills in force: <name, …, as installed in `.claude/skills/` on <date>>. Law in force: <the law's file, rules matched>.
 Destination intent: <destinations/<destination-slug>.intent.md read <date> — what it bound> | none. Atlas intent: <atlases/<atlas-slug>/intent.md read <date> — what it bound> | none.
 Referent: <path or name> — <what it bound> | none
 
@@ -283,7 +283,7 @@ questions, verbatim:
 3. Verifiability — for each requirement, can it be verified as the acceptance criteria say (name the criterion, or "uncovered"), and is any threshold or number one the intent did not give? List the uncovered and the invented.
 4. Reopened decisions — does the spec reopen, weaken, or contradict a decision the intent states as settled, without naming a specific contradiction, omission, or feasibility concern? An "Areas of concern" entry offering options on a settled point counts unless it names such a concern. List each, quoting both lines.
 5. Executability — could someone carry out the work from the spec alone without inventing a consequential requirement? Name each thing they would have to invent or decide, with its section.
-6. Out-of-band dependencies — does the spec name, in its Dependencies section, every act by another party or outside event without which the work cannot complete and which will not happen in the due course of the project's own operation, with who acts and how its completion is observed; and is any due-course pause (a push, a merge, a fetch) wrongly listed as one; and is any entry one that bundles two acts, which is two entries; and is every observed-by command one span, printing no credential, carrying no URL or value inline? List each omission and each wrong entry.
+6. Out-of-band dependencies — does the spec name, in its Dependencies section, every act by another party or outside event without which the work cannot complete and which will not happen in the due course of the project's own operation, with who acts and how its completion is observed; and is any due-course pause (a deployment, a reboot, a wait on another party's answer) wrongly listed as one; and is any entry one that bundles two acts, which is two entries; and is every observed-by command one span, printing no credential, carrying no URL or value inline? List each omission and each wrong entry.
 7. Designs from own knowledge — which decisions of the Design have no Prior art entry, or a routine entry whose ground is not one of the three (a reused instance by path, a dictating source, no alternative of consequence), or a searched entry naming no source? List each with its line.
 
 Wait for all seven. Then work every finding: incorporate what holds,
@@ -323,16 +323,16 @@ Status: proposed. From: spec.md <date>. Runs under /unlazy.
 
 ## Order of work
 1. <step> — needs: <prior steps or nothing>; touches: <paths>;
-   lands as: branch <branch> of <path> | a local commit in the register
+   lands as: <where the step's work goes, in the project's own words>
 2. …
-(One "lands as" line per landing, in one of two forms, the step's prose free beside it: `branch <branch> of <path>` for a tracked change, `<path>` the repository's folder as a path from the project's root, `.` the root itself; `a local commit in the register` for the register's own commits, and for a change to a repository outside the project, which the item's own records name — `/roadwork-make` reads these lines at the go to write the item's landing record.)
+(One "lands as" line per step, in the project's own words, the step's prose free beside it: where the step's work goes — a folder, a place in the project's own flow, the register for the register's own records; read by no skill or script.)
 
 ## Stack
 Reuses: <the assets relied on, by path — a checker by path and its modes; or "none">
 Creates: <the assets written and where they live; or "none">
 Invokes: <the tools called — an MCP server, a CLI, a host tool, a vendor's service — each followed by its mark: (preferred — <guidebook-slug>) | (preferred — the map's own) | (departure: <reason>) | (departure: the intent's — <where>) | (no preference stated); or "none">
 Changes of this plan: <its extensions or modifications of the spec's Stack reference> | none
-(An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — committable is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which. The marks are read against the spec's Stack Reference, on the Invokes line only: preferred — the reference names this tool for this purpose, from a guidebook's copied Stack section or from the map's own words; departure — the reference names another tool for the purpose and the plan calls this one, the reason given, proposed in the hand-back and decided by the acceptance; the intent's departure — the reference names another tool for the purpose and the intent's Constraints name this one, the Operator having asked for it, where, named in the hand-back and not proposed; no preference stated — the reference names nothing for the purpose, the reference is none, or no guidebook with a stack has been written; nothing is a departure where there was nothing to depart from. The tools on the Invokes line are separated by semicolons, each tool's mark the last parenthesis of its entry, a reason holding no semicolon. The plan carries no Reference line: the reference is the spec's.)
+(An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — kept in the tree is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which. The marks are read against the spec's Stack Reference, on the Invokes line only: preferred — the reference names this tool for this purpose, from a guidebook's copied Stack section or from the map's own words; departure — the reference names another tool for the purpose and the plan calls this one, the reason given, proposed in the hand-back and decided by the acceptance; the intent's departure — the reference names another tool for the purpose and the intent's Constraints name this one, the Operator having asked for it, where, named in the hand-back and not proposed; no preference stated — the reference names nothing for the purpose, the reference is none, or no guidebook with a stack has been written; nothing is a departure where there was nothing to depart from. The tools on the Invokes line are separated by semicolons, each tool's mark the last parenthesis of its entry, a reason holding no semicolon. The plan carries no Reference line: the reference is the spec's.)
 
 ## Gates
 - [ ] G1: <outcome of step 1, observable>
@@ -360,8 +360,7 @@ node <unlazy>/scripts/gate-lint.mjs — it accepts both keys.
 The reality gate: the plan of an item with a folder referent carries it, written in the plan's Gates by `/roadwork-specplan` — the document the item's product, the referent the spec's folder; no per-item checker is needed for it; each `--allow` path and its reason on an `ALLOWED:` line under the gate, one per path.)
 
 ## Batching and governance
-<which PR carries what; the register's commits local;
-who approves>
+<where each change goes; who approves>
 
 ## Concerns that block the build
 <the spec's areas of concern that must be resolved before step 1>
@@ -425,15 +424,16 @@ invoking it (every skill in the chain ends this way: Roadwork conventions).
 Directly above that offer, every area of concern its word settles is restated simply.
 End with the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
-**Files the make will touch.** After the two documents and before the restatement and the offers, under the heading "Files the make will touch", one list: every existing file the make will change and every file it will create, one line each — the path, then in parentheses at most eight words, verb first, what is done to that file, never why. The list is of the project's files the build changes or creates; the chain's own bookkeeping is left out — the item's folder and everything the lifecycle writes there (the item file, the spec's and plan's status lines, the ledger, `base.json`, the checker and its records), the register's `ordering.md` and `working.md`, and any folder a check makes outside the project; a product the build writes elsewhere in the register (a guidebook, a graduated document) is a project file and is listed. Where nothing remains, the list is the one line "none: the build writes only the chain's own records". Drawn from the spec's Design, the plan's "touches:" clauses, the Stack's "Creates:" line and the files the gates' commands name; a file no document names by path is listed by its function, one line per file where the plan knows them one by one, one line for a group otherwise ("Script(s) to sort and merge the data"). Before printing, compare the list to the plan's lines: every path a "touches:" clause, the "Creates:" line or a gate's command names is in it, the excluded bookkeeping apart. The list binds nothing and is printed, never written to a file; the make's hand-back and the archive round do not reprint it.
+**Files the make will touch.** After the two documents and before the restatement and the offers, under the heading "Files the make will touch", one list: every existing file the make will change and every file it will create, one line each — the path, then in parentheses at most eight words, verb first, what is done to that file, never why. The list is of the project's files the build changes or creates; the chain's own bookkeeping is left out — the item's folder and everything the lifecycle writes there (the item file, the spec's and plan's status lines, the ledger, `base.json`, the checker and its records), the register's `ordering.md` and `working.md`, and any folder a check makes outside the project; a product the build writes elsewhere in the register (a guidebook, a graduated document) is a project file and is listed. Where nothing remains, the list is the one line "none: the build writes only the chain's own records". Drawn from the spec's Design, the plan's "touches:" clauses, the Stack's "Creates:" line and the files the gates' commands name; a file no document names by path is listed by its function, one line per file where the plan knows them one by one, one line for a group otherwise ("Script(s) to sort and combine the data"). Before printing, compare the list to the plan's lines: every path a "touches:" clause, the "Creates:" line or a gate's command names is in it, the excluded bookkeeping apart. The list binds nothing and is printed, never written to a file; the make's hand-back and the archive round do not reprint it.
 
-After writing: no PR; the register's commits are local.
+After writing, the files are saved in the register.
 
 ## Provenance
 
 The spec and plan are logged with the skills and law in force at
-writing (their commits). The prompt that produced them is this skill
-at the skills' tree's `HEAD`. A non-interactive trigger — a job firing when an
-intent is accepted, running this pass with the organization's skills
-loaded and committing `spec.md` as a PR — is the intended end state;
-until it exists, run this skill by hand.
+writing (the skills by name, as installed in the project's
+`.claude/skills/` on the date of writing). The prompt that produced them
+is this skill as installed on that date. A non-interactive trigger — a job
+firing when an intent is accepted, running this pass with the
+organization's skills loaded and saving `spec.md` in the register — is
+the intended end state; until it exists, run this skill by hand.

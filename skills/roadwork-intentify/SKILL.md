@@ -51,7 +51,7 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 - Run this procedure for one item at a time:
   - `todo.md` items in `roadwork/todo/`.
   - `feature.md` items in `roadwork/feature/`.
-- Use the same procedure for both kinds of item; for feature items, the root branches read “feature” for “todo.”
+- Use the same procedure for both kinds of item; for feature items, the root nodes read “feature” for “todo.”
 - Refuse batch arguments such as `ref && ref`.
 - If asked to handle several items, conduct their interviews sequentially, never in parallel: the Operator can hold one design tree in their head, not five.
 - Read sparks in `roadwork/spark/` for crossings, but never interview them here:
@@ -87,7 +87,7 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 - Read any `plan.md` and `spec.md`.
 - Read everything the item cites, including:
   - Files.
-  - Commits.
+  - Records of the project's history.
   - Other items.
 
 ### Read the register and identify crossings
@@ -217,14 +217,14 @@ no, no
 
 - Interview the user relentlessly until you reach a shared understanding.
 - Map the intent as a **design tree**:
-  - Every decision branches into the decisions that depend on it.
-- Always use these root branches:
+  - Every decision opens into the decisions that depend on it.
+- Always use these root nodes:
   - **Problem** — what is actually wrong or missing, for whom, how often, at what cost; what the item file asserts versus what is evidenced.
   - **Proposed outcome** — the state of the world when this is done; how anyone would observe it; what is explicitly out.
   - **Affected users and systems** — who and what changes, who must be told, which path the work lands in.
   - **Constraints** — the law that binds, including the brief, rules, and canon; project standards; keys and secrets; loci; batching; what must not change; what must happen outside the project, out of band, before completion; and who makes it happen.
   - **Open questions** — what remains unknown and who can settle it.
-- Use the Open questions branch to manage the interview:
+- Use the Open questions node to manage the interview:
   - Resolve decisions needed to define and accept the intent.
   - Do not create an open-questions or undecided-items section in `intent.md`.
   - Where a remaining uncertainty can be bounded by an agreed requirement, responsibility, or external dependency, ask the Operator to decide that boundary and record the resulting fact in the appropriate section.
@@ -255,7 +255,7 @@ no, no
 
 ### Read and apply the project’s standards
 
-- For the Constraints branch:
+- For the Constraints node:
   - Read the settings key `standards-folders` as `/roadwork-specplan` reads it.
   - Read every file in every listed folder.
   - Name the binding files by path.
@@ -279,7 +279,7 @@ no, no
 - Finding facts is your job, never the user’s.
 - If a frontier question needs an environmental fact, look it up yourself or dispatch the host's `finder` agent (its instruction file `.claude/agents/finder.md`), or its `explorer` agent (`.claude/agents/explorer.md`) where the place is not known (the constitution's Sub-agents bullet; the family its `subagent-<type>` setting names):
   - A file.
-  - A commit.
+  - A record of the project's history.
   - A channel record.
   - A configuration value.
   - What another item already says.
@@ -351,7 +351,7 @@ go with recos except:
 - Recompute the frontier.
 - Ask the next round of currently answerable questions.
 - Continue until:
-  - Every branch has been visited.
+  - Every node has been visited.
   - Nothing remains silently assumed.
   - The frontier is empty.
 - An empty decision frontier does not waive the section read-back:
@@ -658,9 +658,7 @@ intent accepted <date>
   - Write a `**Referent:**` line in the item file:
     - Directly after the Map line.
     - After the Owner line if there is no Map line.
-- Commit in the register:
-  - Its commits remain local.
-  - Do not create a PR.
+- Save in the register.
 
 ## Step 8 — Present the accepted intent and offer the next step
 
