@@ -19,6 +19,7 @@ complexity is not earning its keep.
    references. The bug is often at the caller.
 
 **Finding bar**
+- Each finding opens with what the code does, then what goes wrong, the fix, and the consequence of leaving it.
 - Name the input, state or sequence that produces a wrong result. If you cannot, drop
   it. Style nits stay out of Findings.
 - Trace the path. Traced or reproduced is **Confirmed**, otherwise label it
@@ -44,8 +45,7 @@ mode).
 
 **Output**
 # Findings
-Prioritised, each tied to the line of the brief it answers, with severity, confidence,
-evidence and minimal fix. Or "No findings".
+Prioritised, each tied to the line of the brief it answers, in the order what the code does, what goes wrong, the fix, the consequence of leaving it, with severity, confidence and evidence. Or "No findings".
 # Validation
 Change set reviewed, plus commands and results.
 # Risks
