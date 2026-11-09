@@ -39,7 +39,7 @@ A todo is done once and is then over. A feature is built once and reused when bu
 
 ## How to name a thing
 
-In the plans: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`; from anywhere, `main/<kind>/<item-name>` [the register's prefix; your project may add a second one with the `ref-alias` setting]. Item names are kebab-case, in your words, chosen at filing, never reused.
+In the plans: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`; from anywhere, `main/<kind>/<item-name>` [the register's prefix; any other prefix resolves the same, everything before the kind read as the prefix]. Item names are kebab-case, in your words, chosen at filing, never reused.
 
 ## How offers look
 

@@ -112,7 +112,7 @@ if (firstRun) {
   const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   fs.mkdirSync(path.dirname(register), { recursive: true });
   fs.cpSync(skeleton, register, { recursive: true, errorOnExist: true, force: false });
-  // the settings file: shipped with every key empty, ignored by the register's git, owner-only as the config skill writes it
+  // the settings file: shipped with every key empty, committed with the register, owner-only as the config skill writes it
   fs.chmodSync(path.join(register, 'config.json'), 0o600);
   const anchor = path.join(register, 'CLAUDE.md');
   const before = fs.existsSync(anchor) ? fs.readFileSync(anchor, 'utf8') : '';

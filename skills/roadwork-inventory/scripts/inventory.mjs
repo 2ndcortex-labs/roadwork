@@ -2,8 +2,7 @@
 // roadwork-inventory — prints the inventory page (the skill's §4 form) from the register's files.
 // Usage: node inventory.mjs [--root <register>] [--date <YYYY-MM-DD>] [--filtered-by "<words>" --kept "<reading>" --removed "<reading>" --only <token> [<token> …]]
 // Reads the register only; writes nothing; fetches nothing; never opens config.json (the config skill's externality.mjs
-// reads `status-url` for each item whose `external` is set, the page's one network call; this script reads `ref-alias`
-// through the config script).
+// reads `status-url` for each item whose `external` is set, the page's one network call; this script reads no setting).
 // A line in process at a gate the Operator approves (its GATES.md block's APPROVER: line naming the Operator, no CHECK: line)
 // carries `G<n> accepted and <next step>`: from a ledger only gate ids and titles are printed.
 // Exit 0 with the page on stdout; exit 1 with the first fault on stderr.
@@ -214,19 +213,11 @@ function acceptance(it) {
   return { run, next };
 }
 
-// The reference prefixes: `main`, and the setting ref-alias where set, read through the config script (config.json untouched when absent).
-const refAlias = (() => {
-  const file = join(root, 'config.json');
-  if (!existsSync(file)) return '';
-  const r = spawnSync(process.execPath, [join(here, '..', '..', 'roadwork-config', 'scripts', 'config.mjs'), '--config-file', file, 'get', 'ref-alias'], { encoding: 'utf8' });
-  const v = r.status === 0 ? (r.stdout || '').trim() : '';
-  return v === 'empty' ? '' : v;
-})();
-const PREFIXES = ['main', ...(refAlias ? [refAlias.replace(/[.*+?^$|()[\]{}\\]/g, '\\$&')] : [])].join('|');
-const PREFIX = new RegExp('^(' + PREFIXES + ')\\/');
-const PARTY = new RegExp('^`?(?:todo|feature|' + PREFIXES + ')\\/');
+// A reference with any prefix: everything before the last `todo/` or `feature/` segment is the prefix, whatever its
+// characters or depth, or absent; the item is the register's of that kind and name.
+const PARTY = /^`?(?:\S*\/)?(?:todo|feature)\//;
 function resolveRef(ref) {
-  const m = ref.replace(PREFIX, '').match(/^(todo|feature)\/([a-z0-9-]+)$/);
+  const m = ref.match(/^(?:.*\/)?(todo|feature)\/([a-z0-9-]+)$/);
   if (!m) return null;
   return byName[m[1]].get(m[2]) || null;
 }

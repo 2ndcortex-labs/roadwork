@@ -6,23 +6,22 @@ import { existsSync, readFileSync, writeFileSync, chmodSync, statSync } from 'no
 import { join, dirname, resolve, relative, isAbsolute, sep } from 'node:path';
 import process from 'node:process';
 
-const KEBAB = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const isHttps = (v) => { try { return new URL(v).protocol === 'https:'; } catch { return false; } };
 const nonEmpty = (v) => v.length > 0;
 const isDirUnder = (p) => existsSync(p) && statSync(p).isDirectory();
 const isEmpty = (v) => v == null || v === '' || (Array.isArray(v) && v.length === 0);
 
-const SCHEMA = [
-  ['org-slug', "the organisation's slug", 'kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$', false, (v) => KEBAB.test(v)],
-].map(([key, meaning, shape, secret, valid]) => ({ key, meaning, shape, secret, valid }));
-// The four optional externality keys: two public URL keys, the addresses Roadwork notifies and reads status from, printed in the clear;
-// two secret token keys, the credential each address wants, sent as `Authorization: Bearer <token>` when set, masked in every reply.
-SCHEMA.push({ key: 'notify-url', meaning: "the URL Roadwork posts an externality's record to when it is set and when it is cleared; optional — empty means no notice, never asked for by the empty-keys prompt; a public address with no credential in it, printed in the clear, set by `/roadwork-config notify-url <value>` or by a route of §2", shape: 'an https:// URL', secret: false, optional: true, valid: isHttps });
-SCHEMA.push({ key: 'status-url', meaning: "the URL Roadwork reads an item's externalities' state from, by the make skill at its start and by the inventory's bare call; optional — empty means the Operator is asked, never asked for by the empty-keys prompt; a public address as `notify-url` is, set the same ways", shape: 'an https:// URL', secret: false, optional: true, valid: isHttps });
-SCHEMA.push({ key: 'notify-token', meaning: "the credential `notify-url` wants, sent as `Authorization: Bearer <token>` on the notice when set and omitted when empty; optional, never asked for by the empty-keys prompt; a secret: masked in every reply, set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
-SCHEMA.push({ key: 'status-token', meaning: "the credential `status-url` wants, sent as `Authorization: Bearer <token>` on the status read when set and omitted when empty; optional, never asked for by the empty-keys prompt; a secret: masked in every reply, set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
+// Every key is optional and each meaning is one sentence saying what reads the key and why it exists.
+const SCHEMA = [];
+// The four externality keys, the settings of the two generic calls of the rule's section "Externalities and their notices"
+// (a notice of an entry opened or cleared, a read of entries' state): two public URL keys, printed in the clear; two secret
+// token keys, the credential each address wants, sent as `Authorization: Bearer <token>` when set, masked in every reply.
+SCHEMA.push({ key: 'notify-url', meaning: "the address the notice of an externality entry opened or cleared is posted to, read by `scripts/externality.mjs` alone so that a project may be told of every wait outside it, optional (empty means no notice, never asked for by the empty-keys prompt), a public address with no credential in it, printed in the clear and set by `/roadwork-config notify-url <value>` or by a route of §2", shape: 'an https:// URL', secret: false, optional: true, valid: isHttps });
+SCHEMA.push({ key: 'status-url', meaning: "the address an item's externalities' state is read from for the make, the inventory and the archive, read by `scripts/externality.mjs` alone so that the state need not be asked of the Operator, optional (empty means the Operator is asked, never asked for by the empty-keys prompt), a public address as `notify-url` is, set by the same routes", shape: 'an https:// URL', secret: false, optional: true, valid: isHttps });
+SCHEMA.push({ key: 'notify-token', meaning: "the credential `notify-url` wants, sent as `Authorization: Bearer <token>` on the notice when set and omitted when empty, read by `scripts/externality.mjs` alone so that the address need carry no credential, optional (never asked for by the empty-keys prompt), a secret masked in every reply and set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
+SCHEMA.push({ key: 'status-token', meaning: "the credential `status-url` wants, sent as `Authorization: Bearer <token>` on the status read when set and omitted when empty, read by `scripts/externality.mjs` alone so that the address need carry no credential, optional (never asked for by the empty-keys prompt), a secret masked in every reply and set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
 // A list key, optional: the project's standards folders, relative to the project's root, each an existing folder under it.
-SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folders, in the project's own structure — coding standards, brand, styling and the like; optional, empty where a project keeps none; a list, in the order given", shape: "a list of folder paths relative to the project's root, each an existing folder under it", secret: false, list: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
+SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folders in its own structure (coding standards, brand, styling and the like, in the order given), read by the specplan and intentify skills so that a spec and an intent are written to the project's own standards, set at setup by the setup skill, or by hand, optional and empty where a project keeps none", shape: "a list of folder paths relative to the project's root, each an existing folder under it", secret: false, list: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
 // The sub-agent group, optional: the model family each sub-agent type runs on — a family name the dispatching host resolves (any vendor), never a release;
 // unset reads as the default named in each meaning. Shape only: one token, no spaces, no separated version suffix (`sonnet-5-5`, `gpt-5.1` refused; `o3` admitted); whether the host serves the family is the skill's check at dispatch.
 const isFamily = (v) => /^\S+$/.test(v) && !/[-._]\d+([-._]\d+)*$/.test(v);
@@ -33,7 +32,7 @@ for (const [type, dflt, what] of [
   ['researcher', 'sonnet', 'outside documents and facts, compared and summarised'],
   ['builder', 'opus', 'a deliverable built under a ledger (the make, a cohort member)'],
   ['reviewer', 'opus', 'a finished change checked against its brief'],
-]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what}; a family name the dispatching host resolves, Anthropic's or another vendor's, the newest release of that family the host offers assumed; optional, unset reads as ${dflt}, never asked for by the empty-keys prompt`, shape: 'a model family name the host resolves; one token, no spaces, no dashed or dotted version number', secret: false, valid: isFamily, optional: true });
+]) SCHEMA.push({ key: `subagent-${type}`, meaning: `the model family the ${type} sub-agent runs on — ${what} — read by every skill's sub-agent dispatch as the one place a project names a model family per sub-agent type, a family name the dispatching host resolves (Anthropic's or another vendor's, the newest release of that family the host offers assumed), optional, unset reading as ${dflt}, never asked for by the empty-keys prompt`, shape: 'a model family name the host resolves; one token, no spaces, no dashed or dotted version number', secret: false, valid: isFamily, optional: true });
 // A renamed key's old name, read through while the new key is empty and the old holds a value; never written, never deleted.
 const OLD_KEYS = { 'subagent-researcher': 'subagent-research' };
 const readThrough = (obj, key) => {
@@ -41,26 +40,9 @@ const readThrough = (obj, key) => {
   const v = old && isEmpty(obj[key]) ? obj[old] : undefined;
   return typeof v === 'string' && v ? { old, value: v, note: `(read from the old key ${old}; set it under the new name)` } : null;
 };
-// The project's place, three keys, optional, each with its default: where the project's root is from the register, a second
-// reference prefix, the writing audit's path prefix. Unset reads as the default in each meaning.
-SCHEMA.push({ key: 'project-root', meaning: "the project's root, as a relative path from the register — `..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper; every path a skill resolves against the project's root starts from it; optional, unset reads as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
-SCHEMA.push({ key: 'ref-alias', meaning: "a second reference prefix the project's law allows beside `main` (`<alias>/<kind>/<item-name>`), read by the inventory and the externality test; optional, unset reads as none, never asked for by the empty-keys prompt", shape: 'one lowercase token, kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$, or empty', secret: false, optional: true, valid: (v) => v === '' || KEBAB.test(v) });
-SCHEMA.push({ key: 'audit-root-prefix', meaning: "the prefix every path in a document must start with under the writing audit's path check; optional, unset reads as empty — paths written from the project's root, no prefix required", shape: 'a relative path ending in `/`, or empty', secret: false, optional: true, valid: (v) => v === '' || (v.endsWith('/') && !v.startsWith('/') && !/\s/.test(v)) });
-// Instance keys: docs/local/config-keys.json beside the register's config.json (ignored by git, instance material):
-// [{ "key", "meaning", "shape": "non-empty" | "https" | "kebab", "secret": true|false }, ...]. Merged after the schema; a key the schema has is refused.
-const SHAPES = { 'non-empty': ['non-empty', nonEmpty], https: ['an https:// URL', isHttps], kebab: ['kebab-case ^[a-z0-9]+(-[a-z0-9]+)*$', (v) => KEBAB.test(v)] };
-function loadInstanceKeys(configFile) {
-  const f = join(dirname(configFile), 'docs', 'local', 'config-keys.json');
-  if (!existsSync(f)) return;
-  let list; try { list = JSON.parse(readFileSync(f, 'utf8')); } catch { fail(`${f}: not JSON`); }
-  if (!Array.isArray(list)) fail(`${f}: not a list`);
-  for (const e of list) {
-    if (!e || typeof e.key !== 'string' || !SHAPES[e.shape]) fail(`${f}: an entry needs key, meaning, shape (non-empty | https | kebab), secret`);
-    if (SCHEMA.some((s) => s.key === e.key)) fail(`${f}: ${e.key} is already in the schema`);
-    const [shape, valid] = SHAPES[e.shape];
-    SCHEMA.push({ key: e.key, meaning: `${e.meaning || ''} (instance key)`, shape, secret: !!e.secret, valid });
-  }
-}
+// The project's place, two keys, optional, each set at setup: where the project's root is from the register (unset reads as
+// the default in its meaning), and the list key `standards-folders` above.
+SCHEMA.push({ key: 'project-root', meaning: "the project's root as a relative path from the register (`..` where the register sits at the root's `roadwork/`, one `..` more per folder deeper), read by the config script, the unlanded check, the audit's dispatch and writing-check scripts and the make, intentify and audit skills' texts so that every path a skill resolves against the project's root starts from it, set at setup by the setup skill, or by hand, optional, unset reading as `..`, never asked for by the empty-keys prompt", shape: 'a relative path of `..` steps: `..`, `../..` and so on', secret: false, optional: true, valid: (v) => /^\.\.(\/\.\.)*$/.test(v) });
 const byKey = new Map();
 
 function fail(msg) { process.stderr.write(msg + '\n'); process.exit(1); }
@@ -136,7 +118,6 @@ if (args[0] === '--config-file') {
 } else {
   file = findConfig();
 }
-loadInstanceKeys(file);
 for (const s of SCHEMA) byKey.set(s.key, s);
 const [cmd, ...rest] = args;
 

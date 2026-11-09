@@ -1,5 +1,9 @@
 #!/usr/bin/env node
-// roadwork-config — externality.mjs: the calling script of the Roadwork skills, the one place `notify-url`, `status-url`, `notify-token` and `status-token` are read.
+// roadwork-config — externality.mjs: one implementation of the externality contract, the two generic calls of the rule's
+// section "Externalities and their notices" that any receiver may implement — `notify`, the notice of an entry opened or
+// cleared, posted to `notify-url`; `status`, the read of an item's entries' state from `status-url` — each with its token,
+// `notify-token` or `status-token`, where set. No skill or gate requires this script; it is the one place in the Roadwork
+// scripts the four keys are read.
 // Usage: node externality.mjs [--config-file <path>] [--item <ref>] [--wait-ms <n>] notify --state open|cleared --entry <file> | status
 // Reads the settings file in-process at the call and prints neither URL, nor any part of one. No dependencies.
 // Exit 0 on every notice and status outcome; 1 on a fault (one line naming it); 2 on usage.

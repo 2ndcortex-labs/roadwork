@@ -56,10 +56,10 @@ The four rules, the Operator's, 2026-10-13:
 The five questions are `texts/questions-writing.md`: one per rule, then paths and instance strings. Before the readers, run the mechanical checker and print its result with the readers' findings as a sixth set:
 
 ```
-python3 <skill>/scripts/check-writing.py --doc <document> --paths --instance-free [--root-prefix <prefix>/] [--strings <list>]
+python3 <skill>/scripts/check-writing.py --doc <document> --paths --instance-free [--root <root>] [--strings <list>]
 ```
 
-`--paths`: every path token (a backticked span containing `/`, outside fenced blocks, that is not a slash command or a git ref) starts with the root prefix, by default the setting `audit-root-prefix`, read through the config script — empty, paths are written from the project's root and no prefix is required; none opens with `/` or `...`. `--instance-free`: the strings of the list file are absent; the default list is the register's `docs/local/instance-strings.txt`, this project's own names, kept by the Operator and ignored by git (instance material). Both defaults come from the register found upward from the working directory (the nearest folder holding `ordering.md` and `working.md`, or holding `roadwork/` with both); with none, the script says so in one line and exits 2.
+`--paths`: every path token (a backticked span containing `/`, outside fenced blocks, that is not a slash command or a git ref) is written from the project's root, no prefix required, and is tested for existence under it — the root the register's folder resolved through the setting `project-root`, read through the config script, or `--root <root>` where given; a token naming an existing file or folder passes, a token carrying a placeholder (`<…>`) is tested by its literal part before the first `<`, cut back to its last `/` where that part holds one, an empty literal passing, and a token under no such path fails with the token and the root named; none opens with `/` or `...`. `--instance-free`: the strings of the list file are absent; the default list is the register's `docs/local/instance-strings.txt`, this project's own names, kept by the Operator and ignored by git (instance material). Both defaults come from the register found upward from the working directory (the nearest folder holding `ordering.md` and `working.md`, or holding `roadwork/` with both); with none, the script says so in one line and exits 2.
 
 ## 4. truth and continuity
 

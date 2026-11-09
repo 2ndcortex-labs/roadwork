@@ -1,5 +1,4 @@
 {
-  "org-slug": "",
   "notify-url": "",
   "status-url": "",
   "notify-token": "",
@@ -11,7 +10,5 @@
   "subagent-researcher": "",
   "subagent-builder": "",
   "subagent-reviewer": "",
-  "project-root": "",
-  "ref-alias": "",
-  "audit-root-prefix": ""
+  "project-root": ""
 }
