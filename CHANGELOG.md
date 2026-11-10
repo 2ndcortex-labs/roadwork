@@ -35,6 +35,10 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 - The settings keys `repos` and `versioned`; the inventory page's not-yet-landed block, with its `--unlanded-lines` option, the `unlanded:` filter form and the terms row "Not yet landed"; the unlanded check's list mode. The inventory reads the register alone; an item's landing is its own record.
 - The settings keys `org-slug`, `ref-alias` and `audit-root-prefix`, with the audit check's `--root-prefix` option; the instance-keys mechanism (`docs/local/config-keys.json`, read by the config script); the rule that the settings file and its tokens are never committed.
 
+### Fixed
+
+- The spec skill's two verification rounds name their reader counts consistently: eight for the spec's, six for the plan's, in the three sentences left at seven and five when a reader was added to each round.
+
 ## [1.0.1] - 2026-10-25
 
 ### Fixed
