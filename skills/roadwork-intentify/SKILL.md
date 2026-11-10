@@ -551,7 +551,7 @@ map: "<map-slug, when applicable>"
 referent: "<project-root-relative folder path or system name, when applicable>"
 ---
 
-<Brief description of what is wanted and why, based upon the originator's terms.>
+<One line saying what is wanted and why, in the originator's terms.>
 
 ## Purpose and intended outcome
 

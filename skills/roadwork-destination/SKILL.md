@@ -113,7 +113,7 @@ nodes for a destination, in that order:
 - **Open questions** — what stays unknown after this interview, and who can
   settle it.
 - **The destination** — the state of the world when it is reached, in one
-  paragraph; for whom.
+  line, then bullets; for whom.
 - **Requirements** — each one thing the programme must deliver or must
   not do, numbered; mandatory, preference, possibility or exclusion kept
   distinct.
@@ -140,19 +140,19 @@ Author: the Operator, interviewed by the AIR (the seat). Status: accepted <date>
 Destination: <destination-slug> (`destinations/<destination-slug>.prd.md`). Interview: <date>. Atlas: <atlas-slug> — its intent (`atlases/<atlas-slug>/intent.md`) read <date> as the level above | none. Map: <map-slug> | none.
 
 ## Problem
-<what is wrong or missing, for whom, evidenced — two to six lines>
+<what is wrong or missing, for whom, evidenced — two to six bullets>
 
 ## Proposed outcome
-<the observable end state; what is explicitly out>
+<bullets: the observable end state; what is explicitly out>
 
 ## Affected users and systems
-<who and what changes; who must be told>
+<bullets: who and what changes; who must be told>
 
 ## Constraints
-<the law that binds, stated as constraints on this destination; what must not change>
+<bullets: the law that binds, stated as constraints on this destination; what must not change>
 
 ## Open questions
-<what the interview left open, and who settles it — or "none">
+<bullets: what the interview left open, and who settles it — or "none">
 ```
 
 Then `destinations/<destination-slug>.prd.md`, written from the intent, in
@@ -167,7 +167,7 @@ atlas: ""
 # Destination: <title in the Operator's words>
 _Destination, made <date> by /roadwork-destination; open until built._
 
-<the destination: one paragraph>
+<the destination: one line, then bullets>
 
 **Map:** `<map-slug>` (optional — the map the destination's items follow; inherited by every item of the group)
 
@@ -184,7 +184,7 @@ Changes to the guidebooks' stacks: <the extensions or modifications, stated> | n
 - <what this destination excludes>
 
 ## Success
-<one paragraph, or bullets, of what is seen when it is reached>
+<bullets of what is seen when it is reached>
 
 ## Changelog
 - <date>: made, from <destination-slug>.intent.md.

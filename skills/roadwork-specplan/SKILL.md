@@ -143,7 +143,7 @@ writing a line of spec, assemble the constraints that will bind it:
   the spec;
   or depend on. Use sub-agents for breadth; never ask the owner for a
   fact you can read.
-- **Prior art — searched by default, routine by ground**: the session agent's own knowledge of how a thing is best done is a dated sample and cannot be checked from inside; it is a hypothesis, never the source of a design. So before the Design is drafted, each consequential design decision — an approach, a structure, a dependency, an interface, a protocol, a tool — is either routine on a ground another reader can check, or searched. Routine means one of three grounds, named in the spec: a working instance in the project the Design reuses, by path; a dictating source — the intent's constraints, the standards folders, a guidebook, the map; or no alternative of consequence — one reasonable way, or a choice that changes nothing anyone would care about (a rename, a text edit, a documentary change whose design is wording). "Already known" is not a ground. Every other decision is searched: dispatch the host's `researcher` agent, one or several (the constitution's Sub-agents bullet; its instruction file `.claude/agents/researcher.md`), to find how it is done now by actively maintained projects (a release or change within twelve months) under a clear license (a license file naming one the project may use; no file, no candidate) and in current documentation; depth and the number of candidates follow the decision's weight, the session agent's judgement as effort is. Each returns, per decision, in one shape: the candidates (name, address, license, last release or change date), each one's approach in a paragraph, its dependencies, its known issues; "none found" as a return. Compare them and draw the Design from what proves out; where the search contradicts what the agent believed, the search wins unless the intent or the standards say otherwise, and the contradiction is recorded. The spec draws designs — approach, interfaces, pitfalls — never code; each borrowing is named by its source and tagged `[proposed]`; prior art never adds scope. Under Constraints applied, state that anything taken verbatim at the make is license-compatible and attributed. Where nothing is found, or the host offers no outside search, the entry says so and the Design proceeds; the search informs, it never blocks.
+- **Prior art — searched by default, routine by ground**: the session agent's own knowledge of how a thing is best done is a dated sample and cannot be checked from inside; it is a hypothesis, never the source of a design. So before the Design is drafted, each consequential design decision — an approach, a structure, a dependency, an interface, a protocol, a tool — is either routine on a ground another reader can check, or searched. Routine means one of three grounds, named in the spec: a working instance in the project the Design reuses, by path; a dictating source — the intent's constraints, the standards folders, a guidebook, the map; or no alternative of consequence — one reasonable way, or a choice that changes nothing anyone would care about (a rename, a text edit, a documentary change whose design is wording). "Already known" is not a ground. Every other decision is searched: dispatch the host's `researcher` agent, one or several (the constitution's Sub-agents bullet; its instruction file `.claude/agents/researcher.md`), to find how it is done now by actively maintained projects (a release or change within twelve months) under a clear license (a license file naming one the project may use; no file, no candidate) and in current documentation; depth and the number of candidates follow the decision's weight, the session agent's judgement as effort is. Each returns, per decision, in one shape: the candidates (name, address, license, last release or change date), each one's approach in bullets, its dependencies, its known issues; "none found" as a return. Compare them and draw the Design from what proves out; where the search contradicts what the agent believed, the search wins unless the intent or the standards say otherwise, and the contradiction is recorded. The spec draws designs — approach, interfaces, pitfalls — never code; each borrowing is named by its source and tagged `[proposed]`; prior art never adds scope. Under Constraints applied, state that anything taken verbatim at the make is license-compatible and attributed. Where nothing is found, or the host offers no outside search, the entry says so and the Design proceeds; the search informs, it never blocks.
 - **Outside dependencies**: for every step's lands-as place, every tool invoked and every act by another party, what must be true first that this seat cannot make true and that will not come about in the due course — the rule's test (the Frontmatter bullet). A fact, gathered and stated in the spec's Dependencies section, the observed-by part a command where one can decide it, never printing a credential; never asked of the owner as a decision. One entry per out-of-band act — an account on Cloudways is one entry, a token scoped for that account's access another; never one per party or per service.
 
 Where two constraints contradict, or a constraint cannot be satisfied
@@ -173,7 +173,7 @@ Destination intent: <destinations/<destination-slug>.intent.md read <date> — w
 Referent: <path or name> — <what it bound> | none
 
 ## Problem restated
-<one paragraph, from the intent, in its terms>
+<one line, then bullets, from the intent, in its terms>
 
 ## Requirements
 R1. <observable requirement> — satisfies: <intent outcome or constraint>
@@ -186,7 +186,7 @@ R<n> freezes <part>; left unexamined. <the reason, in the sentence after it>
 (A requirement that fixes a part of the product byte-equal to a prior version is written `R<n> freezes <part>; left unexamined`, the reason in the sentence after it; every such requirement is listed here; `None` where none.)
 
 ## Design
-<what changes, where: files, folders, records, channels, configs; the
+<in bullets — what changes, where: files, folders, records, channels, configs; the
 shape of each change; interfaces touched; what is explicitly out>
 
 ## Prior art
@@ -213,7 +213,7 @@ C2. …
 organization classes as higher than routine. "None" only if true.)
 
 ## Open questions
-<from intent.md: answered here (say how) or carried forward (say why)>
+<a list, from intent.md: each answered here (say how) or carried forward (say why)>
 
 ## Acceptance criteria
 A1. <how anyone verifies R1 is met — an observable check>
@@ -267,16 +267,16 @@ gap, no round. "An unanswered question is not permission to assume."
 
 ## 2c. Spec verification round — fresh eyes, once
 
-After the draft (and the gap round if any), dispatch **seven fresh
+After the draft (and the gap round if any), dispatch **eight fresh
 sub-agents in parallel**, one question each, every one given only the
 paths of `intent.md` and `spec.md` and its question, with this brief:
 "You are a fresh reviewer with no other context. Read these two files:
 <paths>. Answer this one question: <question>. Give a numbered list of
 findings, each with the file and line it points at; say 'clean' if
-none. Do not rewrite anything. Do not read any other file." The seven
+none. Do not rewrite anything. Do not read any other file." The eight
 questions, verbatim:
 
-**Where the host runs workflows**, the seven run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — each dispatched as the host's `reader` agent (the constitution's Sub-agents bullet; its instruction file `.claude/agents/reader.md`), on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the documents at hand; where the workflow route cannot name the host's agent, the round runs as sub-agents instead, so `reader.md` is loaded. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the host runs none, or the run is declined, the seven run as sub-agents as the brief says, bounded the same way; no round is lost to it.
+**Where the host runs workflows**, the eight run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — each dispatched as the host's `reader` agent (the constitution's Sub-agents bullet; its instruction file `.claude/agents/reader.md`), on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the documents at hand; where the workflow route cannot name the host's agent, the round runs as sub-agents instead, so `reader.md` is loaded. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the host runs none, or the run is declined, the seven run as sub-agents as the brief says, bounded the same way; no round is lost to it.
 
 1. Traceability both ways — does every material commitment in the intent appear in the spec, and does every consequential requirement in the spec trace to the intent or to a line marked [proposed]? List every gap in each direction.
 2. Silent additions — does the spec add scope, constraints, implementation choices, dates, budgets, responsibilities, or success measures that the intent did not give, without marking them [proposed]? List each with its line and what in the intent it stretches.
@@ -285,6 +285,8 @@ questions, verbatim:
 5. Executability — could someone carry out the work from the spec alone without inventing a consequential requirement? Name each thing they would have to invent or decide, with its section.
 6. Out-of-band dependencies — does the spec name, in its Dependencies section, every act by another party or outside event without which the work cannot complete and which will not happen in the due course of the project's own operation, with who acts and how its completion is observed; and is any due-course pause (a deployment, a reboot, a wait on another party's answer) wrongly listed as one; and is any entry one that bundles two acts, which is two entries; and is every observed-by command one span, printing no credential, carrying no URL or value inline? List each omission and each wrong entry.
 7. Designs from own knowledge — which decisions of the Design have no Prior art entry, or a routine entry whose ground is not one of the three (a reused instance by path, a dictating source, no alternative of consequence), or a searched entry naming no source? List each with its line.
+8. Output style — read also the section "Output style" of the constitution, the file the Prerequisites found. Which lines of spec.md break a limit of that section? Leave out what the section leaves alone. List each with its line and the limit it breaks.
+This reader is given the constitution's path as a third file.
 
 Wait for all seven. Then work every finding: incorporate what holds,
 reject what does not with a one-line reason, and record the round at the
@@ -366,10 +368,10 @@ The reality gate: the plan of an item with a folder referent carries it, written
 The optional gate: taken only where the spec writes risky logic — a branch, a loop, a parser, money or security — and struck otherwise; the make's default is unchanged.)
 
 ## Batching and governance
-<where each change goes; who approves>
+<a list: where each change goes; who approves>
 
 ## Concerns that block the build
-<the spec's areas of concern that must be resolved before step 1>
+<a list: the spec's areas of concern that must be resolved before step 1>
 ```
 
 Gates are written to be run with the unlazy checker; copy the `Gates`
@@ -378,17 +380,19 @@ into the plan's status line.
 
 ## 3c. Plan verification round — fresh eyes, once
 
-After the plan is drafted, dispatch **five fresh sub-agents in
+After the plan is drafted, dispatch **six fresh sub-agents in
 parallel**, one question each, given only `spec.md` and `plan.md` and
-its question, with the same brief. The five questions, verbatim:
+its question, with the same brief. The six questions, verbatim:
 
-**Where the host runs workflows**, the five run as one workflow in the same form as the spec's — one agent per question, given `spec.md` and `plan.md`, the same shape and cap, each dispatched as the host's `reader` agent (its instruction file `.claude/agents/reader.md`) on the family `subagent-reader` names at the effort the session agent judges, the round run as sub-agents instead where the workflow route cannot name the host's agent, the record the session agent's from the journal, sub-agents the fallback. The plan's round is its own run: the plan does not exist when the spec's round runs; both rounds share one run only on a re-run.
+**Where the host runs workflows**, the six run as one workflow in the same form as the spec's — one agent per question, given `spec.md` and `plan.md`, the same shape and cap, each dispatched as the host's `reader` agent (its instruction file `.claude/agents/reader.md`) on the family `subagent-reader` names at the effort the session agent judges, the round run as sub-agents instead where the workflow route cannot name the host's agent, the record the session agent's from the journal, sub-agents the fallback. The plan's round is its own run: the plan does not exist when the spec's round runs; both rounds share one run only on a re-run.
 
 1. Coverage both ways — does every acceptance criterion have at least one gate, and does every gate trace to a criterion? List the orphans in each direction.
 2. Honest oracles — can each CHECK actually fail? Name any oracle that cannot fail, any EXPECT that copies a supplied number, and any manual gate a command could decide.
 3. Order and landing — does each step need only earlier steps, and does every change land where the batching rule allows, nothing shipping alone? List the violations.
 4. Ownership and blockers — are the concerns that block the build named before step one, and does any step touch a path outside what the item owns, and is every Dependencies entry named before step one, as a dependency and not as an area of concern? List each.
 5. Stack — does the plan name every asset it reuses or creates and every tool it invokes, and is each one missing today a named dependency or item, and is every tool on the Invokes line marked against the spec's Stack reference, every departure reasoned?
+6. Output style — read also the section "Output style" of the constitution, the file the Prerequisites found. Which lines of plan.md break a limit of that section? Leave out what the section leaves alone. List each with its line and the limit it breaks.
+This reader is given the constitution's path as a third file.
 
 Wait for all five; incorporate or reject each finding with a reason;
 record `## Verification round <date> (plan)` at the end of `plan.md` with

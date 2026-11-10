@@ -95,7 +95,7 @@ _Spark, filed <date>; open until converted._
 
 **Operator's notes (<date>, verbatim):** "…"
 
-**The session agent's reading (the filer's):** …
+**The session agent's reading (the filer's):** <bullets, one claim each>
 
 **Related:** <refs, or "none found">
 
