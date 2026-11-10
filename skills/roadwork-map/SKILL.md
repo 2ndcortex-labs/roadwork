@@ -71,7 +71,7 @@ add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 numbered with your recommendation, the facts found by you, never asked;
 the decisions the Operator's. The root nodes for a map:
 
-- **The destination it reaches** — which destination this is the way to; in one paragraph.
+- **The destination it reaches** — which destination this is the way to; in one line, then bullets.
 - **Guidebooks** — which of the register's guidebooks apply, listed as the
   bare `/roadwork-guidebook` prints them; "none" always an answer; for each
   that applies, whether whole or in parts, and which parts serve which
@@ -96,12 +96,12 @@ other:
 # Map: <title in the Operator's words>
 _Map, made <date> by /roadwork-map; open until retired._
 
-<the destination it reaches: one paragraph>
+<the destination it reaches: one line, then bullets>
 
 **Guidebooks:** `<slug>`, `<slug>` (whole)
 
 ## Before agents
-<how it was done by hand>
+<a list: how it was done by hand>
 
 ## Process
 1. <step>
@@ -115,16 +115,16 @@ Changes from the requirements file: <the text of the file's third Stack line aft
 Changes of this map: <the map's own extensions or modifications; a guidebook added on the Operator's word named here> | none
 
 ## Judgements
-<a paragraph or a list>
+<a list>
 
 ## Inputs
-<a paragraph or a list>
+<a list>
 
 ## Changelog
 - <date>: made.
 ```
 
-(The copied Stack sections and the first Changes line are separated by one blank line; the two Changes lines are adjacent; where the map's own stack stands in the copies' place it is a paragraph or a list, then one blank line, then the two lines.)
+(The copied Stack sections and the first Changes line are separated by one blank line; the two Changes lines are adjacent; where the map's own stack stands in the copies' place it is a list, then one blank line, then the two lines.)
 
 The **Guidebooks:** line names every guidebook drawn on — "(whole)" after
 one included by reference, which is done only when the entire guidebook

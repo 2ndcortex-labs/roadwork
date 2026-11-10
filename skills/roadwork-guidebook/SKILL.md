@@ -75,7 +75,7 @@ recommendation, the facts found by you, never asked; the decisions the
 Operator's. The root nodes for a guidebook:
 
 - **What it covers** — the field the guidebook holds knowledge of, and how
-  broadly it applies; in one paragraph.
+  broadly it applies; in one line, then bullets.
 - **Standards** — what must hold: conventions, formats, rules, thresholds
   the Operator has settled on, each with its reason.
 - **Stack** — whether the guidebook carries a stack at all ("none" skips
@@ -105,22 +105,22 @@ _Guidebook, made <date> by /roadwork-guidebook; open until retired._
 
 **Architectures:** <free words in the Operator's terms, or none>
 
-<what it covers: one paragraph>
+<what it covers: one line, then bullets>
 
 ## Standards
-<a paragraph or a list>
+<a list>
 
 ## Stack
-<a paragraph or a list>
+<a list>
 
 ## Vendors
-<a paragraph or a list>
+<a list>
 
 ## Judgements
-<a paragraph or a list>
+<a list>
 
 ## Sources
-<a paragraph or a list>
+<a list>
 
 ## Changelog
 - <date>: made.

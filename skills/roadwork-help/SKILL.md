@@ -51,7 +51,7 @@ Read the argument in this order, first match wins:
 
 ## 2. The map
 
-Print: the lifecycle in one paragraph, in the teach-me's words; the
+Print: the lifecycle as a numbered list, in the teach-me's words; the
 skills in order, one line each — its invocation and what it does; then
 where things are — the folders of the register (the three
 sub-registers, `archive/`, `docs/`, `destinations/`, `maps/`, `guidebooks/`, `atlases/`), `ordering.md`,

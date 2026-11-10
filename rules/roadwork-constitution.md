@@ -405,6 +405,62 @@ paths:
 - A document a skill writes and then asks the Operator's word on — an intent, a spec and plan, a destination, a map, a guidebook, a demo a review gate names — is printed whole and verbatim in the reply, after the hand-back's summary and before the offers, regardless of length, never folded or cut.
 - A document not yet shown is printed before its word is offered, never folded into an offer's box, the restatement bullet (the part "The sentence before each box") between them.
 
+### Output style — every reply and every document a skill composes
+
+#### What this section governs
+- This section governs every reply and every document a skill composes: specs, plans, intents, readings, findings, hand-backs.
+- It governs a helper's brief and a helper's return.
+
+#### The lines on shape
+- Lead with the answer or result in one line.
+- Write the body in bullets: one idea per bullet, at most 20 words.
+- Use at most 2 nesting levels and at most 7 bullets per group.
+- Use numbered lists for sequences and bullets for everything else.
+- Use prose only for a single-sentence rationale or caveat.
+- Use tables for comparisons across 3 or more attributes.
+- Write no preamble, no recap and no restatement of the request.
+
+#### The lines on wording
+- Bold only key terms the reader scans for, at most 1 per bullet.
+- Follow the Google developer documentation style guide.
+- Use active voice; use the imperative for instructions.
+- Put the condition first: "If X, do Y" or "To X, do Y".
+- Reuse the Operator's terms; never introduce a synonym for the same thing.
+
+#### Limits
+- The caps are limits, not targets; a shorter bullet or list is always allowed.
+- If a bullet exceeds 20 words, split it; never cut content and never drop a condition.
+- If a group exceeds 7 bullets, group them under headings.
+- If these lines do not state a point, the style guide settles it; these lines win where both speak.
+- If another style rule also applies to the text, both hold and the stricter wins.
+
+#### What it leaves alone
+- Text recorded verbatim: the Operator's words, notes, round answers and quoted sources.
+- Frontmatter, status lines, the ledger, offer boxes and script-printed pages.
+- The interview's round form and the restatement bullets above an offer.
+- The building helper's report tail and the checking helper's finding form.
+- The intent's pair of a fact and its description.
+- Any other form a skill or this constitution fixes, listed here or not.
+
+#### Documents that teach
+- The teach-me, the facts and the guidebooks keep each part to one Diátaxis kind: tutorial, how-to, reference or explanation.
+
+#### Who reads for it
+- No script counts words or bullets.
+- The fresh-eyes review reads each spec and plan for these limits.
+
+#### Example — a make hand-back
+```
+All 6 gates met; the chapter is in the handbook.
+- **Built:** chapter 4, "Returns", from the accepted spec.
+- **Checked:** 6 of 6 gates, 5 by command and 1 by your review.
+- **Left out:** nothing.
+
+To archive the item:
+1. Read the chapter.
+2. Type the offer below.
+```
+
 # Terms — the plain word, the agent's word, the meaning
 
 - In all text for the Operator, use the plain words from the following terms table; (to maintain usage continuity)
@@ -441,7 +497,7 @@ paths:
 | the stand-in for a cohort | Cohortmeister (CM) | A stand-in feature that blocks its cohort's members, is put on the road in their place while helper agents build them, and archives with it the members that pass; one that fails goes back to standing alone. |
 | the five tests | Rubric | The five pass-or-fail tests a set of features must meet to be built together. |
 | a rethink | Reconsideration | Running the spec skill again on an item whose spec and plan were accepted — after a failed build, a changed dependency, an amended intent, or your wish to rethink; the old go ends. |
-| the fresh-eyes review | Verification round | Seven fresh readers on a spec and five on a plan, one question each, before you see it. |
+| the fresh-eyes review | Verification round | Eight fresh readers on a spec and six on a plan, one question each, before you see it. |
 | a reading helper | reader | A helper given a document and one question, returning findings only; the fresh-eyes review's readers. Runs on the family the setting `subagent-reader` names. |
 | a lookup helper | finder | A helper that looks up one fact from inside the project — a file, a record of the project's history, a setting, what another item says — with its source by path. Runs on the family `subagent-finder` names. |
 | a search helper | explorer | A helper that sweeps the project to find where something lives, returning locations. Runs on the family `subagent-explorer` names. |
@@ -501,7 +557,7 @@ paths:
 - **Cohortmeister (CM)** — `feature/cm-<group>-<cohort>`: the pseudo-feature that blocks a cohort's members, is onroaded in their place, and whose ledger is the results checker; archives them by cascade.
 - **Rubric** — the five pass/fail criteria a subgroup must meet to be a cohort: no dependency edge, disjoint ownership, accepted spec and plan with gates, no external and not in process, self-contained builds.
 - **Reconsideration** — `/roadwork-specplan`'s second mode: on an item whose accepted spec and plan already exist, re-read them against everything dated since; a dated `Reconsidered` changelog, proven gates carried, the previous go ended, the spec proposed again.
-- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: seven predefined questions on the spec, five on the plan, one fresh reader each — run as one workflow where the host runs workflows, each a reader on the model family the setting `subagent-reader` names at the effort the session agent judges for the documents, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
+- **Verification round** — `/roadwork-specplan`'s fresh-eyes check: eight predefined questions on the spec, six on the plan, one fresh reader each — run as one workflow where the host runs workflows, each a reader on the model family the setting `subagent-reader` names at the effort the session agent judges for the documents, findings in one bounded shape (file, line, one sentence, an empty disposition slot; at most eight; "clean" as none), sub-agents the fallback — findings incorporated or rejected with a reason and recorded in the document by the session agent; one round per document.
 - **Back offers** — the second offer line of the four interrupting skills: up to five open lifecycle steps in flight, most recent first, read from the roadwork register; offers, never runs; each preceded by one sentence saying what typing it does.
 - **Item name** — the kebab-case folder name of an item, chosen at ingest in the Operator's words, the last part of its reference (`todo/<item-name>`, `main/<kind>/<item-name>`); never reused; never a skill name. "Slug" is a generic word, not the register's term; the register names its slugs by their bearer — `<destination-slug>`, `<map-slug>`, `<guidebook-slug>`, `<atlas-slug>`.
 - **Batch invocation** — one skill, many references on one line, separated by ` && `; accepted by `/roadwork-verify-and-archive` and `/roadwork-make`, and by `/roadwork-ingest` for a spark batch only (sparks of one home, converting into one item — the bare `/roadwork-spark` lists them grouped), refused by the rest with a reason; offers are printed as invocations in code blocks, related ones combined.
