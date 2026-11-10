@@ -276,7 +276,7 @@ findings, each with the file and line it points at; say 'clean' if
 none. Do not rewrite anything. Do not read any other file." The eight
 questions, verbatim:
 
-**Where the host runs workflows**, the eight run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — each dispatched as the host's `reader` agent (the constitution's Sub-agents bullet; its instruction file `.claude/agents/reader.md`), on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the documents at hand; where the workflow route cannot name the host's agent, the round runs as sub-agents instead, so `reader.md` is loaded. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the host runs none, or the run is declined, the seven run as sub-agents as the brief says, bounded the same way; no round is lost to it.
+**Where the host runs workflows**, the eight run as one workflow — one agent per question, given the same two paths and the same brief, each returning its findings in one shape: file, line, one sentence, an empty disposition slot; at most eight; "clean" as none — each dispatched as the host's `reader` agent (the constitution's Sub-agents bullet; its instruction file `.claude/agents/reader.md`), on the model family the settings key `subagent-reader` names (its default where empty), at the effort the session agent judges for the documents at hand; where the workflow route cannot name the host's agent, the round runs as sub-agents instead, so `reader.md` is loaded. The round's record below is still written by the session agent from the run's journal; the dispositions are its own, the journal holds none. Where the host runs none, or the run is declined, the eight run as sub-agents as the brief says, bounded the same way; no round is lost to it.
 
 1. Traceability both ways — does every material commitment in the intent appear in the spec, and does every consequential requirement in the spec trace to the intent or to a line marked [proposed]? List every gap in each direction.
 2. Silent additions — does the spec add scope, constraints, implementation choices, dates, budgets, responsibilities, or success measures that the intent did not give, without marking them [proposed]? List each with its line and what in the intent it stretches.
@@ -288,7 +288,7 @@ questions, verbatim:
 8. Output style — read also the section "Output style" of the constitution, the file the Prerequisites found. Which lines of spec.md break a limit of that section? Leave out what the section leaves alone. List each with its line and the limit it breaks.
 This reader is given the constitution's path as a third file.
 
-Wait for all seven. Then work every finding: incorporate what holds,
+Wait for all eight. Then work every finding: incorporate what holds,
 reject what does not with a one-line reason, and record the round at the
 end of `spec.md` as `## Verification round <date> (spec)` — the questions
 asked, `Findings: n. Incorporated: n. Rejected: n.`, and each finding's
@@ -394,7 +394,7 @@ its question, with the same brief. The six questions, verbatim:
 6. Output style — read also the section "Output style" of the constitution, the file the Prerequisites found. Which lines of plan.md break a limit of that section? Leave out what the section leaves alone. List each with its line and the limit it breaks.
 This reader is given the constitution's path as a third file.
 
-Wait for all five; incorporate or reject each finding with a reason;
+Wait for all six; incorporate or reject each finding with a reason;
 record `## Verification round <date> (plan)` at the end of `plan.md` with
 the counts. One round per document.
 
