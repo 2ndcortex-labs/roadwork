@@ -23,7 +23,7 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 20. A cohortmeister is a stand-in feature that blocks its cohort's members, is put on the road in their place while helper agents build them, and archives with it the members that pass; one that fails goes back to standing alone. — Cohortmeister (CM)
 21. Five tests make a cohort: no dependency between members, no shared files, accepted specs with gates, nothing external or in process, builds that stand alone. — Rubric
 22. When an accepted spec is overtaken by events, the spec skill runs again in reconsideration mode and the old go ends. — Reconsideration
-23. Every spec is read by six fresh reviewers and every plan by five, one question each, before you see it. — Verification round
+23. Every spec is read by eight fresh reviewers and every plan by seven, one question each, before you see it. — Verification round
 24. After an interruption, a skill offers the way back: up to five open steps, most recent first, read from the plans at that moment. — Back offers
 25. An item name is kebab-case, in your words, chosen when filed, and never reused. — Item name
 26. Several references joined with ` && ` run as one command where the skill allows a batch: the go and the archive do, and the filing for a batch of sparks. — Batch invocation
