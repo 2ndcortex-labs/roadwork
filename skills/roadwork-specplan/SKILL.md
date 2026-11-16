@@ -380,11 +380,11 @@ into the plan's status line.
 
 ## 3c. Plan verification round — fresh eyes, once
 
-After the plan is drafted, dispatch **six fresh sub-agents in
+After the plan is drafted, dispatch **seven fresh sub-agents in
 parallel**, one question each, given only `spec.md` and `plan.md` and
-its question, with the same brief. The six questions, verbatim:
+its question, with the same brief. The seven questions, verbatim:
 
-**Where the host runs workflows**, the six run as one workflow in the same form as the spec's — one agent per question, given `spec.md` and `plan.md`, the same shape and cap, each dispatched as the host's `reader` agent (its instruction file `.claude/agents/reader.md`) on the family `subagent-reader` names at the effort the session agent judges, the round run as sub-agents instead where the workflow route cannot name the host's agent, the record the session agent's from the journal, sub-agents the fallback. The plan's round is its own run: the plan does not exist when the spec's round runs; both rounds share one run only on a re-run.
+**Where the host runs workflows**, the seven run as one workflow in the same form as the spec's — one agent per question, given `spec.md` and `plan.md`, the same shape and cap, each dispatched as the host's `reader` agent (its instruction file `.claude/agents/reader.md`) on the family `subagent-reader` names at the effort the session agent judges, the round run as sub-agents instead where the workflow route cannot name the host's agent, the record the session agent's from the journal, sub-agents the fallback. The plan's round is its own run: the plan does not exist when the spec's round runs; both rounds share one run only on a re-run.
 
 1. Coverage both ways — does every acceptance criterion have at least one gate, and does every gate trace to a criterion? List the orphans in each direction.
 2. Honest oracles — can each CHECK actually fail? Name any oracle that cannot fail, any EXPECT that copies a supplied number, and any manual gate a command could decide.
@@ -393,8 +393,10 @@ its question, with the same brief. The six questions, verbatim:
 5. Stack — does the plan name every asset it reuses or creates and every tool it invokes, and is each one missing today a named dependency or item, and is every tool on the Invokes line marked against the spec's Stack reference, every departure reasoned?
 6. Output style — read also the section "Output style" of the constitution, the file the Prerequisites found. Which lines of plan.md break a limit of that section? Leave out what the section leaves alone. List each with its line and the limit it breaks.
 This reader is given the constitution's path as a third file.
+7. Intent outcomes — would meeting every gate make each intent outcome observably true? List each outcome no gate would show.
+This reader is given `intent.md` and `plan.md` only, in place of the two files above, never `spec.md`.
 
-Wait for all six; incorporate or reject each finding with a reason;
+Wait for all seven; incorporate or reject each finding with a reason;
 record `## Verification round <date> (plan)` at the end of `plan.md` with
 the counts. One round per document.
 

@@ -57,7 +57,7 @@ A week later the bare `/roadwork-spark` lists it. You type the ingest command it
 
 `/roadwork-intentify todo/fix-the-greeting-wording` reads your notes back, asks whether you have anything to add and any comment on its reading, and which map, if any; then a round: which wording, where it prints, whether the old text is referenced anywhere else. You answer; you confirm the shared understanding; `intent.md` is written and accepted.
 
-`/roadwork-specplan todo/fix-the-greeting-wording` writes the spec — one requirement: the new wording, printed at start, nowhere else — and the plan with one gate that checks it. Five reviewers read the spec, five the plan; what holds is folded in. You say "spec accepted".
+`/roadwork-specplan todo/fix-the-greeting-wording` writes the spec — one requirement: the new wording, printed at start, nowhere else — and the plan with one gate that checks it. Eight reviewers read the spec, seven the plan; what holds is folded in. You say "spec accepted".
 
 `/roadwork-make todo/fix-the-greeting-wording` is your go. The item goes on `working.md`, that one gate is its whole ledger, the build runs, the gate is met, the change sits where the plan's lands-as line says, in the project's own flow. It offers the archive.
 
