@@ -467,10 +467,10 @@ To archive the item:
 
 | Plain word | Agent's word | Meaning |
 |---|---|---|
-| the work-plans system | Roadwork | The work-plans system by 2nd Cortex Labs: the plans and the skills that work them. |
-| work-plans folder | Road plans | Your project's `roadwork/` folder, the one place its work is recorded; todos, features and sparks each in their own sub-folder. |
+| Roadwork | Roadwork | The system by 2nd Cortex Labs: the plans and the skills that work them. |
+| the roadwork folder | Road plans | Your project's `roadwork/` folder, the one place its work is recorded; todos, features and sparks each in their own sub-folder. |
 | a work item | Item | One folder holding a todo or feature file plus its intent, plan and spec; a spark holds one idea file only. |
-| where an item lives | Home | The work-plans folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of the Roadwork repository's skeleton, made once; never updating that source. |
+| where an item lives | Home | The roadwork folder (Road plans) seen from an item, the one it lives in — your project's one such folder, at the path its law names; a copy of the Roadwork repository's skeleton, made once; never updating that source. |
 | an item's name-with-path | Reference (ref) | How an item is pointed at: `todo/<item-name>`, `feature/<item-name>`, `spark/<item-name>`, or `main/<kind>/<item-name>` from anywhere. |
 | the item's header keys | Frontmatter | The block at the top of an item file: blocker, blocking, blocked-by, external, group, in-process, gated, disposition, road-level; a feature's onroad-cohort before the last. |
 | something out-of-band we wait on | External | A dependency that will not be met without something specific and out-of-band happening; a wait in the due course, such as a deployment, is not one. The spec names it, one entry per act outside the project, never one per party or per service; the key records it; only you clear it; its observed-by test runs at acceptance and before a make, a command where one is written, your word where not. |
@@ -479,7 +479,7 @@ To archive the item:
 | you, the owner | Operator (user) | The human owner of the project; every decision is yours. |
 | the agent in your session | Session agent | The agent running the session that typed the command. |
 | everything in the project | Project scope | Everything at and under the root the project's law names; an item's Paths line says which of it the item touches. |
-| one shipment | Batch | The coherent bundle a project's changes ship in as one, in the project's own terms; the work-plans' own records stay in the register. |
+| one shipment | Batch | The coherent bundle a project's changes ship in as one, in the project's own terms; Roadwork's own records stay in the register. |
 | the chain of steps | Lifecycle | Destination, then group, then filing, then interview, then spec and plan, then the go, then verify and archive; the help skill answers beside it. |
 | product requirements document | PRD | A document that says what a destination is, written from the destination's intent: a header with its priority and its atlas, the destination, numbered requirements, what is out, how success is seen. |
 | a destination | Destination | Two files per destination, made with you: its intent, written first, and its product requirements document, written from it, carrying the stack it builds on, and later broken into a group of items; both archived together. |
@@ -528,7 +528,7 @@ To archive the item:
 | a spark becoming work | Conversion | The one move a spark makes: turned into a todo or a feature on your word, the spark moved to its archive. |
 | a spark's related line | Related | The one line of references written when a spark is filed; the only cross-item note a spark gets. |
 | the insights | intent-insights | What the interviews taught about how you decide, one section per day in the plans' docs folder, written by the end-of-day skill on your word and read by the interview before it reads your notes back. |
-| the work-plans folder itself | Roadwork register | The project's `roadwork/` folder as a whole: the three sub-registers, the five folders beside them, the order and in-process files and the register's own files; a copy of the Roadwork repository's `skeleton/`, made once. |
+| the roadwork folder | Roadwork register | The project's `roadwork/` folder as a whole: the three sub-registers, the five folders beside them, the order and in-process files and the register's own files; a copy of the Roadwork repository's `skeleton/`, made once. |
 | the helper kinds | Sub-agent types | The six kinds of helper a skill may dispatch — reader, finder, explorer, researcher, builder, reviewer — each on the model family its setting names. |
 
 
@@ -544,7 +544,7 @@ To archive the item:
 - **`ordering.md`** — the register's loose priority list; top is next. **`working.md`** — the register's dated list of items in process.
 - **Operator** — the human owner; every decision is theirs. **Session agent** — the agent running the session that invokes the skill.
 - **Project scope** — everything at and under the root the project's law names; the paths an item touches are its **Paths:** line.
-- **Batch** — the coherent bundle a project's changes ship in as one, in the project's own terms; the work-plans' own records stay in the register.
+- **Batch** — the coherent bundle a project's changes ship in as one, in the project's own terms; Roadwork's own records stay in the register.
 - **Lifecycle** — `/roadwork-atlas` (three documents into an atlas, above a destination) → `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` (or `/roadwork-tasksplit`, many at once) → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the go — the skill or the Operator's word; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers and `/roadwork-intent-insights` learns from the day's interviews.
 - **PRD** — a product requirements document, `destinations/<destination-slug>.prd.md`, made by `/roadwork-destination` and the source of a group of items made by `/roadwork-nav-to-destination`; cited by path in every derived item.
 - **Destination** — two files beside each other in `destinations/`: `<destination-slug>.intent.md`, what is wanted and why in the Operator's words, in the item intent's form, interviewed and written first; and `<destination-slug>.prd.md`, written from it, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section — the architecture read, the guidebooks drawn on, the changes to their stacks — numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; both files archived to `destinations/archive/` by hand when built.

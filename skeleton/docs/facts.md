@@ -1,17 +1,17 @@
 # Facts — the fact suffix's list
 One fact per numbered line, in plain words, ending with the term `/roadwork-help` opens; the seconds of the clock, modulo the count of numbered facts, pick one.
 
-1. The Roadwork system is the work plans and the skills that work them, from the first note to the archive, with a skill (/roadwork-make) that builds each item under its gates. — Roadwork
-2. A project's work plans live in one folder whose work sits in three sub-folders, todos, features and sparks, beside its docs, destinations, maps, guidebooks and atlases; a todo or a feature sits under the folder of its destination, each such folder with its own archive, and the sparks have one. — Road plans
+1. The Roadwork system is the plans and the skills that work them, from the first note to the archive, with a skill (/roadwork-make) that builds each item under its gates. — Roadwork
+2. A project's plans live in one folder, the roadwork folder, whose work sits in three sub-folders, todos, features and sparks, beside its docs, destinations, maps, guidebooks and atlases; a todo or a feature sits under the folder of its destination, each such folder with its own archive, and the sparks have one. — Road plans
 3. A todo or a feature is a folder of four files: the item file, the intent, the plan and the spec; the ledger, GATES.md, joins them when the build starts. — Item
-4. Your project has one work-plans folder, at the path its law names; no folder under the project carries its own. — Home
+4. Your project has one roadwork folder, at the path its law names; no folder under the project carries its own. — Home
 5. An item is named by its kind and folder, like todo/fix-the-greeting-wording; from anywhere, main/<kind>/<item-name>, a prefix your project's law may alias. — Reference (ref)
 6. Every item file opens with nine keys — blocker, blocking, blocked-by, external, group, in-process, gated, disposition, road-level — empty until something sets them; a feature carries a tenth, onroad-cohort. — Frontmatter
 7. The order file lists what comes next, top first, with one clause per line saying why; the working file lists what is in process now. — `ordering.md`
 8. Every decision is the Operator's; the session agent finds the facts and asks. — Operator (user)
 9. The session agent is whichever agent runs the session in which you typed the command. — Session agent
 10. The project scope is everything at and under the root the project's law names. — Project scope
-11. Changes ship as one coherent batch, never one at a time, in the project's own terms; the work plans' own records stay in the register. — Batch
+11. Changes ship as one coherent batch, never one at a time, in the project's own terms; Roadwork's own records stay in the register. — Batch
 12. The chain runs destination, navigate, ingest, interview, spec and plan, the go, then verify and archive; beside it, the help skill answers. — Lifecycle
 13. A product requirements document is a destination: one file per destination, made with you, then broken into a group of items. — PRD
 14. A destination has a fixed shape: a header with its priority and its atlas, the destination in a paragraph, numbered requirements, what is out, and how success is seen. — Destination
@@ -41,6 +41,6 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 38. A spark is one file, an idea parked for later; its only exit is conversion into a todo or a feature on your word. — Road plans
 39. Now and then, when the clock's minute is a multiple of six, a hand-back ends with one fact like this, under its title line, and a box holding the command that explains it; the seconds pick the fact. — Fact suffix
 40. A map is the way to one destination, one map per destination — the process, the stack, the judgements, the inputs, and how it was done before agents. — Map
-41. The work plans are a copy of the Roadwork repository's skeleton, made once by hand; the rule and the skills are copied into your project's .claude folders and refreshed by copying the newer ones over the old, and no map or item ever comes from the Roadwork repository. — Roadwork register
+41. The roadwork folder is a copy of the Roadwork repository's skeleton, made once by hand; the rule and the skills are copied into your project's .claude folders and refreshed by copying the newer ones over the old, and no map or item ever comes from the Roadwork repository. — Roadwork register
 42. Above the destinations sits the atlas: three documents of yours — vision, intent, architecture — verbatim in one folder with the skill's atlas.md; a destination names the atlas it serves by its atlas key, or leaves it empty. — Atlas
 43. An externality is what will not happen without something specific and out-of-band happening; a wait in the project's own course that is merely slow is a pause, not one. The spec names it, the key records it, only the Operator clears it. — External

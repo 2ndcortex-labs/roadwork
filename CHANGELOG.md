@@ -28,6 +28,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 - The make's briefs ask the builder for the report's tail and name the reviewer's finding form (§3, §3b); the spec skill names the builder's ruleset as a constraint for code-writing items (§1) and its plan template offers an optional gate on the test the builder leaves (§3).
 - The template slots of seven skills (destination, guidebook, map, specplan, intentify, spark, help) ask for a line and bullets where they asked for a paragraph; the fresh-eyes review gains a reader on each round, eight on a spec and six on a plan, reading for the section.
 - The plan's verification round has a seventh reader, "Intent outcomes", given `intent.md` and `plan.md` and never `spec.md`: would meeting every gate make each intent outcome observably true. The counts read eight on a spec and seven on a plan in the spec skill, the constitution's terms row and glossary, the facts page and the teach-me.
+- The terms table calls the system "Roadwork" and its folder "the roadwork folder", in place of a generic plain word, in the constitution's terms table and glossary, the facts page, the teach-me and the README.
 
 ### Removed
 
