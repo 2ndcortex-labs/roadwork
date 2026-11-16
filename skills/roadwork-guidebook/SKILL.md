@@ -2,7 +2,7 @@
 name: roadwork-guidebook
 description: Makes or updates a guidebook, a standardized knowledge base broad in application, with the Operator.
 when_to_use: Use when the user says /roadwork-guidebook, "new guidebook", "update the guidebook", "here is how we do things in general".
-argument-hint: "[<new-slug> <description> | <existing-slug>]"
+argument-hint: "[<new-slug> <description> | <existing-slug> | [<new-slug>] template: <template-name>]"
 ---
 
 ## Prerequisites
@@ -49,6 +49,9 @@ A batch (`ref && ref`) is refused here: one guidebook at a time.
 - **`<existing-slug>`**: a slug already in `guidebooks/` — the update of §4.
 - **`<new-slug>` with a document** — a pasted document in the message, or a
   path to one: the entrance of §5, then the interview shortened.
+- **`[<new-slug>] template: <template-name>`**: a template of the store
+  the setting `guidebook-templates` names — the section "A template is
+  named" (§5b); the slug left out, the template's name is the slug.
 - **a document with no slug**, or a path alone: propose a slug in the
   Operator's words and ask once; on their word proceed as above.
 
@@ -63,6 +66,16 @@ reads none or is absent — and the count of maps in `maps/` —
 beyond that: a guidebook is never done. With no guidebook in any home —
 the empty case — print the count and the offer to start one,
 `/roadwork-guidebook <new-slug> <description>`. A bare call writes nothing.
+
+After the project's own guidebooks, run
+`node <this skill>/scripts/templates.mjs list` and print its lines as they
+are, under the project's own: `templates: <n>`, then one line per template
+of the store, `<name> — <title> — template`. The script prints nothing
+where the setting `guidebook-templates` is empty; then say nothing about
+templates, and the list is what it was without the setting. Where it
+prints `store unreadable: <reason>` (exit code 3), print that one line
+and go on: the list never stops for it. The script reads the store and
+writes nothing.
 
 ## 3. The interview — the intentify pattern
 
@@ -138,7 +151,9 @@ so the section names above are the ones a map cites.
 
 **An update** (`<existing-slug>`): read the file back whole, ask what
 changes and interview only that, then rewrite the file whole on confirm
-and append one dated line under `## Changelog` saying what changed. A
+and append one dated line under `## Changelog` saying what changed. An
+update never reads the store of templates, whatever the guidebook was
+made from. A
 map that copied a part of it is not rewritten here: its own update is
 `/roadwork-map <destination-slug>`, on the Operator's word. The
 Architectures line and the Stack section are read back with the file and
@@ -159,6 +174,38 @@ state it — and the sections, ask the two questions, then only the rounds
 the gaps need. The guidebook is written as §4; its first changelog line
 names the source.
 The source file stays beside it and moves with it to `archive/`.
+
+## 5b. A template is named
+
+A template is a guidebook an organization keeps in one store for many
+projects: a `.md` file at the store's top level, in the fixed form of §4,
+its name the file's stem. The store is the folder or the repository the
+setting `guidebook-templates` names; only this skill's script reads it,
+and nothing writes to it.
+
+Run `node <this skill>/scripts/templates.mjs copy <template-name> <guidebook-slug>`.
+It copies the template verbatim into `guidebooks/<guidebook-slug>.source.md`
+in the owning home, under the header line
+`_Source of <guidebook-slug>, from the template <template-name> of the store <value>, copied <date>; verbatim._`,
+and writes nothing else. Then, by its exit code:
+
+- **1, a refusal**: print its one line and stop; nothing was written. The
+  script refuses when no store is set; when the slug is already in
+  `guidebooks/` or `guidebooks/archive/` — pick another slug, or update the
+  existing guidebook with `/roadwork-guidebook <existing-slug>`; when the
+  store holds no template of that name; when the named file is not in the
+  fixed form; when the name or the slug is not kebab-case.
+- **3, the store cannot be read**: print its one line,
+  `store unreadable: <reason>`, offer the other two ways — a description,
+  or a document handed over — and stop. A store that cannot be read never
+  blocks a guidebook.
+- **0**: hold the interview of §5 on the copy, exactly as for a document
+  handed over, then write the guidebook as §4. The guidebook starts its
+  own changelog — the template's stays in the source file — and its first
+  line reads `- <date>: made from the template <template-name> of the store <value>.`
+
+Once made, the guidebook is the project's own: no skill compares it with
+its template again, and a later change to the template never reaches it.
 
 ## 6. Save and hand back
 
@@ -182,4 +229,6 @@ them — up to five, most recent first, as offers only. Then the fact suffix, by
 Never enforce a guidebook (no skill checks one); never write into a map,
 an item or a destination; never file, interview or spec an item (those
 are the chain's); never write a guidebook the Operator did not confirm;
-never archive or move a guidebook; never a frontmatter key on any item.
+never archive or move a guidebook; never a frontmatter key on any item;
+never write to the store of templates, and never read it but on the bare
+call and on a template call.
