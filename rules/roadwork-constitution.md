@@ -38,7 +38,7 @@ paths:
   - The terms table lives in this constitution alone, its section "Terms — the plain word, the agent's word, the meaning": one row per glossary term. Every glossary term has a row; `/roadwork-audit` is the check, and `bin/check.mjs` in the Roadwork repository. The register keeps no copy.
   - `destinations/`: per destination `destinations/<destination-slug>.intent.md`, written first, and `destinations/<destination-slug>.prd.md`, written from it; `destinations/<destination-slug>.source.md` where a document was given. A destination is built when every item of it is archived; then all its files move together to `destinations/archive/`, as `destinations/archive/<destination-slug>.intent.md`, `destinations/archive/<destination-slug>.prd.md` and `destinations/archive/<destination-slug>.source.md`. Destinations made before the intent step have no intent file; the destination skill's update writes one.
   - `maps/`: one `maps/<destination-slug>.md` per destination, `maps/<map-slug>.source.md` where a document was given; `maps/archive/` for the retired, as `maps/archive/<destination-slug>.md` and `maps/archive/<map-slug>.source.md`.
-  - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given; `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
+  - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given or a template was copied; `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
   - `atlases/`: one `atlases/<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired, as `atlases/archive/<atlas-slug>/`.
 - **The register.**
   - One per project, a copy of the Roadwork repository's `skeleton/`, made once by hand.
@@ -49,6 +49,7 @@ paths:
 - **The settings file.**
   - `config.json` at the register's root holds the instance's values the skills read by key; its schema is the config skill's (`/roadwork-config`).
   - Two keys of the schema place the register in its project: `project-root`, the project's root as a path relative to the register (default `..`); `standards-folders`, the project's standards folders, relative to the project's root (default empty, none); both set at setup by the setup skill, or by hand.
+  - One key names a store of guidebook templates: `guidebook-templates`, a folder's full path or a repository's address (default empty, none); the guidebook skill's script reads it and nothing else does, and nothing writes to the store.
   - **Every roadwork skill must read `config.json` before it acts** — a mandate, not a convenience: the register's `roadwork/config.json`, read once per run through the config skill's script with no argument, `node <config skill>/scripts/config.mjs`, and its lines held in the working context for the run — every key of the schema with its value, a secret as "set, <n> characters" or "empty", never its value. A skill that has not read it does not act, as a skill without the constitution in context does not act: the constitution read and `config.json` read are the two preconditions of every run. The file is read by the script and by nothing else — never opened, parsed or printed directly.
   - A key the run needs that reads empty takes the default the schema names for it; a key without a default is asked of the Operator by the config skill's empty-keys prompt, never by the running skill.
 - **Frontmatter**
@@ -121,7 +122,7 @@ paths:
     - `/roadwork-tasksplit` — one todo per unit of a document or list;
     - `/roadwork-subagentifygroup` — a cohortmeister for a cohort it found.
   - A spark is filed by `/roadwork-spark` and becomes a work item only through `/roadwork-ingest`.
-  - A destination by `/roadwork-destination`; an atlas by `/roadwork-atlas` from the three documents given; a map by `/roadwork-map`; a guidebook by `/roadwork-guidebook`.
+  - A destination by `/roadwork-destination`; an atlas by `/roadwork-atlas` from the three documents given; a map by `/roadwork-map`; a guidebook by `/roadwork-guidebook`, from a description, a document or a template of the store the settings name.
   - Whichever skill files it, the item takes its fixed form: a work item its four files, frontmatter and ordering line; the rest the form its skill writes.
   
 - **General Register Items Arrival Rules*
@@ -146,7 +147,7 @@ paths:
     - `/roadwork-navsanity` receives a group and writes a dated run section in the group's sanity todo.
     - `/roadwork-atlas` receives three documents and writes `atlases/<atlas-slug>/atlas.md` beside them, with the destinations it proposes.
     - `/roadwork-map` receives a description or a document and writes `maps/<destination-slug>.md`; a document given is saved as `maps/<map-slug>.source.md`.
-    - `/roadwork-guidebook` receives a description or a document and writes `guidebooks/<guidebook-slug>.md`; a document given is saved as `guidebooks/<guidebook-slug>.source.md`.
+    - `/roadwork-guidebook` receives a description, a document or a template's name and writes `guidebooks/<guidebook-slug>.md`; a document given, or a template copied, is saved as `guidebooks/<guidebook-slug>.source.md`.
     - `/roadwork-intent-insights` receives the day's interviews and writes a dated section in `docs/intent-insights.md` when first run and on every run after; the file exists once it has.
     - `/roadwork-audit` receives a document and a kind and writes a dated audit section on the item it names.
     - `/roadwork-config` receives a key and a value and writes the settings file.
@@ -488,6 +489,7 @@ To archive the item:
 | a vision | `vision.md` | One of the atlas's three documents, yours verbatim; the atlas's description is derived from it and marked so. |
 | an architecture | `architecture.md` | One of the atlas's three documents, yours verbatim; the skill reads it as given. |
 | a guidebook | Guidebook | A standardized knowledge base broad in application — standards, stack, vendors, judgements, sources, an Architectures line saying which architectures its stack fits, or none — one file in `guidebooks/`; a map copies the parts it needs. |
+| a guidebook template | Guidebook template | A guidebook kept in an organization's store for many projects to start from, one `.md` file in the guidebook's form; the settings key `guidebook-templates` names the store; the guidebook skill copies one into your project and adapts it with you, and the copy is then yours, never tied to its template. |
 | a stack | Stack | What a destination is built on: environment, framework, tooling, assets and services; chosen per destination from the guidebooks, carried by the requirements file, the map, the spec and the plan. |
 | the group's check item | Sanity todo | The todo created last for a group, holding the group list; nothing in the group starts until you say the group is right. |
 | the kinds of check | Check types | The six checks run over a group: completeness, provenance, shape, dependencies, order, scope; a seventh over any cohort in it. |

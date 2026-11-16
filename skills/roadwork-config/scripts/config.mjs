@@ -22,6 +22,18 @@ SCHEMA.push({ key: 'notify-token', meaning: "the credential `notify-url` wants, 
 SCHEMA.push({ key: 'status-token', meaning: "the credential `status-url` wants, sent as `Authorization: Bearer <token>` on the status read when set and omitted when empty, read by `scripts/externality.mjs` alone so that the address need carry no credential, optional (never asked for by the empty-keys prompt), a secret masked in every reply and set by a route of §2", shape: 'a non-empty string', secret: true, optional: true, valid: nonEmpty });
 // A list key, optional: the project's standards folders, relative to the project's root, each an existing folder under it.
 SCHEMA.push({ key: 'standards-folders', meaning: "the project's standards folders in its own structure (coding standards, brand, styling and the like, in the order given), read by the specplan and intentify skills so that a spec and an intent are written to the project's own standards, set at setup by the setup skill, or by hand, optional and empty where a project keeps none", shape: "a list of folder paths relative to the project's root, each an existing folder under it", secret: false, list: true, optional: true, valid: (entries, root) => entries.every((e) => isDirUnder(join(root, e))) });
+// The store of guidebook templates, optional: one folder's absolute path or one repository's address. Shape only — no folder
+// is looked for, no host asked; refused: a relative path, a list (a comma or a newline), a leading `-`, a credential before the host.
+const isTemplateStore = (v) => {
+  if (/[,\n\r]/.test(v) || v.startsWith('-')) return false;
+  if (v.startsWith('/')) return true;
+  if (/^git@[^\s/:@-][^\s/:@]*:\S+$/.test(v)) return true;
+  let u; try { u = new URL(v); } catch { return false; }
+  if (u.protocol === 'file:') return true;
+  if (!u.hostname || u.hostname.startsWith('-') || u.password) return false;
+  return u.protocol === 'ssh:' || (u.protocol === 'https:' && !u.username);
+};
+SCHEMA.push({ key: 'guidebook-templates', meaning: "the store of guidebook templates, one folder's absolute path or one repository's address, read by the guidebook skill's `scripts/templates.mjs` alone so that a project makes a guidebook of its own from an organization's template, optional (empty means no store, never asked for by the empty-keys prompt), printed in the clear as the two address keys are and set by `/roadwork-config guidebook-templates <value>`", shape: 'an absolute folder path starting with `/`, or a repository address `https://…`, `ssh://…`, `git@<host>:<path>` or `file://…`; one value, no password or token before the host', secret: false, optional: true, valid: isTemplateStore });
 // The sub-agent group, optional: the model family each sub-agent type runs on — a family name the dispatching host resolves (any vendor), never a release;
 // unset reads as the default named in each meaning. Shape only: one token, no spaces, no separated version suffix (`sonnet-5-5`, `gpt-5.1` refused; `o3` admitted); whether the host serves the family is the skill's check at dispatch.
 const isFamily = (v) => /^\S+$/.test(v) && !/[-._]\d+([-._]\d+)*$/.test(v);

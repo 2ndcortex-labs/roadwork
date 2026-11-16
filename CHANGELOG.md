@@ -13,6 +13,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 - The settings keys `notify-token` and `status-token`, the credential each externality address wants, sent as the header `Authorization: Bearer <token>` by the config skill's calling script when set and omitted when empty; optional, secret, set by the terminal or file route.
 - The builder's code ruleset in `agents/builder.md`: the reach list, the shortcut marker, and — verbatim from Ponytail 5.3.3 (github.com/DietrichGebert/ponytail, MIT License, Copyright (c) 2026 DietrichGebert) — the six-rung ladder, the "Never cut" line and the test rule; the report's Risks part says every cut. The reviewer's finding form in `agents/reviewer.md`: what the code does, what goes wrong, the fix, the consequence of leaving it.
 - The constitution's section "Output style": how every reply and every document a skill composes is written; what it leaves alone; it binds what is written after it lands, and no existing document is rewritten.
+- The settings key `guidebook-templates` names one store of guidebook templates, a folder's full path or a repository's address; `/roadwork-guidebook [<new-slug>] template: <template-name>` makes a project's guidebook from one, and the bare call lists the store's templates; the store is read by `skills/roadwork-guidebook/scripts/templates.mjs` alone and never written.
 
 ### Changed
 
