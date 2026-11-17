@@ -48,7 +48,7 @@ Read the item folder whole. Produce a numbered list of findings:
 - **Gated:** for an item whose `gated` key is set — a build stopped from outside — one finding, `**Gated:** <the key's text>`, put to the Operator as the question whether to archive over the wait, the options archive as is (the wait recorded on the item file, the key emptied by the act), wait for the gate, or do not archive, the recommendation this skill's by the gate's state; this skill clears nothing itself.
 - **Dependents:** every item in the register whose `blocked-by` names this
   one, and whether archiving would unblock it.
-- **Externalities:** for an item whose `external` is set, one finding per entry the key names with the status read's answer for it (the rule's section "Externalities and their notices"): cleared, open, unmatched, unknown or no status URL; an entry cleared on the item gets none; a finding is put to the Operator as every finding is; this skill clears nothing and posts nothing.
+- **Externalities:** for an item whose `external` is set, one finding per entry the key names with the status read's answer for it (the rule's section "Externalities and their notices"), the answer newest first and the newest element for the entry's `what` telling its state: cleared, open, unmatched, unknown or no status URL; an entry cleared on the item gets none; a finding is put to the Operator as every finding is; this skill clears nothing and posts nothing.
 
 ## 2. Interview — the Operator makes the call
 

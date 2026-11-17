@@ -231,6 +231,8 @@ function blocksUs(entry) {
 // The status read (the rule's externality standard), once per item whose `external` is set, through the config skill's
 // calling script, which alone reads `status-url`. The answer is matched to the spec's Dependencies entries another party
 // acts on by `what`, exact after trimming; an entry no element matches is open, an element no entry matches ignored.
+// The answer is newest first and may carry several elements for one `what`: the first line seen for a `what` decides,
+// whatever its kind; an `unmatched` first line is not cleared.
 // The item's state is the worst of its entries: unknown over all, then open, cleared only when every entry is.
 const externality = join(here, '..', '..', 'roadwork-config', 'scripts', 'externality.mjs');
 const externalStates = new Map();
@@ -256,7 +258,7 @@ function externalState(it) {
   else if (!lines.length || lines.some((l) => l.startsWith('unknown:'))) s = 'unknown';
   else {
     const got = new Map();
-    for (const l of lines) { const m = l.match(/^(open|cleared): (.*)$/); if (m && got.get(m[2].trim()) !== 'open') got.set(m[2].trim(), m[1]); }
+    for (const l of lines) { const m = l.match(/^(open|cleared|unmatched): (.*)$/); if (m && !got.has(m[2].trim())) got.set(m[2].trim(), m[1]); }
     const whats = dependencyWhats(it);
     s = whats.length && whats.every((w) => got.get(w) === 'cleared') ? 'cleared' : 'open';
   }
