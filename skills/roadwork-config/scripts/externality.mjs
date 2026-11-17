@@ -2,8 +2,8 @@
 // roadwork-config — externality.mjs: one implementation of the externality contract, the two generic calls of the rule's
 // section "Externalities and their notices" that any receiver may implement — `notify`, the notice of an entry opened or
 // cleared, posted to `notify-url`; `status`, the read of an item's entries' state from `status-url` — each with its token,
-// `notify-token` or `status-token`, where set. No skill or gate requires this script; it is the one place in the Roadwork
-// scripts the four keys are read.
+// `notify-token` or `status-token`, where set; and `3rdparty-notice-url`, carried in the notice as a field when set, never
+// posted to. No skill or gate requires this script; it is the one place in the Roadwork scripts the five keys are read.
 // Usage: node externality.mjs [--config-file <path>] [--item <ref>] [--wait-ms <n>] notify --state open|cleared --entry <file> | status
 // Reads the settings file in-process at the call and prints neither URL, nor any part of one. No dependencies.
 // Exit 0 on every notice and status outcome; 1 on a fault (one line naming it); 2 on usage.
@@ -81,6 +81,8 @@ async function main() {
       what: entry.what, 'who-acts': entry['who-acts'], 'how-observed': entry['how-observed'], state: opt.state, item: opt.item,
       'set-date': entry['set-date'], 'cleared-date': entry['cleared-date'], 'cleared-words': entry['cleared-words'], atlas: entry.atlas,
     };
+    const third = key('3rdparty-notice-url');
+    if (third) body['3rdparty-notice-url'] = third; // absent, not empty, when the key is empty
     const token = key('notify-token');
     const headers = { 'content-type': 'application/json', ...(token ? { authorization: `Bearer ${token}` } : {}) };
     let code;
