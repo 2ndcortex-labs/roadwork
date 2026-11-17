@@ -30,6 +30,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 - The template slots of seven skills (destination, guidebook, map, specplan, intentify, spark, help) ask for a line and bullets where they asked for a paragraph; the fresh-eyes review gains a reader on each round, eight on a spec and six on a plan, reading for the section.
 - The plan's verification round has a seventh reader, "Intent outcomes", given `intent.md` and `plan.md` and never `spec.md`: would meeting every gate make each intent outcome observably true. The counts read eight on a spec and seven on a plan in the spec skill, the constitution's terms row and glossary, the facts page and the teach-me.
 - The terms table calls the system "Roadwork" and its folder "the roadwork folder", in place of a generic plain word, in the constitution's terms table and glossary, the facts page, the teach-me and the README.
+- The status read's answer is newest first and may carry several entries for one externality's `what`; the newest entry for an externality tells its state: the constitution's status-read bullet, the make's status step, the archive's Externalities finding and the inventory skill's external state say so, and the inventory script's `externalState` lets the first line seen for a `what` decide, in place of "open once, open always".
 
 ### Removed
 
