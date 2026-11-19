@@ -1,12 +1,18 @@
 #!/usr/bin/env node
 // roadwork-inventory — prints the inventory page (the skill's §4 form) from the register's files.
 // Usage: node inventory.mjs [--root <register>] [--date <YYYY-MM-DD>] [--filtered-by "<words>" --kept "<reading>" --removed "<reading>" --only <token> [<token> …]]
+//        node inventory.mjs --selftest
 // Reads the register only; writes nothing; fetches nothing; never opens config.json (the config skill's externality.mjs
 // reads `status-url` for each item whose `external` is set, the page's one network call; this script reads no setting).
 // A line in process at a gate the Operator approves (its GATES.md block's APPROVER: line naming the Operator, no CHECK: line)
 // carries `G<n> accepted and <next step>`: from a ledger only gate ids and titles are printed.
+// An intent or a spec is accepted in either of two forms: the line `Status: accepted` anywhere in the file, or the key
+// `status` with the value `accepted` in the header, the block between the two `---` lines that opens the file.
+// --selftest builds a made-up register under the system's temporary folder, prints its page with this same script and
+// checks it; it prints "OK selftest" and exits 0, or one "FAIL selftest: <what>" line per failure and exits 1.
 // Exit 0 with the page on stdout; exit 1 with the first fault on stderr.
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, mkdtempSync, mkdirSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, dirname, resolve, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -16,6 +22,7 @@ const fail = (m) => { process.stderr.write(`inventory: ${m}\n`); process.exit(1)
 
 // --- options ---------------------------------------------------------------
 const argv = process.argv.slice(2);
+if (argv.length === 1 && argv[0] === '--selftest') selftest();
 const opt = { only: null };
 for (let i = 0; i < argv.length; i++) {
   const a = argv[i];
@@ -60,7 +67,9 @@ function frontmatter(text) {
 }
 const heading = (text) => { const m = text.match(/^# (.*)$/m); return m ? m[1].trim() : ''; };
 const firstLine = (text) => (text.split('\n').find((l) => l.trim() !== '') || '').trim();
-const isAccepted = (text) => /Status:\s*accepted/.test(text);
+// The header's value is taken with one pair of quotes, double or single, or with none; anything after it is not accepted.
+const headerAccepted = (text) => String(frontmatter(text).status ?? '').replace(/^'(.*)'$/, '$1') === 'accepted';
+const isAccepted = (text) => /Status:\s*accepted/.test(text) || headerAccepted(text);
 const intentPlaceholder = (text) => firstLine(text).startsWith('_Not yet interviewed');
 const specPlaceholder = (text) => /^_Not yet specified/m.test(text);
 
@@ -417,3 +426,50 @@ out.push('## Ideas parked for later');
   else for (const s of kept) out.push(`- \`${s.ref}\` · ${s.title} · ${s.assignment}`);
 }
 process.stdout.write(out.join('\n') + '\n');
+
+// --- selftest: a made-up register, one work item per check, its page printed by this script and read back ---------
+function selftest() {
+  const base = mkdtempSync(join(tmpdir(), 'roadwork-inventory-selftest-'));
+  const reg = join(base, 'roadwork');
+  const headerForm = '---\ntitle: "made up"\nstatus: accepted\naccepted: "2026-01-01"\n---\n\nWanted.\n';
+  const lineForm = '# Intent: made up\nStatus: accepted 2026-01-01.\n\nWanted.\n';
+  const noSpec = '_Not yet specified — placeholder by the Roadwork conventions; `/roadwork-specplan` writes this file._\n';
+  const made = [
+    { name: 'made-up-header-form', intent: headerForm, spec: noSpec },
+    { name: 'made-up-line-form', intent: lineForm, spec: noSpec },
+    { name: 'made-up-draft-quoting', intent: '---\ntitle: "made up"\n---\n# Intent: made up\n\nA draft; the next line is text, not its header.\n\nstatus: accepted\n', spec: noSpec },
+    { name: 'made-up-spec-line-form', intent: headerForm, spec: '# Spec: made up\nStatus: accepted 2026-01-01.\n' },
+    { name: 'made-up-spec-header-form', intent: lineForm, spec: "---\nstatus: 'accepted'\n---\n# Spec: made up\n" },
+    { name: 'made-up-blocked', intent: headerForm, spec: '# Spec: made up\nStatus: accepted 2026-01-01.\n', blockedBy: 'todo/made-up-draft-quoting' },
+  ];
+  mkdirSync(reg, { recursive: true });
+  writeFileSync(join(reg, 'ordering.md'), '# Ordering\n\n' + made.map((m) => `- todo/${m.name} — made up\n`).join(''));
+  for (const m of made) {
+    const dir = join(reg, 'todo', 'unnavigated', m.name);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'todo.md'), `---\nblocker: no\nblocking: []\nblocked-by: [${m.blockedBy || ''}]\nexternal: ""\ngroup: []\nin-process: ""\ngated: ""\ndisposition: ""\nroad-level: ""\n---\n# ${m.name}\n`);
+    writeFileSync(join(dir, 'intent.md'), m.intent);
+    writeFileSync(join(dir, 'spec.md'), m.spec);
+    writeFileSync(join(dir, 'plan.md'), 'Not yet scoped.\n');
+  }
+  const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), '--root', reg, '--date', '2026-01-01'], { encoding: 'utf8' });
+  const lines = (r.stdout || '').split('\n');
+  const failures = [];
+  const ok = (cond, what) => { if (!cond) failures.push(what); };
+  ok(r.status === 0, `the page: exit ${r.status}: ${(r.stderr || '').trim()}`);
+  // A work item's first line, and the invocation in the block under it, or null where it carries none.
+  const lineOf = (name) => lines.find((l) => l.startsWith('- ') && l.includes(`\`todo/${name}\``)) || '';
+  const offerOf = (name) => { const i = lines.indexOf(lineOf(name)); return i >= 0 && lines[i + 2] === '  ```' ? lines[i + 3].trim() : null; };
+  ok(lineOf('made-up-header-form').includes('**intent accepted**'), 'A1: an intent with status: accepted in its header reads as accepted');
+  ok(lineOf('made-up-line-form').includes('**intent accepted**'), 'A2: an intent with the older line reads as accepted');
+  ok(lineOf('made-up-draft-quoting').includes('**intent drafted, not accepted**'), 'A3: a drafted intent quoting the lower-case words in its text reads as drafted');
+  ok(offerOf('made-up-header-form') === '/roadwork-specplan todo/made-up-header-form', 'A4: an accepted intent with a placeholder spec is offered its spec');
+  ok(lineOf('made-up-spec-line-form').includes('**awaits the go**') && offerOf('made-up-spec-line-form') === '/roadwork-make todo/made-up-spec-line-form', 'A5: an accepted spec in the line form shows awaits the go');
+  ok(lineOf('made-up-spec-header-form').includes('**awaits the go**') && offerOf('made-up-spec-header-form') === '/roadwork-make todo/made-up-spec-header-form', 'A5: an accepted spec in the header form shows awaits the go');
+  ok(lineOf('made-up-blocked').includes('awaits the go · blocked by `todo/made-up-draft-quoting` (intent drafted, not accepted)') && offerOf('made-up-blocked') === null, 'A5a: a blocked one shows its blocker after the state and carries no go offer');
+  ok(lines.includes('6 open work items · 1 await interview · 2 intent accepted · 2 await the go · 0 in process · 1 blocked · 0 external · 0 gated'), 'A6: the counts line matches those states');
+  for (const f of failures) process.stdout.write(`FAIL selftest: ${f}\n`);
+  if (failures.length) process.exit(1);
+  process.stdout.write('OK selftest\n');
+  process.exit(0);
+}
