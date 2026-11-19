@@ -42,6 +42,7 @@ All notable changes to Roadwork are recorded here, in the form of [Keep a Change
 
 ### Fixed
 
+- The inventory page reads an accepted intent or spec in both forms — the line `Status: accepted`, and the key `status: accepted` in the header the interview now writes — so an accepted intent is no longer shown as "intent drafted, not accepted" with its spec never reached; `skills/roadwork-inventory/scripts/inventory.mjs` carries a `--selftest` that `bin/check.mjs` runs.
 - The spec skill's two verification rounds name their reader counts consistently: eight for the spec's, six for the plan's, in the three sentences left at seven and five when a reader was added to each round.
 
 ## [1.0.1] - 2026-10-25
