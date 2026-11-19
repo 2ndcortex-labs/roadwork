@@ -67,7 +67,8 @@ function frontmatter(text) {
 }
 const heading = (text) => { const m = text.match(/^# (.*)$/m); return m ? m[1].trim() : ''; };
 const firstLine = (text) => (text.split('\n').find((l) => l.trim() !== '') || '').trim();
-const headerAccepted = (text) => frontmatter(text).status === 'accepted';
+// The header's value is taken with one pair of quotes, double or single, or with none; anything after it is not accepted.
+const headerAccepted = (text) => String(frontmatter(text).status ?? '').replace(/^'(.*)'$/, '$1') === 'accepted';
 const isAccepted = (text) => /Status:\s*accepted/.test(text) || headerAccepted(text);
 const intentPlaceholder = (text) => firstLine(text).startsWith('_Not yet interviewed');
 const specPlaceholder = (text) => /^_Not yet specified/m.test(text);
@@ -436,9 +437,9 @@ function selftest() {
   const made = [
     { name: 'made-up-header-form', intent: headerForm, spec: noSpec },
     { name: 'made-up-line-form', intent: lineForm, spec: noSpec },
-    { name: 'made-up-draft-quoting', intent: '# Intent: made up\n\nA draft whose text says status: accepted and nothing more.\n', spec: noSpec },
+    { name: 'made-up-draft-quoting', intent: '---\ntitle: "made up"\n---\n# Intent: made up\n\nA draft; the next line is text, not its header.\n\nstatus: accepted\n', spec: noSpec },
     { name: 'made-up-spec-line-form', intent: headerForm, spec: '# Spec: made up\nStatus: accepted 2026-01-01.\n' },
-    { name: 'made-up-spec-header-form', intent: lineForm, spec: '---\nstatus: "accepted"\n---\n# Spec: made up\n' },
+    { name: 'made-up-spec-header-form', intent: lineForm, spec: "---\nstatus: 'accepted'\n---\n# Spec: made up\n" },
     { name: 'made-up-blocked', intent: headerForm, spec: '# Spec: made up\nStatus: accepted 2026-01-01.\n', blockedBy: 'todo/made-up-draft-quoting' },
   ];
   mkdirSync(reg, { recursive: true });
