@@ -24,6 +24,8 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-inventory — everything open, on one page
 
+This skill is a tool beside the lifecycle: it runs on the Operator's invocation or as a step of a work item's plan, and an agent never picks it as the way to do work it was asked for.
+
 Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill shows and does nothing else: one page of everything open in the register, in the order the register itself gives. The **bare call** — `/roadwork-inventory` with nothing after it — prints the whole page; words after it narrow it (§1). It writes nothing: no file, no line in any register file; the page is computed at the call and may differ next time.
 
 ## 0. The page — three blocks, in this order
