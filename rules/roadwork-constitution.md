@@ -128,6 +128,7 @@ paths:
     - The instruction, whole and verbatim, is the work item's notes.
     - After filing, the agent stops and offers the interview.
     - If it is in doubt whether an instruction is work, the agent says in one line which it takes it to be, and asks once.
+    - It is in doubt where the words could as well ask for a change as for an answer.
     - It then proceeds on the answer.
   - The override:
     - An override is given in the Operator's explicit words, never inferred.
@@ -139,9 +140,12 @@ paths:
     - An override may reach a file of the roadwork folder; the change is then made as the Operator says.
     - Where a work item exists and a step is skipped, its item file records the Operator's words for that step.
     - That record is one dated line: `**Step skipped (<date>, the Operator):** "<their words>" — <the step>`.
+    - The line stands at the end of the item file, with their words whole.
+    - The step after a skipped one takes that line in place of the skipped step's product; a skill's precondition on that product is met by it.
   - A project's law:
     - The default yields to a project's law, the Operator's standing word, which may narrow or widen it.
     - The Operator's word overrides both.
+    - Work a project's law exempts is done as that law says; the agent names the law in one line of its reply.
 
 - **How register items arrive**
   - Everything in the register is filed by a skill and by nothing else — never by hand, never by a sub-agent; each skill saves the source it was given verbatim beside what it writes, under a dated heading or as a `.source.md`.
