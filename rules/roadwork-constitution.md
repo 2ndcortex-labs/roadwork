@@ -10,7 +10,7 @@ paths:
     - `docs/`, `destinations/`, `maps/`, `guidebooks/`, `atlases/` — what outlasts any one item.
     - `ordering.md` and `working.md` — the order and the in-process list (their own bullet below); beside them the register's own files: `CLAUDE.md`, its anchor; and `config.json`, the settings file.
   - Every folder named here, and every `archive/` under one, carries an anchor `CLAUDE.md` saying what it holds and which bullet of this rule governs it.
-  - The anchors below the top are `todo/CLAUDE.md`, `todo/unnavigated/CLAUDE.md`, `feature/CLAUDE.md`, `feature/unnavigated/CLAUDE.md`, `spark/CLAUDE.md`, `spark/archive/CLAUDE.md`, `docs/CLAUDE.md`, `docs/context/CLAUDE.md`, `destinations/CLAUDE.md`, `destinations/archive/CLAUDE.md`, `maps/CLAUDE.md`, `maps/archive/CLAUDE.md`, `guidebooks/CLAUDE.md`, `guidebooks/archive/CLAUDE.md`, `atlases/CLAUDE.md` and `atlases/archive/CLAUDE.md`.
+  - The anchors below the top are `todo/CLAUDE.md`, `todo/unnavigated/CLAUDE.md`, `feature/CLAUDE.md`, `feature/unnavigated/CLAUDE.md`, `spark/CLAUDE.md`, `spark/archive/CLAUDE.md`, `docs/CLAUDE.md`, `docs/context/CLAUDE.md`, `destinations/CLAUDE.md`, `destinations/archive/CLAUDE.md`, `maps/CLAUDE.md`, `maps/archive/CLAUDE.md`, `guidebooks/CLAUDE.md`, `guidebooks/outgoing/CLAUDE.md`, `guidebooks/archive/CLAUDE.md`, `atlases/CLAUDE.md` and `atlases/archive/CLAUDE.md`.
 - **The three sub-registers.**
   - `todo/`: fixes, chores, decisions to take, findings to trace; item file `todo.md`; one folder per destination, `todo/<destination-slug>/`.
   - `feature/`: new capabilities; item file `feature.md`; one folder per destination, `feature/<destination-slug>/`.
@@ -25,7 +25,7 @@ paths:
   - Kebab-case, in the Operator's words, chosen when filed, never changed.
   - Unique across the whole register, not per folder: the reference `todo/<item-name>` omits the destination's folder, so one name is one item wherever it sits. A name is never reused, archived or not.
   - Never a skill name; an item that builds or changes a skill is named for its outcome, not for the command.
-  - Four lines may follow the item file's owner line, in this order: `**Destination:**` (written by the navigation), `**Map:**` (written by the interview, one per item), `**Referent:**` (written by the interview from the read-back's fourth question; what the product describes), `**Paths:**` (the paths the work touches, written when the source names them). None is a frontmatter key.
+  - Five lines may follow the item file's owner line, in this order: `**Destination:**` (written by the navigation), `**Map:**` (written by the interview, one per item), `**Guidebooks:**` (written by the interview on every interview: the guidebooks read, slugs in backticks, comma-separated, or `none`), `**Referent:**` (written by the interview from the read-back's fourth question; what the product describes), `**Paths:**` (the paths the work touches, written when the source names them). None is a frontmatter key.
 - **The item folder.**
   - Four files of record: the item file, `intent.md`, `plan.md`, `spec.md`. `GATES.md`, the ledger, joins at the build.
   - `intent.md`: what is wanted and why, in the Operator's words; placeholder until `/roadwork-intentify` writes it.
@@ -38,7 +38,7 @@ paths:
   - The terms table lives in this constitution alone, its section "Terms — the plain word, the agent's word, the meaning": one row per glossary term. Every glossary term has a row; `/roadwork-audit` is the check, and `bin/check.mjs` in the Roadwork repository. The register keeps no copy.
   - `destinations/`: per destination `destinations/<destination-slug>.intent.md`, written first, and `destinations/<destination-slug>.prd.md`, written from it; `destinations/<destination-slug>.source.md` where a document was given. A destination is built when every item of it is archived; then all its files move together to `destinations/archive/`, as `destinations/archive/<destination-slug>.intent.md`, `destinations/archive/<destination-slug>.prd.md` and `destinations/archive/<destination-slug>.source.md`. Destinations made before the intent step have no intent file; the destination skill's update writes one.
   - `maps/`: one `maps/<destination-slug>.md` per destination, `maps/<map-slug>.source.md` where a document was given; `maps/archive/` for the retired, as `maps/archive/<destination-slug>.md` and `maps/archive/<map-slug>.source.md`.
-  - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given or a template was copied; `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
+  - `guidebooks/`: one `guidebooks/<guidebook-slug>.md`, `guidebooks/<guidebook-slug>.source.md` where a document was given or a template was copied; `guidebooks/outgoing/` for what leaves the project — a template made in the project and every converted guidebook — as `guidebooks/outgoing/<name>.md`, drawn on by nothing (the Guidebooks bullet); `guidebooks/archive/` for the retired, as `guidebooks/archive/<guidebook-slug>.md` and `guidebooks/archive/<guidebook-slug>.source.md`.
   - `atlases/`: one `atlases/<atlas-slug>/` holding the Operator's `vision.md`, `intent.md`, `architecture.md` verbatim and the skill's `atlas.md`; `atlases/archive/` for the retired, as `atlases/archive/<atlas-slug>/`.
 - **The register.**
   - One per project, a copy of the Roadwork repository's `skeleton/`, made once by hand.
@@ -49,7 +49,7 @@ paths:
 - **The settings file.**
   - `config.json` at the register's root holds the instance's values the skills read by key; its schema is the config skill's (`/roadwork-config`).
   - Two keys of the schema place the register in its project: `project-root`, the project's root as a path relative to the register (default `..`); `standards-folders`, the project's standards folders, relative to the project's root (default empty, none); both set at setup by the setup skill, or by hand.
-  - One key names a store of guidebook templates: `guidebook-templates`, a folder's full path or a repository's address (default empty, none); the guidebook skill's script reads it and nothing else does, and nothing writes to the store.
+  - One key names a store of guidebook templates: `guidebook-templates`, a folder's full path or a repository's address (default empty, none); the guidebook skill's two scripts read it and nothing else does, and nothing writes to the store: a template made in the project waits in `guidebooks/outgoing/` until the Operator places it there.
   - **Every roadwork skill must read `config.json` before it acts** — a mandate, not a convenience: the register's `roadwork/config.json`, read once per run through the config skill's script with no argument, `node <config skill>/scripts/config.mjs`, and its lines held in the working context for the run — every key of the schema with its value, a secret as "set, <n> characters" or "empty", never its value. A skill that has not read it does not act, as a skill without the constitution in context does not act: the constitution read and `config.json` read are the two preconditions of every run. The file is read by the script and by nothing else — never opened, parsed or printed directly.
   - A key the run needs that reads empty takes the default the schema names for it; a key without a default is asked of the Operator by the config skill's empty-keys prompt, never by the running skill.
 - **Frontmatter**
@@ -122,7 +122,7 @@ paths:
     - `/roadwork-tasksplit` — one todo per unit of a document or list;
     - `/roadwork-subagentifygroup` — a cohortmeister for a cohort it found.
   - A spark is filed by `/roadwork-spark` and becomes a work item only through `/roadwork-ingest`.
-  - A destination by `/roadwork-destination`; an atlas by `/roadwork-atlas` from the three documents given; a map by `/roadwork-map`; a guidebook by `/roadwork-guidebook`, from a description, a document or a template of the store the settings name.
+  - A destination by `/roadwork-destination`; an atlas by `/roadwork-atlas` from the three documents given; a map by `/roadwork-map`; a guidebook by `/roadwork-guidebook`, from a description, a document or a template of the store the settings name; by the same skill, a template made in the project and a guidebook converted, each under `guidebooks/outgoing/`.
   - Whichever skill files it, the item takes its fixed form: a work item its four files, frontmatter and ordering line; the rest the form its skill writes.
   
 - **General Register Items Arrival Rules*
@@ -147,7 +147,7 @@ paths:
     - `/roadwork-navsanity` receives a group and writes a dated run section in the group's sanity todo.
     - `/roadwork-atlas` receives three documents and writes `atlases/<atlas-slug>/atlas.md` beside them, with the destinations it proposes.
     - `/roadwork-map` receives a description or a document and writes `maps/<destination-slug>.md`; a document given is saved as `maps/<map-slug>.source.md`.
-    - `/roadwork-guidebook` receives a description, a document or a template's name and writes `guidebooks/<guidebook-slug>.md`; a document given, or a template copied, is saved as `guidebooks/<guidebook-slug>.source.md`.
+    - `/roadwork-guidebook` receives a description, a document or a template's name and writes `guidebooks/<guidebook-slug>.md`; a document given, or a template copied, is saved as `guidebooks/<guidebook-slug>.source.md`; a template made from scratch, or a guidebook converted to a template or for another project, is written as `guidebooks/outgoing/<name>.md`, the guidebook converted from left unchanged.
     - `/roadwork-intent-insights` receives the day's interviews and writes a dated section in `docs/intent-insights.md` when first run and on every run after; the file exists once it has.
     - `/roadwork-audit` receives a document and a kind and writes a dated audit section on the item it names.
     - `/roadwork-config` receives a key and a value and writes the settings file.
@@ -174,7 +174,7 @@ paths:
   - Its product requirements document, `destinations/<destination-slug>.prd.md`, written from the intent.
   - Both are made by `/roadwork-destination`.
   - Bare, `/roadwork-destination` lists the destinations with their navigation state.
-  - `<new-slug> <description>`: an interview in `/roadwork-intentify`'s pattern, writing the intent and then the fixed form — a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section (the architecture read, the guidebooks drawn on, the changes to their stacks), numbered requirements, Out, Success.
+  - `<new-slug> <description>`: an interview in `/roadwork-intentify`'s pattern, writing the intent and then the fixed form — a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section (the architecture read, the guidebooks read by reach, the guidebooks drawn on, the changes to their stacks), numbered requirements, Out, Success.
   - `<existing-slug>`: an update of both files — the intent revisited, a destination without one gaining it — with a dated changelog line.
   - A pasted document or path: saved verbatim as `destinations/<destination-slug>.source.md`, then interviewed.
   - `/roadwork-nav-to-destination <destination-slug>` (a slug only; anything else refused) turns it into a group.
@@ -196,11 +196,44 @@ paths:
   - `<destination-slug> <description>`: the interview; a slug that is not an open destination's, or whose destination already has a map, is refused.
   - `<existing-slug>`: an update with a dated changelog line.
   - A pasted document or path: saved verbatim as `maps/<destination-slug>.source.md`, then interviewed.
-  - An item names its map by one line, **Map:** `<map-slug>`, under its owner line: one map per item, no frontmatter key, the Referent line after it where one is named.
+  - An item names its map by one line, **Map:** `<map-slug>`, under its owner line: one map per item, no frontmatter key, the Guidebooks line after it, then the Referent line where one is named.
   - The line is written by `/roadwork-intentify` when the Operator names one, or by `/roadwork-nav-to-destination` when the destination names one (its optional Map line, inherited by the group).
   - `/roadwork-intentify` and `/roadwork-specplan` read the item's map.
   - No skill enforces one.
   - A retired map moves to `maps/archive/` by hand.
+
+- **Guidebooks.**
+  - A guidebook is a building block for architecture: one `guidebooks/<guidebook-slug>.md`, in the fixed form `/roadwork-guidebook` writes.
+  - Kind and scope:
+    - It opens with a header block of three keys, always present, empty allowed: `kind`, `atlas`, `destination`.
+    - `kind` is `atlas`, `destination` or `template`.
+    - Kind `atlas` names one open atlas and leaves `destination` empty; kind `destination` names one open destination and leaves `atlas` empty.
+    - Kind `template` leaves both empty and is written only under `guidebooks/outgoing/`.
+    - A new guidebook naming no open atlas or destination is refused in one line; an update may keep an archived scope.
+    - Any number of guidebooks may name one destination or one atlas.
+    - A guidebook with no header block is unscoped, made earlier: listed and drawn on as before, reaching nothing by scope; its next update asks its kind and scope, then its items, once.
+  - Item parts:
+    - The interview asks the kind and scope first, then which items: hosts, MCPs, coding standards per language, SOPs, best practices, and any the Operator adds.
+    - Each chosen item is one `## ` part, standing between `## Judgements` and `## Sources`; an unchosen item leaves no heading.
+  - The outgoing folder:
+    - `guidebooks/outgoing/<name>.md` holds a template made in the project and every converted result; the name is kebab-case, the Operator's, and no guidebook's slug.
+    - Two conversions: to a template; for another project, whose kind and scope the Operator names.
+    - A conversion takes out the destination's name, the project's paths and names, and instance-only values; the guidebook converted from stays byte-equal.
+    - Nothing reaches or draws on an outgoing file.
+    - The Operator places what is in it, in the store or in another project; no skill writes into either.
+  - Reach:
+    - A destination is reached by its atlas's guidebooks and its own; a work item under a destination, by what reaches that destination.
+    - Reach is computed from header blocks alone by `node <guidebook skill>/scripts/guidebooks.mjs reach`; no list records it.
+    - The steps that read: `/roadwork-destination` before its Stack round, `/roadwork-nav-to-destination` before it decomposes, `/roadwork-map` before its first round, `/roadwork-intentify` before the read-back, `/roadwork-specplan` at its gathering.
+    - Where each names what it read: a `Guidebooks read:` line in the requirements file's Stack section, on the sanity todo, in the spec's header and in the plan's Stack section; the map's and the item file's **Guidebooks:** lines.
+    - A work item under no destination reads a guidebook only where the Operator names one at the interview's read-back; with no guidebook in the project, the question is not asked.
+    - Coding standards in two places: where `standards-folders` is set and a guidebook read has a coding-standards part, the interview and the spec read both as guidance.
+    - A seeming difference between them is put to the Operator; the ruling is a dated `**Standards ruling (<date>, the Operator):**` line on the item file, for that item alone, and neither source is changed.
+  - Nothing enforces a guidebook:
+    - A step that departs from a guidebook it read says so in one line, with its reason; no gate, script or skill blocks on one.
+    - No step blocks, refuses or warns because no guidebook exists or none reaches.
+    - Making one early is optional: a destination's before it is navigated, an atlas's before its destinations, a template even before an atlas.
+    - A retired guidebook moves to `guidebooks/archive/` by hand; a destination's guidebook stays when its destination is archived.
   
 - **Naming.**
   - Every roadwork register skill's name begins with `roadwork`: `roadwork-ingest`, `roadwork-spark`, `roadwork-destination`, `roadwork-nav-to-destination`, `roadwork-help`, `roadwork-map`, `roadwork-navsanity`, `roadwork-intentify`, `roadwork-specplan`, `roadwork-verify-and-archive`, `roadwork-tasksplit`, `roadwork-subagentifygroup`, `roadwork-atlas`, `roadwork-intent-insights`, `roadwork-audit`, `roadwork-config`, `roadwork-guidebook`, `roadwork-inventory`.
@@ -224,7 +257,7 @@ paths:
   - `/roadwork-destination` (a destination: its intent and its product requirements document).
   - `/roadwork-nav-to-destination <destination-slug>` (a destination into a group, a sanity todo last).
   - `/roadwork-ingest` (ingest: kind decided, duplicates refused by judgment across the register, item placed in `ordering.md`; never archives an item — a converted spark's move into `spark/archive/` is its one archiving).
-  - `/roadwork-intentify <ref>` (read-back first — its four questions: the notes, the interpretation, the map, the referent — then the prepared round, then the design tree).
+  - `/roadwork-intentify <ref>` (read-back first — its four questions: the notes, the interpretation, the map, the referent; a fifth, which guidebook, for an item under no destination where the project holds one — then the prepared round, then the design tree).
   - `/roadwork-intentify` is roadwork-register-aware across the register and writes cross-notes and frontmatter into related items.
   - `/roadwork-specplan <ref>` (`spec.md` with concerns first, `plan.md` with gates).
   - On an existing accepted spec and plan, `/roadwork-specplan` runs a reconsideration: dated changelog, proven gates kept, the previous go ended, the spec proposed again.
@@ -488,8 +521,8 @@ To archive the item:
 | an atlas | Atlas | The highest-order thing in the plans, above a destination: a folder holding three documents of yours — the vision, the intent and the architecture — verbatim, and the skill's `atlas.md`; several destinations serve it, each naming it by its atlas key or leaving the key empty; the skill proposes the destinations that would serve it, in its file, for you to make or strike. |
 | a vision | `vision.md` | One of the atlas's three documents, yours verbatim; the atlas's description is derived from it and marked so. |
 | an architecture | `architecture.md` | One of the atlas's three documents, yours verbatim; the skill reads it as given. |
-| a guidebook | Guidebook | A standardized knowledge base broad in application — standards, stack, vendors, judgements, sources, an Architectures line saying which architectures its stack fits, or none — one file in `guidebooks/`; a map copies the parts it needs. |
-| a guidebook template | Guidebook template | A guidebook kept in an organization's store for many projects to start from, one `.md` file in the guidebook's form; the settings key `guidebook-templates` names the store; the guidebook skill copies one into your project and adapts it with you, and the copy is then yours, never tied to its template. |
+| a guidebook | Guidebook | A building block for architecture: a standardized knowledge base broad in application, one file in `guidebooks/`, a template's in `guidebooks/outgoing/`. Its header states its kind — atlas, destination or template — and its scope, the atlas or destination it names; one made earlier without the header is unscoped. Its parts: standards, stack, vendors, judgements, sources, an Architectures line saying which architectures its stack fits, or none, and the item parts you chose — hosts, MCPs, coding standards per language, SOPs, best practices, or your own. The later steps read the guidebooks that reach their work; a map copies the parts it needs. |
+| a guidebook template | Guidebook template | A guidebook kept in an organization's store for many projects to start from, one `.md` file in the guidebook's form, with or without a header; the settings key `guidebook-templates` names the store; the guidebook skill copies one into your project and adapts it with you, and the copy is then yours, never tied to its template. A template may also be made in your project, from scratch or converted from a guidebook; it waits in `guidebooks/outgoing/`, drawn on by nothing, until you place it in the store. |
 | a stack | Stack | What a destination is built on: environment, framework, tooling, assets and services; chosen per destination from the guidebooks, carried by the requirements file, the map, the spec and the plan. |
 | the group's check item | Sanity todo | The todo created last for a group, holding the group list; nothing in the group starts until you say the group is right. |
 | the kinds of check | Check types | The six checks run over a group: completeness, provenance, shape, dependencies, order, scope; a seventh over any cohort in it. |
@@ -516,7 +549,7 @@ To archive the item:
 | a list into todos | Tasksplit | Any document or list turned into a dated group of todos, one per unit, the source's words kept. |
 | your notes, word for word | Notes verbatim | Your words quoted exactly under a dated heading, never paraphrased; the agent's reading is marked as its own. |
 | an item already filed | Duplicate | An open item that already carries the ask; judged, never matched by string. |
-| the read-back | Read-back | Before any question, your notes and the agent's reading are read back to you and two questions asked — a third, which map, when the item names none. |
+| the read-back | Read-back | Before any question, your notes and the agent's reading are read back to you and two questions asked — a third, which map, when the item names none; for an item under no destination, also which guidebook, if any, where the project holds one. |
 | a related item | Crossing / cross-note | Another item this one overlaps, shares a group with, or depends on; noted in that item's file, dated. |
 | a concern | Area of concern | A clash between rules or a constraint that cannot be met, recorded with who decides it; never settled silently. |
 | a pass-or-fail check | Gate | One observable outcome, checked by a command that fails without it or, where no command can decide, by a named reviewer; the file that lists them is the ledger. |
@@ -549,8 +582,9 @@ To archive the item:
 - **Batch** — the coherent bundle a project's changes ship in as one, in the project's own terms; Roadwork's own records stay in the register.
 - **Lifecycle** — `/roadwork-atlas` (three documents into an atlas, above a destination) → `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` (or `/roadwork-tasksplit`, many at once) → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the go — the skill or the Operator's word; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers and `/roadwork-intent-insights` learns from the day's interviews.
 - **PRD** — a product requirements document, `destinations/<destination-slug>.prd.md`, made by `/roadwork-destination` and the source of a group of items made by `/roadwork-nav-to-destination`; cited by path in every derived item.
-- **Destination** — two files beside each other in `destinations/`: `<destination-slug>.intent.md`, what is wanted and why in the Operator's words, in the item intent's form, interviewed and written first; and `<destination-slug>.prd.md`, written from it, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section — the architecture read, the guidebooks drawn on, the changes to their stacks — numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; both files archived to `destinations/archive/` by hand when built.
+- **Destination** — two files beside each other in `destinations/`: `<destination-slug>.intent.md`, what is wanted and why in the Operator's words, in the item intent's form, interviewed and written first; and `<destination-slug>.prd.md`, written from it, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section — the architecture read, the guidebooks read by reach, the guidebooks drawn on, the changes to their stacks — numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; both files archived to `destinations/archive/` by hand when built.
 - **Map** — one `maps/<map-slug>.md`: a primitive of the way to a destination — before agents, process, tools, judgements, inputs — in a fixed form, made by `/roadwork-map`; named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; a pattern to follow or improve, enforced by nothing; retired to `maps/archive/` by hand.
+- **Guidebook** — one `guidebooks/<guidebook-slug>.md`, a building block for architecture, made by `/roadwork-guidebook` with the Operator; its header block states its kind and scope — `atlas` (reaching every destination of that atlas and their work items), `destination` (reaching that destination and its work items) or `template` (made to leave the project, under `guidebooks/outgoing/`, reaching nothing); its item parts stand between Judgements and Sources; read through `guidebooks.mjs reach` by the destination, the navigation, the map, the interview and the spec, enforced by nothing. When to make one: whenever guidance is settled — it may be made before a destination is navigated, an atlas's before its destinations, a template even before an atlas — always optional, nothing waiting on it.
 - **Sanity todo** — the todo `/roadwork-nav-to-destination` creates last, `todo/<destination-slug>-sanity`: the group list and the requirement↔item mapping both ways; blocks every other item in the group until the Operator says the group is right.
 - **Check types** — the six sanity checks `/roadwork-navsanity` runs over a group: completeness, provenance, shape, dependencies, order, scope.
 - **Run** — one pass of `/roadwork-navsanity` over a group: six checks, ten questions, the changes made; recorded as a dated section in the group's sanity todo.
