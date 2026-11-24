@@ -104,6 +104,12 @@ Then the listing offer, **O<n+1>** — "Typing this lists the destinations; upda
 /roadwork-destination
 ```
 
+Then one line with one box, **O<n+2>**: guidebooks for this atlas may be made before its destinations; nothing waits on it — "Guidebooks for this atlas may be made before its destinations; nothing waits on it. Typing this makes one with you, its kind and scope asked first:":
+
+```
+/roadwork-guidebook <guidebook-slug> <description>
+```
+
 Then the back offers as `/roadwork-ingest` §5b computes them — up to five, most recent first, as offers only. Then the fact suffix, by the clock (the glossary's **Fact suffix** entry). As a checkbox list where the host has a question tool, blocks otherwise (the terms table's **Offer form** row).
 
 ## Never

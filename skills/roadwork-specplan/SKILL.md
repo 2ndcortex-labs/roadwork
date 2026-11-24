@@ -134,8 +134,37 @@ writing a line of spec, assemble the constraints that will bind it:
   section names the map's Stack section as its reference, the plan's
   Invokes marks read against it (§2, §3). When the item names no map,
   say so in one line.
+- **The guidebooks**: read the item file's `**Guidebooks:**` line, then run
+  `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`,
+  the item's folder given as an absolute path, a path from the working
+  directory, or a path from the roadwork folder;
+  read every guidebook the line names and every file reach prints, whole.
+  If reach prints a refusal, say it in one line and proceed as with `none`;
+  nothing is blocked.
+  The spec names them on its `Guidebooks read:` header line and under
+  Constraints applied; the plan names them on its Stack section's
+  `Guidebooks read:` line. Both `Guidebooks read:` lines list the
+  guidebooks in reach's order, then any other the item file names. A requirement or design that departs from a
+  guidebook read is said in one line, with its reason, in the spec and the
+  hand-back. A guidebook is enforced by nothing: no step blocks, refuses or
+  warns because no guidebook exists, the item file carries no Guidebooks
+  line, or none reaches the item.
 - **The referent**: when the item file carries a **Referent:** line, read it; a referent that resolves to a folder on disk from the project's root is a folder referent, named in the spec as a source by that path; any other is a named referent, and the spec names, per item, the listing the check reads for it (`--listing`); an item without the line has `Referent: none`.
 - **The standards**: when the settings file names `standards-folders` (`node <config skill>/scripts/config.mjs get standards-folders`, the config skill's read; empty where a project keeps none), read every file in every listed folder, subfolders included — coding standards, brand, styling and the like, in the project's own structure; a file that is not text (an image, a PDF) is named by path as present and not read; each file that bears on the work is a constraint on the spec, named under "Constraints applied" with the file's path and what it constrained; a listed folder that is empty or missing is said there in one line. The intent names the standards that bind; the spec inherits them and adds what the intent did not see.
+- **Coding standards in two places, reading both**:
+  - Read both sources where `standards-folders` is set and a guidebook read carries a `## Coding standards: <language>` part.
+  - Presume the two complementary; read both as guidance.
+  - Which standards file speaks to which language is the session agent's reading.
+  - The two seem to differ when, for one language, both speak to one point and cannot both be followed.
+  - Standards other than coding standards are not compared.
+- **Coding standards in two places, the ruling**:
+  - Read every `**Standards ruling**` line already on the item file; a difference it rules is not asked again.
+  - Name each ruling read under the spec's Constraints applied, with what it settled.
+  - Put each other seeming difference as one numbered question, quoting both passages with their paths, in the gap round of §2b, which runs for it.
+  - Give that question no recommendation: the ruling is the Operator's, the one exception to one recommendation per question; settle nothing silently.
+  - Append the ruling at the end of the item file, as its other dated lines are: `**Standards ruling (<date>, the Operator):** "<their words>" — <the guidebook's path>; <the standards file's path>`, both paths from the project's root, such as `roadwork/guidebooks/<slug>.md; standards/<file>`.
+  - A ruling holds for this item alone; it reaches no other work item.
+  - No skill writes to a guidebook or a standards folder because of a ruling.
 - **The codebase**: the files, configs, scripts and records the change
   touches; what other items in `roadwork/todo/` and `roadwork/feature/`
   already claim, and the item's own frontmatter — every `blocked-by` and
@@ -171,6 +200,7 @@ Status: proposed. From: intent.md accepted <date>. Author: the session agent for
 Skills in force: <name, …, as installed in `.claude/skills/` on <date>>. Law in force: <the law's file, rules matched>.
 Destination intent: <destinations/<destination-slug>.intent.md read <date> — what it bound> | none. Atlas intent: <atlases/<atlas-slug>/intent.md read <date> — what it bound> | none.
 Referent: <path or name> — <what it bound> | none
+Guidebooks read: `<guidebook-slug>`, `<guidebook-slug>` | none
 
 ## Problem restated
 <one line, then bullets, from the intent, in its terms>
@@ -199,7 +229,7 @@ Reference: the map <map-slug>'s Stack section | the requirements file's Stack se
 Changes of this spec: <its extensions or modifications of the reference> | none
 
 ## Constraints applied
-<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained>
+<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained; each guidebook read, by path, and what it constrained or that it added no rule; each departure from one, with its reason; each standards ruling read from the item file, and what it settled>
 
 ## Dependencies
 D1. <what must be true> — who acts: <the party or the item> — observed by: `<a command>` | <a named human observation> [supported: …]
@@ -330,11 +360,12 @@ Status: proposed. From: spec.md <date>. Runs under /unlazy.
 (One "lands as" line per step, in the project's own words, the step's prose free beside it: where the step's work goes — a folder, a place in the project's own flow, the register for the register's own records; read by no skill or script.)
 
 ## Stack
+Guidebooks read: `<guidebook-slug>`, `<guidebook-slug>` | none
 Reuses: <the assets relied on, by path — a checker by path and its modes; or "none">
 Creates: <the assets written and where they live; or "none">
 Invokes: <the tools called — an MCP server, a CLI, a host tool, a vendor's service — each followed by its mark: (preferred — <guidebook-slug>) | (preferred — the map's own) | (departure: <reason>) | (departure: the intent's — <where>) | (no preference stated); or "none">
 Changes of this plan: <its extensions or modifications of the spec's Stack reference> | none
-(An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — kept in the tree is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which. The marks are read against the spec's Stack Reference, on the Invokes line only: preferred — the reference names this tool for this purpose, from a guidebook's copied Stack section or from the map's own words; departure — the reference names another tool for the purpose and the plan calls this one, the reason given, proposed in the hand-back and decided by the acceptance; the intent's departure — the reference names another tool for the purpose and the intent's Constraints name this one, the Operator having asked for it, where, named in the hand-back and not proposed; no preference stated — the reference names nothing for the purpose, the reference is none, or no guidebook with a stack has been written; nothing is a departure where there was nothing to depart from. The tools on the Invokes line are separated by semicolons, each tool's mark the last parenthesis of its entry, a reason holding no semicolon. The plan carries no Reference line: the reference is the spec's.)
+(An asset is what the project holds with a path in the tree; a tool is a capability invoked from outside it — kept in the tree is an asset, callable only is a tool. Created assets live in the item's folder. Anything missing today is named on its line as a dependency: a `blocked-by` or an item of its own, before the go. A small item-only asset is a step of the plan; a reused one is its own item and a `blocked-by`; the plan says which. The marks are read against the spec's Stack Reference, on the Invokes line only: preferred — the reference names this tool for this purpose, from a guidebook's copied Stack section or from the map's own words, or the Stack section of a guidebook read by reach names it, cited as one copied by a map is, `(preferred — <guidebook-slug>)`; departure — the reference names another tool for the purpose and the plan calls this one, the reason given, proposed in the hand-back and decided by the acceptance; the intent's departure — the reference names another tool for the purpose and the intent's Constraints name this one, the Operator having asked for it, where, named in the hand-back and not proposed; no preference stated — the reference names nothing for the purpose, the reference is none, or no guidebook with a stack has been written; nothing is a departure where there was nothing to depart from. The tools on the Invokes line are separated by semicolons, each tool's mark the last parenthesis of its entry, a reason holding no semicolon. The plan carries no Reference line: the reference is the spec's.)
 
 ## Gates
 - [ ] G1: <outcome of step 1, observable>

@@ -15,7 +15,7 @@ register per project, at the path the project's law names; no path under the
 project carries one of its own. This folder is a copy of
 the Roadwork repository's `skeleton/`, made once by hand, never updating that
 source and never updated from it except its two docs, `docs/teachme.md` and
-`docs/facts.md`; the Roadwork repository ships the skeleton with its anchors and
+`docs/facts.md`, and any anchor it lacks; the Roadwork repository ships the skeleton with its anchors and
 those two docs, never a map and never an item; the rule and the skills live in
 the project's `.claude/` folders, refreshed by copying the newer ones over the
 old. Roadwork register law: the constitution,

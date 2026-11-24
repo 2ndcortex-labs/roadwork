@@ -62,13 +62,27 @@ function templateName(file) {
   return KEBAB.test(stem) ? stem : null;
 }
 
+// The lines after a leading header block (a first line `---` up to the next `---`), or all lines when none; null when unclosed.
+function bodyLines(text) {
+  const lines = text.split(/\r?\n/);
+  if (lines[0] !== '---') return lines;
+  const end = lines.indexOf('---', 1);
+  return end < 0 ? null : lines.slice(end + 1);
+}
+
 // The form test: headings alone, no content judged. Returns the first failing line, or null.
 function formFault(text) {
-  const lines = text.split(/\r?\n/);
-  if (!lines[0].startsWith('# Guidebook: ')) return 'the first line does not start with "# Guidebook: "';
+  const lines = bodyLines(text);
+  if (!lines) return 'the header block has no closing "---" line';
+  if (!(lines[0] || '').startsWith('# Guidebook: ')) return 'the first line does not start with "# Guidebook: "';
   const h = lines.filter((l) => l.startsWith('## ')).map((l) => l.slice(3).trim());
-  if (h.filter((x) => x !== 'Stack').join('\n') !== FORM.join('\n')) return 'the headings are not ## Standards, ## Vendors, ## Judgements, ## Sources and ## Changelog, in that order and no others';
-  if (h.includes('Stack') && (h.length !== 6 || h[1] !== 'Stack')) return '## Stack does not stand once between ## Standards and ## Vendors';
+  const core = h.filter((x) => FORM.includes(x) || x === 'Stack');
+  if (core.filter((x) => x !== 'Stack').join('\n') !== FORM.join('\n')) return 'the headings are not ## Standards, ## Vendors, ## Judgements, ## Sources and ## Changelog, in that order';
+  const ji = h.indexOf('Judgements');
+  const si = h.indexOf('Sources');
+  const stray = h.findIndex((x, i) => !core.includes(x) && (i < ji || i > si));
+  if (stray >= 0) return `the heading ## ${h[stray]} does not stand between ## Judgements and ## Sources`;
+  if (core.includes('Stack') && (core.length !== 6 || h[1] !== 'Stack')) return '## Stack does not stand once between ## Standards and ## Vendors';
   return null;
 }
 
@@ -119,7 +133,7 @@ function readRepo(address) {
 
 const readStore = (value) => (value.startsWith('/') ? readFolder(value) : readRepo(value));
 const listed = (files) => [...files].filter(([, b]) => !formFault(b.toString('utf8')))
-  .map(([name, b]) => ({ name, title: b.toString('utf8').split(/\r?\n/)[0].slice('# Guidebook: '.length).trim() }))
+  .map(([name, b]) => ({ name, title: bodyLines(b.toString('utf8'))[0].slice('# Guidebook: '.length).trim() }))
   .sort((a, b) => (a.name < b.name ? -1 : 1));
 
 function list() {
@@ -187,7 +201,8 @@ function selftest() {
   };
   const oneLine = (r, code, re, what) => ok(r.status === code && r.stdout.split('\n').length === 2 && re.test(r.stdout), `${what}: exit ${r.status}, ${JSON.stringify(r.stdout + r.stderr)}`);
   const gbFiles = () => readdirSync(gb).filter((n) => n !== 'archive').sort().join(',') + '|' + readdirSync(join(gb, 'archive')).sort().join(',');
-  const tpl = (title, stack) => `# Guidebook: ${title}\n_Guidebook, made 2026-01-01 by /roadwork-guidebook; open until retired._\n\n**Architectures:** none\n\nWhat it covers.\n\n## Standards\n- s\n\n${stack ? '## Stack\n- k\n\n' : ''}## Vendors\n- v\n\n## Judgements\n- j\n\n## Sources\n- o\n\n## Changelog\n- 2026-01-01: made.\n`;
+  // head: a leading header block; parts: item parts after ## Judgements; early: an item part before ## Vendors, out of its place.
+  const tpl = (title, stack, { head = false, parts = false, early = false } = {}) => `${head ? '---\nkind: template\natlas: ""\ndestination: ""\n---\n' : ''}# Guidebook: ${title}\n_Guidebook, made 2026-01-01 by /roadwork-guidebook; open until retired._\n\n**Architectures:** none\n\nWhat it covers.\n\n## Standards\n- s\n\n${stack ? '## Stack\n- k\n\n' : ''}${early ? '## Hosts\n- h\n\n' : ''}## Vendors\n- v\n\n## Judgements\n- j\n\n${parts ? '## Hosts\n- h\n\n## Coding standards: Python\n- four spaces\n\n' : ''}## Sources\n- o\n\n## Changelog\n- 2026-01-01: made.\n`;
   const checkCopy = (slug, name, store, bytes) => {
     const got = readFileSync(join(gb, `${slug}.source.md`));
     const head = `_Source of ${slug}, from the template ${name} of the store ${store}, copied ${today()}; verbatim._\n\n`;
@@ -215,6 +230,8 @@ function selftest() {
   writeFileSync(join(fs1, 'alpha.md'), tpl('Alpha book', true));
   writeFileSync(join(fs1, 'beta.md'), tpl('Beta book'));
   writeFileSync(join(fs1, 'broken.md'), '# Guidebook: Broken\n\n## Standards\n\n## Changelog\n');
+  writeFileSync(join(fs1, 'headed.md'), tpl('Headed book', true, { head: true, parts: true }));
+  writeFileSync(join(fs1, 'misplaced.md'), tpl('Misplaced book', false, { head: true, early: true }));
   writeFileSync(join(fs1, 'alpha.source.md'), tpl('Source'));
   writeFileSync(join(fs1, 'Not_Kebab.md'), tpl('Not kebab'));
   writeFileSync(join(fs1, 'sub', 'inner.md'), tpl('Inner'));
@@ -230,11 +247,12 @@ function selftest() {
   // Case 2: a folder store.
   setKey(fs1);
   r = run(['list']);
-  ok(r.status === 0 && r.stdout === 'templates: 2\nalpha — Alpha book — template\nbeta — Beta book — template\n', `case 2 list: ${JSON.stringify(r.stdout + r.stderr)}`);
+  ok(r.status === 0 && r.stdout === 'templates: 3\nalpha — Alpha book — template\nbeta — Beta book — template\nheaded — Headed book — template\n', `case 2 list: ${JSON.stringify(r.stdout + r.stderr)}`);
 
   // Case 4: the file not in the form, named, refused with the failing line; other names refused.
   oneLine(run(['copy', 'broken', 'one']), 1, /broken is not in the guidebook's fixed form: the headings are not/, 'case 4 form');
-  oneLine(run(['copy', 'missing', 'one']), 1, /holds no template missing; it holds: alpha, beta$/m, 'case 4 missing');
+  oneLine(run(['copy', 'misplaced', 'one']), 1, /misplaced is not in the guidebook's fixed form: the heading ## Hosts does not stand between ## Judgements and ## Sources$/m, 'case 4 item part out of place');
+  oneLine(run(['copy', 'missing', 'one']), 1, /holds no template missing; it holds: alpha, beta, headed$/m, 'case 4 missing');
   oneLine(run(['copy', 'Not_Kebab', 'one']), 1, /not kebab-case/, 'case 4 kebab name');
   oneLine(run(['copy', 'alpha.source', 'one']), 1, /not kebab-case/, 'case 4 source name');
   oneLine(run(['copy', 'alpha', '../one']), 1, /not kebab-case/, 'case 4 kebab slug');
@@ -253,6 +271,9 @@ function selftest() {
   ok(gbFiles() === 'mine.source.md,taken.md|old.source.md', `case 6 files: ${gbFiles()}`);
   const copied = checkCopy('mine', 'alpha', fs1, readFileSync(join(fs1, 'alpha.md')));
   oneLine(run(['copy', 'beta', 'mine']), 1, /already carries guidebooks\/mine\.source\.md/, 'case 6 second copy');
+  // A template with a header block and item parts: copied byte-equal, its header block kept.
+  oneLine(run(['copy', 'headed', 'head']), 0, /^copied: guidebooks\/head\.source\.md$/m, 'case 6 headed copy');
+  checkCopy('head', 'headed', fs1, readFileSync(join(fs1, 'headed.md')));
 
   // Case 9: the template changed in its store after the copy; the project's source file stays as copied.
   appendFileSync(join(fs1, 'alpha.md'), '- changed in the store\n');

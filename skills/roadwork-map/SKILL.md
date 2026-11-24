@@ -69,11 +69,15 @@ reading of it, marked as yours, and ask the two questions — anything to
 add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 §2, closed as `/roadwork-intentify` §2 closes a round: the design tree, the frontier asked whole each round, every question
 numbered with your recommendation, the facts found by you, never asked;
-the decisions the Operator's. The root nodes for a map:
+the decisions the Operator's.
+
+Before the first round, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>` for the destination the map reaches, and read every file it prints, whole. A map that keeps a name of its own runs it for its destination. If reach prints a refusal, say it in one line and proceed as with `none`; nothing is blocked. A step, a stack or a judgement that departs from a guidebook read is said in one line, with its reason, in the round where it arises. A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches the destination.
+
+The root nodes for a map:
 
 - **The destination it reaches** — which destination this is the way to; in one line, then bullets.
 - **Guidebooks** — which of the register's guidebooks apply, listed as the
-  bare `/roadwork-guidebook` prints them; "none" always an answer; for each
+  bare `/roadwork-guidebook` prints them, those read by reach listed first; "none" always an answer; for each
   that applies, whether whole or in parts, and which parts serve which
   section.
 - **Before agents** — how it was done by hand, by whom, with what record.
@@ -98,7 +102,7 @@ _Map, made <date> by /roadwork-map; open until retired._
 
 <the destination it reaches: one line, then bullets>
 
-**Guidebooks:** `<slug>`, `<slug>` (whole)
+**Guidebooks:** `<slug>`, `<slug>` (whole), `<slug>` (read by reach)
 
 ## Before agents
 <a list: how it was done by hand>
@@ -126,20 +130,21 @@ Changes of this map: <the map's own extensions or modifications; a guidebook add
 
 (The copied Stack sections and the first Changes line are separated by one blank line; the two Changes lines are adjacent; where the map's own stack stands in the copies' place it is a list, then one blank line, then the two lines.)
 
-The **Guidebooks:** line names every guidebook drawn on — "(whole)" after
+The **Guidebooks:** line names every guidebook read by reach with every guidebook drawn on — "(whole)" after
 one included by reference, which is done only when the entire guidebook
-is relevant — and reads `none` when none. A part of a guidebook lands
+is relevant; "(read by reach)" after one read by reach and not drawn on — and reads `none` when none. A part of a guidebook lands
 inline in the section it serves — Process, Stack, Judgements or Inputs —
 opening with the marker line ``_From guidebook `<guidebook-slug>`, § <section>:_``.
 An excerpt is copied near-verbatim into the section it serves.
 
 The Stack section's order is fixed: one copied Stack section per guidebook drawn on for the stack — the requirements file's first, in its order, then any the Operator added — each under its marker line, copied verbatim, the one section whose copy is exact; where no guidebook is drawn on for the stack, the map's own stack in its own words stands in the copied sections' place; then, after one blank line, the two Changes lines: `Changes from the requirements file:` carrying the text of the file's third Stack line (`Changes to the guidebooks' stacks:`) after its label, verbatim, or `none — the requirements file names no guidebook`, or `none — the requirements file carries no Stack section`; and `Changes of this map:` carrying the map's own extensions or modifications, a guidebook added on the Operator's word named there as added, or `none`. A guidebook copied here is named on the Guidebooks line as any excerpt's is.
 
-**An update** (`<existing-slug>`): read the file back whole, ask what
+**An update** (`<existing-slug>`): read the file back whole, run reach
+and read the files it prints as the paragraph before the root nodes says, ask what
 changes and interview only that, then rewrite the file whole on confirm
 and append one dated line under `## Changelog` saying what changed; the
 Guidebooks line and the excerpts may be added or changed as any update.
-The Stack node is asked when the Operator names the stack among what changes, and whenever the requirements file's Guidebooks line names a guidebook of which the map's Stack section carries no excerpt — said at the read-back; "none" an answer each time.
+The Stack node is asked when the Operator names the stack among what changes, and whenever the requirements file's `Guidebooks drawn on:` line names a guidebook of which the map's Stack section carries no excerpt — said at the read-back; "none" an answer each time.
 The Process keeps its numbers; a dropped step is struck ("~~n.~~ dropped
 <date>: <why>"), never renumbered, so that plans citing steps stay true.
 

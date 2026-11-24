@@ -60,6 +60,15 @@ Read it whole. Its requirements are its numbered list (the fixed form
 number them yourself and say so. A
 requirement is one thing the programme must deliver or must not do.
 
+**The guidebooks in reach.** Then, before anything is decomposed, run
+`node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>`
+and read every file it prints, whole. The sanity todo records them on its
+**Guidebooks read:** line. An item cut in a way that departs from a
+guidebook read is said in one line, with its reason, in the read-back of §3.
+A guidebook is enforced by nothing: no step blocks, refuses or warns
+because no guidebook exists or none reaches the destination; reach printing
+`none`, the line reads `none` and the navigation proceeds.
+
 ## 2. Decompose
 
 One item per coherent deliverable: a new capability is a **feature**; a
@@ -128,6 +137,8 @@ notes = the group list; its `todo.md` carries, after the notes:
 
 - **Destination intent read:** `destinations/<destination-slug>.intent.md`, <date> — the
   reading of §1, recorded; or `none — the destination has no intent file`.
+- **Guidebooks read:** the guidebooks reach printed at §1, slugs in
+  backticks, comma-separated, or `none`.
 - **Group:** every reference with kind and home.
 - **Requirement → item:** each numbered requirement and the item(s)
   covering it, or "deliberately dropped: <why>".
