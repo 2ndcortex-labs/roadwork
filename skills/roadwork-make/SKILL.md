@@ -103,7 +103,7 @@ Refuse, naming the reason, and stop when:
   and offer `/roadwork-verify-and-archive <ref>` or to continue the existing ledger.
 - `blocked-by` names a **cohortmeister** (`feature/cm-…`) — the item is a
   cohort member: refuse and offer `/roadwork-make <CM>`; proceed alone
-  only when the Operator says so in words (the override — a low-impact
+  only when the Operator says so in words (the proceed word — a low-impact
   decision, not recorded), then treat the member as standalone for this
   run.
 

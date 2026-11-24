@@ -12,7 +12,7 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 9. The session agent is whichever agent runs the session in which you typed the command. — Session agent
 10. The project scope is everything at and under the root the project's law names. — Project scope
 11. Changes ship as one coherent batch, never one at a time, in the project's own terms; Roadwork's own records stay in the register. — Batch
-12. The chain runs destination, navigate, ingest, interview, spec and plan, the go, then verify and archive; beside it, the help skill answers. — Lifecycle
+12. The chain runs destination, navigate, ingest, interview, spec and plan, the go, then verify and archive; beside it stand the tool skills, the help skill among them. — Lifecycle
 13. A product requirements document is a destination: one file per destination, made with you, then broken into a group of items. — PRD
 14. A destination has a fixed shape: a header with its priority and its atlas, the destination in a paragraph, numbered requirements, what is out, and how success is seen. — Destination
 15. Navigating to a destination creates a sanity todo last; nothing in the group starts until you say the group is right. — Sanity todo
@@ -32,7 +32,7 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 29. Any list or document can become a dated group of todos, one per unit, the source's words kept verbatim. — Tasksplit
 30. Beside todos, features and sparks sit docs, for documents that outlast any one item, and destinations, maps, guidebooks and atlases. — Road plans
 31. The item file keeps your notes word for word; the reading of them is marked as the agent's and stays separate. — Item
-32. Accepting a spec is not a go; only the go command or your word "build" starts work. — Lifecycle
+32. Accepting a spec is not a go; only the go command or your word "build" starts the build. — Lifecycle
 33. The order is loose and kept by judgement; groups are indented blocks under their line. — `ordering.md`
 34. A todo is done once and is then over; a feature is built once and reused when built; your naming overrides the test. — Item
 35. An item is todo/<name> or feature/<name>; from anywhere, main/<kind>/<name>, or the alias your project's law gives the prefix. — Reference (ref)
