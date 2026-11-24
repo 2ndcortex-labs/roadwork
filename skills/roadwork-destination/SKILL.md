@@ -117,7 +117,7 @@ nodes for a destination, in that order:
 - **Requirements** — each one thing the programme must deliver or must
   not do, numbered; mandatory, preference, possibility or exclusion kept
   distinct.
-- **Stack** — which guidebooks does this destination draw on, and what does it change in their stacks? One round, two questions. Every open guidebook listed as the bare `/roadwork-guidebook` lists them — slug, opening words, `architectures: …` — the ones whose Architectures line the session agent reads as fitting the architecture read marked `fits` and recommended, none marked where none was read; the Operator chooses any number, names any other guidebook on their word — an archived one by its slug, one not yet made by name, said as such — or answers "none". Then the destination's own extensions or modifications of the chosen stacks, in the Operator's words, or "none" — "none" by itself where no guidebook was chosen. The guidebooks are never changed by the choice; the intent never carries a stack.
+- **Stack** — which guidebooks does this destination draw on, and what does it change in their stacks? Before the Stack round, the guidebooks in reach are read, each file whole. On an update, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>` and read every file it prints. At a creation only the atlas's guidebooks can exist, and the destination has no file for reach to read yet: reach is by the atlas the Operator chose — the guidebooks of kind `atlas` naming that atlas, as `node <guidebook skill>/scripts/guidebooks.mjs list` prints them; no atlas chosen, none reach. An update that sets or changes the `atlas` key reads by the new atlas, as at a creation, besides the destination's own. One round, two questions. Every open guidebook listed as the bare `/roadwork-guidebook` lists them — slug, opening words, `architectures: …` — those read by reach marked `in reach`, the ones whose Architectures line the session agent reads as fitting the architecture read marked `fits` and recommended, none marked where none was read; the Operator chooses any number, names any other guidebook on their word — an archived one by its slug, one not yet made by name, said as such — or answers "none". Then the destination's own extensions or modifications of the chosen stacks, in the Operator's words, or "none" — "none" by itself where no guidebook was chosen. The guidebooks are never changed by the choice; the intent never carries a stack.
 - **Out** — what is not part of this destination.
 - **Success** — how anyone sees the destination is reached.
 - **Bucket-list priority** — one integer, 1 to 10, 10 the highest: where this destination sits among the others; the Operator's number, asked, never derived.
@@ -126,7 +126,14 @@ nodes for a destination, in that order:
 - **Map** — is a map wanted for this destination? "no" always an answer.
   A yes makes no map here: §6 offers `/roadwork-map <destination-slug>`.
 
-Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `/roadwork-nav-to-destination <destination-slug> given confirm` in its own block and `confirm` in another; on the pair, write both files as on `confirm` alone, then run the navigation skill in the same turn.
+A requirement or a stack change that departs from a guidebook read is said in one line, with its reason, in the round where it arises. A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches this destination.
+
+Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `/roadwork-nav-to-destination <destination-slug> given confirm` in its own block and `confirm` in another; on the pair, write both files as on `confirm` alone, then run the navigation skill in the same turn. The confirm message also carries one line with one box, the line saying guidebooks for this destination may be made before it is navigated, once its files are written, and that nothing waits on it — "Guidebooks for this destination may be made before it is navigated; nothing waits on it. Typing this makes one with you, its kind and scope asked first:":
+
+```
+/roadwork-guidebook <guidebook-slug> <description>
+```
+
 Do not write either file until they confirm.
 
 ## 4. Write the destination — two files, the fixed forms
@@ -173,6 +180,7 @@ _Destination, made <date> by /roadwork-destination; open until built._
 
 ## Stack
 Architecture: <path>, read <date> — <one line> | none read — <reason>
+Guidebooks read: `<slug>`, `<slug>`, … | none
 Guidebooks drawn on: <slug>, <slug>, … | none
 Changes to the guidebooks' stacks: <the extensions or modifications, stated> | none
 
@@ -190,7 +198,7 @@ Changes to the guidebooks' stacks: <the extensions or modifications, stated> | n
 - <date>: made, from <destination-slug>.intent.md.
 ```
 
-The Stack section is written from the Stack node; the frontmatter gains no key for it.
+The Stack section is written from the Stack node; the frontmatter gains no key for it. Its `Guidebooks read:` line names the guidebooks read by reach before the Stack round, slugs in backticks, comma-separated, or `none`.
 
 The `atlas` key holds the slug of the one open atlas the destination serves, or stays empty (`""`); it is written by this skill alone, from the **Atlas** answer of §3.
 
@@ -229,6 +237,12 @@ Then, always, the navigation offer:
 
 ```
 /roadwork-nav-to-destination <destination-slug>
+```
+
+Then one line with one box: guidebooks for this destination may be made before it is navigated; nothing waits on it — "Guidebooks for this destination may be made before it is navigated; nothing waits on it. Typing this makes one with you, its kind and scope asked first:":
+
+```
+/roadwork-guidebook <guidebook-slug> <description>
 ```
 
 Then the back offers as `/roadwork-ingest` §5b computes them — up to

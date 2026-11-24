@@ -136,6 +136,20 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
   - Add a third read-back question: “which map, if any?”
   - Use the Operator’s answer as the item’s Map line.
 
+### Read the guidebooks in reach before the read-back
+
+- Before the read-back, run `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`.
+- Read every file it prints, whole.
+- Follow what they say during the interview rounds, as guidance.
+- If the item file already carries a **Guidebooks:** line, read the files it names too.
+- If the item is under no destination, reach prints `none`:
+  - Run `node <guidebook skill>/scripts/guidebooks.mjs list`.
+  - If it lists no guidebook, say in one line that the project holds no guidebook; Q5 is not asked.
+  - Otherwise, add Q5 to the read-back: “which guidebook, if any?”
+  - Read each guidebook the Operator names, whole, before round 1.
+- If a recommendation or a fact departs from a guidebook read, say so in one line, with its reason.
+- A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches the item.
+
 ### Read back the notes and interpretation
 
 - An item filed from the Operator’s notes carries:
@@ -168,6 +182,12 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
     - A system, by name.
     - Or `none`.
   - Give the session agent’s recommendation.
+- For an item under no destination, also ask Q5, its own numbered question, unless the project holds no guidebook:
+  - “which guidebook, if any?”
+  - List the project’s guidebooks as `guidebooks.mjs list` prints them.
+  - “none” is always an answer.
+  - Recommend a guidebook only where what it covers fits the item; otherwise recommend “none”.
+  - Any number may be named.
 - Wait for the Operator’s answers.
 
 ### Close the initial read-back with response offers
@@ -175,19 +195,19 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 - Always close with these three blocks, in this order.
 - Precede each block with one sentence explaining it.
 
-- Nothing to add, the reading stands, and the map’s and referent’s recommendations are taken:
+- Nothing to add, the reading stands, and the map’s, referent’s and guidebook’s recommendations are taken:
 
 ```text
 no, no and go with recos
 ```
 
-- The same, with the map and referent answered after the colon:
+- The same, with the map, referent and guidebook answered after the colon:
 
 ```text
 no, no and go with recos except:
 ```
 
-- The notes and interpretation alone are accepted; the map and referent are answered by hand:
+- The notes and interpretation alone are accepted; the map, referent and guidebook are answered by hand:
 
 ```text
 no, no
@@ -259,6 +279,19 @@ no, no
   - Read the settings key `standards-folders` as `/roadwork-specplan` reads it.
   - Read every file in every listed folder.
   - Name the binding files by path.
+- Coding standards in two places, reading both:
+  - Read both sources where `standards-folders` is set and a guidebook read carries a `## Coding standards: <language>` part.
+  - Presume the two complementary; read both as guidance.
+  - Which standards file speaks to which language is the session agent’s reading.
+  - The two seem to differ when, for one language, both speak to one point and cannot both be followed.
+- Coding standards in two places, the ruling:
+  - Put each seeming difference to the Operator as one numbered question, quoting both passages with their paths.
+  - Settle nothing silently.
+  - Write the ruling on the item file: `**Standards ruling (<date>, the Operator):** "<their words>" — <the guidebook's path>; <the standards file's path>`.
+  - If the item file already carries a ruling on that difference, read it; that difference is not asked again.
+  - A ruling holds for this item alone; it reaches no other work item.
+  - No skill writes to a guidebook or a standards folder because of a ruling.
+  - Standards other than coding standards are not compared.
 - Establish outside dependencies:
   - What must happen outside the project, out of band, before this work can complete.
   - Who makes each outside action happen.
@@ -654,10 +687,14 @@ intent accepted <date>
   - Place it under the Owner line, after the Destination line where both exist.
   - Use one map per item.
   - Do not use a frontmatter key in the item file.
+- Write a `**Guidebooks:**` line in the item file, on every interview:
+  - Place it after the `**Map:**` line; with no Map line, where the Map line would stand.
+  - Name the guidebooks read: those reach printed, or, under no destination, those the Operator named at Q5.
+  - Write the guidebooks' slugs in backticks, comma-separated, or `none` where none was read.
+  - Do not use a frontmatter key in the item file.
 - If the Operator named a referent:
   - Write a `**Referent:**` line in the item file:
-    - Directly after the Map line.
-    - After the Owner line if there is no Map line.
+    - Directly after the Guidebooks line.
 - Save in the register.
 
 ## Step 8 — Present the accepted intent and offer the next step

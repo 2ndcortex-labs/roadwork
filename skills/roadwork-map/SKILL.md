@@ -69,11 +69,15 @@ reading of it, marked as yours, and ask the two questions — anything to
 add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 §2, closed as `/roadwork-intentify` §2 closes a round: the design tree, the frontier asked whole each round, every question
 numbered with your recommendation, the facts found by you, never asked;
-the decisions the Operator's. The root nodes for a map:
+the decisions the Operator's.
+
+Before the first round, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>` for the destination the map reaches, and read every file it prints, whole. A map that keeps a name of its own runs it for its destination. A step, a stack or a judgement that departs from a guidebook read is said in one line, with its reason, in the round where it arises. A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches the destination.
+
+The root nodes for a map:
 
 - **The destination it reaches** — which destination this is the way to; in one line, then bullets.
 - **Guidebooks** — which of the register's guidebooks apply, listed as the
-  bare `/roadwork-guidebook` prints them; "none" always an answer; for each
+  bare `/roadwork-guidebook` prints them, those read by reach listed first; "none" always an answer; for each
   that applies, whether whole or in parts, and which parts serve which
   section.
 - **Before agents** — how it was done by hand, by whom, with what record.
@@ -98,7 +102,7 @@ _Map, made <date> by /roadwork-map; open until retired._
 
 <the destination it reaches: one line, then bullets>
 
-**Guidebooks:** `<slug>`, `<slug>` (whole)
+**Guidebooks:** `<slug>`, `<slug>` (whole), `<slug>` (read by reach)
 
 ## Before agents
 <a list: how it was done by hand>
@@ -126,9 +130,9 @@ Changes of this map: <the map's own extensions or modifications; a guidebook add
 
 (The copied Stack sections and the first Changes line are separated by one blank line; the two Changes lines are adjacent; where the map's own stack stands in the copies' place it is a list, then one blank line, then the two lines.)
 
-The **Guidebooks:** line names every guidebook drawn on — "(whole)" after
+The **Guidebooks:** line names every guidebook read by reach with every guidebook drawn on — "(whole)" after
 one included by reference, which is done only when the entire guidebook
-is relevant — and reads `none` when none. A part of a guidebook lands
+is relevant; "(read by reach)" after one read by reach and not drawn on — and reads `none` when none. A part of a guidebook lands
 inline in the section it serves — Process, Stack, Judgements or Inputs —
 opening with the marker line ``_From guidebook `<guidebook-slug>`, § <section>:_``.
 An excerpt is copied near-verbatim into the section it serves.
