@@ -25,7 +25,7 @@ paths:
   - Kebab-case, in the Operator's words, chosen when filed, never changed.
   - Unique across the whole register, not per folder: the reference `todo/<item-name>` omits the destination's folder, so one name is one item wherever it sits. A name is never reused, archived or not.
   - Never a skill name; an item that builds or changes a skill is named for its outcome, not for the command.
-  - Five lines may follow the item file's owner line, in this order: `**Destination:**` (written by the navigation), `**Map:**` (written by the interview, one per item), `**Guidebooks:**` (written by the interview on every interview: the guidebooks read, slugs in backticks, comma-separated, or `none`), `**Referent:**` (written by the interview from the read-back's fourth question; what the product describes), `**Paths:**` (the paths the work touches, written when the source names them). None is a frontmatter key.
+  - Five lines may follow the item file's owner line, in this order: `**Destination:**` (written by the navigation), `**Map:**` (written by the interview, one per item), `**Guidebooks:**` (written by the interview when it writes the intent: the guidebooks read, slugs in backticks, comma-separated, or `none`), `**Referent:**` (written by the interview from the read-back's fourth question; what the product describes), `**Paths:**` (the paths the work touches, written when the source names them). None is a frontmatter key.
 - **The item folder.**
   - Four files of record: the item file, `intent.md`, `plan.md`, `spec.md`. `GATES.md`, the ledger, joins at the build.
   - `intent.md`: what is wanted and why, in the Operator's words; placeholder until `/roadwork-intentify` writes it.

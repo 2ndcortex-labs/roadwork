@@ -404,7 +404,8 @@ What a conversion takes out:
   address, an account, a person, a machine, a date.
 
 Each thing taken out is replaced by a general word, or its sentence is
-removed where none fits. Nothing else changes but the header block, the
+removed where none fits. Beyond what is taken out and replaced, nothing
+else changes but the header block, the
 changelog, and the status line's date, which becomes the date of the
 conversion: the result is made then. The changelog starts anew, one line, `- <date>: made.`; it
 names no source. No skill compares the result with the guidebook converted
@@ -472,7 +473,9 @@ where no map offer applies.
 
    — else no such offer.
 2. When a kind `destination` guidebook is confirmed — made or updated in
-   `guidebooks/` — the offer to convert it to a template, one line with its box:
+   `guidebooks/` — the offer to convert it to a template: one sentence in the
+   offer form, "Typing this converts `<guidebook-slug>` into a template (to
+   have a general copy other projects can start from).", with its box:
 
    ```
    /roadwork-guidebook convert <guidebook-slug> to template

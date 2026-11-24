@@ -139,7 +139,8 @@ An excerpt is copied near-verbatim into the section it serves.
 
 The Stack section's order is fixed: one copied Stack section per guidebook drawn on for the stack — the requirements file's first, in its order, then any the Operator added — each under its marker line, copied verbatim, the one section whose copy is exact; where no guidebook is drawn on for the stack, the map's own stack in its own words stands in the copied sections' place; then, after one blank line, the two Changes lines: `Changes from the requirements file:` carrying the text of the file's third Stack line (`Changes to the guidebooks' stacks:`) after its label, verbatim, or `none — the requirements file names no guidebook`, or `none — the requirements file carries no Stack section`; and `Changes of this map:` carrying the map's own extensions or modifications, a guidebook added on the Operator's word named there as added, or `none`. A guidebook copied here is named on the Guidebooks line as any excerpt's is.
 
-**An update** (`<existing-slug>`): read the file back whole, ask what
+**An update** (`<existing-slug>`): read the file back whole, run reach
+and read the files it prints as the paragraph before the root nodes says, ask what
 changes and interview only that, then rewrite the file whole on confirm
 and append one dated line under `## Changelog` saying what changed; the
 Guidebooks line and the excerpts may be added or changed as any update.
