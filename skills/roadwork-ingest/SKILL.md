@@ -1,7 +1,7 @@
 ---
 name: roadwork-ingest
 description: Files a todo or feature from the Operator's notes, verbatim, and places it in the ordering.
-when_to_use: Use when the user says /roadwork-ingest, "file a todo", "file a feature", "new feature:", "new todo:", "add to the roadwork", or hands over notes for something to be done later.
+when_to_use: Use when the user says /roadwork-ingest, "file a todo", "file a feature", "new feature:", "new todo:", "add to the roadwork", any plain instruction to do work, or hands over notes for something to be done later.
 argument-hint: <notes> | spark/<item-name> [&& spark/<item-name> …]
 ---
 
@@ -110,6 +110,8 @@ in the Operator's words — never a skill name (Roadwork conventions) — four f
   `/roadwork-intentify` writes this file._`
 - `plan.md`: `Not yet scoped.` plus what it is gated on, if anything.
 - `spec.md`: the standard "not yet specified" placeholder.
+
+**Filing from a plain instruction to do work.** When the Operator gives a plain instruction to do work — work as the constitution's bullet "How work enters" defines it — the session agent files the work item itself, by this skill. The instruction, whole and verbatim, is the item's notes, recorded as item 6 records the Operator's initial notes. The status line, item 3, is dated and reads "open — filed from the Operator's instruction; initial notes only, not yet interviewed". The kind is decided by §1's test, as for any filing. After filing, the agent stops and offers the interview, starting nothing else.
 
 ## 4. Place it
 

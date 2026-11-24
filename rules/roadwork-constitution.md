@@ -114,6 +114,39 @@ paths:
   - **`working.md`** beside it records the items in process, same scope.
   - `working.md` is written by `/roadwork-make` and drained by `/roadwork-verify-and-archive`, a line also removed by `/roadwork-specplan` when a reconsideration ends the previous go.
 
+- **How work enters.**
+  - The default:
+    - Where Roadwork is in use, work is accomplished by following its lifecycle, by default.
+    - The Operator may override the default at any time.
+    - Only the Operator may set the default aside; a project's law is the Operator's standing word.
+    - Work is making or changing something that is kept: a file, a setting, a record, a thing outside the project.
+    - Answering, looking up, explaining and reporting are not work; nothing is filed for them.
+    - The default holds whatever the size of the work; size is no exception.
+  - The entry:
+    - An instruction to do work is filed as a work item first.
+    - On a plain instruction to do work, the agent files the work item itself, through `/roadwork-ingest`.
+    - The instruction, whole and verbatim, is the work item's notes.
+    - After filing, the agent stops and offers the interview.
+    - If it is in doubt whether an instruction is work, the agent says in one line which it takes it to be, and asks once.
+    - It is in doubt where the words could as well ask for a change as for an answer.
+    - It then proceeds on the answer.
+  - The override:
+    - An override is given in the Operator's explicit words, never inferred.
+    - A short, urgent or small-looking instruction is not an override.
+    - An override holds for the one piece of work named, unless the Operator's words say otherwise.
+    - Acting on an override, the agent says so in one line of its reply.
+    - That line is not said for the Operator's own invocation of a tool.
+    - Where work is wholly not done in Roadwork, nothing about the work is recorded in the roadwork folder: no work item, no line, no record of the override.
+    - An override may reach a file of the roadwork folder; the change is then made as the Operator says.
+    - Where a work item exists and a step is skipped, its item file records the Operator's words for that step.
+    - That record is one dated line: `**Step skipped (<date>, the Operator):** "<their words>" — <the step>`.
+    - The line stands at the end of the item file, with their words whole.
+    - The step after a skipped one takes that line in place of the skipped step's product; a skill's precondition on that product is met by it.
+  - A project's law:
+    - The default yields to a project's law, the Operator's standing word, which may narrow or widen it.
+    - The Operator's word overrides both.
+    - Work a project's law exempts is done as that law says; the agent names the law in one line of its reply.
+
 - **How register items arrive**
   - Everything in the register is filed by a skill and by nothing else — never by hand, never by a sub-agent; each skill saves the source it was given verbatim beside what it writes, under a dated heading or as a `.source.md`.
   - Work items (a todo, a feature) are filed by four skills:
@@ -134,7 +167,9 @@ paths:
   - Then a numbered "not decided by this filing" list: the open questions the notes leave, each with the filer's reading.
   - That list seeds the interview's first round (as per skill).
 
-- **What each skill writes from what it receives — the file it owns, written by it and by no other*
+- **What each skill makes from what it receives**
+    - A later change to a thing a skill made is work, and enters as the bullet "How work enters" states.
+    - The exception: a step of the lifecycle acting on its own work item, such as the make writing `in-process`, the archive writing the status line, or a reconsideration rewriting the spec.
     - `/roadwork-ingest` receives the notes and writes the item file; `intent.md`, `spec.md` and `plan.md` are filed as placeholders.
     - `/roadwork-intentify` receives the Operator's answers and writes `intent.md`; a cohortmeister's `intent.md`, `spec.md` and `plan.md` are written by `/roadwork-subagentifygroup` from the cohort it found.
     - `/roadwork-specplan` receives the accepted intent and writes `spec.md` and `plan.md`; its scripts write the externality entry files.
@@ -248,15 +283,17 @@ paths:
   - The cohortmeister's plan is unlazy's orchestrated PLAN form: one sub-agent per member, the CM's ledger as the results checker.
   - `onroad-cohort` (features only) names the cohort.
   - `/roadwork-make <CM>` runs the cohort.
-  - A member alone is refused unless the Operator says proceed: the **override**, unrecorded.
+  - A member alone is refused unless the Operator says proceed: the **proceed word**, unrecorded.
   - A failed member **reverts** to standalone, with a dated note sending it through `/roadwork-specplan` again.
   - `/roadwork-verify-and-archive <CM>` archives the met members with it: the **cascade**, members `shipped`, the CM `decided`.
   - Cohorts sit last in the group's block.
-  - The skill sits after `/roadwork-nav-to-destination`, before `/roadwork-navsanity`, which checks cohorts.
+  - The skill runs once the group's features' specs are accepted, before their builds; a later `/roadwork-navsanity` run checks its cohorts.
 - **Lifecycle skills, in order:**
   - `/roadwork-atlas` (three documents into an atlas, above a destination).
   - `/roadwork-destination` (a destination: its intent and its product requirements document).
   - `/roadwork-nav-to-destination <destination-slug>` (a destination into a group, a sanity todo last).
+  - `/roadwork-navsanity <group>` (a step of a group: the sanity checks over it, run in its sanity todo before any item of the group is built).
+  - `/roadwork-subagentifygroup <group>` (a step of a group: once its features' specs are accepted, the cohorts they can be built in, each with its cohortmeister).
   - `/roadwork-ingest` (ingest: kind decided, duplicates refused by judgment across the register, item placed in `ordering.md`; never archives an item — a converted spark's move into `spark/archive/` is its one archiving).
   - `/roadwork-intentify <ref>` (read-back first — its four questions: the notes, the interpretation, the map, the referent; a fifth, which guidebook, for an item under no destination where the project holds one — then the prepared round, then the design tree).
   - `/roadwork-intentify` is roadwork-register-aware across the register and writes cross-notes and frontmatter into related items.
@@ -268,7 +305,7 @@ paths:
   - `/roadwork-verify-and-archive <ref>` (archiving: evaluates concerns and unmet gates, then interviews the Operator).
   - On their word, the six-place act: resolution and `disposition`, move to `archive/`, strike from `ordering.md`, `working.md` and `in-process` cleared, dependents' `blocked-by` cleared.
   - `/roadwork-verify-and-archive` then offers the next item, group first.
-  - Beside the chain, not a step: `/roadwork-help [<skill> | <ref> | <term>]` answers, and `/roadwork-intent-insights` learns from the day's interviews.
+  - Beside the chain, not a step, the eight tools: `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-audit`, `/roadwork-config`, `/roadwork-inventory`, `/roadwork-help [<skill> | <ref> | <term>]`, which answers, `/roadwork-intent-insights`, which learns from the day's interviews, and `/roadwork-spark`.
   - `/roadwork-help` gives the overview with no argument, one thing with one.
   - It reads live from `docs/teachme.md`, this constitution's terms table and glossary, and the register, and writes nothing.
   - Each stops and hands back; none starts the next.
@@ -283,6 +320,28 @@ paths:
   - The interrupting skills — `/roadwork-ingest`, `/roadwork-spark`, `/roadwork-verify-and-archive`, `/roadwork-specplan` — also end with the **back offers**, as do `/roadwork-atlas`, `/roadwork-destination`, `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-tasksplit`, `/roadwork-audit` and `/roadwork-intent-insights`.
   - The back offers: up to five open lifecycle steps in flight, most recent first, read from the road plans at that moment, never from memory.
   - A spark's exit is conversion only, on the Operator's word.
+
+- **Steps and tools.**
+  - Steps of the lifecycle: `/roadwork-atlas`, `/roadwork-destination`, `/roadwork-nav-to-destination`, `/roadwork-ingest`, `/roadwork-tasksplit`, `/roadwork-intentify`, `/roadwork-specplan`, `/roadwork-make`, `/roadwork-verify-and-archive`.
+  - Steps of a group: `/roadwork-navsanity`, `/roadwork-subagentifygroup`; they act on a group between its navigation and its builds.
+  - Of the two, `/roadwork-navsanity` acts before any item of the group is built; `/roadwork-subagentifygroup` once its features' specs are accepted.
+  - Tools beside the lifecycle: `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-audit`, `/roadwork-config`, `/roadwork-inventory`, `/roadwork-help`, `/roadwork-intent-insights`, `/roadwork-spark`.
+  - `unlazy` is neither a step nor a tool: it is the build's discipline, shipped as its own project publishes it.
+  - Invoking a skill:
+    - The Operator invokes a skill by typing its command.
+    - Words that name the skill, or use a phrase its trigger lists, invoke it too.
+    - Words invoke a skill only when they ask for that skill's own act.
+    - A skill's name or trigger word inside an instruction to change something does not invoke it.
+    - In doubt, the agent says in one line which it takes the words to be, and asks once.
+    - Words that say what should change, and name no skill and no trigger phrase, are an instruction to do work.
+    - A tool may be run alone when the Operator invokes it; their invocation is an override in itself.
+    - An agent never picks a tool as the way to do work it was asked for.
+    - On a plain instruction an agent starts the filing alone; every other skill is offered.
+    - An offered skill runs on the Operator's invocation, or as a step of an accepted plan.
+  - Makers and their things:
+    - The maker skills are `/roadwork-atlas`, `/roadwork-destination`, `/roadwork-map` and `/roadwork-guidebook`: each makes a standing thing.
+    - A change to a thing a maker skill made is work by default.
+    - A work item's plan may call a maker skill or a tool as a step.
 
 - **Externalities and their notices**
   - An externality is a dependency of a work item that will not be met without something specific happening outside the project — e.g. an account opened, a key issued, a third party acting. A pause in the project's own course (a deployment, a reboot, a wait on another party's answer) is never one.
@@ -515,7 +574,10 @@ To archive the item:
 | the agent in your session | Session agent | The agent running the session that typed the command. |
 | everything in the project | Project scope | Everything at and under the root the project's law names; an item's Paths line says which of it the item touches. |
 | one shipment | Batch | The coherent bundle a project's changes ship in as one, in the project's own terms; Roadwork's own records stay in the register. |
-| the chain of steps | Lifecycle | Destination, then group, then filing, then interview, then spec and plan, then the go, then verify and archive; the help skill answers beside it. |
+| the chain of steps | Lifecycle | Destination, then group, then filing, then interview, then spec and plan, then the go, then verify and archive; the group's steps act between a group's navigation and its builds; the tool skills stand beside it. |
+| work | Work | Making or changing something that is kept: a file, a setting, a record, a thing outside the project; by default it is filed as a work item first and follows the chain of steps, whatever its size; answering, looking up, explaining and reporting are not work. |
+| your override | Override | Your explicit words setting the default aside, never guessed from a short, urgent or small-looking instruction; it holds for the one piece of work you name, unless you say otherwise. |
+| a tool skill | Tool | A skill beside the chain of steps, not a step of it; it runs when you invoke it or as a step of a work item's plan, never picked by the agent as the way to do work you asked for. |
 | product requirements document | PRD | A document that says what a destination is, written from the destination's intent: a header with its priority and its atlas, the destination, numbered requirements, what is out, how success is seen. |
 | a destination | Destination | Two files per destination, made with you: its intent, written first, and its product requirements document, written from it, carrying the stack it builds on, and later broken into a group of items; both archived together. |
 | a way to a destination | Map | The way to one destination, one map per destination: the process, the stack, the judgements, the inputs, and how it was done before agents. |
@@ -581,7 +643,10 @@ To archive the item:
 - **Operator** — the human owner; every decision is theirs. **Session agent** — the agent running the session that invokes the skill.
 - **Project scope** — everything at and under the root the project's law names; the paths an item touches are its **Paths:** line.
 - **Batch** — the coherent bundle a project's changes ship in as one, in the project's own terms; Roadwork's own records stay in the register.
-- **Lifecycle** — `/roadwork-atlas` (three documents into an atlas, above a destination) → `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group) → `/roadwork-ingest` (or `/roadwork-tasksplit`, many at once) → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the go — the skill or the Operator's word; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, `/roadwork-help` answers and `/roadwork-intent-insights` learns from the day's interviews.
+- **Lifecycle** — `/roadwork-atlas` (three documents into an atlas, above a destination) → `/roadwork-destination` → `/roadwork-nav-to-destination` (a destination into a group; the group's steps, `/roadwork-navsanity` before any of its items is built and `/roadwork-subagentifygroup` once its features' specs are accepted) → `/roadwork-ingest` (or `/roadwork-tasksplit`, many at once) → `/roadwork-intentify` → `/roadwork-specplan` → `/roadwork-make` (the go — the skill or the Operator's word; builds under `/unlazy`) → `/roadwork-verify-and-archive`. Every skill ends by offering the next. Beside the chain, the tools: `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-audit`, `/roadwork-config`, `/roadwork-inventory`, `/roadwork-help`, which answers, `/roadwork-intent-insights`, which learns from the day's interviews, and `/roadwork-spark`.
+- **Work** — making or changing something that is kept: a file, a setting, a record, a thing outside the project; answering, looking up, explaining and reporting are not work; where Roadwork is in use, work is accomplished by following its lifecycle by default, whatever its size, filed as a work item first, unless a project's law, the Operator's standing word, narrows the default; a step of the lifecycle acting on its own work item is not new work — the bullet "How work enters".
+- **Override** — the Operator's explicit words setting the default aside, never inferred; a short, urgent or small-looking instruction is not one; it holds for the one piece of work named unless their words say otherwise; the agent says so in one line, except for the Operator's own invocation of a tool; where work is wholly not done in Roadwork, nothing about the work is recorded in the register — no work item, no line, no record of the override; an override may reach a file of the register, the change then made as the Operator says; a step skipped on an existing work item is recorded by the item file's dated `**Step skipped**` line; the Operator's own invocation of a tool is an override in itself.
+- **Tool** — a skill beside the lifecycle, not a step: `/roadwork-map`, `/roadwork-guidebook`, `/roadwork-audit`, `/roadwork-config`, `/roadwork-inventory`, `/roadwork-help`, `/roadwork-intent-insights`, `/roadwork-spark`; it runs on the Operator's invocation or as a step of a work item's plan; an agent never picks one as the way to do work it was asked for — the bullet "Steps and tools".
 - **PRD** — a product requirements document, `destinations/<destination-slug>.prd.md`, made by `/roadwork-destination` and the source of a group of items made by `/roadwork-nav-to-destination`; cited by path in every derived item.
 - **Destination** — two files beside each other in `destinations/`: `<destination-slug>.intent.md`, what is wanted and why in the Operator's words, in the item intent's form, interviewed and written first; and `<destination-slug>.prd.md`, written from it, in a fixed form (a frontmatter block with `bucket-list-priority`, 1–10, 10 the highest, and `atlas`; the destination, a Stack section — the architecture read, the guidebooks read by reach, the guidebooks drawn on, the changes to their stacks — numbered requirements, Out, Success); its slug categorises the register's items — one destination per item, the group's, written on the item by `/roadwork-nav-to-destination`; both files archived to `destinations/archive/` by hand when built.
 - **Map** — one `maps/<map-slug>.md`: a primitive of the way to a destination — before agents, process, tools, judgements, inputs — in a fixed form, made by `/roadwork-map`; named on an item by its **Map:** line, one per item, read by `/roadwork-intentify` and `/roadwork-specplan`; a pattern to follow or improve, enforced by nothing; retired to `maps/archive/` by hand.

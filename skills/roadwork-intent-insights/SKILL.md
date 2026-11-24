@@ -24,6 +24,8 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-intent-insights — what the day's interviews taught
 
+This skill is a tool beside the lifecycle: it runs on the Operator's invocation or as a step of a work item's plan, and an agent never picks it as the way to do work it was asked for.
+
 Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill sits beside the chain: it reads the day's interviews and writes what they teach into `docs/intent-insights.md` in the register, for `/roadwork-intentify` to read before its next read-back. It changes no skill and no item.
 
 ## 1. Resolve the invocation

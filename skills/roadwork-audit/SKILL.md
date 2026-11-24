@@ -24,6 +24,8 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-audit — one document, five fresh readers, three kinds of audit
 
+This skill is a tool beside the lifecycle: it runs on the Operator's invocation or as a step of a work item's plan, and an agent never picks it as the way to do work it was asked for.
+
 Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill sits beside the lifecycle chain: it reads one document, dispatches readers, records their findings, and offers the work. It never edits the document it reads, never rules on a finding (the Operator does), and never runs a second round of readers on its own.
 
 ## 1. Invocation and kinds

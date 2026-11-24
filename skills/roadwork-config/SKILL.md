@@ -24,6 +24,8 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-config — the settings file
 
+This skill is a tool beside the lifecycle: it runs on the Operator's invocation or as a step of a work item's plan, its script is also run by other skills as their own text says, and an agent never picks it as the way to do work it was asked for.
+
 Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill keeps one file, `roadwork/config.json` at the register's root: the instance's values the other skills read by key. The file is written mode 600; the skeleton ships it with every key of the schema present and empty, so a fresh register carries it from the copy on. The session agent invokes the script, `node <skill>/scripts/config.mjs`, for every read and write and never opens the file itself. The script finds the register by walking up from the working directory to the first folder holding `roadwork/ordering.md` (or, inside the register, its `ordering.md`); it creates the file `{}` when it is missing.
 
 ## 0. The schema

@@ -24,6 +24,8 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-help — the map, or one thing, read live
 
+This skill is a tool beside the lifecycle: it runs on the Operator's invocation or as a step of a work item's plan, and an agent never picks it as the way to do work it was asked for.
+
 Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary. This skill sits
 beside the lifecycle chain, not in it: it never files, interviews,
 writes or builds. It reads and answers. Its sources are the teach-me

@@ -24,6 +24,8 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-guidebook — a guidebook, made with the Operator
 
+This skill is a tool beside the lifecycle: it runs on the Operator's invocation or as a step of a work item's plan, its scripts are also run by other skills as their own text says, and an agent never picks it as the way to do work it was asked for.
+
 Roadwork conventions: `roadwork-constitution.md`, its terms table and its
 glossary (the Guidebooks bullet).
 
@@ -285,7 +287,7 @@ confirm:
 A mended draft is never written unseen. On `OK check` and the Operator's
 confirm of that very draft, write it to its place.
 
-**An update** (`<existing-slug>`): read the file back whole.
+**An update** (`<existing-slug>`): it runs on the Operator's invocation or as a step of a work item's plan. Words that say what should change, and name no skill and no trigger phrase, are an instruction to do work: they are filed as a work item, never answered by running this skill on the agent's own initiative, because a change to a made thing is work by default (the constitution's bullets "How work enters" and "Steps and tools"). A skill's name or trigger phrase inside an instruction to change something does not invoke this skill: words invoke it only when they ask for the skill's own act, and in doubt the agent asks once. Read the file back whole.
 
 - **Unscoped, made earlier:** where the file has no header block, ask its
   kind and scope first (§3a), then its items (§3b), once, in this update.
