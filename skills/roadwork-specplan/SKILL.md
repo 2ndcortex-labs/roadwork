@@ -135,13 +135,16 @@ writing a line of spec, assemble the constraints that will bind it:
   Invokes marks read against it (§2, §3). When the item names no map,
   say so in one line.
 - **The guidebooks**: read the item file's `**Guidebooks:**` line, then run
-  `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`;
+  `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`,
+  the item's folder given as an absolute path, a path from the working
+  directory, or a path from the roadwork folder;
   read every guidebook the line names and every file reach prints, whole.
   If reach prints a refusal, say it in one line and proceed as with `none`;
   nothing is blocked.
   The spec names them on its `Guidebooks read:` header line and under
   Constraints applied; the plan names them on its Stack section's
-  `Guidebooks read:` line. A requirement or design that departs from a
+  `Guidebooks read:` line. Both `Guidebooks read:` lines list the
+  guidebooks in reach's order, then any other the item file names. A requirement or design that departs from a
   guidebook read is said in one line, with its reason, in the spec and the
   hand-back. A guidebook is enforced by nothing: no step blocks, refuses or
   warns because no guidebook exists, the item file carries no Guidebooks
@@ -153,14 +156,15 @@ writing a line of spec, assemble the constraints that will bind it:
   - Presume the two complementary; read both as guidance.
   - Which standards file speaks to which language is the session agent's reading.
   - The two seem to differ when, for one language, both speak to one point and cannot both be followed.
+  - Standards other than coding standards are not compared.
 - **Coding standards in two places, the ruling**:
   - Read every `**Standards ruling**` line already on the item file; a difference it rules is not asked again.
-  - Put each other seeming difference as one numbered question, quoting both passages with their paths.
-  - Ask it in the gap round of §2b, which runs for it; settle nothing silently.
-  - Write the ruling on the item file: `**Standards ruling (<date>, the Operator):** "<their words>" — <the guidebook's path>; <the standards file's path>`.
+  - Name each ruling read under the spec's Constraints applied, with what it settled.
+  - Put each other seeming difference as one numbered question, quoting both passages with their paths, in the gap round of §2b, which runs for it.
+  - Give that question no recommendation: the ruling is the Operator's, the one exception to one recommendation per question; settle nothing silently.
+  - Append the ruling at the end of the item file, as its other dated lines are: `**Standards ruling (<date>, the Operator):** "<their words>" — <the guidebook's path>; <the standards file's path>`, both paths from the project's root, such as `roadwork/guidebooks/<slug>.md; standards/<file>`.
   - A ruling holds for this item alone; it reaches no other work item.
   - No skill writes to a guidebook or a standards folder because of a ruling.
-  - Standards other than coding standards are not compared.
 - **The codebase**: the files, configs, scripts and records the change
   touches; what other items in `roadwork/todo/` and `roadwork/feature/`
   already claim, and the item's own frontmatter — every `blocked-by` and
@@ -225,7 +229,7 @@ Reference: the map <map-slug>'s Stack section | the requirements file's Stack se
 Changes of this spec: <its extensions or modifications of the reference> | none
 
 ## Constraints applied
-<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained; each guidebook read, by path, and what it constrained or that it added no rule; each departure from one, with its reason>
+<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained; each guidebook read, by path, and what it constrained or that it added no rule; each departure from one, with its reason; each standards ruling read from the item file, and what it settled>
 
 ## Dependencies
 D1. <what must be true> — who acts: <the party or the item> — observed by: `<a command>` | <a named human observation> [supported: …]

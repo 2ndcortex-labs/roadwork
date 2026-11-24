@@ -138,11 +138,13 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 ### Read the guidebooks in reach before the read-back
 
-- Before the read-back, run `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`; if it prints a refusal, say it in one line and proceed as with `none`; nothing is blocked.
-- Read every file it prints, whole.
-- Follow what they say during the interview rounds, as guidance.
+- Before the read-back, run `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>` and read every file it prints, whole:
+  - Give the item's folder as an absolute path, a path from the working directory, or a path from the roadwork folder.
+  - If it prints a refusal, say it in one line and proceed as with `none`; nothing is blocked.
+  - Follow what the files say during the interview rounds, as guidance.
 - If the item file already carries a **Guidebooks:** line, read the files it names too.
-- If the item is under no destination, reach prints `none`:
+- If the item is under a destination and reach prints `none`, nothing reaches it: its line reads `**Guidebooks:** none`, and Q5 is not asked.
+- If the item is under no destination (its file carries no **Destination:** line):
   - Run `node <guidebook skill>/scripts/guidebooks.mjs list`.
   - If it lists no guidebook, say in one line that the project holds no guidebook; Q5 is not asked.
   - Otherwise, add Q5 to the read-back: “which guidebook, if any?”
@@ -286,8 +288,8 @@ no, no
   - The two seem to differ when, for one language, both speak to one point and cannot both be followed.
 - Coding standards in two places, the ruling:
   - Put each seeming difference to the Operator as one numbered question, quoting both passages with their paths.
-  - Settle nothing silently.
-  - Write the ruling on the item file: `**Standards ruling (<date>, the Operator):** "<their words>" — <the guidebook's path>; <the standards file's path>`.
+  - Give that question no recommendation: the ruling is the Operator's, the one exception to one recommendation per question; settle nothing silently.
+  - Append the ruling at the end of the item file, as its other dated lines are: `**Standards ruling (<date>, the Operator):** "<their words>" — <the guidebook's path>; <the standards file's path>`, both paths from the project's root, such as `roadwork/guidebooks/<slug>.md; standards/<file>`.
   - If the item file already carries a ruling on that difference, read it; that difference is not asked again.
   - A ruling holds for this item alone; it reaches no other work item.
   - No skill writes to a guidebook or a standards folder because of a ruling.

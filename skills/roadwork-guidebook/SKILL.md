@@ -70,8 +70,9 @@ A batch (`ref && ref`) is refused here: one guidebook at a time.
 
 - **bare** (no argument): the list of §2. Writes nothing.
 - **`<new-slug> <initial description>`**: a kebab-case slug not yet in
-  `guidebooks/` or `guidebooks/archive/` of any home (a slug is never
-  reused), followed by the Operator's words — the interview of §3, the file
+  `guidebooks/` or `guidebooks/archive/` of any home, and no outgoing
+  file's name, `guidebooks/outgoing/<slug>.md` (a slug is never reused),
+  followed by the Operator's words — the interview of §3, the file
   of §4.
 - **`<existing-slug>`**: a slug already in `guidebooks/` — the update of §4.
 - **`<new-slug>` with a document** — a pasted document in the message, or a
@@ -87,6 +88,11 @@ A batch (`ref && ref`) is refused here: one guidebook at a time.
   guidebook for another project — §5d.
 - **a document with no slug**, or a path alone: propose a slug in the
   Operator's words and ask once; on their word proceed as above.
+
+A new guidebook's slug — in any invocation that makes one, a template
+call included — that is in `guidebooks/` or `guidebooks/archive/`, or
+that `guidebooks/outgoing/` holds as `<slug>.md`, is refused in one line;
+nothing is written.
 
 Where a name for an outgoing file is left out, propose one in the
 Operator's words and ask once. A name that is not kebab-case, that is a
@@ -176,7 +182,8 @@ five, each with your recommendation:
 - **Best practices** — the part `## Best practices`.
 
 The Operator adds any item in that round. An item the Operator adds is a
-part under the name they give, never one of the six existing part names.
+part under the name they give, never one of the six existing part names
+of §4: Standards, Stack, Vendors, Judgements, Sources, Changelog.
 Each chosen item becomes one `## ` part; an unchosen item leaves no
 heading. Each chosen item is then a root node of the rounds that follow.
 
@@ -262,7 +269,8 @@ the line of a stack that fits no application architecture, whose section
 stays. The section names above are the ones a map cites: a map's excerpt
 opens with ``_From guidebook `<guidebook-slug>`, § <section>:_``.
 
-Hold the draft in a temporary file outside the roadwork folder. Run
+Hold the draft in a file under the system's temporary folder, never
+inside the project. Run
 `node <this skill>/scripts/guidebooks.mjs check <draft> --as guidebooks/<guidebook-slug>.md`
 on it before any guidebook is written. It prints `OK check` (exit 0), or
 one `FAULT <what>` line per broken rule (exit 1). While it reports a
@@ -363,7 +371,8 @@ rules of §1.
 The acts, in this order:
 
 1. **Draft:** the guidebook in the form of §4, kind `template`, both scope
-   keys empty, held in a temporary file outside the roadwork folder. Run
+   keys empty, held in a file under the system's temporary folder, never
+   inside the project. Run
    `guidebooks.mjs check <draft> --as guidebooks/outgoing/<name>.md` and
    mend the draft until it prints `OK check`.
 2. **Scan:** run `node <this skill>/scripts/guidebooks.mjs scan <draft>`.
@@ -403,20 +412,23 @@ from again.
 
 The acts, in this order:
 
-1. **Draft:** read the guidebook whole; write the result into a temporary
-   file outside the roadwork folder, as above. Run
+1. **Draft:** read the guidebook whole; write the result, as above, into a
+   file under the system's temporary folder, never inside the project. Run
    `guidebooks.mjs check <draft> --as guidebooks/outgoing/<name>.md` and
    mend the draft until it prints `OK check`.
 2. **Scan:** run `node <this skill>/scripts/guidebooks.mjs scan <draft>`.
-   It prints `OK scan` (exit 0) where no line holds a name or value of
-   this project. Otherwise it prints one line per such line,
+   It skips the draft's header block, so the scope named there is never
+   listed. It prints `OK scan` (exit 0) where no line after the block
+   holds a name or value of this project. Otherwise it prints one line per such line,
    `<line number>: <what matched> — <the line>` (exit 1).
 3. **Show:** print the result whole and verbatim, then the scan's lines as
    printed. For each listed line, ask: take it out, or keep it.
 4. **Confirm:** a line taken out is redrafted; run `check` and `scan`
-   again and show the result again. Offer `confirm` in its own block. The
-   result is written only when the scan lists nothing, or the Operator
-   keeps each listed line by word, naming its line number.
+   again and show the result again. Offer `confirm` in its own block,
+   whether the scan listed lines or none; nothing is written without the
+   Operator's confirm. The result is written only when the scan lists
+   nothing, or the Operator keeps each listed line by word, naming its
+   line number.
 5. **Write:** on confirm, write the result to `guidebooks/outgoing/<name>.md`
    and nothing else. Where a draft changes after the Operator's confirm —
    a fault mended, a line redrafted — show what changed and ask `confirm`
@@ -441,9 +453,14 @@ Operator's act; this skill writes into neither. Until then, the bare call
 lists it with its state.
 
 End with the offers, each one invocation in its own code block, preceded
-by its sentence (offer form), never invoked. The next-step offer is the
-map offer where one applies; the conversion offer follows it, or stands
-first where no map offer applies.
+by its sentence (offer form), never invoked. The map offer and the
+conversion offer are made only where a guidebook of the project, in
+`guidebooks/`, was made or updated in this run. After an outgoing file —
+`template: new`, a conversion, or kind `template` chosen in §3a — neither
+is made; an outgoing file of kind `destination` never brings the
+conversion offer. Where they are made, the next-step offer is the map
+offer where one applies; the conversion offer follows it, or stands first
+where no map offer applies.
 
 1. The open destination first by the inventory's order that has no
    **Map:** line and no map file — the highest `bucket-list-priority`,
@@ -454,8 +471,8 @@ first where no map offer applies.
    ```
 
    — else no such offer.
-2. When a kind `destination` guidebook is confirmed — made or updated —
-   the offer to convert it to a template, one line with its box:
+2. When a kind `destination` guidebook is confirmed — made or updated in
+   `guidebooks/` — the offer to convert it to a template, one line with its box:
 
    ```
    /roadwork-guidebook convert <guidebook-slug> to template

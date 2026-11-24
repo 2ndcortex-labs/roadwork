@@ -143,7 +143,7 @@ The Stack section's order is fixed: one copied Stack section per guidebook drawn
 changes and interview only that, then rewrite the file whole on confirm
 and append one dated line under `## Changelog` saying what changed; the
 Guidebooks line and the excerpts may be added or changed as any update.
-The Stack node is asked when the Operator names the stack among what changes, and whenever the requirements file's Guidebooks line names a guidebook of which the map's Stack section carries no excerpt — said at the read-back; "none" an answer each time.
+The Stack node is asked when the Operator names the stack among what changes, and whenever the requirements file's `Guidebooks drawn on:` line names a guidebook of which the map's Stack section carries no excerpt — said at the read-back; "none" an answer each time.
 The Process keeps its numbers; a dropped step is struck ("~~n.~~ dropped
 <date>: <why>"), never renumbered, so that plans citing steps stay true.
 
