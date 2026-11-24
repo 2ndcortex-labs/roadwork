@@ -51,3 +51,6 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 48. The guidebook interview asks the kind first, then which items to include: hosts, MCPs, coding standards per language, SOPs, best practices, or your own. — Guidebook
 49. Where coding standards sit both in a guidebook and in your project's standards folders, both are read, and a seeming difference is put to you for a ruling on that work item alone. — Guidebook
 50. The guidebook skill can convert a guidebook into a template or for another project; the result waits in guidebooks/outgoing/ until you place it, and the skill never writes into the store. — Guidebook template
+51. Work, making or changing something that is kept, follows the lifecycle whatever its size, and a plain instruction is enough to start it: the session agent files a work item with your words verbatim, then stops and offers the interview. — Work
+52. Only you set the default aside, in explicit words, for the one piece of work you name; the session agent says so in one line, and a short or urgent instruction is not an override. — Override
+53. Eight skills are tools beside the lifecycle — map, guidebook, audit, config, inventory, help, intent-insights and spark — each run when you invoke it or as a step of a work item's plan, never picked by the agent as the way to do work you asked for. — Tool
