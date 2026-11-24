@@ -9,11 +9,11 @@ Paths inside a project are written here from the project's root, with the regist
 1. Copy `skeleton/` into your project as `roadwork/`, whole: `CLAUDE.md`, `config.json` (the settings file, every key empty), `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/` with what they hold. The name is required — the rule loads only for files under a `roadwork/` folder, and a project has one register, `roadwork/`, usually at its root.
 2. Copy `rules/`, `skills/` and `agents/` into your project's `.claude/` folders: `rules/roadwork-constitution.md` as `.claude/rules/roadwork-constitution.md`, each `skills/<skill>/` as `.claude/skills/<skill>/`, and each agent file under `agents/` as `.claude/agents/<name>.md`.
 3. Write the line `Roadwork register: roadwork` into your project's `CLAUDE.md` — the instructions Claude Code loads at the start of every session, which the skills call the project's law; the skills read the register's path from that line.
-4. On update, with a newer copy of the Roadwork repository, replace the rule, each skill folder and each agent file whole — delete the old and copy the new — and the register's `docs/teachme.md` and `docs/facts.md` from the skeleton's; never the register's items.
+4. On update, with a newer copy of the Roadwork repository, replace the rule, each skill folder and each agent file whole — delete the old and copy the new — and the register's `docs/teachme.md` and `docs/facts.md` from the skeleton's; copy from the skeleton any anchor `CLAUDE.md` the register lacks — today `guidebooks/outgoing/CLAUDE.md` — never overwriting one that exists; never the register's items.
 
 ## What an update never touches
 
-The register's items, its `CLAUDE.md` and its settings file, `config.json`, are the project's own: an update replaces the rule, the skills, the agent files and the register's two documents, and nothing else. Any other rule, skill or agent file in the project's `.claude/` folders is left alone, and a skill the Roadwork repository stops shipping stays in the project until you delete its folder yourself.
+The register's items, its `CLAUDE.md` and its settings file, `config.json`, are the project's own: an update replaces the rule, the skills, the agent files and the register's two documents, adds any anchor the register lacks, and nothing else. Any other rule, skill or agent file in the project's `.claude/` folders is left alone, and a skill the Roadwork repository stops shipping stays in the project until you delete its folder yourself.
 
 ## A register below the root's top level
 

@@ -209,7 +209,7 @@ paths:
     - `kind` is `atlas`, `destination` or `template`.
     - Kind `atlas` names one open atlas and leaves `destination` empty; kind `destination` names one open destination and leaves `atlas` empty.
     - Kind `template` leaves both empty and is written only under `guidebooks/outgoing/`.
-    - A new guidebook naming no open atlas or destination is refused in one line; an update may keep an archived scope.
+    - A new guidebook naming no open atlas or destination is refused in one line; only an update that keeps its kind and scope unchanged may name an archived one.
     - Any number of guidebooks may name one destination or one atlas.
     - A guidebook with no header block is unscoped, made earlier: listed and drawn on as before, reaching nothing by scope; its next update asks its kind and scope, then its items, once.
   - Item parts:
@@ -218,7 +218,8 @@ paths:
   - The outgoing folder:
     - `guidebooks/outgoing/<name>.md` holds a template made in the project and every converted result; the name is kebab-case, the Operator's, and no guidebook's slug.
     - Two conversions: to a template; for another project, whose kind and scope the Operator names.
-    - A conversion takes out the destination's name, the project's paths and names, and instance-only values; the guidebook converted from stays byte-equal.
+    - A conversion takes out the destination's name, the project's paths and names (archived ones included), and instance-only values; the guidebook converted from stays byte-equal.
+    - Nothing else changes but the header block, the changelog, which starts anew, and the status line's date.
     - Nothing reaches or draws on an outgoing file.
     - The Operator places what is in it, in the store or in another project; no skill writes into either.
   - Reach:
@@ -292,7 +293,7 @@ paths:
   - The notice: one `POST` to `notify-url`, the record as JSON. The record's nine fields: `what`, `who-acts`, `how-observed`, `state` (`open` | `cleared`), `item` (the item's reference), `set-date`, `cleared-date` (ISO 8601 UTC, null while open), `cleared-words` (the words that cleared it, null while open), `atlas` (the item's destination's atlas slug, `none` where none). A tenth field, `3rdparty-notice-url`, the key's value, is carried only when the key is set, for the receiving service to pass the notice on to; Roadwork itself posts nothing there. Only the response's status code is read; a code outside 200–299, or no answer within a bounded wait, is a failure said in one line and blocks nothing.
   - The status read: one `GET` of `status-url` with `item=<ref>` appended as a query parameter. The answer is a JSON array of `{what, state}`, newest first, matched to the item's Dependencies entries by `what`. It may carry several entries for one externality's `what`; the newest entry for an externality tells its state. The state is `unknown` on no answer, another form or a code outside 200–299, and `empty` on `[]`.
   - When each is made: the notice once per entry when `/roadwork-specplan` sets it on acceptance, and once per entry when `/roadwork-make` clears it; the status read by `/roadwork-make` at its start, by `/roadwork-inventory` on its bare call, and by `/roadwork-verify-and-archive` in its evaluation.
-  - The contract is these two generic calls — the notice of an entry opened or cleared, the read of entries' state — which any receiver may implement. How a call is made is the agent's choice — curl, a script, anything that speaks the wire above. The config skill ships `scripts/externality.mjs` (`notify`, `status`) as one implementation; no skill or gate requires it. The two URLs are read from the settings file by whatever makes the call and are not printed in replies or records.
+  - The contract is these two generic calls — the notice of an entry opened or cleared, the read of entries' state — which any receiver may implement. How a call is made is the agent's choice — curl, a script, anything that speaks the wire above. The config skill ships `scripts/externality.mjs` (`notify`, `status`) as one implementation; no skill or gate requires it. The two URLs are read from the settings file by whatever makes the call and are not printed in replies or records, except by the guidebook skill's scan, which shows the Operator the lines of a draft that still hold a settings address.
 
 - **Sub-agents and their models**
   - The session agent is the lead and the only dispatcher: it plans, assigns work and accepts the result; it is never a worker, and a sub-agent never dispatches another.

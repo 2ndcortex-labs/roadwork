@@ -7,7 +7,7 @@
 // only through the config skill's config.mjs `get <key>`, never a secret key. Whether the store holds a template is read
 // from the sibling templates.mjs `list`. It writes nothing.
 // Exit 0; a refusal: one line, exit 1; `check` with a broken rule and `scan` with a hit: exit 1; a usage error: exit 2.
-import { existsSync, readFileSync, readdirSync, writeFileSync, mkdtempSync, mkdirSync, statSync, realpathSync, lstatSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync, mkdtempSync, mkdirSync, statSync, realpathSync, lstatSync, symlinkSync } from 'node:fs';
 import { join, dirname, resolve, relative, isAbsolute, basename, sep, posix } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
@@ -117,7 +117,9 @@ function list() {
     };
     for (const o of outgoing) {
       let state;
-      if (o.head?.keys.get('kind') === 'template') {
+      const kind = o.head?.keys.get('kind');
+      if (!KINDS.includes(kind)) state = 'not in form: run check';
+      else if (kind === 'template') {
         const s = storeState();
         state = s === null ? 'template: no store set' : s === 'unreadable' ? 'template: store unreadable' : s.has(o.slug) ? 'template: in the store' : 'template: not yet in the store';
       } else state = 'for another project';
@@ -179,7 +181,9 @@ function check(file, as) {
     if (isAbsolute(as) || posix.normalize(as).startsWith('..')) refuse(`check refused: --as ${as} is not a path inside the roadwork folder`);
     rel = posix.normalize(as);
   } else {
-    rel = relative(reg, resolve(file)).split(sep).join('/');
+    // Real paths on both sides, so a symlinked temporary folder (/var and /private/var) does not refuse.
+    const real = (p) => { try { return realpathSync(p); } catch { return resolve(p); } };
+    rel = relative(real(reg), real(file)).split(sep).join('/');
     if (rel.startsWith('..') || isAbsolute(rel)) refuse(`check refused: ${file} is not in the roadwork folder ${reg}; give --as <register-relative path>`);
   }
   const atGuidebooks = rel.match(/^guidebooks\/([^/]+)\.md$/);
@@ -191,10 +195,12 @@ function check(file, as) {
   const atlas = k.get('atlas') || '';
   const destination = k.get('destination') || '';
   if (atGuidebooks) {
-    // An update (a file already at the place) may keep an archived scope (R53); a new guidebook needs an open one.
-    const update = existsSync(join(reg, rel));
-    const archivedAtlas = update && KEBAB.test(atlas) && isDir(join(reg, 'atlases', 'archive', atlas));
-    const archivedDestination = update && KEBAB.test(destination) && isFile(join(reg, 'destinations', 'archive', `${destination}.prd.md`));
+    // An update that keeps its scope (the file already at the place names the same kind and the same atlas or
+    // destination) may keep an archived scope (R53); a new guidebook, a first scope or a changed scope needs an open one.
+    const prior = isFile(join(reg, rel)) ? parse(readText(join(reg, rel), 'check')).head?.keys : null;
+    const keeps = !!prior && prior.get('kind') === kind && (prior.get('atlas') || '') === atlas && (prior.get('destination') || '') === destination;
+    const archivedAtlas = keeps && KEBAB.test(atlas) && isDir(join(reg, 'atlases', 'archive', atlas));
+    const archivedDestination = keeps && KEBAB.test(destination) && isFile(join(reg, 'destinations', 'archive', `${destination}.prd.md`));
     if (kind === 'atlas') {
       if (!openAtlas(reg, atlas) && !archivedAtlas) f.push(`kind atlas names no open atlas: ${JSON.stringify(atlas)}`);
       if (destination) f.push('kind atlas leaves destination empty');
@@ -224,10 +230,10 @@ function scan(file) {
   const text = readText(file, 'scan');
   const names = new Set();
   const stems = (dir, suffix) => ls(join(reg, dir)).filter((e) => e.isFile() && e.name.endsWith(suffix) && !e.name.endsWith('.source.md')).map((e) => e.name.slice(0, -suffix.length));
-  for (const e of ls(join(reg, 'atlases'))) if (e.isDirectory() && e.name !== 'archive') names.add(e.name);
-  for (const s of stems('destinations', '.prd.md')) names.add(s);
-  for (const s of stems('maps', '.md')) if (s !== 'CLAUDE') names.add(s);
-  for (const s of stems('guidebooks', '.md')) if (s !== 'CLAUDE') names.add(s);
+  // Open and archived alike: a guidebook outlives its destination and may be converted after the name is archived.
+  for (const dir of ['atlases', 'atlases/archive']) for (const e of ls(join(reg, dir))) if (e.isDirectory() && e.name !== 'archive') names.add(e.name);
+  for (const dir of ['destinations', 'destinations/archive']) for (const s of stems(dir, '.prd.md')) names.add(s);
+  for (const dir of ['maps', 'maps/archive', 'guidebooks', 'guidebooks/archive']) for (const s of stems(dir, '.md')) if (s !== 'CLAUDE') names.add(s);
   const walk = (d) => {
     for (const e of ls(d)) {
       if (!e.isDirectory()) continue;
@@ -287,6 +293,10 @@ function selftest() {
   w('guidebooks/outgoing/CLAUDE.md', 'anchor\n');
   w('guidebooks/outgoing/t-one.md', head('template', '', '') + body('T one'));
   w('guidebooks/outgoing/away.md', head('atlas', 'theirs', '') + body('Away'));
+  w('guidebooks/outgoing/bare.md', body('Bare'));
+  w('guidebooks/outgoing/odd.md', head('project', '', '') + body('Odd'));
+  w('maps/archive/way-old.md', '# Map\n');
+  w('maps/archive/CLAUDE.md', 'anchor\n');
   const fm = '---\nblocker: no\n---\n';
   w('feature/route-one/item-on/feature.md', `${fm}# On\n\n**Destination:** \`route-one\` — read.\n`);
   w('todo/unnavigated/archive/item-off/todo.md', `${fm}# Off\n`);
@@ -302,7 +312,7 @@ function selftest() {
   const config = (...a) => { const r = spawnSync(process.execPath, [CONFIG, '--config-file', cfg, ...a], { encoding: 'utf8' }); ok(r.status === 0, `config ${a.join(' ')}: ${r.stderr}`); };
 
   // list: guidebooks by slug, unscoped, outgoing in its states (no store, an empty store, an unreadable store).
-  const gbLines = 'guidebooks: 5\ng-early — Early — unscoped\ng-north — North — atlas: north\ng-old — Old — destination: route-old\ng-own — Own — destination: route-one\ng-past — Past — atlas: old-atlas\noutgoing: 2\naway — Away — for another project\n';
+  const gbLines = 'guidebooks: 5\ng-early — Early — unscoped\ng-north — North — atlas: north\ng-old — Old — destination: route-old\ng-own — Own — destination: route-one\ng-past — Past — atlas: old-atlas\noutgoing: 4\naway — Away — for another project\nbare — Bare — not in form: run check\nodd — Odd — not in form: run check\n';
   is(run('list'), 0, `${gbLines}t-one — T one — template: no store set\n`, 'list, no store');
   const store = join(base, 'store');
   mkdirSync(store);
@@ -343,6 +353,13 @@ function selftest() {
   is(run('check', join(reg, 'guidebooks/g-past.md')), 0, 'OK check\n', 'check, an existing guidebook of an archived atlas');
   is(run('check', draft('u.md', head('destination', '', 'route-old') + body('U')), '--as', 'guidebooks/g-old.md'), 0, 'OK check\n', 'check --as, an update of a guidebook of an archived destination');
   faults(head('destination', '', 'route-old') + body('x'), 'guidebooks/x.md', /^FAULT kind destination names no open destination/m, 'a new guidebook of an archived destination');
+  faults(head('destination', '', 'route-old') + body('x'), 'guidebooks/g-early.md', /^FAULT kind destination names no open destination/m, 'an unscoped guidebook taking an archived scope first');
+  faults(head('atlas', 'old-atlas', '') + body('x'), 'guidebooks/g-old.md', /^FAULT kind atlas names no open atlas/m, 'a guidebook changing to an archived scope');
+  faults(head('destination', '', 'route-old') + body('x'), 'guidebooks/g-past.md', /^FAULT kind destination names no open destination/m, 'a guidebook changing kind to an archived destination');
+  // A symlinked path to the roadwork folder: the place is worked out on real paths.
+  const link = join(base, 'link');
+  symlinkSync(proj, link);
+  is(run('check', join(link, 'roadwork', 'guidebooks', 'g-north.md')), 0, 'OK check\n', 'check through a symlinked folder');
   faults(head('destination', 'north', 'route-one') + body('x'), 'guidebooks/x.md', /^FAULT kind destination leaves atlas empty/m, 'kind destination naming an atlas');
   faults(head('template', '', '') + body('x'), 'guidebooks/x.md', /^FAULT a template belongs under guidebooks\/outgoing\//m, 'a template among the guidebooks');
   faults(head('template', 'north', '') + body('x'), 'guidebooks/outgoing/x.md', /^FAULT kind template leaves/m, 'a template naming a scope');
@@ -364,10 +381,10 @@ function selftest() {
   config('set', 'standards-folders', 'house-rules');
   config('set', 'notify-url', 'https://hooks.example.org/k9/notify');
   config('set', 'project-root', '..');
-  const dirty = ['# Guidebook: draft', 'clean line', 'Built for Route-One first.', 'the atlas north', 'see item-off', 'in proj', 'post to https://hooks.example.org/k9/notify', 'rules in house-rules/', 'route-one-sanity and northern and g-own-x', 'old-atlas and archive', 'see ../x', 'Coding house-rules here, and so on...'];
+  const dirty = ['# Guidebook: draft', 'clean line', 'Built for Route-One first.', 'the atlas north', 'see item-off', 'in proj', 'post to https://hooks.example.org/k9/notify', 'rules in house-rules/', 'route-one-sanity and northern and g-own-x', 'old-atlas and archive', 'see ../x', 'Coding house-rules here, and so on...', 'the old route-old', 'by way-old', 'once g-gone', 'claude and Claude'];
   let r = run('scan', draft('s.md', dirty.join('\n') + '\n'));
   const hit = r.stdout.split('\n').filter(Boolean).map((l) => Number(l.split(':')[0]));
-  ok(r.status === 1 && hit.join(',') === '3,4,5,6,7,8,11', `scan of a dirty file: exit ${r.status}, ${JSON.stringify(r.stdout)}`);
+  ok(r.status === 1 && hit.join(',') === '3,4,5,6,7,8,10,11,13,14,15', `scan of a dirty file: exit ${r.status}, ${JSON.stringify(r.stdout)}`);
   config('unset', 'project-root');
   ok(/^3: route-one — Built for Route-One first\.$/m.test(r.stdout), `scan line form: ${JSON.stringify(r.stdout)}`);
   is(run('scan', draft('c.md', '# Guidebook: general\nNothing of one project here; northern routes.\n')), 0, 'OK scan\n', 'scan of a clean file');

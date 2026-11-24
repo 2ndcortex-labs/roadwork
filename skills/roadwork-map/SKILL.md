@@ -71,7 +71,7 @@ add? any comments on the reading? Then the rounds of `/roadwork-intentify`
 numbered with your recommendation, the facts found by you, never asked;
 the decisions the Operator's.
 
-Before the first round, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>` for the destination the map reaches, and read every file it prints, whole. A map that keeps a name of its own runs it for its destination. A step, a stack or a judgement that departs from a guidebook read is said in one line, with its reason, in the round where it arises. A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches the destination.
+Before the first round, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>` for the destination the map reaches, and read every file it prints, whole. A map that keeps a name of its own runs it for its destination. If reach prints a refusal, say it in one line and proceed as with `none`; nothing is blocked. A step, a stack or a judgement that departs from a guidebook read is said in one line, with its reason, in the round where it arises. A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches the destination.
 
 The root nodes for a map:
 

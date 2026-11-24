@@ -115,7 +115,8 @@ from the register:
   the guidebook's **Architectures:** line; `architectures: none` where the
   line reads none or is absent.
 - **Maps:** the count of maps in `maps/` — `maps/archive/` excluded —
-  whose **Guidebooks:** line names it.
+  that draw on it: their **Guidebooks:** line names it. A map whose line
+  names it only as "(read by reach)" is not counted.
 
 No state beyond that: a guidebook is never done. With no guidebook — the
 empty case — the count line is followed by the offer to start one,
@@ -265,8 +266,16 @@ Hold the draft in a temporary file outside the roadwork folder. Run
 `node <this skill>/scripts/guidebooks.mjs check <draft> --as guidebooks/<guidebook-slug>.md`
 on it before any guidebook is written. It prints `OK check` (exit 0), or
 one `FAULT <what>` line per broken rule (exit 1). While it reports a
-fault, nothing is written: print the lines, mend the draft, and run it
-again. On `OK check`, write the draft to its place.
+fault, nothing is written. If it reports a fault after the Operator's
+confirm:
+
+1. Print the `FAULT` lines and mend the draft.
+2. Run `check` again until it prints `OK check`.
+3. Show the Operator what changed, and ask `confirm` again in its own
+   block.
+
+A mended draft is never written unseen. On `OK check` and the Operator's
+confirm of that very draft, write it to its place.
 
 **An update** (`<existing-slug>`): read the file back whole.
 
@@ -285,7 +294,8 @@ again. On `OK check`, write the draft to its place.
   the architectures question and write it.
 
 Rewrite the file whole on confirm, after `guidebooks.mjs check` passes on
-the draft, and append one dated line under `## Changelog` saying what
+the draft — a draft mended after the confirm is shown and confirmed again,
+as above — and append one dated line under `## Changelog` saying what
 changed. An update never reads the store of templates, whatever the
 guidebook was made from. A map that copied a part of it is not rewritten
 here: its own update is `/roadwork-map <destination-slug>`, on the
@@ -408,7 +418,9 @@ The acts, in this order:
    result is written only when the scan lists nothing, or the Operator
    keeps each listed line by word, naming its line number.
 5. **Write:** on confirm, write the result to `guidebooks/outgoing/<name>.md`
-   and nothing else.
+   and nothing else. Where a draft changes after the Operator's confirm —
+   a fault mended, a line redrafted — show what changed and ask `confirm`
+   again before writing; a mended draft is never written unseen.
 
 Where `guidebooks.mjs` refuses during `check` or `scan` — one refusal
 line, exit 1, not `FAULT` or scan lines — or exits 2, print its one line

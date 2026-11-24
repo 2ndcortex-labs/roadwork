@@ -46,7 +46,7 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 43. An externality is what will not happen without something specific and out-of-band happening; a wait in the project's own course that is merely slow is a pause, not one. The spec names it, the key records it, only the Operator clears it. — External
 44. An organization may keep guidebooks in one store as templates; the settings name the store, and the guidebook skill lists its templates and copies one into your project, adapted with you and then yours alone. — Guidebook template
 45. A guidebook is a building block for architecture: guidance settled once that every later step of the work it reaches reads and names. — Guidebook
-46. Every guidebook states its kind at its top: an atlas's, a destination's, or a template, made to leave the project and reaching nothing in it. — Guidebook
+46. Every new guidebook states its kind at its top: an atlas's, a destination's, or a template, made to leave the project and reaching nothing in it. — Guidebook
 47. A guidebook may be made before a destination is navigated, and a template even before an atlas exists; making one early is always optional. — Guidebook
 48. The guidebook interview asks the kind first, then which items to include: hosts, MCPs, coding standards per language, SOPs, best practices, or your own. — Guidebook
 49. Where coding standards sit both in a guidebook and in your project's standards folders, both are read, and a seeming difference is put to you for a ruling on that work item alone. — Guidebook

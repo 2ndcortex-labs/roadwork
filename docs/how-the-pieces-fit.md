@@ -16,7 +16,7 @@ The words below, and every word the skills use with you, are defined in the cons
 
 ## The skeleton
 
-`skeleton/` is the register's skeleton as the Roadwork repository ships it: `CLAUDE.md`, `config.json`, `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/`. Every folder in it, and every `archive/` inside one, carries an anchor — a `CLAUDE.md` saying what the folder holds and which part of the constitution governs it — and its docs folder holds the teach-me, `teachme.md`, and `facts.md`, the short facts some replies end with. It holds no item and no map: those are always the project's own. It is copied once into a project, and never again into the same register; only its two docs are copied again on an update.
+`skeleton/` is the register's skeleton as the Roadwork repository ships it: `CLAUDE.md`, `config.json`, `ordering.md`, `working.md`, and the folders `todo/`, `feature/`, `spark/`, `docs/`, `destinations/`, `maps/`, `guidebooks/` and `atlases/`. Every folder in it, and every `archive/` inside one, carries an anchor — a `CLAUDE.md` saying what the folder holds and which part of the constitution governs it — and its docs folder holds the teach-me, `teachme.md`, and `facts.md`, the short facts some replies end with. It holds no item and no map: those are always the project's own. It is copied once into a project, and never again into the same register; only its two docs are copied again on an update, with any anchor the register lacks.
 
 ## The register
 

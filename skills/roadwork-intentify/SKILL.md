@@ -138,7 +138,7 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 ### Read the guidebooks in reach before the read-back
 
-- Before the read-back, run `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`.
+- Before the read-back, run `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`; if it prints a refusal, say it in one line and proceed as with `none`; nothing is blocked.
 - Read every file it prints, whole.
 - Follow what they say during the interview rounds, as guidance.
 - If the item file already carries a **Guidebooks:** line, read the files it names too.

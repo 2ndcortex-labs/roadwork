@@ -137,6 +137,8 @@ writing a line of spec, assemble the constraints that will bind it:
 - **The guidebooks**: read the item file's `**Guidebooks:**` line, then run
   `node <guidebook skill>/scripts/guidebooks.mjs reach --item <item folder>`;
   read every guidebook the line names and every file reach prints, whole.
+  If reach prints a refusal, say it in one line and proceed as with `none`;
+  nothing is blocked.
   The spec names them on its `Guidebooks read:` header line and under
   Constraints applied; the plan names them on its Stack section's
   `Guidebooks read:` line. A requirement or design that departs from a
