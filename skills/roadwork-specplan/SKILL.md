@@ -125,7 +125,7 @@ writing a line of spec, assemble the constraints that will bind it:
   writing. Each skill that governs an aspect of the work —
   security, compliance, UX, brand, voice, completion discipline — is
   a constraint on the spec and is named in it. For an item whose work writes code, the builder's code ruleset — `.claude/agents/builder.md`, its Scope section — is a constraint on the Design and is named under Constraints applied; a documentary item is not bound by it.
-- **The destination's intent**: when the item file carries a **Destination:** line, read `destinations/<destination-slug>.intent.md` in the register before a line of spec is written, and, where that intent's Atlas line names an atlas, `atlases/<atlas-slug>/intent.md` as well; the spec's header records each reading on its Destination intent line — the file, the date, what it bound — or `none` for an item under no destination. A destination without an intent file (made before the destination skill wrote one): the line reads `none — the destination has no intent file`, the reply says so in one line and offers `/roadwork-destination <destination-slug>` (its update interviews the intent first), and the run proceeds — the reading is enforced by nothing, as the map is.
+- **The destination's intent**: when the item file carries a **Destination:** line, read `destinations/<destination-slug>.intent.md` in the register before a line of spec is written, and, where that intent's Atlas line names an atlas, `atlases/<atlas-slug>/intent.md` as well, and that atlas's `charter.md` where its folder holds one; the spec's header records each reading on its Destination intent line — the file, the date, what it bound — or `none` for an item under no destination. The charter's reading goes on the header's `Atlas charter:` part, after the Atlas intent; a spec whose Atlas intent part reads `none` carries `Atlas charter: none.`, as does one whose atlas's folder holds no `charter.md` — the file's presence decides, never `atlas.md`'s source line. Whether the spec departs from the charter is the session agent's reading by meaning, with no threshold and no script; in doubt, the skill says so in one line and the Operator decides. This skill never rewrites, edits, moves or interviews the charter. A destination without an intent file (made before the destination skill wrote one): the line reads `none — the destination has no intent file`, the reply says so in one line and offers `/roadwork-destination <destination-slug>` (its update interviews the intent first), and the run proceeds — the reading is enforced by nothing, as the map is.
   Why the intent above: the destination is the level above the item, and its intent says what the destination is for, so the spec is written knowing it — a requirement that serves the item but not its destination is seen before it is built, not after. The destination's intent is read before anything is written; its reading is recorded so the spec says what bound it; one level up is the minimum, not a limitation — the atlas's intent above the destination is read too where the destination names one, and the spec may read further up.
 - **The map**: when the item file carries a **Map:** line, read
   `maps/<map-slug>.md` in the register; the plan's steps follow its Process — a
@@ -198,7 +198,7 @@ Replace the stub whole. Form:
 # Spec: <title from intent.md>
 Status: proposed. From: intent.md accepted <date>. Author: the session agent for <owner>.
 Skills in force: <name, …, as installed in `.claude/skills/` on <date>>. Law in force: <the law's file, rules matched>.
-Destination intent: <destinations/<destination-slug>.intent.md read <date> — what it bound> | none. Atlas intent: <atlases/<atlas-slug>/intent.md read <date> — what it bound> | none.
+Destination intent: <destinations/<destination-slug>.intent.md read <date> — what it bound> | none. Atlas intent: <atlases/<atlas-slug>/intent.md read <date> — what it bound> | none. Atlas charter: <atlases/<atlas-slug>/charter.md read <date> — what it bound> | none.
 Referent: <path or name> — <what it bound> | none
 Guidebooks read: `<guidebook-slug>`, `<guidebook-slug>` | none
 
@@ -229,7 +229,7 @@ Reference: the map <map-slug>'s Stack section | the requirements file's Stack se
 Changes of this spec: <its extensions or modifications of the reference> | none
 
 ## Constraints applied
-<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained; each guidebook read, by path, and what it constrained or that it added no rule; each departure from one, with its reason; each standards ruling read from the item file, and what it settled>
+<each skill and law that shaped the design, and how — one line each; the destination's and the atlas's intent where either constrained; the atlas's charter where it constrained, and each departure from it, with its reason; each guidebook read, by path, and what it constrained or that it added no rule; each departure from one, with its reason; each standards ruling read from the item file, and what it settled>
 
 ## Dependencies
 D1. <what must be true> — who acts: <the party or the item> — observed by: `<a command>` | <a named human observation> [supported: …]

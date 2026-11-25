@@ -85,9 +85,10 @@ the decisions the Operator's.
 **The intent first, and the atlas before it.** The **Atlas** node is asked
 first: where the destination serves an atlas, that atlas's intent document,
 `atlases/<atlas-slug>/intent.md` (every atlas has one — the atlas skill saves
-its three documents at creation), is read before the destination's intent is written —
+its three documents at creation, and the charter where given), is read before the destination's intent is written —
 it is the level above this destination, and the destination's intent names
 it on its Atlas line. A destination serves the atlas's intent, so its own intent is written knowing it; one level up is the minimum, not a limitation. The atlas's `architecture.md` is read there too, after its intent, for the Stack node below.
+Where the atlas's folder holds `charter.md`, the atlas's terms, it is read after the atlas's intent and before the destination's intent is written; whether the atlas has a charter is the file's presence in its folder, never `atlas.md`'s source line. Whether the charter rules this destination out, or the destination departs from it, is the session agent's reading by meaning, with no threshold and no script; in doubt, the skill says so in one line and the Operator decides. This skill never rewrites, edits, moves or interviews the charter. A destination the charter rules out is a departure: it is said and recorded as one, and no skill refuses it.
 Then the intent's root nodes, in the
 order `/roadwork-intentify` §2 gives them — Problem, Proposed outcome,
 Affected users and systems, Constraints, Open questions — and only then the
@@ -102,7 +103,7 @@ nodes for a destination, in that order:
   open atlas is refused and the question asked again. Asked at creation
   always, §5's entrance included; one atlas per destination — a
   destination serving two is two destinations. The answer is the `atlas`
-  key of §4; no atlas is made here. Where an atlas is named, its `architecture.md` is read after its intent — the path, the read date and one line in the session agent's words naming what it describes are the Stack section's Architecture line; no atlas, or the file absent or empty, "none read" with the reason.
+  key of §4; no atlas is made here. Where an atlas is named, its `architecture.md` is read after its intent — the path, the read date and one line in the session agent's words naming what it describes are the Stack section's Architecture line; no atlas, or the file absent or empty, "none read" with the reason. Where its folder holds `charter.md`, the charter is read after its intent too, and the reading is recorded on the intent's Atlas line (§4).
 - **Problem** — what is wrong or missing, for whom, how often, at what
   cost; evidenced.
 - **Proposed outcome** — the state of the world when the destination is
@@ -128,7 +129,7 @@ nodes for a destination, in that order:
 
 A requirement or a stack change that departs from a guidebook read is said in one line, with its reason, in the round where it arises. A guidebook is enforced by nothing: no step blocks, refuses or warns because no guidebook exists or none reaches this destination.
 
-Stop when the frontier is empty; say so and ask the Operator to confirm. Offer `/roadwork-nav-to-destination <destination-slug> given confirm` in its own block and `confirm` in another; on the pair, write both files as on `confirm` alone, then run the navigation skill in the same turn. The confirm message also carries one line with one box, the line saying guidebooks for this destination may be made before it is navigated, once its files are written, and that nothing waits on it — "Guidebooks for this destination may be made before it is navigated; nothing waits on it. Typing this makes one with you, its kind and scope asked first:":
+Stop when the frontier is empty; say so and ask the Operator to confirm. Where the destination departs from the atlas's charter, the confirm message says so in one line, with its reason; nothing is refused for it, and no question is added for it. Offer `/roadwork-nav-to-destination <destination-slug> given confirm` in its own block and `confirm` in another; on the pair, write both files as on `confirm` alone, then run the navigation skill in the same turn. The confirm message also carries one line with one box, the line saying guidebooks for this destination may be made before it is navigated, once its files are written, and that nothing waits on it — "Guidebooks for this destination may be made before it is navigated; nothing waits on it. Typing this makes one with you, its kind and scope asked first:":
 
 ```
 /roadwork-guidebook <guidebook-slug> <description>
@@ -144,7 +145,8 @@ On confirm, two files in the owning home, the intent first.
 ```
 # Intent: <title in the Operator's words>
 Author: the Operator, interviewed by the AIR (the seat). Status: accepted <date> (<the confirm as typed>).
-Destination: <destination-slug> (`destinations/<destination-slug>.prd.md`). Interview: <date>. Atlas: <atlas-slug> — its intent (`atlases/<atlas-slug>/intent.md`) read <date> as the level above | none. Map: <map-slug> | none.
+Destination: <destination-slug> (`destinations/<destination-slug>.prd.md`). Interview: <date>. Atlas: <atlas-slug> — its intent (`atlases/<atlas-slug>/intent.md`) read <date> as the level above[; its charter (`atlases/<atlas-slug>/charter.md`) read <date> | ; charter: none] | none. Map: <map-slug> | none.
+[Departs from the charter: <what> — <the reason>]
 
 ## Problem
 <what is wrong or missing, for whom, evidenced — two to six bullets>
@@ -161,6 +163,8 @@ Destination: <destination-slug> (`destinations/<destination-slug>.prd.md`). Inte
 ## Open questions
 <bullets: what the interview left open, and who settles it — or "none">
 ```
+
+The Atlas line's charter part follows its intent part: `; its charter (`atlases/<atlas-slug>/charter.md`) read <date>` where the atlas's folder holds `charter.md`, `; charter: none` where it holds none. A destination that names no atlas keeps its Atlas line `none`, with no charter part. The line `Departs from the charter: <what> — <the reason>` stands under the header lines, one per departure, only where the destination departs from the charter.
 
 Then `destinations/<destination-slug>.prd.md`, written from the intent, in
 this form and no other (its frontmatter gains no key for the intent: the
@@ -202,7 +206,7 @@ The Stack section is written from the Stack node; the frontmatter gains no key f
 
 The `atlas` key holds the slug of the one open atlas the destination serves, or stays empty (`""`); it is written by this skill alone, from the **Atlas** answer of §3.
 
-**An update** (`<existing-slug>`): it runs on the Operator's invocation or as a step of a work item's plan. Words that say what should change, and name no skill and no trigger phrase, are an instruction to do work: they are filed as a work item, never answered by running this skill on the agent's own initiative, because a change to a made thing is work by default (the constitution's bullets "How work enters" and "Steps and tools"). A skill's name or trigger phrase inside an instruction to change something does not invoke this skill: words invoke it only when they ask for the skill's own act, and in doubt the agent asks once. Read both files back whole. On every update, whether or not the Stack round is held, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>`, read every file it prints, whole, and write or refresh the `Guidebooks read:` line in the requirements file's Stack section from what it printed, with the update's rewrite on confirm. Then ask what
+**An update** (`<existing-slug>`): it runs on the Operator's invocation or as a step of a work item's plan. Words that say what should change, and name no skill and no trigger phrase, are an instruction to do work: they are filed as a work item, never answered by running this skill on the agent's own initiative, because a change to a made thing is work by default (the constitution's bullets "How work enters" and "Steps and tools"). A skill's name or trigger phrase inside an instruction to change something does not invoke this skill: words invoke it only when they ask for the skill's own act, and in doubt the agent asks once. Read both files back whole. On every update, whether or not the Stack round is held, run `node <guidebook skill>/scripts/guidebooks.mjs reach --destination <destination-slug>`, read every file it prints, whole, and write or refresh the `Guidebooks read:` line in the requirements file's Stack section from what it printed, with the update's rewrite on confirm. Where the destination names an atlas whose folder holds `charter.md`, given at its creation or placed by hand since, the update reads the charter again. On confirm, where the destination names an atlas (the one this update sets, if it sets the key), it rewrites the Atlas line's charter part with the date of that reading, or `; charter: none` where that atlas's folder holds none; a destination naming no atlas keeps its Atlas line `none`. Then ask what
 changes and interview only that — the intent revisited as well as the PRD; the **Atlas** question asked only when the key is empty, the **Map** question only when the file carries no Map line; the **Stack** node asked when the Operator names the stack among what changes, when the update sets or changes the `atlas` key — the architecture read then as at creation — and when the file carries no Stack section, "none" an answer each time, the section written from its answers. A destination that has a PRD and no intent (one made before this form) is interviewed for its intent first — the intent's five nodes, the atlas's intent read as above where the PRD's `atlas` key names one — and its intent written; the PRD is left as it is unless the Operator changes it. Then rewrite the changed file whole on confirm
 and append one dated line under the PRD's `## Changelog` that names what changed in each file; the intent's status line gains `; updated <date>` when the intent changed. The
 requirements keep their numbers; a dropped one is struck ("~~n.~~ dropped
