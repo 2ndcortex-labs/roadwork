@@ -202,7 +202,8 @@ paths:
   - A reader knows an atlas has a charter by the file's presence in its folder, never by `atlas.md`.
   - Each reading of the charter is recorded; no charter is recorded as "none"; nothing is asked or refused.
   - The charter is enforced by nothing: a departure from it is said in one line, with its reason.
-  - Whether the charter rules work out is the session agent's reading by meaning; in doubt, the Operator decides.
+  - Whether the charter rules work out, or a destination or a spec departs from it, is judged by meaning.
+  - That judgement is the session agent's reading; in doubt, the skill says so in one line and the Operator decides.
   - No skill rewrites, edits, moves or interviews the charter.
   - Bare, `/roadwork-atlas` lists the atlases with the destinations naming each.
   - A destination names its atlas by the frontmatter key `atlas`: one atlas per destination, or empty.

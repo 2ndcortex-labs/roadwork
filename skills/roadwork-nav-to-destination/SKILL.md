@@ -54,11 +54,12 @@ the destination skill wrote one): the sanity todo's line reads
 `none — the destination has no intent file`, the reply says so in one line and
 offers `/roadwork-destination <destination-slug>` (its update interviews the intent
 first), and the navigation proceeds — the reading is enforced by nothing.
-Whether the atlas has a charter is the file's presence in its folder. Whether
-the charter rules out a requirement's work, or the group departs from it, is the
-session agent's reading by meaning, with no threshold and no script; in doubt,
-the skill says so in one line and the Operator decides. This skill never
-rewrites, edits, moves or interviews the charter.
+Whether the atlas has a charter is the file's presence in its folder.
+Whether the charter bears on the group is the session agent's reading by
+meaning, with no threshold and no script; in doubt, the skill says so in one
+line and the Operator decides; no requirement is dropped and nothing is refused
+on the charter's account. This skill never rewrites, edits, moves or interviews
+the charter.
 Then the PRD, `destinations/<destination-slug>.prd.md`, whole.
 
 Read it whole. Its requirements are its numbered list (the fixed form
