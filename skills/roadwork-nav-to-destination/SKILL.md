@@ -48,11 +48,17 @@ from the PRD's requirements but judged against what the destination is for; the
 sanity todo records the reading on its **Destination intent read:** line, and
 every filed item says on its Destination line that the intent was read;
 one level up is the minimum, not a limitation: the atlas's intent the destination's
-names may be read as well. A destination without an intent file (made before
+names may be read as well, and with it that atlas's charter, where the atlas's
+folder holds `charter.md`. A destination without an intent file (made before
 the destination skill wrote one): the sanity todo's line reads
 `none — the destination has no intent file`, the reply says so in one line and
 offers `/roadwork-destination <destination-slug>` (its update interviews the intent
 first), and the navigation proceeds — the reading is enforced by nothing.
+Whether the atlas has a charter is the file's presence in its folder. Whether
+the charter rules out a requirement's work, or the group departs from it, is the
+session agent's reading by meaning, with no threshold and no script; in doubt,
+the skill says so in one line and the Operator decides. This skill never
+rewrites, edits, moves or interviews the charter.
 Then the PRD, `destinations/<destination-slug>.prd.md`, whole.
 
 Read it whole. Its requirements are its numbered list (the fixed form
@@ -137,6 +143,9 @@ notes = the group list; its `todo.md` carries, after the notes:
 
 - **Destination intent read:** `destinations/<destination-slug>.intent.md`, <date> — the
   reading of §1, recorded; or `none — the destination has no intent file`.
+  Where §1 read the atlas's intent, the line adds `; charter: atlases/<atlas-slug>/charter.md`,
+  <date>, or `; charter: none`; where it read no further up than the destination,
+  the line carries no charter part.
 - **Guidebooks read:** the guidebooks reach printed at §1, slugs in
   backticks, comma-separated, or `none`.
 - **Group:** every reference with kind and home.
