@@ -55,3 +55,4 @@ One fact per numbered line, in plain words, ending with the term `/roadwork-help
 52. Only you set the default aside, in explicit words, for the one piece of work you name; the session agent says so in one line, and a short or urgent instruction is not an override. — Override
 53. Eight skills are tools beside the lifecycle — map, guidebook, audit, config, inventory, help, intent-insights and spark — each run when you invoke it or as a step of a work item's plan, never picked by the agent as the way to do work you asked for. — Tool
 54. An atlas may hold a charter, optional: your words verbatim, stating the atlas's terms; the atlas skill, the destination skill and the spec skill read it, and the navigation where it reads further up. — Charter
+55. An atlas spans its own goals and its own architecture of the work, so that context stays discrete: website builds and SEO on those websites are two atlases. — Atlas
