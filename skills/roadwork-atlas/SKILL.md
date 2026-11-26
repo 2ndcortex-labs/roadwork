@@ -37,7 +37,7 @@ A batch (`ref && ref`) is refused here: one atlas at a time.
 
 ## 2. The bare call — the atlases
 
-Read the register's `atlases/` — `archive/` excluded — and print a count line (`open atlases: <n>`) and then one line per atlas: its slug; `kind: <kind>` where its `atlas.md` carries a kind line, the kind the text after `**Kind:** ` up to the line's last ` (the Operator,`; its description as its `atlas.md` carries it; and the open destinations (`destinations/`, `archive/` excluded) whose `atlas` key names it, read at the call — "no destination" when none names it. An atlas without a kind line — an earlier atlas, made before the kind — prints the same line as before, with no `kind:` clause. With no atlas — the empty case — the count line alone. A bare call writes nothing.
+Read the register's `atlases/` — `archive/` excluded — and print a count line (`open atlases: <n>`) and then one line per atlas: its slug; `kind: <kind>` where its `atlas.md` carries a kind line, the kind the text after `**Kind:** ` up to the line's last ` (the Operator,`; its description as its `atlas.md` carries it; and the open destinations (`destinations/`, `archive/` excluded) whose `atlas` key names it, read at the call — "no destination" when none names it. An atlas without a kind line prints its line with no `kind:` clause. With no atlas — the empty case — the count line alone. A bare call writes nothing.
 
 ## 3. Ingest — every part held before anything is written
 
@@ -112,7 +112,7 @@ go with recos except:
 - `go with recos` takes each recommendation; where the agent recommended no kind, the kind stays unanswered and is asked again.
 - An answer the Operator typed is recorded as typed.
 - A recommendation taken is recorded as the Operator's word, then the recommendation's text marked as the agent's reading: `"go with recos" — <the recommendation's text> (the agent's reading)`.
-- A kind is one line of text, any words; an atlas carries one kind. The kind describes only: no skill acts on the kind, and nothing behaves differently by it.
+- A kind is one line of text, any words; an atlas carries one kind. The kind line holds the kind's text alone, typed or taken from a recommendation; the `"go with recos"` form records the four scoping answers only. The kind describes only: no skill acts on the kind, and nothing behaves differently by it.
 
 **Two atlases, or already housed.** Once every answer is in, and before anything is written, the agent reads the answers by meaning, with no threshold and no script.
 - If it reads the answers as pointing to two atlases, it says so in one line and recommends a split into two atlases, each made by its own call.
@@ -169,6 +169,7 @@ Changes:
 ```
 
 The kind and the scope section, as the round of §3 answered them:
+- The kind line is `**Kind:** <kind> (the Operator, <date>)`, `<kind>` the kind's bare text, never the `"go with recos"` form.
 - The kind line stands directly after the `**charter.md:**` line; a record without that line takes the kind line after its last source line. Its date is the day the current kind was given.
 - The section `## Scope` stands after the description and before `## Suggested destinations` (§4b), which follows it.
 - Its first line carries the date of the atlas's first round; then the four bullets, `- **<the question's short name>** <the answer>`, in the round's order, each answer as §3 records it.
@@ -209,7 +210,7 @@ taken: `<destination-slug>`[ (archived)] — covers: <heading>, <heading>
 5. Where it holds none — an earlier atlas's first scope call — the agent recommends from the documents, as at a making.
 6. "Already housed?" leaves the atlas itself out of the atlases it reads.
 7. Take the answers as §3 takes them: a question left out is asked again, nothing written meanwhile.
-8. Say the lines on two atlases and on an atlas that covers the work as at a making; print no `make the atlas` and no `stop` boxes, since the atlas exists.
+8. Say the lines on two atlases and on an atlas that covers the work as at a making, with two differences, since the atlas exists: the already-housed line reads `Already housed: <atlas-slug> covers this work — <the reading, one clause>.`, with no recommendation against a new atlas; the two-atlases line reads `Two atlases: <the reading, one clause>. The split is yours to make by hand: <the two atlases, one clause>.`; each ends `In doubt: <why>.` where the agent is in doubt. Print no `make the atlas` and no `stop` boxes.
 9. On the answer, write the kind line and the scope section of §4 into the record, and nothing else: no other line changes, no suggestion is derived, no document is touched.
 
 How a change is kept:
@@ -243,4 +244,4 @@ Then the back offers as `/roadwork-ingest` §5b computes them — up to five, mo
 
 ## Never
 
-Never interview (the three documents and the charter are the Operator's, taken as given; the round of scoping questions and the kind, at a making and at a scope call, is the one exception, and it changes no document); never update an atlas (a changed document, the charter among them, is replaced by hand; a scope call writes the kind line and the scope section, nothing else); never rewrite, edit or move the charter; never archive or move an atlas (retirement to `atlases/archive/` is by hand); never write a destination or its `atlas` key (that is `/roadwork-destination`'s); never a second atlas in one call; never write anything on a refusal.
+Never interview (the three documents and the charter are the Operator's, taken as given; the round of scoping questions and the kind, at a making and at a scope call, is the one exception, and it changes no document); never update an atlas, except the scope call's kind line and scope section (a changed document, the charter among them, is replaced by hand; the scope call writes those two and nothing else); never rewrite, edit or move the charter; never archive or move an atlas (retirement to `atlases/archive/` is by hand); never write a destination or its `atlas` key (that is `/roadwork-destination`'s); never a second atlas in one call; never write anything on a refusal.
