@@ -201,7 +201,7 @@ paths:
   - All three are required; the charter is optional; nothing is written on a refusal.
   - Then one round asks four scoping questions, each with its why above it, and the kind, before anything is written.
   - The four: one outcome, one way of working, one job or several, already housed; the set may gain more.
-  - The agent recommends each answer from the documents, or at a scope call the current value, marked as its reading; "not known yet" is an answer.
+  - The agent recommends each answer from the documents, or at a scope call the current value where the record holds one, marked as its reading; "not known yet" is an answer.
   - Answers pointing to two atlases, or to an existing atlas that covers the work, are said in one line; the Operator decides, and nothing is refused.
   - An atlas carries one kind; the suggested kinds: project-build, recurring-work, maintenance, dev-ops, audit, accounting. Any word of Operator is also valid.
   - The kind describes only: no skill acts on it.

@@ -37,7 +37,7 @@ A batch (`ref && ref`) is refused here: one atlas at a time.
 
 ## 2. The bare call — the atlases
 
-Read the register's `atlases/` — `archive/` excluded — and print a count line (`open atlases: <n>`) and then one line per atlas: its slug; `kind: <kind>` where its `atlas.md` carries a kind line, the kind the text after `**Kind:** ` up to the line's last ` (the Operator,`; its description as its `atlas.md` carries it; and the open destinations (`destinations/`, `archive/` excluded) whose `atlas` key names it, read at the call — "no destination" when none names it. An atlas without a kind line prints its line with no `kind:` clause. With no atlas — the empty case — the count line alone. A bare call writes nothing.
+Read the register's `atlases/` — `archive/` excluded — and print a count line (`open atlases: <n>`) and then one line per atlas: its slug; `kind: <kind>` where its `atlas.md` carries a kind line, the kind the text after `**Kind:** ` up to the line's last ` (the Operator,`, a kind line without ` (the Operator,` read whole; its description as its `atlas.md` carries it; and the open destinations (`destinations/`, `archive/` excluded) whose `atlas` key names it, read at the call — "no destination" when none names it. An atlas without a kind line prints its line with no `kind:` clause. With no atlas — the empty case — the count line alone. A bare call writes nothing.
 
 ## 3. Ingest — every part held before anything is written
 
@@ -210,7 +210,7 @@ taken: `<destination-slug>`[ (archived)] — covers: <heading>, <heading>
 5. Where it holds none — an earlier atlas's first scope call — the agent recommends from the documents, as at a making.
 6. "Already housed?" leaves the atlas itself out of the atlases it reads.
 7. Take the answers as §3 takes them: a question left out is asked again, nothing written meanwhile.
-8. Say the lines on two atlases and on an atlas that covers the work as at a making, with two differences, since the atlas exists: the already-housed line reads `Already housed: <atlas-slug> covers this work — <the reading, one clause>.`, with no recommendation against a new atlas; the two-atlases line reads `Two atlases: <the reading, one clause>. The split is yours to make by hand: <the two atlases, one clause>.`; each ends `In doubt: <why>.` where the agent is in doubt. Print no `make the atlas` and no `stop` boxes.
+8. Say the lines on two atlases and on an atlas that covers the work as at a making, with two differences, since the atlas exists: the already-housed line reads `Already housed: <atlas-slug> covers this work — <the reading, one clause>.`, with no recommendation against a new atlas; the two-atlases line reads `Two atlases: <the reading, one clause>. The split is yours to make — the new atlas by its own `/roadwork-atlas` call, a changed document replaced by hand: <the two atlases, one clause>.`; each ends `In doubt: <why>.` where the agent is in doubt. Print no `make the atlas` and no `stop` boxes, and ask no second word: step 9 follows the round's answers.
 9. On the answer, write the kind line and the scope section of §4 into the record, and nothing else: no other line changes, no suggestion is derived, no document is touched.
 
 How a change is kept:
