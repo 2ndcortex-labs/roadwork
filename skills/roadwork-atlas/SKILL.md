@@ -2,7 +2,7 @@
 name: roadwork-atlas
 description: Makes one atlas from the Operator's vision, intent and architecture, and their charter where given, the highest-order thing above a destination.
 when_to_use: Use when the user says /roadwork-atlas, "new atlas", "here are the vision, the intent and the architecture".
-argument-hint: "[<atlas-slug> <vision> <intent> <architecture> [<charter>]]"
+argument-hint: "[<atlas-slug> <vision> <intent> <architecture> [<charter>] | <atlas-slug> scope]"
 ---
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Before any sub-agent is dispatched, every `subagent-<type>` value this run may u
 
 # roadwork-atlas — an atlas, ingested from the Operator's three documents and their charter where given
 
-Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the Atlases bullet). An atlas is one folder, `atlases/<atlas-slug>/`, in the register's `atlases/`: the highest-order thing in the register, above the destination — what several destinations serve. It holds the Operator's three documents — `vision.md`, `intent.md`, `architecture.md` — verbatim, their `charter.md` verbatim where given (the atlas's terms, optional), and one file this skill writes, `atlas.md`. A destination names the atlas it serves by its frontmatter key `atlas`, one atlas per destination, asked by `/roadwork-destination`; this skill never writes a destination. Ingest only: no interview and no update — a changed document is replaced by hand; a retired atlas moves whole to `atlases/archive/` by hand; there is no archive skill. The pages do not yet group destinations by atlas; that is a later item's. It suggests the atlas's destinations in `atlas.md` (§3b, §4b) and offers each as a destination interview; it never makes one.
+Roadwork conventions: `roadwork-constitution.md`, its terms table and its glossary (the Atlases bullet). An atlas is one folder, `atlases/<atlas-slug>/`, in the register's `atlases/`: the highest-order thing in the register, above the destination — what several destinations serve. An atlas spans its own goals and its own architecture of the work, so that context stays discrete. Neither a repository nor a type of work decides where an atlas ends: its goals and its architecture of the work do. Website builds and SEO on those websites are two atlases. It holds the Operator's three documents — `vision.md`, `intent.md`, `architecture.md` — verbatim, their `charter.md` verbatim where given (the atlas's terms, optional), and one file this skill writes, `atlas.md`. A destination names the atlas it serves by its frontmatter key `atlas`, one atlas per destination, asked by `/roadwork-destination`; this skill never writes a destination. Ingest only: no interview and no update, except the round of scoping questions and the kind asked when an atlas is made (§3) and the scope call that asks it again (§4c) — a changed document is replaced by hand; a retired atlas moves whole to `atlases/archive/` by hand; there is no archive skill. The pages do not yet group destinations by atlas; that is a later item's. It suggests the atlas's destinations in `atlas.md` (§3b, §4b) and offers each as a destination interview; it never makes one.
 
 ## 1. Resolve the invocation
 
@@ -32,11 +32,12 @@ A batch (`ref && ref`) is refused here: one atlas at a time.
 - **bare** (no argument): the list of §2. Writes nothing.
 - **`<atlas-slug>` with three named parts, or four**: a kebab-case slug of the Operator's, then the three parts, each named for what it is. On the invocation line: `vision: <path or URL>`, `intent: <path or URL>`, `architecture: <path or URL>`, in any order. Pasted in the message: each part introduced by a line at column zero reading `## vision`, `## intent` or `## architecture`, running to the next such line or the message's end, saved without that introducing line. An optional fourth part, the charter, is named the same way: `charter: <path or URL>` on the line, or a pasted part introduced by `## charter`. Path, URL and paste mix freely across the parts; one way per part. A call with the required three and no charter makes the atlas without one. The ingest of §3.
 - **`<atlas-slug>` alone**: the slug of an open atlas — the derivation of §3b and the section of §4b written into its `atlas.md`, nothing else touched; a slug of no open atlas refused with one line.
+- **`<atlas-slug> scope`**: the slug of an open atlas, then the word `scope` (never read as a second slug) — the round asked on that atlas and its answers written into its `atlas.md` (§4c), nothing else touched; a scope call on a slug of no open atlas is refused with one line, as the slug call refuses, nothing written.
 - **anything else** — a part without its name, a second slug, a part named twice: refused with one line saying what this skill takes; nothing written.
 
 ## 2. The bare call — the atlases
 
-Read the register's `atlases/` — `archive/` excluded — and print a count line (`open atlases: <n>`) and then one line per atlas: its slug, its description as its `atlas.md` carries it, and the open destinations (`destinations/`, `archive/` excluded) whose `atlas` key names it, read at the call — "no destination" when none names it. With no atlas — the empty case — the count line alone. A bare call writes nothing.
+Read the register's `atlases/` — `archive/` excluded — and print a count line (`open atlases: <n>`) and then one line per atlas: its slug; `kind: <kind>` where its `atlas.md` carries a kind line, the kind the text after `**Kind:** ` up to the line's last ` (the Operator,`, a kind line without ` (the Operator,` read whole; its description as its `atlas.md` carries it; and the open destinations (`destinations/`, `archive/` excluded) whose `atlas` key names it, read at the call — "no destination" when none names it. An atlas without a kind line prints its line with no `kind:` clause. With no atlas — the empty case — the count line alone. A bare call writes nothing.
 
 ## 3. Ingest — every part held before anything is written
 
@@ -50,6 +51,86 @@ The skill refuses the whole call — one line naming the cause, nothing written:
 - a path does not exist, or is not a text file;
 - a URL does not answer, answers with an error, or returns an empty body or a body with no text;
 - the slug is taken — an atlas or a destination, open or archived — or is not kebab-case.
+
+**The round — four scoping questions and the kind.** Once every part is held and no refusal applies, the skill asks the Operator one round, in one message: the four scoping questions, then the kind question, in `/roadwork-intentify`'s round form (its "Format each round"). Nothing is written until the Operator has answered every question of the round: no folder, no file. A refused call asks nothing. The set of scoping questions is open to more; this skill asks these four.
+
+The agent's part, before the round is printed:
+- For each scoping question, it recommends an answer from the documents given, marked `(the agent's reading of the documents)`.
+- Where the documents do not say, it recommends `not known yet`.
+- For "Already housed?" it reads the `atlas.md` of every atlas in `atlases/` and `atlases/archive/` and names in its recommendation any whose work covers this one.
+- For the kind, it may recommend one suggested kind, marked the same way; where none fits, it recommends none and says so.
+
+The round prints, in this order, each scoping question with its why on the line directly above it:
+
+```
+Why: two sets of goals means two atlases.
+❓ **Q1** - **One outcome?** Does all the work meant for this atlas serve one set of goals?
+
+➡️ <the recommended answer> (the agent's reading of the documents)
+
+---
+
+Why: work done two ways mixes context.
+❓ **Q2** - **One way of working?** Is all of it done one way, under one architecture of the work?
+
+➡️ <the recommended answer> (the agent's reading of the documents)
+
+---
+
+Why: several like jobs point to repeating work.
+❓ **Q3** - **One job or several?** Is this one job, or several like jobs?
+
+➡️ <the recommended answer> (the agent's reading of the documents)
+
+---
+
+Why: an existing atlas may already cover this.
+❓ **Q4** - **Already housed?** Does an existing atlas already cover this work?
+
+➡️ <the recommended answer, naming any atlas that covers the work> (the agent's reading of the documents)
+
+---
+
+❓ **Q5** - **Which kind?** One kind for this atlas, one line of text, any words. The suggested kinds: project-build, recurring-work, maintenance, dev-ops, audit, accounting. Any word of Operator is also valid.
+
+➡️ <one suggested kind> (the agent's reading of the documents) | none of the suggested kinds fits; type the kind (the agent's reading of the documents)
+```
+
+Then the round closes with two boxes, each after one sentence: typing the first takes every recommendation as given; typing the second, completed after its colon with the short names whose answers differ and those answers, takes the rest.
+
+```
+go with recos
+```
+
+```
+go with recos except:
+```
+
+**The answers.** Every question is answered before the atlas is written; "not known yet" is an answer, recorded as given.
+- A reply that leaves a question out — a typed list missing one — is asked for that question alone; nothing is written meanwhile.
+- A session that ends before every answer is in leaves nothing written.
+- `go with recos` takes each recommendation; where the agent recommended no kind, the kind stays unanswered and is asked again.
+- An answer the Operator typed is recorded as typed.
+- A recommendation taken is recorded as the Operator's word, then the recommendation's text marked as the agent's reading: `"go with recos" — <the recommendation's text> (the agent's reading)`.
+- A kind is one line of text, any words; an atlas carries one kind. The kind line holds the kind's text alone, typed or taken from a recommendation; the `"go with recos"` form records the four scoping answers only. The kind describes only: no skill acts on the kind, and nothing behaves differently by it.
+
+**Two atlases, or already housed.** Once every answer is in, and before anything is written, the agent reads the answers by meaning, with no threshold and no script.
+- If it reads the answers as pointing to two atlases, it says so in one line and recommends a split into two atlases, each made by its own call.
+- If it reads an existing atlas as covering the work, it names that atlas in one line and recommends against a new atlas.
+- In doubt on either, it says so in the same line. Where both hold, both lines are printed, one after the other.
+- The lines read `Two atlases: <the reading, one clause>. Recommended: split this into two atlases, each made by its own call.` and `Already housed: <atlas-slug> covers this work — <the reading, one clause>. Recommended against a new atlas: use <atlas-slug>.`, each ending `In doubt: <why>.` where the agent is in doubt.
+
+In either case two boxes follow, each after one sentence: typing the first writes the atlas as answered; typing the second writes nothing and ends the call.
+
+```
+make the atlas
+```
+
+```
+stop
+```
+
+The Operator decides; the skill refuses nothing. In no other case is a second word asked: with neither line, the atlas is written as answered.
 
 Then derive the description: at most two sentences, in the session agent's words, from `vision.md` alone — what the atlas gathers and what the world looks like when it is reached. The title is the text of the first line of `vision.md` that opens `# `, else the slug. The description is printed in the reply, marked derived (§5), never passed off as the Operator's; the Operator may rewrite it in `atlas.md` by hand.
 
@@ -71,10 +152,31 @@ _Atlas, made <date> by /roadwork-atlas; its intent.md read as the intent it serv
 **intent.md:** <the same, for its own source>
 **architecture.md:** <the same, for its own source>
 **charter.md:** <the same, for its own source> | none given at creation
+**Kind:** <kind> (the Operator, <date>)
 
 _Description derived from vision.md by /roadwork-atlas, <date>; the Operator may rewrite it._
 <the description: at most two sentences>
+
+## Scope
+_Asked by /roadwork-atlas, <date>; the Operator's answers, in their words._
+- **One outcome?** <the answer>
+- **One way of working?** <the answer>
+- **One job or several?** <the answer>
+- **Already housed?** <the answer>
+
+Changes:
+- <date>: <kind | the question's short name> — before: <the earlier value>
 ```
+
+The kind and the scope section, as the round of §3 answered them:
+- The kind line is `**Kind:** <kind> (the Operator, <date>)`, `<kind>` the kind's bare text, never the `"go with recos"` form.
+- The kind line stands directly after the `**charter.md:**` line; a record without that line takes the kind line after its last source line. Its date is the day the current kind was given.
+- The section `## Scope` stands after the description and before `## Suggested destinations` (§4b), which follows it.
+- Its first line carries the date of the atlas's first round; then the four bullets, `- **<the question's short name>** <the answer>`, in the round's order, each answer as §3 records it.
+- The kind line and the four bullets always hold the current values.
+- The list headed `Changes:` is absent until the first change (§4c); at a making the section ends after the four bullets.
+- The round and the kind change no document of the Operator's: the three documents and the charter are saved as given and never touched by the round.
+- An earlier atlas, made before the kind, has no kind line and no scope section; it reads unchanged until a scope call names it (§4c).
 
 One atlas per call; the three documents, the charter where given or placed by hand, and `atlas.md`, and nothing else in the folder. A charter placed by hand later leaves the `**charter.md:**` line reading `none given at creation`; no call rewrites it, and the Operator may edit it by hand.
 
@@ -98,9 +200,31 @@ taken: `<destination-slug>`[ (archived)] — covers: <heading>, <heading>
 
 (The `charter:` line always, reading `charter: none` where the folder holds no charter; the `ruled out by the charter:` line only where the charter rules out a heading no taken destination covers, and the covering line then reads "every section of the architecture assigned once or ruled out by the charter"; the `taken:` lines zero or more, before the bullets; the bullets one or more, or the one line `- no suggestion: the taken destinations cover every section` in their place, reading `- no suggestion: the taken destinations and the charter cover every section` where the `ruled out by the charter:` line stands; the headings' text as in `architecture.md`; the section is written whole and replaced whole, so `atlas.md` carries it once; the folder keeps its files, no file per suggestion.)
 
+## 4c. The scope call — the round on an open atlas
+
+`/roadwork-atlas <atlas-slug> scope` asks the round of §3 on an open atlas, an earlier atlas among them, and writes its answers into that atlas's `atlas.md`; nothing is written before the answer. Step by step:
+1. Resolve the slug: an atlas in `atlases/`, `archive/` excluded; any other slug is refused with one line (§1), nothing written.
+2. Read its `atlas.md`, its three documents, its charter where the folder holds one, and the `atlas.md` of every other atlas in `atlases/` and `atlases/archive/`.
+3. Ask the round of §3, in its form, closed by `go with recos` and `go with recos except:`.
+4. Where the record holds a kind or an answer, that current value, as the record holds it, is the recommendation, marked `(the agent's reading: the current answer)`.
+5. Where it holds none — an earlier atlas's first scope call — the agent recommends from the documents, as at a making.
+6. "Already housed?" leaves the atlas itself out of the atlases it reads.
+7. Take the answers as §3 takes them: a question left out is asked again, nothing written meanwhile.
+8. Say the lines on two atlases and on an atlas that covers the work as at a making, with two differences, since the atlas exists: the already-housed line reads `Already housed: <atlas-slug> covers this work — <the reading, one clause>.`, with no recommendation against a new atlas; the two-atlases line reads `Two atlases: <the reading, one clause>. The split is yours to make — the new atlas by its own `/roadwork-atlas` call, a changed document replaced by hand: <the two atlases, one clause>.`; each ends `In doubt: <why>.` where the agent is in doubt. Print no `make the atlas` and no `stop` boxes, and ask no second word: step 9 follows the round's answers.
+9. On the answer, write the kind line and the scope section of §4 into the record, and nothing else: no other line changes, no suggestion is derived, no document is touched.
+
+How a change is kept:
+- A current value taken again — by `go with recos`, or left out of a `go with recos except:` list — is unchanged and stays as the record holds it.
+- A new value is recorded as §3 records it, and the value it replaces gains one line at the end of the list headed `Changes:`, in this form: `- <date>: <kind | the question's short name> — before: <the earlier value>`.
+- A change to the kind is named `kind`; a change to an answer by the question's short name, for example `One outcome?`.
+- The list opens, after a blank line below the four bullets, at the first change; it grows by one line per change, and no line is ever removed.
+- An unchanged kind or answer gains no line.
+- An earlier atlas's first scope call has no earlier value, so it writes no `Changes:` line.
+- The scope section's first line keeps the date of the first round; the kind line takes the date of the kind's latest change.
+
 ## 5. Save and hand back
 
-Save in the register. Reply with: the folder's path; the sources, one line each, the charter's source with the other three, or `none given at creation`; the description, marked derived; then `atlas.md` printed whole and verbatim, before the offers.
+Save in the register. Reply with: the folder's path; the sources, one line each, the charter's source with the other three, or `none given at creation`; the description, marked derived; then `atlas.md` printed whole and verbatim, before the offers, so the reply shows the kind and the answers. A scope call replies with the atlas's `atlas.md` printed whole and verbatim, then the offers below less the offers per suggestion, since it derives none.
 
 The section of §4b is printed whole and verbatim after `atlas.md`'s body — a slug call prints the section alone, the atlas file otherwise unchanged. Then, before the listing offer, one offer per suggestion in printing order: **O<n>** — typing this starts the destination interview from the suggestion (to make the destination `<slug>` under the atlas `<atlas-slug>`): and the block `/roadwork-destination <slug> <the paragraph>` on one line; a `no suggestion` section offers none.
 
@@ -120,4 +244,4 @@ Then the back offers as `/roadwork-ingest` §5b computes them — up to five, mo
 
 ## Never
 
-Never interview (the three documents and the charter are the Operator's, taken as given); never update an atlas (a changed document, the charter among them, is replaced by hand); never rewrite, edit or move the charter; never archive or move an atlas (retirement to `atlases/archive/` is by hand); never write a destination or its `atlas` key (that is `/roadwork-destination`'s); never a second atlas in one call; never write anything on a refusal.
+Never interview (the three documents and the charter are the Operator's, taken as given; the round of scoping questions and the kind, at a making and at a scope call, is the one exception, and it changes no document); never update an atlas, except the scope call's kind line and scope section (a changed document, the charter among them, is replaced by hand; the scope call writes those two and nothing else); never rewrite, edit or move the charter; never archive or move an atlas (retirement to `atlases/archive/` is by hand); never write a destination or its `atlas` key (that is `/roadwork-destination`'s); never a second atlas in one call; never write anything on a refusal.

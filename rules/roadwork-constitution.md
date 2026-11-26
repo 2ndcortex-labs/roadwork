@@ -180,7 +180,7 @@ paths:
     - `/roadwork-destination` receives a description or a document and writes `destinations/<destination-slug>.intent.md` first, then `destinations/<destination-slug>.prd.md`; a document given is saved as `destinations/<destination-slug>.source.md`.
     - `/roadwork-nav-to-destination` receives a destination and writes its items, the sanity todo last, and the `group` and `road-level` keys on each.
     - `/roadwork-navsanity` receives a group and writes a dated run section in the group's sanity todo.
-    - `/roadwork-atlas` receives three documents and a charter where given, and writes `atlases/<atlas-slug>/atlas.md` beside them, with the destinations it proposes.
+    - `/roadwork-atlas` receives three documents, a charter where given and the Operator's answers to its round, and writes `atlases/<atlas-slug>/atlas.md` beside them, with the destinations it proposes.
     - `/roadwork-map` receives a description or a document and writes `maps/<destination-slug>.md`; a document given is saved as `maps/<map-slug>.source.md`.
     - `/roadwork-guidebook` receives a description, a document or a template's name and writes `guidebooks/<guidebook-slug>.md`; a document given, or a template copied, is saved as `guidebooks/<guidebook-slug>.source.md`; a template made from scratch, or a guidebook converted to a template or for another project, is written as `guidebooks/outgoing/<name>.md`, the guidebook converted from left unchanged.
     - `/roadwork-intent-insights` receives the day's interviews and writes a dated section in `docs/intent-insights.md` when first run and on every run after; the file exists once it has.
@@ -190,12 +190,24 @@ paths:
   
 - **Atlases.**
   - An atlas is the highest-order thing in the register, above the destination.
+  - An atlas spans its own goals and its own architecture of the work, so that context stays discrete.
+  - Neither a repository nor a type of work decides where an atlas ends: its goals and its architecture of the work do.
+  - Website builds and SEO on those websites are two atlases.
   - It is one folder, `atlases/<atlas-slug>/`.
   - It holds the Operator's `vision.md`, `intent.md` and `architecture.md`, verbatim.
   - It may hold the Operator's `charter.md`, verbatim: the atlas's terms.
-  - It holds the skill's `atlas.md`: title, dated status, each document's source, a description derived from the vision and marked so.
+  - It holds the skill's `atlas.md`: title, dated status, each document's source, the kind, a description derived from the vision and marked so, and the Operator's answers to the scoping questions.
   - It is made by `/roadwork-atlas <atlas-slug> vision: … intent: … architecture: … [charter: …]` from documents by path, paste or URL.
   - All three are required; the charter is optional; nothing is written on a refusal.
+  - Then one round asks four scoping questions, each with its why above it, and the kind, before anything is written.
+  - The four: one outcome, one way of working, one job or several, already housed; the set may gain more.
+  - The agent recommends each answer from the documents, or at a scope call the current value where the record holds one, marked as its reading; "not known yet" is an answer.
+  - Answers pointing to two atlases, or to an existing atlas that covers the work, are said in one line; the Operator decides, and nothing is refused.
+  - An atlas carries one kind; the suggested kinds: project-build, recurring-work, maintenance, dev-ops, audit, accounting. Any word of Operator is also valid.
+  - The kind describes only: no skill acts on it.
+  - `/roadwork-atlas <atlas-slug> scope` asks the round again on an open atlas; each change adds a dated line to the record's `Changes:` list.
+  - An earlier atlas, made without a kind, reads unchanged until a scope call names it.
+  - The round and the kind change no document of the Operator's.
   - An existing atlas gains a charter by hand: the file placed in its folder is read from then on.
   - A changed charter is replaced by hand, as the other documents are; there is no update step.
   - The charter's readers: the atlas skill, the destination skill, the spec skill, and the navigation where it reads further up.
@@ -205,12 +217,12 @@ paths:
   - Whether the charter rules work out, or a destination or a spec departs from it, is judged by meaning.
   - That judgement is the session agent's reading; in doubt, the skill says so in one line and the Operator decides.
   - No skill rewrites, edits, moves or interviews the charter.
-  - Bare, `/roadwork-atlas` lists the atlases with the destinations naming each.
+  - Bare, `/roadwork-atlas` lists the atlases with their kind, where one is recorded, and the destinations naming each.
   - A destination names its atlas by the frontmatter key `atlas`: one atlas per destination, or empty.
   - The key is asked by `/roadwork-destination`.
   - The atlas skill suggests the atlas's destinations in `atlas.md`; a slug call derives them for an existing atlas.
   - The atlas skill never writes a destination.
-  - No interview, no update: a changed document is replaced by hand.
+  - No interview, no update, except the round and the scope call: a changed document is replaced by hand.
   - A retired atlas moves to `atlases/archive/` by hand.
   
 - **Destinations.**
@@ -591,7 +603,7 @@ To archive the item:
 | product requirements document | PRD | A document that says what a destination is, written from the destination's intent: a header with its priority and its atlas, the destination, numbered requirements, what is out, how success is seen. |
 | a destination | Destination | Two files per destination, made with you: its intent, written first, and its product requirements document, written from it, carrying the stack it builds on, and later broken into a group of items; both archived together. |
 | a way to a destination | Map | The way to one destination, one map per destination: the process, the stack, the judgements, the inputs, and how it was done before agents. |
-| an atlas | Atlas | The highest-order thing in the plans, above a destination: a folder holding three documents of yours — the vision, the intent and the architecture — verbatim, your charter verbatim where given (it is optional), and the skill's `atlas.md`; several destinations serve it, each naming it by its atlas key or leaving the key empty; the skill proposes the destinations that would serve it, in its file, for you to make or strike. |
+| an atlas | Atlas | The highest-order thing in the plans, above a destination, spanning its own goals and its own architecture of the work so that context stays discrete: a folder holding three documents of yours — the vision, the intent and the architecture — verbatim, your charter verbatim where given (it is optional), and the skill's `atlas.md`; several destinations serve it, each naming it by its atlas key or leaving the key empty; the skill proposes the destinations that would serve it, in its file, for you to make or strike. |
 | a vision | `vision.md` | One of the atlas's three required documents, yours verbatim; the atlas's description is derived from it and marked so. |
 | an architecture | `architecture.md` | One of the atlas's three required documents, yours verbatim; the skill reads it as given. |
 | a charter | `charter.md` | The atlas's terms, yours verbatim, optional; what it usually covers: what is out, when it ends, how success is seen, who decides, how its destinations rank, standing constraints, the parties, the change rule. Read by the atlas skill, the destination skill and the spec skill, and by the navigation where it reads further up; added to an existing atlas by hand; enforced by nothing. |
@@ -630,7 +642,7 @@ To archive the item:
 | a gate's name | Gate id | `G<n>`, a gate's name in its ledger; printed outside the ledger with a few words in parentheses saying what the gate is. |
 | the go | The go | Your authorisation to build: the make command or your word; accepting a spec is not it. |
 | the ledger | Ledger / `GATES.md` | The item's gates in the checker's form, the file `GATES.md` in the item folder; a handoff is the hand-back when any gate is unmet or abandoned, or waits on your decision. |
-| the inventory page | Inventory | The one page the inventory skill prints, computed by its script: a dated title and a counts line, then each atlas as a heading with its description and counts, its destinations as headings each with its navigation state and counts (open, ready), their work items two lines each — the reference, level and state, then the title — each state read from the item's own files (awaiting interview, intent drafted, intent accepted, awaiting the go, in process, blocked with its blocker's state in parentheses, external), a destination shown built when every item of it is archived; then the destinations under no atlas, the items not yet navigated, the ideas; each work item's next step offered under its lines, nothing offered after the page; read live, nothing written. |
+| the inventory page | Inventory | The one page the inventory skill prints, computed by its script: a dated title and a counts line, then each atlas as a heading with its description, its kind where it has one, and counts, its destinations as headings each with its navigation state and counts (open, ready), their work items two lines each — the reference, level and state, then the title — each state read from the item's own files (awaiting interview, intent drafted, intent accepted, awaiting the go, in process, blocked with its blocker's state in parentheses, external), a destination shown built when every item of it is archived; then the destinations under no atlas, the items not yet navigated, the ideas; each work item's next step offered under its lines, nothing offered after the page; read live, nothing written. |
 | one evaluated fact | Finding | One fact found at archiving (a concern, an unmet gate, a dependent) put to you as a question. |
 | how it was closed | Disposition | How an item was archived: shipped, withdrawn, superseded by another item, decided, or abandoned. |
 | an idea parked for later | Spark | One folder holding one idea file, never worked; nothing waits on it; its only exit is conversion on your word. |
