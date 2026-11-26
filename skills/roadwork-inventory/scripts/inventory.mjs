@@ -90,7 +90,16 @@ function firstSentence(text) {
   const m = para.match(/^(.*?\.)(?:\s|$)/);
   return m ? m[1] : para;
 }
-const atlases = dirs(join(root, 'atlases')).filter((s) => existsSync(join(root, 'atlases', s, 'atlas.md'))).map((slug) => ({ slug, description: firstSentence(read(join(root, 'atlases', slug, 'atlas.md'))) }));
+// The kind: the record's line opening `**Kind:** `, the text up to its last ` (the Operator,`; empty where no such line.
+// A hand-edited line without that tail is read whole.
+function kindOf(text) {
+  const line = text.split('\n').find((l) => l.startsWith('**Kind:** '));
+  if (!line) return '';
+  const rest = line.slice('**Kind:** '.length);
+  const i = rest.lastIndexOf(' (the Operator,');
+  return (i >= 0 ? rest.slice(0, i) : rest).trim();
+}
+const atlases = dirs(join(root, 'atlases')).filter((s) => existsSync(join(root, 'atlases', s, 'atlas.md'))).map((slug) => { const t = read(join(root, 'atlases', slug, 'atlas.md')); return { slug, description: firstSentence(t), kind: kindOf(t) }; });
 const atlasSlugs = new Set(atlases.map((a) => a.slug));
 
 // --- ordering.md ---------------------------------------------------------------
@@ -401,7 +410,9 @@ for (const a of atlases) {
   const ds = destinations.filter((d) => d.atlas === a.slug);
   const nav = ds.filter((d) => d.nav.startsWith('navigated')).length;
   const built = ds.filter((d) => d.nav.startsWith('built')).length;
-  out.push(`## Atlas: ${a.slug}`, `_${a.description || '(no description)'}_`, '', `${count(ds.length, 'open destination', 'open destinations')} · ${nav} navigated${built ? ` · ${built} built` : ''}`);
+  out.push(`## Atlas: ${a.slug}`, `_${a.description || '(no description)'}_`);
+  if (a.kind) out.push(`kind: ${a.kind}`);
+  out.push('', `${count(ds.length, 'open destination', 'open destinations')} · ${nav} navigated${built ? ` · ${built} built` : ''}`);
   const withItems = ds.map(destinationRows).filter((rows) => rows.length);
   if (only && withItems.length && withItems.every(emptied)) out.push('- no keyword-filtered items found');
   out.push('');
@@ -452,6 +463,12 @@ function selftest() {
     writeFileSync(join(dir, 'spec.md'), m.spec);
     writeFileSync(join(dir, 'plan.md'), 'Not yet scoped.\n');
   }
+  // Two atlases: one whose record carries a kind holding " (", one without a kind line.
+  const record = (title, kindLine) => `# Atlas: ${title}\n_Atlas, made 2026-01-01 by /roadwork-atlas; open until retired._\n\n**charter.md:** none given at creation\n${kindLine}\n_Description derived from vision.md by /roadwork-atlas, 2026-01-01; the Operator may rewrite it._\nThe ${title} is made up. Nothing else.\n`;
+  for (const [slug, kindLine] of [['made-up-with-kind', '**Kind:** dock upkeep (spring) (the Operator, 2026-01-01)\n'], ['made-up-without-kind', '']]) {
+    mkdirSync(join(reg, 'atlases', slug), { recursive: true });
+    writeFileSync(join(reg, 'atlases', slug, 'atlas.md'), record(slug, kindLine));
+  }
   const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), '--root', reg, '--date', '2026-01-01'], { encoding: 'utf8' });
   const lines = (r.stdout || '').split('\n');
   const failures = [];
@@ -467,6 +484,10 @@ function selftest() {
   ok(lineOf('made-up-spec-line-form').includes('**awaits the go**') && offerOf('made-up-spec-line-form') === '/roadwork-make todo/made-up-spec-line-form', 'A5: an accepted spec in the line form shows awaits the go');
   ok(lineOf('made-up-spec-header-form').includes('**awaits the go**') && offerOf('made-up-spec-header-form') === '/roadwork-make todo/made-up-spec-header-form', 'A5: an accepted spec in the header form shows awaits the go');
   ok(lineOf('made-up-blocked').includes('awaits the go · blocked by `todo/made-up-draft-quoting` (intent drafted, not accepted)') && offerOf('made-up-blocked') === null, 'A5a: a blocked one shows its blocker after the state and carries no go offer');
+  const atlasAt = (slug) => lines.indexOf(`## Atlas: ${slug}`);
+  const w = atlasAt('made-up-with-kind'), wo = atlasAt('made-up-without-kind');
+  ok(w >= 0 && lines[w + 1] === '_The made-up-with-kind is made up._' && lines[w + 2] === 'kind: dock upkeep (spring)', 'A7: an atlas whose record carries a kind prints `kind: <kind>` whole directly under its description');
+  ok(wo >= 0 && lines[wo + 1] === '_The made-up-without-kind is made up._' && lines[wo + 2] === '', 'A8: an atlas without a kind prints no kind line');
   ok(lines.includes('6 open work items · 1 await interview · 2 intent accepted · 2 await the go · 0 in process · 1 blocked · 0 external · 0 gated'), 'A6: the counts line matches those states');
   for (const f of failures) process.stdout.write(`FAIL selftest: ${f}\n`);
   if (failures.length) process.exit(1);
